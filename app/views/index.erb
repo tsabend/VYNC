@@ -1,0 +1,18 @@
+<h1>Upload a File</h1>
+
+<form action='/upload' method='post' accept-charset="utf-8" enctype="multipart/form-data">
+  <label for='content_file'>Image</label>
+  <input type="file" name="content[file]" id="content_file" />
+  <button type='submit'>Save</button>
+</form>
+
+
+<h1>Get a file</h1>
+
+<form action='/download' method='get' accept-charset="utf-8" enctype="multipart/form-data">
+  <label for='download'>Filename</label>
+  <input name="download" id="download" />
+  <button type='submit'>Download</button>
+</form>
+
+<div><%= @data %></div>
