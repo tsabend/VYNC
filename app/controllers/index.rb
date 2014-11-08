@@ -7,7 +7,7 @@ post '/upload' do
   puts "post!"
   puts request.body.read
   puts "-------------"
-  tempfile = params["movie"] ||= params[:web]
+  tempfile = params["movie"] ||= params[:web][:tempfile]
   puts tempfile
   # website formatting
   # tempfile = params[:content][:file][:tempfile]
