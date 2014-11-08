@@ -10,7 +10,8 @@ post '/upload' do
   tempfile = params["movie"] ||= params[:web]
   # website formatting
   # tempfile = params[:content][:file][:tempfile]
-  video_id = Digest::SHA256.file(tempfile.path).hexdigest
+  # video_id = Digest::SHA256.file(tempfile.path).hexdigest
+  video_id = SecureRandom.base64
   VideoMessage.create(sender_id: 1, recipient_id: 2, reply_to_id: 0, video_id: video_id)
   $s3.buckets.first.objects.create(video_id, tempfile)
   # redirect '/'
