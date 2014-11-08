@@ -5,22 +5,19 @@ end
 
 post '/upload' do
   puts "post!"
-  puts request.body.read
-  puts "-------------" * 20
-  puts params
-  tempfile = params["movie"] ||= params[:web][:tempfile]
-  puts tempfile
+  tempfile = request.params["file"][:tempfile]
   # website formatting
   # tempfile = params[:content][:file][:tempfile]
-  # video_id = Digest::SHA256.file(tempfile.path).hexdigest
-  video_id = SecureRandom.base64
+  # video_id = Digest::SHA256.file(request.params["file"][:filename]).hexdigest
+  video_id = request.params["file"][:filename]
   # VideoMessage.create(sender_id: 1, recipient_id: 2, reply_to_id: 0, video_id: video_id)
   $s3.buckets.first.objects.create(video_id, tempfile)
+  puts "#{video_id} was uploaded succesfully"
+  # redirect '/'
   "Hey There Cowboy"
-  redirect '/'
 end
 
 get '/download' do
-  @data = $s3.buckets.first.objects[params[:download]].read
-  erb :index
+  "Do you see me?"
+  send_file $s3.buckets.first.objects[params["download"]].read, :type => :mov
 end
