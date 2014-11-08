@@ -7,7 +7,7 @@ post '/upload' do
   puts "post!"
   puts request.body.read
   puts "-------------"
-  tempfile = params["movie"]
+  tempfile = params["movie"] ||= params[:web]
   # website formatting
   # tempfile = params[:content][:file][:tempfile]
   video_id = Digest::SHA256.file(tempfile.path).hexdigest
