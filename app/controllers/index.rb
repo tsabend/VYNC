@@ -1,4 +1,3 @@
-
 get '/' do
   puts "get!"
   erb :index
