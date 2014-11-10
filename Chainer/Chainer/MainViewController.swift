@@ -10,6 +10,10 @@ import UIKit
 import CoreMedia
 import MobileCoreServices
 
+let docFolderToSaveFiles = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as String
+let fileName = "/videoToSend.MOV"
+let PathToFile = docFolderToSaveFiles + fileName
+
 class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
     override func viewDidLoad() {
@@ -36,6 +40,12 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [NSObject : AnyObject])
     {
         picker.dismissViewControllerAnimated(false, completion: {})
+        
+        //save the video that the user records
+        let fileUrl = info[UIImagePickerControllerMediaURL] as? NSURL
+        var myVideo : NSData = NSData(contentsOfURL: fileUrl!)!
+        myVideo.writeToFile(PathToFile, atomically: true)
+        
         let vc = self.storyboard?.instantiateViewControllerWithIdentifier("Contacts") as ContactsViewController
         self.presentViewController(vc, animated:false, completion:{})
     }

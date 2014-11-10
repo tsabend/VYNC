@@ -5,6 +5,7 @@
 
 import UIKit
 
+
 class ContactsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UINavigationControllerDelegate {
 
     @IBOutlet var tblUsers: UITableView!
@@ -49,15 +50,17 @@ class ContactsViewController: UIViewController, UITableViewDelegate, UITableView
     
     // Print hello world when clicked
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        let videoURL = NSURL(string: PathToFile)
         let userID = userMgr.users[indexPath.item].userID as Int!
+        //post the video that the user takes to the server
         var request = HTTPTask()
-        request.GET("http://chainer.herokuapp.com/users/\(userID)", parameters: nil, success: {(response: HTTPResponse) in // success
-            if response.responseObject != nil {
-                let data = response.responseObject as NSData
-                let str = NSString(data: data, encoding: NSUTF8StringEncoding)
-                println("Response from hitting user:\(userID) =\(str)")
-            }
+        request.POST("http://chainer.herokuapp.com/upload", parameters:  ["sender": "1", "recipient" : "\(userID)",  "file": HTTPUpload(fileUrl: videoURL!) ], success: {(response: HTTPResponse) in
+            //do stuff
+            },failure: {(error: NSError, response: HTTPResponse?) in
+                //error out on stuff
         })
+        
+
     }
     
     
