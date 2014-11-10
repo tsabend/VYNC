@@ -65,7 +65,6 @@ end
 
 get "/notetest/:deviceToken" do
   "in note test - to be deleted from production"
-  byebug
   notify(params[:deviceToken], "In note test route")
   "Welcome to Chainer"
 end
