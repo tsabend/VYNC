@@ -56,7 +56,13 @@ post "/newuser" do
   User.create(device_id: params[:deviceToken])
   notify(params[:deviceToken], "Welcome to chainer!")
   # notify("4ac511f6c9dececcdc5cacb1cb53adf992f1e4589949f44911d34e60e5d40486", "Welcome to Chainer!")
-  "Welcome to Chainer"
 end
 
+get "/notetest/:deviceToken" do
+  "in note test - to be deleted from production"
+  @params = params
+  p params[:deviceToken]
+  notify(params[:deviceToken], "In note test route")
+  erb :notes
+end
 
