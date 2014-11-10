@@ -42,10 +42,13 @@ struct Chain : JSONJoy {
     }
 }
 
+// This hard coding is to allow for more simple refactoring later.
+let device_id = 1
+
 class VideoMessageManager {
-    var openVideoMessages = [VideoMessage]()
-    var newVideoMessages = [VideoMessage]()
-    var finishedVideoMessages = [VideoMessage]()
+    var openVideoMessages = [Chain]()
+    var newVideoMessages = [Chain]()
+    var finishedVideoMessages = [Chain]()
     
     func getInitialValues() {
         getNewVideoMessages()
@@ -56,7 +59,7 @@ class VideoMessageManager {
     func getNewVideoMessages() {
         var data : NSData?
         var request = HTTPTask()
-        request.GET("http://localhost:9393/videomessages/1/new", parameters: nil,
+        request.GET("http://localhost:9393/videomessages/\(device_id)/new", parameters: nil,
             success: {(response: HTTPResponse) in
             if response.responseObject != nil {
                 data = response.responseObject as? NSData
@@ -68,7 +71,7 @@ class VideoMessageManager {
     func getOpenVideoMessages() {
         var data : NSData?
         var request = HTTPTask()
-        request.GET("http://localhost:9393/videomessages/1/open", parameters: nil,
+        request.GET("http://localhost:9393/videomessages/\(device_id)/open", parameters: nil,
             success: {(response: HTTPResponse) in
                 if response.responseObject != nil {
                     data = response.responseObject as? NSData
@@ -80,7 +83,7 @@ class VideoMessageManager {
     func getFinishedVideoMessages() {
         var data : NSData?
         var request = HTTPTask()
-        request.GET("http://localhost:9393/videomessages/1/finished", parameters: nil,
+        request.GET("http://localhost:9393/videomessages/\(device_id)/finished", parameters: nil,
             success: {(response: HTTPResponse) in
                 if response.responseObject != nil {
                     data = response.responseObject as? NSData

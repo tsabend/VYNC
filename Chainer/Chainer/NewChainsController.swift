@@ -35,8 +35,8 @@ class NewChainsController: UIViewController, UITableViewDelegate, UITableViewDat
     // UITableViewDataSource requirements
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell: UITableViewCell = UITableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: "test")
-        cell.textLabel.text = "Video Id: \(videoMessageMgr.newVideoMessages[indexPath.row].messageID)"
-        cell.detailTextLabel?.text = "Reply To: \(videoMessageMgr.newVideoMessages[indexPath.row].replyToID). Created at \(videoMessageMgr.newVideoMessages[indexPath.row].createdAt)"
+        cell.textLabel.text = "Video Id: \(videoMessageMgr.newVideoMessages[indexPath.row].videoMessages.count)"
+        cell.detailTextLabel?.text = "VideoChain"
         return cell
     }
     
