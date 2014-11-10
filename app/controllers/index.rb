@@ -65,6 +65,7 @@ end
 get "/notetest/:deviceToken" do
   "in note test - to be deleted from production"
   @params = params
+  p params[:deviceToken]
   notify(params[:deviceToken], "In note test route")
   erb :notes
 end
