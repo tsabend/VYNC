@@ -17,6 +17,8 @@ gem 'aws-sdk', '< 2'
 gem 'rake'
 gem 'byebug'
 gem 'shotgun'
+gem 'unicorn'
+gem 'grocer'
 
 group :test do
   gem 'faker'

@@ -7,6 +7,7 @@ require 'bundler/setup' if File.exists?(ENV['BUNDLE_GEMFILE'])
 
 # Require gems we care about
 require 'rubygems'
+require 'grocer'
 
 require 'uri'
 require 'pathname'
@@ -34,19 +35,22 @@ require APP_ROOT.join('config', 'database')
 
 Dotenv.load
 
-# $s3 = AWS::S3::Client.new(
-#   access_key_id: ENV['ACCESS_KEY_ID'],
-#   secret_access_key: ENV['SECRET_ACCESS_KEY'],
-#   region: ENV['REGION']
-# )
-
-
 AWS.config(
   access_key_id: ENV['ACCESS_KEY_ID'],
   secret_access_key: ENV['SECRET_ACCESS_KEY']
   )
 
 $s3 = AWS::S3.new
+
+cert_path = production? ? "certificate.pem" : "certificate.pem"
+
+PUSHCLIENT = Grocer.pusher(
+  certificate: cert_path,            # required
+  passphrase:  "",                       # optional
+  gateway:     "gateway.sandbox.push.apple.com", # optional; See note below.
+  port:        2195,                     # optional
+  retries:     3                         # optional
+)
 
 
 
