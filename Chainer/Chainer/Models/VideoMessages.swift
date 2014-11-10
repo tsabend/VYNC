@@ -16,7 +16,8 @@ struct VideoMessage : JSONJoy {
     var recipientID: Int?
     var videoID: String?
     var createdAt: String?
-
+    init() {
+    }
     init(_ decoder: JSONDecoder) {
         messageID = decoder["id"].integer as Int!
         replyToID = decoder["reply_to_id"].integer
@@ -25,14 +26,14 @@ struct VideoMessage : JSONJoy {
         videoID = decoder["video_id"].string
         createdAt = decoder["created_at"].string
     }
-    
 }
 
-struct VideoMessagesArray : JSONJoy {
+struct Chain : JSONJoy {
     var videoMessages : [VideoMessage] = []
-    
+    init() {
+    }
     init(_ decoder: JSONDecoder) {
-        if let vms = decoder["video_messages"].array {
+        if let vms = decoder.array {
             videoMessages = [VideoMessage]()
             for vmDecoder in vms {
                 videoMessages.append(VideoMessage(vmDecoder))
@@ -41,17 +42,10 @@ struct VideoMessagesArray : JSONJoy {
     }
 }
 
-
 class VideoMessageManager {
     var openVideoMessages = [VideoMessage]()
     var newVideoMessages = [VideoMessage]()
     var finishedVideoMessages = [VideoMessage]()
-    
-    init() {
-        openVideoMessages = []
-        newVideoMessages = []
-        finishedVideoMessages = []
-    }
     
     func getInitialValues() {
         getNewVideoMessages()
@@ -62,44 +56,39 @@ class VideoMessageManager {
     func getNewVideoMessages() {
         var data : NSData?
         var request = HTTPTask()
-        request.GET("http://localhost:9393/videomessages/1/new", parameters: nil, success: {(response: HTTPResponse) in // success
+        request.GET("http://localhost:9393/videomessages/1/new", parameters: nil,
+            success: {(response: HTTPResponse) in
             if response.responseObject != nil {
                 data = response.responseObject as? NSData
-                self.newVideoMessages = VideoMessagesArray(JSONDecoder(data!)).videoMessages
-                
+                JSONDecoder(data!).arrayOf(&self.newVideoMessages)
             }
-            },failure: {(error: NSError, response: HTTPResponse?) in //failure
-                println("error: \(error)")
         })
     }
 
     func getOpenVideoMessages() {
         var data : NSData?
         var request = HTTPTask()
-        request.GET("http://localhost:9393/videomessages/1/open", parameters: nil, success: {(response: HTTPResponse) in // success
-            if response.responseObject != nil {
-                data = response.responseObject as? NSData
-                self.openVideoMessages = VideoMessagesArray(JSONDecoder(data!)).videoMessages
-
-            }
-            },failure: {(error: NSError, response: HTTPResponse?) in //failure
-                println("error: \(error)")
+        request.GET("http://localhost:9393/videomessages/1/open", parameters: nil,
+            success: {(response: HTTPResponse) in
+                if response.responseObject != nil {
+                    data = response.responseObject as? NSData
+                    JSONDecoder(data!).arrayOf(&self.openVideoMessages)
+                }
         })
     }
     
     func getFinishedVideoMessages() {
         var data : NSData?
         var request = HTTPTask()
-        request.GET("http://localhost:9393/videomessages/1/finished", parameters: nil, success: {(response: HTTPResponse) in // success
-            if response.responseObject != nil {
-                data = response.responseObject as? NSData
-                self.finishedVideoMessages = VideoMessagesArray(JSONDecoder(data!)).videoMessages
-            }
-            },failure: {(error: NSError, response: HTTPResponse?) in //failure
-                println("error: \(error)")
+        request.GET("http://localhost:9393/videomessages/1/finished", parameters: nil,
+            success: {(response: HTTPResponse) in
+                if response.responseObject != nil {
+                    data = response.responseObject as? NSData
+                    JSONDecoder(data!).arrayOf(&self.finishedVideoMessages)
+                }
         })
-    }  
-    
+    }
+
 }
 
 let videoMessageMgr = VideoMessageManager()
