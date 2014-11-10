@@ -27,6 +27,7 @@
 		097ECD641A105AFA00D1D2D1 /* FinishedChainsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 097ECD5F1A105AFA00D1D2D1 /* FinishedChainsController.swift */; };
 		097ECD651A105AFA00D1D2D1 /* NewChainsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 097ECD601A105AFA00D1D2D1 /* NewChainsController.swift */; };
 		097ECD661A105AFA00D1D2D1 /* OpenChainsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 097ECD611A105AFA00D1D2D1 /* OpenChainsController.swift */; };
+		C42AE58B1A111ECB0009C213 /* AVKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C42AE58A1A111ECB0009C213 /* AVKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -64,6 +65,7 @@
 		097ECD5F1A105AFA00D1D2D1 /* FinishedChainsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FinishedChainsController.swift; sourceTree = "<group>"; };
 		097ECD601A105AFA00D1D2D1 /* NewChainsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewChainsController.swift; sourceTree = "<group>"; };
 		097ECD611A105AFA00D1D2D1 /* OpenChainsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OpenChainsController.swift; sourceTree = "<group>"; };
+		C42AE58A1A111ECB0009C213 /* AVKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVKit.framework; path = System/Library/Frameworks/AVKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,6 +73,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C42AE58B1A111ECB0009C213 /* AVKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -87,6 +90,7 @@
 		097ECD1A1A1059AE00D1D2D1 = {
 			isa = PBXGroup;
 			children = (
+				C42AE58A1A111ECB0009C213 /* AVKit.framework */,
 				097ECD251A1059AE00D1D2D1 /* Chainer */,
 				097ECD3E1A1059AE00D1D2D1 /* ChainerTests */,
 				097ECD241A1059AE00D1D2D1 /* Products */,

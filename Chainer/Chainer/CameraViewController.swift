@@ -8,16 +8,25 @@
 
 import UIKit
 import Foundation
+import CoreMedia
+//import MediaPlayer
+import MobileCoreServices
 
-class CameraViewController: UIViewController {
+class CameraViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do view setup here.
+        let imagePicker = UIImagePickerController() //inst
+        imagePicker.delegate = self
+        imagePicker.sourceType = UIImagePickerControllerSourceType.Camera // Set the media type to allow movies
+        imagePicker.mediaTypes = [kUTTypeMovie] // Maximum length 6 seconds
+        imagePicker.videoMaximumDuration = 5.00
+        self.presentViewController(imagePicker, animated: true, completion: {})
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
 }
