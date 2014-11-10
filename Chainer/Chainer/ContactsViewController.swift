@@ -55,12 +55,11 @@ class ContactsViewController: UIViewController, UITableViewDelegate, UITableView
         //post the video that the user takes to the server
         var request = HTTPTask()
         request.POST("http://chainer.herokuapp.com/upload", parameters:  ["sender": "1", "recipient" : "\(userID)",  "file": HTTPUpload(fileUrl: videoURL!) ], success: {(response: HTTPResponse) in
-            //do stuff
             },failure: {(error: NSError, response: HTTPResponse?) in
                 //error out on stuff
         })
-        
-
+        let vc = self.storyboard?.instantiateViewControllerWithIdentifier("Home") as ViewController
+        self.presentViewController(vc, animated:false, completion:{})
     }
     
     
