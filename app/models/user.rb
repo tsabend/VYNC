@@ -8,7 +8,7 @@ class User < ActiveRecord::Base
   # validates :device_id, uniqueness: true
 
   def all_messages
-    (received_messages + sent_messages).map {|vm| vm.show_chain}.flatten.unique
+    (received_messages + sent_messages).map {|vm| vm.show_chain}.flatten.uniq
   end
 
   def new_chains
