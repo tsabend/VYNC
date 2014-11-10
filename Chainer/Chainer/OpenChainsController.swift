@@ -13,7 +13,7 @@ class OpenChainsController: UIViewController, UITableViewDelegate, UITableViewDa
     
     
     override func viewDidLoad() {
-        println(videoMessageMgr.openVideoMessages.count)
+        println(videoMessageMgr.openChains.count)
         super.viewDidLoad()
     }
     
@@ -34,20 +34,19 @@ class OpenChainsController: UIViewController, UITableViewDelegate, UITableViewDa
     // UITableViewDataSource requirements
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell: UITableViewCell = UITableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: "test")
-        cell.textLabel.text = "Video Id: \(videoMessageMgr.openVideoMessages[indexPath.row].videoMessages.count)"
+        cell.textLabel.text = "Video Id: \(videoMessageMgr.openChains[indexPath.row].videoMessages.count)"
         cell.detailTextLabel?.text = "VideoChain"
         return cell
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return videoMessageMgr.openVideoMessages.count
+        return videoMessageMgr.openChains.count
     }
     
     // Load a new view when clicked --> to be filled in with a show video route
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         println("anyone listening?")
-        let cameraView = self.storyboard?.instantiateViewControllerWithIdentifier("Camera") as CameraViewController
-        self.navigationController?.pushViewController(cameraView, animated: true)
+
     }
 }
 

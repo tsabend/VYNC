@@ -60,11 +60,9 @@ public class JSONDecoder {
         if let array = value as? Array<JSONDecoder> {
             for decoder in array {
                 var val = T(decoder)
-                println("  val=\(val)")
                 collect.append(val)
             }
         }
-        println("  arrayOf => \(collect)")
         return collect
     }
     

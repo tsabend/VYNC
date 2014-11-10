@@ -1,5 +1,5 @@
 class User < ActiveRecord::Base
-  # Remember to create a migration!
+
   has_many :sent_messages, class_name: "VideoMessage", foreign_key: :sender_id
   has_many :received_messages, class_name: "VideoMessage", foreign_key: :recipient_id
   has_many :finished_chains, through: :video_messages
@@ -9,6 +9,10 @@ class User < ActiveRecord::Base
 
   def all_messages
     received_messages + sent_messages
+  end
+
+  def all_chains
+    all_messages.map {|vm| vm.show_chain}
   end
 
   def new_chains

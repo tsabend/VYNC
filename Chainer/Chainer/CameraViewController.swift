@@ -30,21 +30,27 @@ class CameraViewController: UIViewController, UIImagePickerControllerDelegate, U
     }
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [NSObject : AnyObject])
     {
-        let fileUrl = info[UIImagePickerControllerMediaURL] as? NSURL
-        
-        var request = HTTPTask()
-        request.POST("http://chainer.herokuapp.com/upload", parameters:  ["param": "hi", "something": "else", "key": "value","file": HTTPUpload(fileUrl: fileUrl!)], success: {(response: HTTPResponse) in
-            //do stuff
-            },failure: {(error: NSError, response: HTTPResponse?) in
-                //error out on stuff
-        })
-        var myVideo : NSData = NSData(contentsOfURL: fileUrl!)!
-//        let boolean = myVideo.writeToFile(PathToFile, atomically: true)
-//
-        println("DID IT SUCCEED?")
-//        println("\(boolean)")
-        
-        picker.dismissViewControllerAnimated(true, completion: nil)
+        println("does this get called?")
+        let contactsView = self.storyboard?.instantiateViewControllerWithIdentifier("Contacts") as ContactsViewController
+        self.navigationController?.pushViewController(contactsView, animated: true)
     }
     
 }
+
+
+//
+//let fileUrl = info[UIImagePickerControllerMediaURL] as? NSURL
+//
+//var request = HTTPTask()
+//request.POST("http://chainer.herokuapp.com/upload", parameters:  ["param": "hi", "something": "else", "key": "value","file": HTTPUpload(fileUrl: fileUrl!)], success: {(response: HTTPResponse) in
+//    //do stuff
+//    },failure: {(error: NSError, response: HTTPResponse?) in
+//        //error out on stuff
+//})
+//var myVideo : NSData = NSData(contentsOfURL: fileUrl!)!
+////        let boolean = myVideo.writeToFile(PathToFile, atomically: true)
+////
+//println("DID IT SUCCEED?")
+////        println("\(boolean)")
+//
+//picker.dismissViewControllerAnimated(true, completion: nil)
