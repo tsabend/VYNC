@@ -1,6 +1,6 @@
 require 'yaml'
 
-path = ('/Users/apprentice/Desktop/videotelephone/sinatra/db/seed_data.yaml')
+path = ('db/seed_data.yaml')
 seed_data = YAML.load File.read path
 
 # Users
