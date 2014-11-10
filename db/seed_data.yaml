@@ -1,31 +1,31 @@
 ---
 :users:
 - :id: 1
-  # joyce evans
+  :username: Joyce
   :device_id: 1
   :created_at: 2014-01-01 10:15:27.621657000 -05:00
 - :id: 2
-  # savannah roberts
+  :username: Savannah
   :device_id: 2
   :created_at: 2014-01-02 10:15:27.621657000 -05:00
 - :id: 3
-  # jeffrey brown
+  :username: Jeffrey
   :device_id: 3
   :created_at: 2014-01-03 10:15:27.621657000 -05:00
 - :id: 4
-  # paula williams
+  :username: Paula
   :device_id: 4
   :created_at: 2014-01-04 10:15:27.621657000 -05:00
 - :id: 5
-  # mary moore
+  :username: Mary
   :device_id: 5
   :created_at: 2014-01-05 10:15:27.621657000 -05:00
 - :id: 6
-  # michele mcdonalid
+  :username: Michelle
   :device_id: 6
   :created_at: 2014-01-06 10:15:27.621657000 -05:00
 - :id: 7
-  # dennis douglas
+  :username: Dennis
   :device_id: 7
   :created_at: 2014-01-07 10:15:27.621657000 -05:00
 
