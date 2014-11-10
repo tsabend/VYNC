@@ -39,6 +39,7 @@
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <gestureRecognizers/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Open" id="GIz-JL-duO"/>
                     <navigationItem key="navigationItem" title="CHAINR" id="Giq-ZN-axR">
