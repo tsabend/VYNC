@@ -247,7 +247,7 @@ public class HTTPTask : NSObject, NSURLSessionDelegate, NSURLSessionTaskDelegate
         :param: success The block that is run on a sucessful HTTP Request.
         :param: failure The block that is run on a failed HTTP Request.
     */
-    public func GET(url: String, parameters: Dictionary<String,AnyObject>?, success:((HTTPResponse) -> Void)!, failure:((NSError, HTTPResponse?) -> Void)!) {
+    public func GET(url: String, parameters: Dictionary<String,AnyObject>?, success:((HTTPResponse) -> Void)!, failure: ((NSError, HTTPResponse?) -> Void)! = {(error: NSError, response: HTTPResponse?) in println("error: \(error)") }) {
         var opt = self.create(url, method:.GET, parameters: parameters,success,failure)
         if opt != nil {
             opt!.start()

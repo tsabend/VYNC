@@ -40,8 +40,10 @@ public class JSONDecoder {
     public var array: Array<JSONDecoder>? {
         return value as? Array<JSONDecoder>
     }
+    
+
     //pull the raw values out of an array
-    public func getArray<T>(inout collect: Array<T>?) {
+    /*public func getArray<T>(inout collect: Array<T>?) {
         if let array = value as? Array<JSONDecoder> {
             if collect == nil {
                 collect = Array<T>()
@@ -52,7 +54,22 @@ public class JSONDecoder {
                 }
             }
         }
+    }*/
+    
+    public func arrayOf<T: JSONJoy>(inout collect: Array<T>) -> Array<T> {
+        if let array = value as? Array<JSONDecoder> {
+            for decoder in array {
+                var val = T(decoder)
+                println("  val=\(val)")
+                collect.append(val)
+            }
+        }
+        println("  arrayOf => \(collect)")
+        return collect
     }
+    
+
+    
     //pull the raw values out of a dictonary.
     public func getDictonary<T>(inout collect: Dictionary<String,T>?) {
         if let dictonary = value as? Dictionary<String,JSONDecoder> {

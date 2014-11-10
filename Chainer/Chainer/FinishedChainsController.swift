@@ -35,8 +35,8 @@ class FinishedChainsController: UIViewController, UITableViewDelegate, UITableVi
     // UITableViewDataSource requirements
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell: UITableViewCell = UITableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: "test")
-        cell.textLabel.text = "Video Id: \(videoMessageMgr.finishedVideoMessages[indexPath.row].messageID)"
-        cell.detailTextLabel?.text = "Reply To: \(videoMessageMgr.finishedVideoMessages[indexPath.row].replyToID). Created at \(videoMessageMgr.finishedVideoMessages[indexPath.row].createdAt)"
+        cell.textLabel.text = "Video Id: \(videoMessageMgr.finishedVideoMessages[indexPath.row].videoMessages.count)"
+        cell.detailTextLabel?.text = "VideoChain"
         return cell
     }
     
