@@ -15,13 +15,13 @@ get '/videomessages/:user_id/new' do
   { "video_messages" => video_messages}.to_json
 end
 
-get '/videomessages/:id/open' do
+get '/videomessages/:user_id/open' do
   content_type :json
   video_messages = User.find(params[:user_id]).open_chains
   { "video_messages" => video_messages}.to_json
 end
 
-get '/videomessages/:id/finished' do
+get '/videomessages/:user_id/finished' do
   content_type :json
   video_messages = User.find(params[:user_id]).finished_chains
   { "video_messages" => video_messages}.to_json

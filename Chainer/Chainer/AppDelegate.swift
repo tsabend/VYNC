@@ -34,12 +34,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
+        onStartup()
         var types: UIUserNotificationType = UIUserNotificationType.Badge | UIUserNotificationType.Alert | UIUserNotificationType.Sound
         var settings: UIUserNotificationSettings = UIUserNotificationSettings( forTypes: types, categories: nil )
         application.registerUserNotificationSettings( settings )
         application.registerForRemoteNotifications()
         println("main fire")
-        
+
         return true
     }
 
