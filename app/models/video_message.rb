@@ -8,7 +8,7 @@ class VideoMessage < ActiveRecord::Base
   end
 
   def is_finished?
-    FinishedChain.find_by(video_message_start_id: self) || FinishedChain.find_by(video_message_start_id: reply_to_id) ? true : false
+    show_chain.size == 5
   end
 
   def is_last_link?

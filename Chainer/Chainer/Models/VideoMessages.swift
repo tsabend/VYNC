@@ -57,10 +57,10 @@ class VideoMessageManager {
 //        getNewChains()
 //        getOpenChains()
 //        getFinishedChains()
-        getChains()
+        updateChains()
     }
 
-    func getChains() {
+    func updateChains() {
         var data : NSData?
         var request = HTTPTask()
         request.GET("http://chainer.herokuapp.com/videomessages/\(device_id)/all", parameters: nil,
