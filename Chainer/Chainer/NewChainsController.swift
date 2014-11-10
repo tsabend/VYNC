@@ -15,7 +15,7 @@ class NewChainsController: UIViewController, UITableViewDelegate, UITableViewDat
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        println(videoMessageMgr.newVideoMessages.count)
+        println(videoMessageMgr.newChains.count)
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -35,13 +35,13 @@ class NewChainsController: UIViewController, UITableViewDelegate, UITableViewDat
     // UITableViewDataSource requirements
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell: UITableViewCell = UITableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: "test")
-        cell.textLabel.text = "Chain Length: \(videoMessageMgr.newVideoMessages[indexPath.row].videoMessages.count)"
+        cell.textLabel.text = "Chain Length: \(videoMessageMgr.newChains[indexPath.row].videoMessages.count)"
         cell.detailTextLabel?.text = "VideoChain"
         return cell
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return videoMessageMgr.newVideoMessages.count
+        return videoMessageMgr.newChains.count
     }
     
     // Load a new view when clicked --> to be filled in with a show video route

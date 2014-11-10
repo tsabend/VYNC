@@ -8,6 +8,11 @@ get '/allusers' do
   User.all.to_json
 end
 
+get '/videomessages/:user_id/all' do
+  content_type :json
+  User.find(params[:user_id]).all_chains.to_json
+end
+
 get '/videomessages/:user_id/new' do
   content_type :json
   User.find(params[:user_id]).new_chains.to_json

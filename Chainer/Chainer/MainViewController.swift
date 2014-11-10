@@ -14,19 +14,47 @@ let docFolderToSaveFiles = NSSearchPathForDirectoriesInDomains(.DocumentDirector
 let fileName = "/videoToSend.MOV"
 let PathToFile = docFolderToSaveFiles + fileName
 
-class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITableViewDelegate, UITableViewDataSource {
 
+    @IBOutlet var tblChains: UITableView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         let rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Camera, target: self, action: "showCam")
         self.navigationItem.rightBarButtonItem = rightBarButtonItem
 
     }
+    
+    // Load the table view
+    
+    // Returning to view. Loops through users and reloads them.
+    override func viewWillAppear(animated: Bool) {
+        tblChains.reloadData()
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
+    
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let cell: UITableViewCell = UITableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: "test")
+        
+        let array = videoMessageMgr.openChains
+        println(array.count)
+        cell.textLabel.text = "First Chain's Video Id: \(array[indexPath.row])"
+        cell.detailTextLabel?.text = "Count: \(array[indexPath.row])"
+        return cell
+    }
+    
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return videoMessageMgr.openChains.count
+    }
+    
+    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        
+        if editingStyle == UITableViewCellEditingStyle.Delete {
+            println("delete")
+        }
+    }
+    
+    // Load the camera on top
     
     @IBAction func showCam() {
         let imagePicker = UIImagePickerController() //inst
@@ -49,6 +77,8 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         let vc = self.storyboard?.instantiateViewControllerWithIdentifier("Contacts") as ContactsViewController
         self.presentViewController(vc, animated:false, completion:{})
     }
+    
+    
     
 }
 

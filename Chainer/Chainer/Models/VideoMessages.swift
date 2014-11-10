@@ -30,6 +30,8 @@ struct VideoMessage : JSONJoy {
 
 struct Chain : JSONJoy {
     var videoMessages : [VideoMessage] = []
+//    var status : String?
+    
     init() {
     }
     init(_ decoder: JSONDecoder) {
@@ -46,48 +48,63 @@ struct Chain : JSONJoy {
 let device_id = 1
 
 class VideoMessageManager {
-    var openVideoMessages = [Chain]()
-    var newVideoMessages = [Chain]()
-    var finishedVideoMessages = [Chain]()
+    var openChains = [Chain]()
+    var newChains = [Chain]()
+    var finishedChains = [Chain]()
+    var chains = [Chain]()
     
     func getInitialValues() {
-        getNewVideoMessages()
-        getOpenVideoMessages()
-        getFinishedVideoMessages()
+//        getNewChains()
+//        getOpenChains()
+//        getFinishedChains()
+        getChains()
+    }
+
+    func getChains() {
+        var data : NSData?
+        var request = HTTPTask()
+        request.GET("http://chainer.herokuapp.com/videomessages/\(device_id)/all", parameters: nil,
+            success: {(response: HTTPResponse) in
+                if response.responseObject != nil {
+                    data = response.responseObject as? NSData
+                    JSONDecoder(data!).arrayOf(&self.chains)
+                }
+        })
     }
     
-    func getNewVideoMessages() {
+    
+    func getNewChains() {
         var data : NSData?
         var request = HTTPTask()
         request.GET("http://chainer.herokuapp.com/videomessages/\(device_id)/new", parameters: nil,
             success: {(response: HTTPResponse) in
             if response.responseObject != nil {
                 data = response.responseObject as? NSData
-                JSONDecoder(data!).arrayOf(&self.newVideoMessages)
+                JSONDecoder(data!).arrayOf(&self.newChains)
             }
         })
     }
 
-    func getOpenVideoMessages() {
+    func getOpenChains() {
         var data : NSData?
         var request = HTTPTask()
         request.GET("http://chainer.herokuapp.com/videomessages/\(device_id)/open", parameters: nil,
             success: {(response: HTTPResponse) in
                 if response.responseObject != nil {
                     data = response.responseObject as? NSData
-                    JSONDecoder(data!).arrayOf(&self.openVideoMessages)
+                    JSONDecoder(data!).arrayOf(&self.openChains)
                 }
         })
     }
     
-    func getFinishedVideoMessages() {
+    func getFinishedChains() {
         var data : NSData?
         var request = HTTPTask()
         request.GET("http://chainer.herokuapp.com/videomessages/\(device_id)/finished", parameters: nil,
             success: {(response: HTTPResponse) in
                 if response.responseObject != nil {
                     data = response.responseObject as? NSData
-                    JSONDecoder(data!).arrayOf(&self.finishedVideoMessages)
+                    JSONDecoder(data!).arrayOf(&self.finishedChains)
                 }
         })
     }

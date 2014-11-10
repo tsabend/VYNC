@@ -23,7 +23,7 @@
             </objects>
             <point key="canvasLocation" x="402.5" y="-829.5"/>
         </scene>
-        <!--CHAINER-->
+        <!--View Controller-->
         <scene sceneID="4Q3-rA-yZ2">
             <objects>
                 <viewController storyboardIdentifier="Home" definesPresentationContext="YES" providesPresentationContextTransitionStyle="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="d19-Z0-Qnq" customClass="ViewController" customModule="Chainer" customModuleProvider="target" sceneMemberID="viewController">
@@ -44,16 +44,28 @@
                                     </navigationItem>
                                 </items>
                             </navigationBar>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="a3m-MC-eb7">
+                                <rect key="frame" x="0.0" y="65" width="320" height="503"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="d19-Z0-Qnq" id="JP5-fo-TcE"/>
+                                    <outlet property="delegate" destination="d19-Z0-Qnq" id="PpJ-zW-LyT"/>
+                                </connections>
+                            </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <gestureRecognizers/>
                     </view>
-                    <navigationItem key="navigationItem" title="CHAINER" id="eJH-ff-6Q2"/>
+                    <navigationItem key="navigationItem" id="eJH-ff-6Q2"/>
                     <value key="contentSizeForViewInPopover" type="size" width="375" height="667"/>
+                    <connections>
+                        <outlet property="tblChains" destination="a3m-MC-eb7" id="hLE-yX-ayw"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="u8o-le-TIr" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="820.5" y="-829.5"/>
+            <point key="canvasLocation" x="820" y="-830"/>
         </scene>
         <!--Contacts View Controller-->
         <scene sceneID="5iJ-DW-Oex">
