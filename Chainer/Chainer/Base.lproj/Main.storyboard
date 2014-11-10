@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6250" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="m6T-Yp-eQo">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
+    </dependencies>
+    <scenes>
+        <!--OpenChains-->
+        <scene sceneID="ufC-wZ-h7g">
+            <objects>
+                <viewController title="OpenChains" id="vXZ-lx-hvc" customClass="OpenChainsController" customModule="Storyboards" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Oxq-Bs-Nm8"/>
+                        <viewControllerLayoutGuide type="bottom" id="C8A-lN-GET"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="kh9-bI-dsS">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="yhe-60-bhX">
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="vXZ-lx-hvc" id="8lG-y5-lYC"/>
+                                    <outlet property="delegate" destination="vXZ-lx-hvc" id="miJ-bM-PEL"/>
+                                </connections>
+                            </tableView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Open Chains" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ide-Hh-ioR">
+                                <rect key="frame" x="110" y="64" width="100" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="gcr-xe-Ahx">
+                                <rect key="frame" x="0.0" y="93" width="320" height="426"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="vXZ-lx-hvc" id="K1d-q5-bMr"/>
+                                    <outlet property="delegate" destination="vXZ-lx-hvc" id="wI4-dg-2KM"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Open" id="GIz-JL-duO"/>
+                    <navigationItem key="navigationItem" title="CHAINR" id="Giq-ZN-axR">
+                        <barButtonItem key="leftBarButtonItem" systemItem="search" id="YtF-dx-b41"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="camera" id="QnM-bE-X4M"/>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="tblVideoMessages" destination="gcr-xe-Ahx" id="3vm-gM-yzR"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3452" y="-1787"/>
+        </scene>
+        <!--Contacts-->
+        <scene sceneID="GBF-pR-v4Y">
+            <objects>
+                <viewController title="Contacts" id="V8f-0e-fm3" customClass="ContactsViewController" customModule="Storyboards" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="HUR-qf-w4D"/>
+                        <viewControllerLayoutGuide type="bottom" id="44O-Ij-9gS"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="4nS-FR-Eu9">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="Uda-zh-i7l">
+                                <rect key="frame" x="0.0" y="69" width="320" height="450"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="V8f-0e-fm3" id="9zu-8W-Qkw"/>
+                                    <outlet property="delegate" destination="V8f-0e-fm3" id="xeR-PS-9vY"/>
+                                </connections>
+                            </tableView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Users" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nFb-pv-Xcz">
+                                <rect key="frame" x="139" y="28" width="45" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="B3r-Kb-uHt"/>
+                    <connections>
+                        <outlet property="tblUsers" destination="Uda-zh-i7l" id="kiX-p9-Lrq"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="h9X-1D-p2c" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3044" y="-627"/>
+        </scene>
+        <!--Camera-->
+        <scene sceneID="NTk-yh-TpO">
+            <objects>
+                <viewController storyboardIdentifier="Camera" title="Camera" useStoryboardIdentifierAsRestorationIdentifier="YES" id="j98-OU-Zcw" customClass="CameraViewController" customModule="Storyboards" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="7Gi-53-qqF"/>
+                        <viewControllerLayoutGuide type="bottom" id="MZi-0F-RZg"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="s9I-u6-DbI">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="2df-sC-BxE"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="rSL-CY-e0L" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3044" y="-1938"/>
+        </scene>
+        <!--NewChains-->
+        <scene sceneID="QNk-6C-m9I">
+            <objects>
+                <viewController title="NewChains" id="d0K-rX-rZ0" customClass="NewChainsController" customModule="Storyboards" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="7Is-bv-w1D"/>
+                        <viewControllerLayoutGuide type="bottom" id="DWk-PS-FdK"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="5RO-QJ-DQz">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="New Chains" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5wz-8w-2wG">
+                                <rect key="frame" x="114" y="64" width="93" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="xh8-cP-V41">
+                                <rect key="frame" x="0.0" y="93" width="320" height="426"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="d0K-rX-rZ0" id="ReC-0e-xDu"/>
+                                    <outlet property="delegate" destination="d0K-rX-rZ0" id="Xv9-0S-Hwv"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="New" id="3WR-Ns-bAv"/>
+                    <navigationItem key="navigationItem" id="urw-qu-isb"/>
+                    <connections>
+                        <outlet property="tblVideoMessages" destination="xh8-cP-V41" id="Y2u-4E-E60"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="heX-Yh-16O" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3452" y="-1119"/>
+        </scene>
+        <!--FinishedChains-->
+        <scene sceneID="EfP-LX-kKU">
+            <objects>
+                <viewController title="FinishedChains" id="n7Y-gH-boQ" customClass="FinishedChainsController" customModule="Storyboards" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="nWF-wE-N0A"/>
+                        <viewControllerLayoutGuide type="bottom" id="0c8-oe-39g"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="73j-os-nEb">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Finished Chains" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RxZ-HM-3iR">
+                                <rect key="frame" x="104" y="64" width="123" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="6Mc-3f-NgG">
+                                <rect key="frame" x="0.0" y="93" width="320" height="426"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="n7Y-gH-boQ" id="Bjo-gx-UGa"/>
+                                    <outlet property="delegate" destination="n7Y-gH-boQ" id="obk-we-bHm"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Closed" id="LrB-9f-EWq"/>
+                    <navigationItem key="navigationItem" id="Tpz-JO-W8v"/>
+                    <connections>
+                        <outlet property="tblVideoMessages" destination="6Mc-3f-NgG" id="wRV-GZ-sM1"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Cdf-1L-4Wf" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3452" y="-473"/>
+        </scene>
+        <!--CHAINER-->
+        <scene sceneID="E7E-Ag-EIG">
+            <objects>
+                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="kFB-1W-kfI" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" title="CHAINER" id="3eO-BE-xa7">
+                        <barButtonItem key="leftBarButtonItem" systemItem="search" id="dcR-GK-QPn">
+                            <connections>
+                                <segue destination="V8f-0e-fm3" kind="push" id="7pJ-SJ-yoV"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" systemItem="camera" id="jAJ-Um-JsH">
+                            <connections>
+                                <segue destination="j98-OU-Zcw" kind="push" id="pPC-EF-p0P"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <nil key="simulatedBottomBarMetrics"/>
+                    <tabBar key="tabBar" contentMode="scaleToFill" id="6aP-dZ-UsP">
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="vXZ-lx-hvc" kind="relationship" relationship="viewControllers" id="as4-kM-aBZ"/>
+                        <segue destination="d0K-rX-rZ0" kind="relationship" relationship="viewControllers" id="Zay-4X-2ke"/>
+                        <segue destination="n7Y-gH-boQ" kind="relationship" relationship="viewControllers" id="NkQ-Ca-6CI"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="kJR-oy-WBW" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3044" y="-1309"/>
+        </scene>
+        <!--New Chains-->
+        <scene sceneID="CMy-cc-TwY">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="m6T-Yp-eQo" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="New Chains" id="rQa-JR-eyX"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="p6O-7F-wJ1">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="kFB-1W-kfI" kind="relationship" relationship="rootViewController" id="MF1-GB-CSc"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="UDi-ZW-433" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2586" y="-1309"/>
+        </scene>
+    </scenes>
+    <simulatedMetricsContainer key="defaultSimulatedMetrics">
+        <simulatedStatusBarMetrics key="statusBar"/>
+        <simulatedOrientationMetrics key="orientation"/>
+        <simulatedScreenMetrics key="destination" type="retina4"/>
+    </simulatedMetricsContainer>
+</document>
