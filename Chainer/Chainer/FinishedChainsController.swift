@@ -47,8 +47,7 @@ class FinishedChainsController: UIViewController, UITableViewDelegate, UITableVi
     // Load a new view when clicked --> to be filled in with a show video route
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         println("anyone listening?")
-        let cameraView = self.storyboard?.instantiateViewControllerWithIdentifier("Camera") as CameraViewController
-        self.navigationController?.pushViewController(cameraView, animated: true)
+
     }
 }
 

@@ -35,7 +35,7 @@ class NewChainsController: UIViewController, UITableViewDelegate, UITableViewDat
     // UITableViewDataSource requirements
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell: UITableViewCell = UITableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: "test")
-        cell.textLabel.text = "Video Id: \(videoMessageMgr.newVideoMessages[indexPath.row].videoMessages.count)"
+        cell.textLabel.text = "Chain Length: \(videoMessageMgr.newVideoMessages[indexPath.row].videoMessages.count)"
         cell.detailTextLabel?.text = "VideoChain"
         return cell
     }
@@ -47,8 +47,7 @@ class NewChainsController: UIViewController, UITableViewDelegate, UITableViewDat
     // Load a new view when clicked --> to be filled in with a show video route
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         println("anyone listening?")
-        let cameraView = self.storyboard?.instantiateViewControllerWithIdentifier("Camera") as CameraViewController
-        self.navigationController?.pushViewController(cameraView, animated: true)
+
     }
 }
 

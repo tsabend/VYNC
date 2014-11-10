@@ -14,7 +14,9 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        println("hello")
+        let rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Camera, target: self, action: "showCam")
+        self.navigationItem.rightBarButtonItem = rightBarButtonItem
+
     }
 
     override func didReceiveMemoryWarning() {
@@ -22,7 +24,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         // Dispose of any resources that can be recreated.
     }
     
-    @IBAction func showCam(sender: AnyObject) {
+    @IBAction func showCam() {
         let imagePicker = UIImagePickerController() //inst
         imagePicker.delegate = self
         imagePicker.sourceType = UIImagePickerControllerSourceType.Camera // Set the media type to allow movies
@@ -30,5 +32,13 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         imagePicker.videoMaximumDuration = 5.00
         self.presentViewController(imagePicker, animated: false, completion:{})
     }
+    
+    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [NSObject : AnyObject])
+    {
+        picker.dismissViewControllerAnimated(false, completion: {})
+        let vc = self.storyboard?.instantiateViewControllerWithIdentifier("Contacts") as ContactsViewController
+        self.presentViewController(vc, animated:false, completion:{})
+    }
+    
 }
 

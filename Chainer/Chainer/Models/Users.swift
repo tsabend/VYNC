@@ -19,7 +19,6 @@ struct User : JSONJoy {
         deviceID = decoder["device_id"].integer
         createdAt = decoder["created_at"].string
     }
-    
 }
 
 class UserManager {
@@ -28,7 +27,7 @@ class UserManager {
     func getUsers(){
         println("getting all users")
         var request = HTTPTask()
-        request.GET("http://localhost:9393/allusers", parameters: nil, success: {
+        request.GET("http://chainer.herokuapp.com/allusers", parameters: nil, success: {
             (response: HTTPResponse) in // success
             if response.responseObject != nil {
                 let data = response.responseObject as NSData

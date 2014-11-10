@@ -1,20 +1,18 @@
-//
-//  SecondViewController.swift
-//  viewAllUsers
-//
+
 //  Created by Apprentice on 11/8/14.
 //  Copyright (c) 2014 Apprentice. All rights reserved.
 //
 
 import UIKit
 
-class ContactsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class ContactsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UINavigationControllerDelegate {
 
     @IBOutlet var tblUsers: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+
     }
 
     override func didReceiveMemoryWarning() {
@@ -25,6 +23,7 @@ class ContactsViewController: UIViewController, UITableViewDelegate, UITableView
     // Returning to view. Loops through users and reloads them.
     override func viewWillAppear(animated: Bool) {
         tblUsers.reloadData()
+
     }
     
     // UITableViewDataSource requirements
@@ -50,17 +49,14 @@ class ContactsViewController: UIViewController, UITableViewDelegate, UITableView
     
     // Print hello world when clicked
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        println("anyone listening?")
         let userID = userMgr.users[indexPath.item].userID as Int!
         var request = HTTPTask()
-        request.GET("http://localhost:9393/users/\(userID)", parameters: nil, success: {(response: HTTPResponse) in // success
+        request.GET("http://chainer.herokuapp.com/users/\(userID)", parameters: nil, success: {(response: HTTPResponse) in // success
             if response.responseObject != nil {
                 let data = response.responseObject as NSData
                 let str = NSString(data: data, encoding: NSUTF8StringEncoding)
-                println(str)
+                println("Response from hitting user:\(userID) =\(str)")
             }
-            },failure: {(error: NSError, response: HTTPResponse?) in //failure
-                println("error: \(error)")
         })
     }
     

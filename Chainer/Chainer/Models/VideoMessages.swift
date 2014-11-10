@@ -59,7 +59,7 @@ class VideoMessageManager {
     func getNewVideoMessages() {
         var data : NSData?
         var request = HTTPTask()
-        request.GET("http://localhost:9393/videomessages/\(device_id)/new", parameters: nil,
+        request.GET("http://chainer.herokuapp.com/videomessages/\(device_id)/new", parameters: nil,
             success: {(response: HTTPResponse) in
             if response.responseObject != nil {
                 data = response.responseObject as? NSData
@@ -71,7 +71,7 @@ class VideoMessageManager {
     func getOpenVideoMessages() {
         var data : NSData?
         var request = HTTPTask()
-        request.GET("http://localhost:9393/videomessages/\(device_id)/open", parameters: nil,
+        request.GET("http://chainer.herokuapp.com/videomessages/\(device_id)/open", parameters: nil,
             success: {(response: HTTPResponse) in
                 if response.responseObject != nil {
                     data = response.responseObject as? NSData
@@ -83,7 +83,7 @@ class VideoMessageManager {
     func getFinishedVideoMessages() {
         var data : NSData?
         var request = HTTPTask()
-        request.GET("http://localhost:9393/videomessages/\(device_id)/finished", parameters: nil,
+        request.GET("http://chainer.herokuapp.com/videomessages/\(device_id)/finished", parameters: nil,
             success: {(response: HTTPResponse) in
                 if response.responseObject != nil {
                     data = response.responseObject as? NSData
