@@ -1,3 +1,4 @@
+
 get '/' do
   puts "get!"
   erb :index
@@ -19,5 +20,17 @@ end
 
 get '/download' do
   "Do you see me?"
-  send_file $s3.buckets.first.objects[params["download"]].read, :type => :mov
+  # send_file $s3.buckets.first.objects[params["download"]].read, :type => :mov
+  # notify("4ac511f6c9dececcdc5cacb1cb53adf992f1e4589949f44911d34e60e5d40486", "Welcome to Chainer!")
 end
+
+post "/newuser" do
+  "in new user"
+  # byebug
+  User.create(device_id: params[:deviceToken])
+  notify(params[:deviceToken], "Welcome to chainer!")
+  # notify("4ac511f6c9dececcdc5cacb1cb53adf992f1e4589949f44911d34e60e5d40486", "Welcome to Chainer!")
+  "Welcome to Chainer"
+end
+
+

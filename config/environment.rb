@@ -7,6 +7,7 @@ require 'bundler/setup' if File.exists?(ENV['BUNDLE_GEMFILE'])
 
 # Require gems we care about
 require 'rubygems'
+require 'grocer'
 
 require 'uri'
 require 'pathname'
@@ -47,6 +48,15 @@ AWS.config(
   )
 
 $s3 = AWS::S3.new
+
+cert_path = "certificate.pem"
+PUSHCLIENT = Grocer.pusher(
+  certificate: cert_path,            # required
+  passphrase:  "",                       # optional
+  gateway:     "gateway.sandbox.push.apple.com", # optional; See note below.
+  port:        2195,                     # optional
+  retries:     3                         # optional
+)
 
 
 
