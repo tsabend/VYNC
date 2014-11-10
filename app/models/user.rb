@@ -12,15 +12,21 @@ class User < ActiveRecord::Base
   end
 
   def new_chains
-    all_messages.select {|vm| vm.is_last_link? && !vm.is_finished?}
+    all_messages.
+    select {|vm| vm.is_last_link? && !vm.is_finished?}.
+    map {|vm| vm.show_chain}
   end
 
   def open_chains
-    all_messages.select {|vm| !vm.is_last_link? && !vm.is_finished?}
+    all_messages.
+    select {|vm| !vm.is_last_link? && !vm.is_finished?}.
+    map {|vm| vm.show_chain}
   end
 
   def finished_chains
-    all_messages.select {|vm| vm.is_finished?}
+    all_messages.
+    select {|vm| vm.is_finished?}.
+    map {|vm| vm.show_chain}
   end
 
 end
