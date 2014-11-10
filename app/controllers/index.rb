@@ -3,6 +3,37 @@ get '/' do
   erb :index
 end
 
+get '/allusers' do
+  content_type :json
+  users = User.all
+  { "users" => users}.to_json
+end
+
+get '/videomessages/:user_id/new' do
+  content_type :json
+  video_messages = User.find(params[:user_id]).new_chains
+  { "video_messages" => video_messages}.to_json
+end
+
+get '/videomessages/:id/open' do
+  content_type :json
+  video_messages = User.find(params[:user_id]).open_chains
+  { "video_messages" => video_messages}.to_json
+end
+
+get '/videomessages/:id/finished' do
+  content_type :json
+  video_messages = User.find(params[:user_id]).finished_chains
+  { "video_messages" => video_messages}.to_json
+end
+
+
+get '/users/:id' do
+  content_type :json
+  User.find(params[:id])
+  "Message Sent"
+end
+
 post '/upload' do
   puts "post!"
   tempfile = request.params["file"][:tempfile]
@@ -19,5 +50,23 @@ end
 
 get '/download' do
   "Do you see me?"
-  send_file $s3.buckets.first.objects[params["download"]].read, :type => :mov
+  # send_file $s3.buckets.first.objects[params["download"]].read, :type => :mov
+  # notify("4ac511f6c9dececcdc5cacb1cb53adf992f1e4589949f44911d34e60e5d40486", "Welcome to Chainer!")
 end
+
+post "/newuser" do
+  "in new user"
+  # byebug
+  User.create(device_id: params[:deviceToken])
+  notify(params[:deviceToken], "Welcome to chainer!")
+  # notify("4ac511f6c9dececcdc5cacb1cb53adf992f1e4589949f44911d34e60e5d40486", "Welcome to Chainer!")
+  "Welcome to Chainer"
+end
+
+get "/notetest/:deviceToken" do
+  "in note test - to be deleted from production"
+  byebug
+  notify(params[:deviceToken], "In note test route")
+  "Welcome to Chainer"
+end
+
