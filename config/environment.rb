@@ -35,13 +35,6 @@ require APP_ROOT.join('config', 'database')
 
 Dotenv.load
 
-# $s3 = AWS::S3::Client.new(
-#   access_key_id: ENV['ACCESS_KEY_ID'],
-#   secret_access_key: ENV['SECRET_ACCESS_KEY'],
-#   region: ENV['REGION']
-# )
-
-
 AWS.config(
   access_key_id: ENV['ACCESS_KEY_ID'],
   secret_access_key: ENV['SECRET_ACCESS_KEY']
@@ -49,7 +42,8 @@ AWS.config(
 
 $s3 = AWS::S3.new
 
-cert_path = "certificate.pem"
+cert_path = production? ? ENV['CERT'] : "certificate.pem"
+
 PUSHCLIENT = Grocer.pusher(
   certificate: cert_path,            # required
   passphrase:  "",                       # optional
