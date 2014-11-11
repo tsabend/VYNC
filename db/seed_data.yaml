@@ -3,30 +3,37 @@
 - :id: 1
   :username: Joyce
   :device_id: 1
+  :devicetoken: 1
   :created_at: 2014-01-01 10:15:27.621657000 -05:00
 - :id: 2
   :username: Savannah
   :device_id: 2
+  :devicetoken: 2
   :created_at: 2014-01-02 10:15:27.621657000 -05:00
 - :id: 3
   :username: Jeffrey
   :device_id: 3
+  :devicetoken: 3
   :created_at: 2014-01-03 10:15:27.621657000 -05:00
 - :id: 4
   :username: Paula
   :device_id: 4
+  :devicetoken: 4
   :created_at: 2014-01-04 10:15:27.621657000 -05:00
 - :id: 5
   :username: Mary
   :device_id: 5
+  :devicetoken: 5
   :created_at: 2014-01-05 10:15:27.621657000 -05:00
 - :id: 6
   :username: Michelle
   :device_id: 6
+  :devicetoken: 6
   :created_at: 2014-01-06 10:15:27.621657000 -05:00
 - :id: 7
   :username: Dennis
   :device_id: 7
+  :devicetoken: 7
   :created_at: 2014-01-07 10:15:27.621657000 -05:00
 
 :video_messages:
@@ -132,6 +139,5 @@
 - :id: 10 # when mary sends on to joyce, paula is notified
   :user_id: 4 # paula
   :video_message_start_id: 1 # a video of joyce's cat
-
 
 

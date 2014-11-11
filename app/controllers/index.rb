@@ -13,61 +13,38 @@ get '/videomessages/:user_id/all' do
   User.find(params[:user_id]).all_messages.to_json
 end
 
-get '/videomessages/:user_id/new' do
-  content_type :json
-  User.find(params[:user_id]).new_chains.to_json
-end
-
-get '/videomessages/:user_id/open' do
-  content_type :json
-  User.find(params[:user_id]).open_chains.to_json
-end
-
-get '/videomessages/:user_id/finished' do
-  content_type :json
-  User.find(params[:user_id]).finished_chains.to_json
-end
-
-
-get '/users/:id' do
-  content_type :json
-  User.find(params[:id])
-  "Message Sent"
-end
-
 post '/upload' do
   puts "post!"
+  # the incoming file
   tempfile = request.params["file"][:tempfile]
-  # website formatting
-  # tempfile = params[:content][:file][:tempfile]
-  # video_id = Digest::SHA256.file(request.params["file"][:filename]).hexdigest
-  video_id = request.params["file"][:filename]
-  # VideoMessage.create(sender_id: 1, recipient_id: 2, reply_to_id: 0, video_id: video_id)
+  # A random hex to use as a filename, shasum was not working...
+  video_id = SecureRandom.hex
+  # Instantiate a new videomessage object
+  newVid = VideoMessage.new(sender_id: params["sender"],
+  recipient_id: params["recipient"], video_id: video_id)
+  # If there was a replyId sent with this request use that,
+  # otherwise assume it's the first video in a chain and set the reply_to_id
+  # to its own id
+  newVid.reply_to_id = params["replyToID"] || newVid.id
+  newVid.save!
+  # Upload to s3!
   $s3.buckets.first.objects.create(video_id, tempfile)
-  puts "#{video_id} was uploaded succesfully"
-  # redirect '/'
+  # Notify the recipient of their new message
+  notify(User.find(params["recipient"]).devicetoken, "You have a new video!")
   "Hey There Cowboy"
 end
 
 get '/download' do
-  "Do you see me?"
-  # send_file $s3.buckets.first.objects[params["download"]].read, :type => :mov
-  # notify("4ac511f6c9dececcdc5cacb1cb53adf992f1e4589949f44911d34e60e5d40486", "Welcome to Chainer!")
+  $s3.buckets.first.objects[params["download"]].read, :type => :mov
 end
-
+# This will be changed when we adjust at what point we ask for notification permissions
+post "/usernotification" do
+    User.create(deviceToken: params[:deviceToken])
+    notify(params[:deviceToken], "Welcome to chainer!")
+end
+# Man, this is really backwards right now...
 post "/newuser" do
   "in new user"
-  # byebug
-  User.create(device_id: params[:deviceToken])
-  notify(params[:deviceToken], "Welcome to chainer!")
-  # notify("4ac511f6c9dececcdc5cacb1cb53adf992f1e4589949f44911d34e60e5d40486", "Welcome to Chainer!")
+  currentUser = User.find_by(devicetoken: params[:devicetoken])
+  currentUser.update(device_id: params[:device_id], username: params[:username])
 end
-
-get "/notetest/:deviceToken" do
-  "in note test - to be deleted from production"
-  @params = params
-  p params[:deviceToken]
-  notify(params[:deviceToken], "In note test route")
-  erb :notes
-end
-

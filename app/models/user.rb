@@ -10,23 +10,4 @@ class User < ActiveRecord::Base
   def all_messages
     (received_messages + sent_messages).map {|vm| vm.show_chain}.flatten.uniq
   end
-
-  def new_chains
-    all_messages.
-    select {|vm| vm.is_last_link? && !vm.is_finished?}.
-    map {|vm| vm.show_chain}
-  end
-
-  def open_chains
-    all_messages.
-    select {|vm| !vm.is_last_link? && !vm.is_finished?}.
-    map {|vm| vm.show_chain}
-  end
-
-  def finished_chains
-    all_messages.
-    select {|vm| vm.is_finished?}.
-    map {|vm| vm.show_chain}
-  end
-
 end
