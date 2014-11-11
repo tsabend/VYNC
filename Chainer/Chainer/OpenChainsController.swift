@@ -22,8 +22,6 @@ class OpenChainsController: UIViewController, UITableViewDelegate, UITableViewDa
     }
     
     override func viewWillAppear(animated: Bool) {
-        
-        
     }
     
     override func didReceiveMemoryWarning() {
