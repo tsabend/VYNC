@@ -39,8 +39,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         var settings: UIUserNotificationSettings = UIUserNotificationSettings( forTypes: types, categories: nil )
         application.registerUserNotificationSettings( settings )
         application.registerForRemoteNotifications()
-        println("main fire")
-
         return true
     }
 
