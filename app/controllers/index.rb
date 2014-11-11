@@ -26,8 +26,8 @@ post '/upload' do
   # If there was a replyId sent with this request use that,
   # otherwise assume it's the first video in a chain and set the reply_to_id
   # to its own id
-  newVid.reply_to_id = params["replyToID"] || newVid.id
   newVid.save!
+  newVid.reply_to_id = params["replyToID"] || newVid.id
   # Upload to s3!
   $s3.buckets.first.objects.create(video_id, tempfile)
   # Notify the recipient of their new message

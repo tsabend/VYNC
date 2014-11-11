@@ -8,6 +8,6 @@ class User < ActiveRecord::Base
   # validates :device_id, uniqueness: true
 
   def all_messages
-    (received_messages + sent_messages).map {|vm| vm.show_chain}.flatten.uniq
+    (received_messages + sent_messages).map {|vm| vm.chain}.flatten.uniq
   end
 end

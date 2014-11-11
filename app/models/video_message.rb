@@ -15,7 +15,7 @@ class VideoMessage < ActiveRecord::Base
     self == show_chain.last
   end
 
-  def show_chain
+  def chain
     if is_first_message?
       VideoMessage.where(reply_to_id: id).unshift(self)
     else
