@@ -22,3 +22,15 @@ public func avPlayerControllerFor(vidUrl: String) -> AVPlayerViewController {
     
     return avPlayerVC
 }
+
+public func playVidUrlOnViewController(vidUrl: String, vc: UIViewController) {
+    
+    let avPlayerVC = avPlayerControllerFor(vidUrl)
+    
+    // show player view controller
+    vc.presentViewController(avPlayerVC, animated: true, completion: {
+        // start playing
+        avPlayerVC.player.play()
+    })
+    
+}
