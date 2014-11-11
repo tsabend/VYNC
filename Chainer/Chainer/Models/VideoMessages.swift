@@ -104,27 +104,27 @@ class VideoMessageManager {
         var data : NSData?
         var request = HTTPTask()
         request.GET("http://chainer.herokuapp.com/videomessages/\(device_id)/all", parameters: nil,
-        success: {(response: HTTPResponse) in
-            if response.responseObject != nil {
-                data = response.responseObject as? NSData
-                if let data = response.responseObject as? NSData {
-                    let str = NSString(data: data, encoding: NSUTF8StringEncoding)
-                    println("response from all vms: \(str)") //prints the HTML of the page
-                }
-                var newMessages = [VideoMessage]()
-                JSONDecoder(data!).arrayOf(&newMessages)
-                for message in newMessages {
-                    // add to our total list of messages
-                    self.videos.append(message)
-                    // add to our dictionary of chains
-                    var chain = self.chainsById[message.replyToID!]
-                    if chain == nil {
-                        self.chainsById[message.replyToID!] = Chain()
-                        chain = self.chainsById[message.replyToID!]
+            success: {(response: HTTPResponse) in
+                if response.responseObject != nil {
+                    data = response.responseObject as? NSData
+                    if let data = response.responseObject as? NSData {
+                        let str = NSString(data: data, encoding: NSUTF8StringEncoding)
+                        println("response from all vms: \(str)") //prints the HTML of the page
                     }
-                    chain!.videos.append(message)
+                    var newMessages = [VideoMessage]()
+                    JSONDecoder(data!).arrayOf(&newMessages)
+                    for message in newMessages {
+                        // add to our total list of messages
+                        self.videos.append(message)
+                        // add to our dictionary of chains
+                        var chain = self.chainsById[message.replyToID!]
+                        if chain == nil {
+                            self.chainsById[message.replyToID!] = Chain()
+                            chain = self.chainsById[message.replyToID!]
+                        }
+                        chain!.videos.append(message)
+                    }
                 }
-            }
         })
     }
     
