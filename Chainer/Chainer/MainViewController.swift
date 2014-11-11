@@ -36,15 +36,17 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell: UITableViewCell = UITableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: "test")
         
-        let array = [Chain](videoMessageMgr.showChains().values)
-
-        cell.textLabel.text = "First Chain's Video Id: \(array[indexPath.row].videos.first!.messageID)"
-        cell.detailTextLabel?.text = "Count: \(array[indexPath.row].videos.count)"
+        let array = videoMessageMgr.videos
+        println(array)
+        
+        cell.textLabel.text = "Id: \(array[indexPath.row].messageID)"
+        cell.detailTextLabel?.text = "Url: \(array[indexPath.row].videoID)"
+        
         return cell
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return videoMessageMgr.showChains().count
+        return videoMessageMgr.videos.count
     }
     
     func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {

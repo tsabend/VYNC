@@ -36,6 +36,7 @@ struct VideoMessage : JSONJoy {
 }
 
 struct Chain : JSONJoy {
+    
     var videos : [VideoMessage] = []
     
     init() {
@@ -48,6 +49,10 @@ struct Chain : JSONJoy {
             }
         }
     }
+//    
+//    func ==(lhs: Chain, rhs: Chain) -> Bool {
+//        return lhs.videos.first.replyToID == rhs.videos.first.replyToID
+//    }
 }
 
 // This hard coding is to allow for more simple refactoring later.
@@ -74,28 +79,31 @@ class VideoMessageManager {
 //    }
     // iterate through all vms backwards. If vm.chain is already in my list of chains do nothing, if it isn't add it to my list of chains.
 
-    func showChains() -> [Int : Chain]{
-        // Reverse the videos to get most recent first. (could also sort by created_at...may be a better solution...)
-        let allMessages = reverse(self.videos)
-        // list of chains
-        var readyChains = [Int : Chain]()
-        
-        // iterate through videos
-        for video in allMessages {
-            if readyChains[video.replyToID!] == nil {
-                readyChains[video.replyToID!] = chainsById[video.replyToID!]
-            }
-        }
-        println(readyChains)
-        return readyChains
-    }
+//    func showChains() -> [Chain]{
+//        // Reverse the videos to get most recent first. (could also sort by created_at...may be a better solution...)
+//        let allMessages = reverse(self.videos)
+//        // list of chains
+//        var readyChains = [Chain]()
+//        
+//        // iterate through videos
+//        for video in allMessages {
+//            println(video.replyToID!)
+//            if contains(readyChains, chainsById[video.replyToID]) {
+//                println("\(video.messageID!)'s chain is already there")
+//            } else {
+//                readyChains.append(chainsById[video.replyToID!])
+//                println("\(chainsById[video.messageID!])'s chain was added")
+//            }
+//        }
+//        return readyChains
+//    }
     
     
 
     func updateChains() {
         var data : NSData?
         var request = HTTPTask()
-        request.GET("http://chainer.herokuapp.com/videos/\(device_id)/all", parameters: nil,
+        request.GET("http://chainer.herokuapp.com/videomessages/\(device_id)/all", parameters: nil,
         success: {(response: HTTPResponse) in
             if response.responseObject != nil {
                 data = response.responseObject as? NSData
