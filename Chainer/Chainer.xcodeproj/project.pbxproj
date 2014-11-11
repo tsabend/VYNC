@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0962E45E1A119EC400661226 /* UserLoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0962E45D1A119EC400661226 /* UserLoginController.swift */; };
 		097ECD291A1059AE00D1D2D1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 097ECD281A1059AE00D1D2D1 /* AppDelegate.swift */; };
 		097ECD2C1A1059AE00D1D2D1 /* Chainer.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 097ECD2A1A1059AE00D1D2D1 /* Chainer.xcdatamodeld */; };
 		097ECD2E1A1059AE00D1D2D1 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 097ECD2D1A1059AE00D1D2D1 /* MainViewController.swift */; };
@@ -23,9 +24,6 @@
 		097ECD5A1A105AD700D1D2D1 /* HTTPUpload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 097ECD551A105AD700D1D2D1 /* HTTPUpload.swift */; };
 		097ECD5B1A105AD700D1D2D1 /* JsonJoy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 097ECD561A105AD700D1D2D1 /* JsonJoy.swift */; };
 		097ECD631A105AFA00D1D2D1 /* ContactsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 097ECD5E1A105AFA00D1D2D1 /* ContactsViewController.swift */; };
-		097ECD641A105AFA00D1D2D1 /* FinishedChainsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 097ECD5F1A105AFA00D1D2D1 /* FinishedChainsController.swift */; };
-		097ECD651A105AFA00D1D2D1 /* NewChainsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 097ECD601A105AFA00D1D2D1 /* NewChainsController.swift */; };
-		097ECD661A105AFA00D1D2D1 /* OpenChainsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 097ECD611A105AFA00D1D2D1 /* OpenChainsController.swift */; };
 		09D00EB31A114F4A006827B4 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09D00EB21A114F4A006827B4 /* MediaPlayer.framework */; };
 		09D00EB51A114F5D006827B4 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09D00EB41A114F5D006827B4 /* CoreMedia.framework */; };
 		C42AE58B1A111ECB0009C213 /* AVKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C42AE58A1A111ECB0009C213 /* AVKit.framework */; };
@@ -42,6 +40,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0962E45D1A119EC400661226 /* UserLoginController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserLoginController.swift; sourceTree = "<group>"; };
 		097ECD231A1059AE00D1D2D1 /* Chainer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Chainer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		097ECD271A1059AE00D1D2D1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		097ECD281A1059AE00D1D2D1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -62,9 +61,6 @@
 		097ECD551A105AD700D1D2D1 /* HTTPUpload.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPUpload.swift; sourceTree = "<group>"; };
 		097ECD561A105AD700D1D2D1 /* JsonJoy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JsonJoy.swift; sourceTree = "<group>"; };
 		097ECD5E1A105AFA00D1D2D1 /* ContactsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactsViewController.swift; sourceTree = "<group>"; };
-		097ECD5F1A105AFA00D1D2D1 /* FinishedChainsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FinishedChainsController.swift; sourceTree = "<group>"; };
-		097ECD601A105AFA00D1D2D1 /* NewChainsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewChainsController.swift; sourceTree = "<group>"; };
-		097ECD611A105AFA00D1D2D1 /* OpenChainsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OpenChainsController.swift; sourceTree = "<group>"; };
 		09D00EB21A114F4A006827B4 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		09D00EB41A114F5D006827B4 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
 		C42AE58A1A111ECB0009C213 /* AVKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVKit.framework; path = System/Library/Frameworks/AVKit.framework; sourceTree = SDKROOT; };
@@ -118,6 +114,7 @@
 				097ECD671A105B0B00D1D2D1 /* ViewControllers */,
 				097ECD511A105A2600D1D2D1 /* Models */,
 				097ECD281A1059AE00D1D2D1 /* AppDelegate.swift */,
+				0962E45D1A119EC400661226 /* UserLoginController.swift */,
 				097ECD2F1A1059AE00D1D2D1 /* Main.storyboard */,
 				097ECD5C1A105ADE00D1D2D1 /* HelperLibraries */,
 				097ECD321A1059AE00D1D2D1 /* Images.xcassets */,
@@ -180,9 +177,6 @@
 			children = (
 				097ECD2D1A1059AE00D1D2D1 /* MainViewController.swift */,
 				097ECD5E1A105AFA00D1D2D1 /* ContactsViewController.swift */,
-				097ECD5F1A105AFA00D1D2D1 /* FinishedChainsController.swift */,
-				097ECD601A105AFA00D1D2D1 /* NewChainsController.swift */,
-				097ECD611A105AFA00D1D2D1 /* OpenChainsController.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -236,7 +230,7 @@
 				TargetAttributes = {
 					097ECD221A1059AE00D1D2D1 = {
 						CreatedOnToolsVersion = 6.1;
-						DevelopmentTeam = 7VU28Z8W3T;
+						DevelopmentTeam = 3K93EXS2KS;
 					};
 					097ECD3A1A1059AE00D1D2D1 = {
 						CreatedOnToolsVersion = 6.1;
@@ -289,12 +283,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0962E45E1A119EC400661226 /* UserLoginController.swift in Sources */,
 				097ECD581A105AD700D1D2D1 /* HTTPResponseSerializer.swift in Sources */,
-				097ECD661A105AFA00D1D2D1 /* OpenChainsController.swift in Sources */,
 				097ECD631A105AFA00D1D2D1 /* ContactsViewController.swift in Sources */,
-				097ECD651A105AFA00D1D2D1 /* NewChainsController.swift in Sources */,
 				097ECD2E1A1059AE00D1D2D1 /* MainViewController.swift in Sources */,
-				097ECD641A105AFA00D1D2D1 /* FinishedChainsController.swift in Sources */,
 				097ECD5B1A105AD700D1D2D1 /* JsonJoy.swift in Sources */,
 				097ECD2C1A1059AE00D1D2D1 /* Chainer.xcdatamodeld in Sources */,
 				097ECD591A105AD700D1D2D1 /* HTTPTask.swift in Sources */,
