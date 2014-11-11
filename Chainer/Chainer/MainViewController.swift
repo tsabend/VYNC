@@ -80,6 +80,11 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         self.presentViewController(vc, animated:false, completion:{})
     }
     
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        let videoURL = NSURL(string: PathToFile)
+        println("This should work")
+    }
+    
     
     
 }
