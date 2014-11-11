@@ -7,10 +7,12 @@
 //
 
 import Foundation
+import CoreData
+
+let videoMessageMgr = VideoMessageManager()
+let device_id = 1
 
 func onStartup() {
-
-
     userMgr.getUsers()
     videoMessageMgr.getInitialValues()
 }
