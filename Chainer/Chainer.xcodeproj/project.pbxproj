@@ -17,7 +17,7 @@
 		097ECD421A1059AE00D1D2D1 /* ChainerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 097ECD411A1059AE00D1D2D1 /* ChainerTests.swift */; };
 		097ECD4E1A105A1A00D1D2D1 /* OnStartUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 097ECD4B1A105A1A00D1D2D1 /* OnStartUp.swift */; };
 		097ECD4F1A105A1A00D1D2D1 /* Users.swift in Sources */ = {isa = PBXBuildFile; fileRef = 097ECD4C1A105A1A00D1D2D1 /* Users.swift */; };
-		097ECD501A105A1A00D1D2D1 /* VideoMessages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 097ECD4D1A105A1A00D1D2D1 /* VideoMessages.swift */; };
+		097ECD501A105A1A00D1D2D1 /* Videos.swift in Sources */ = {isa = PBXBuildFile; fileRef = 097ECD4D1A105A1A00D1D2D1 /* Videos.swift */; };
 		097ECD571A105AD700D1D2D1 /* HTTPRequestSerializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 097ECD521A105AD700D1D2D1 /* HTTPRequestSerializer.swift */; };
 		097ECD581A105AD700D1D2D1 /* HTTPResponseSerializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 097ECD531A105AD700D1D2D1 /* HTTPResponseSerializer.swift */; };
 		097ECD591A105AD700D1D2D1 /* HTTPTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 097ECD541A105AD700D1D2D1 /* HTTPTask.swift */; };
@@ -55,7 +55,7 @@
 		097ECD411A1059AE00D1D2D1 /* ChainerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChainerTests.swift; sourceTree = "<group>"; };
 		097ECD4B1A105A1A00D1D2D1 /* OnStartUp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OnStartUp.swift; path = Models/OnStartUp.swift; sourceTree = "<group>"; };
 		097ECD4C1A105A1A00D1D2D1 /* Users.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Users.swift; path = Models/Users.swift; sourceTree = "<group>"; };
-		097ECD4D1A105A1A00D1D2D1 /* VideoMessages.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = VideoMessages.swift; path = Models/VideoMessages.swift; sourceTree = "<group>"; };
+		097ECD4D1A105A1A00D1D2D1 /* Videos.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Videos.swift; path = Models/Videos.swift; sourceTree = "<group>"; };
 		097ECD521A105AD700D1D2D1 /* HTTPRequestSerializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPRequestSerializer.swift; sourceTree = "<group>"; };
 		097ECD531A105AD700D1D2D1 /* HTTPResponseSerializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPResponseSerializer.swift; sourceTree = "<group>"; };
 		097ECD541A105AD700D1D2D1 /* HTTPTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPTask.swift; sourceTree = "<group>"; };
@@ -160,7 +160,7 @@
 				099F7C861A1273F500604D63 /* VideoMessage.swift */,
 				097ECD4B1A105A1A00D1D2D1 /* OnStartUp.swift */,
 				097ECD4C1A105A1A00D1D2D1 /* Users.swift */,
-				097ECD4D1A105A1A00D1D2D1 /* VideoMessages.swift */,
+				097ECD4D1A105A1A00D1D2D1 /* Videos.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -295,7 +295,7 @@
 				097ECD2C1A1059AE00D1D2D1 /* Chainer.xcdatamodeld in Sources */,
 				097ECD591A105AD700D1D2D1 /* HTTPTask.swift in Sources */,
 				097ECD4F1A105A1A00D1D2D1 /* Users.swift in Sources */,
-				097ECD501A105A1A00D1D2D1 /* VideoMessages.swift in Sources */,
+				097ECD501A105A1A00D1D2D1 /* Videos.swift in Sources */,
 				097ECD5A1A105AD700D1D2D1 /* HTTPUpload.swift in Sources */,
 				097ECD571A105AD700D1D2D1 /* HTTPRequestSerializer.swift in Sources */,
 				099F7C871A1273F500604D63 /* VideoMessage.swift in Sources */,

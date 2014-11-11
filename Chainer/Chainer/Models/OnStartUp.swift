@@ -9,7 +9,7 @@
 import Foundation
 import CoreData
 
-let videoMessageMgr = VideoMessageManager()
+let videoMessageMgr = Videos()
 let device_id = 1
 
 func onStartup() {
