@@ -7,7 +7,6 @@
         <!--New Chains-->
         <scene sceneID="CMy-cc-TwY">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="UDi-ZW-433" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="m6T-Yp-eQo" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="New Chains" id="rQa-JR-eyX"/>
                     <toolbarItems/>
@@ -20,8 +19,9 @@
                         <segue destination="d19-Z0-Qnq" kind="relationship" relationship="rootViewController" id="N9L-xy-aKE"/>
                     </connections>
                 </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="UDi-ZW-433" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="402.5" y="-829.5"/>
+            <point key="canvasLocation" x="-334" y="-347"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="4Q3-rA-yZ2">
@@ -65,12 +65,11 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="u8o-le-TIr" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="820" y="-830"/>
+            <point key="canvasLocation" x="916" y="-347"/>
         </scene>
         <!--Contacts View Controller-->
         <scene sceneID="5iJ-DW-Oex">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="yX9-lP-gpv" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController storyboardIdentifier="Contacts" useStoryboardIdentifierAsRestorationIdentifier="YES" id="KXR-rk-bvN" customClass="ContactsViewController" customModule="Chainer" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="3pr-e1-kiG">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
@@ -99,8 +98,70 @@
                         <outlet property="tblUsers" destination="Bky-Oe-Ont" id="Xgk-vr-SO1"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="yX9-lP-gpv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1247" y="-839"/>
+            <point key="canvasLocation" x="1355" y="-347"/>
+        </scene>
+        <!--userLogin-->
+        <scene sceneID="9iM-FY-NpQ">
+            <objects>
+                <viewController title="userLogin" id="g35-FI-sWG" customClass="UserLoginController" customModule="Chainer" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="WsK-I3-6um">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome to Chainer!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="9Hp-Fe-ZpC">
+                                <rect key="frame" x="20" y="45" width="288" height="38"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Use the form below to sign up " textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="WpS-Dx-p68">
+                                <rect key="frame" x="16" y="80" width="288" height="67"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" minimumFontSize="17" id="4Vd-mg-g4D">
+                                <rect key="frame" x="77" y="168" width="167" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="taq-Zh-AGb">
+                                <rect key="frame" x="127" y="243" width="55" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Sign Up">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="signUp:" destination="g35-FI-sWG" eventType="touchUpInside" id="Ior-95-QTd"/>
+                                </connections>
+                            </button>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Confirm Password" minimumFontSize="17" id="qLI-Bq-OYC">
+                                <rect key="frame" x="77" y="201" width="167" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Username" minimumFontSize="17" id="dZq-au-pWP">
+                                <rect key="frame" x="77" y="134" width="167" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
+                            </textField>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <connections>
+                        <outlet property="usernameTxt" destination="dZq-au-pWP" id="Cc2-eN-FAF"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="QLg-QU-cde" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="258" y="-719"/>
         </scene>
     </scenes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

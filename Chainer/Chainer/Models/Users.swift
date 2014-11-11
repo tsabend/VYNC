@@ -41,3 +41,11 @@ class UserManager {
 }
 
 let userMgr = UserManager()
+
+class globalUser {
+    var deviceToken : String? = ""
+    init(){
+    }
+}
+
+let currentUser = globalUser()

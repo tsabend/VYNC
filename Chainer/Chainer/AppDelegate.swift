@@ -14,16 +14,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     
     func application( application: UIApplication!, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData! ) {
-//        println(deviceToken)
         var characterSet: NSCharacterSet = NSCharacterSet( charactersInString: "<>" )
         var deviceTokenString: String = ( deviceToken.description as NSString )
             .stringByTrimmingCharactersInSet( characterSet )
             .stringByReplacingOccurrencesOfString( " ", withString: "" ) as String
         println(deviceTokenString)
-        println("notification fire")
+        currentUser.deviceToken = deviceTokenString
+    
         var request = HTTPTask()
-        let params: Dictionary<String,AnyObject!> = ["username": "usernametest", "password": "passwordtest", "deviceToken" : deviceTokenString]
-        request.POST("http://chainer.herokuapp/newuser", parameters: params, success: {(response: HTTPResponse) in
+        let params: Dictionary<String,AnyObject!> = ["deviceToken" : deviceTokenString]
+        request.POST("http://chainer.herokuapp.com/usernotification", parameters: params, success: {(response: HTTPResponse) in
             if response.responseObject != nil {
                 print("success")
             }
@@ -66,7 +66,5 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillTerminate(application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
-
-
 }
 
