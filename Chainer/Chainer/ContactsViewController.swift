@@ -48,7 +48,7 @@ class ContactsViewController: UIViewController, UITableViewDelegate, UITableView
         }
     }
     
-    // Print hello world when clicked
+    // Sending a video message to a user
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let videoURL = NSURL(string: PathToFile)
         let userID = userMgr.users[indexPath.item].userID as Int!
