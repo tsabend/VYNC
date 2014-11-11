@@ -28,6 +28,7 @@ post '/upload' do
   # to its own id
   newVid.save!
   newVid.reply_to_id = params["replyToID"] || newVid.id
+  newVid.save!
   # Upload to s3!
   $s3.buckets.first.objects.create(video_id, tempfile)
   # Notify the recipient of their new message
