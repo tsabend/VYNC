@@ -14,5 +14,5 @@ let device_id = 1
 
 func onStartup() {
     userMgr.getUsers()
-    videoMessageMgr.getInitialValues()
+    videoMessageMgr.update()
 }

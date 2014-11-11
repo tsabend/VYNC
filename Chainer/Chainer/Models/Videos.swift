@@ -21,7 +21,7 @@ class Videos {
     
     var mostRecent : VideoMessage? {
         get {
-            var req = NSFetchRequest(entityName: "VideoMessages")
+            var req = NSFetchRequest(entityName: "VideoMessage")
             req.sortDescriptors = [Videos.sortBy("messageID", ascending: false)]
             req.fetchLimit = 1
             var error: NSError?
@@ -44,7 +44,7 @@ class Videos {
         var data : NSData?
         var request = HTTPTask()
         request.GET("http://chainer.herokuapp.com/videomessages/\(device_id)/all",
-            parameters: ["since" : self.mostRecent.messageID],
+            parameters: ["since": 1], //["since" : self.mostRecent!.messageID],
             success: { (response: HTTPResponse) in
                 if response.responseObject != nil {
                     if let data = response.responseObject as? NSData {
