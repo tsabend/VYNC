@@ -32,19 +32,12 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     // Returning to view. Loops through users and reloads them.
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        
-        
-        
-        
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell: UITableViewCell = UITableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: "test")
-    
-
         cell.textLabel.text = "Chain in reply to: \(videoMessageMgr.asChains()[indexPath.row].first!.replyToID)"
         cell.detailTextLabel?.text = "Length: \(videoMessageMgr.asChains()[indexPath.row].count)"
-        
         return cell
     }
     
@@ -53,7 +46,6 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     }
     
     func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        
         if editingStyle == UITableViewCellEditingStyle.Delete {
             println("delete")
         }
