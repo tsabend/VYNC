@@ -29,11 +29,11 @@ chain_updated_notifications.each do |attrs|
   ChainUpdatedNotification.new(attrs).save(:validate => false)
 end
 
-ActiveRecord.connection.execute "ALTER SEQUENCE users_id_seq RESTART WITH 100"
-ActiveRecord.connection.execute "ALTER SEQUENCE video_messages_id_seq RESTART WITH 100"
-ActiveRecord.connection.execute "ALTER SEQUENCE finished_chains_id_seq RESTART WITH 100"
-ActiveRecord.connection.execute "ALTER SEQUENCE received_notifications_id_seq RESTART WITH 100"
-ActiveRecord.connection.execute "ALTER SEQUENCE chain_updated_notifications_id_seq RESTART WITH 100"
+ActiveRecord::Base.connection.execute "ALTER SEQUENCE users_id_seq RESTART WITH 100"
+ActiveRecord::Base.connection.execute "ALTER SEQUENCE video_messages_id_seq RESTART WITH 100"
+ActiveRecord::Base.connection.execute "ALTER SEQUENCE finished_chains_id_seq RESTART WITH 100"
+ActiveRecord::Base.connection.execute "ALTER SEQUENCE received_notifications_id_seq RESTART WITH 100"
+ActiveRecord::Base.connection.execute "ALTER SEQUENCE chain_updated_notifications_id_seq RESTART WITH 100"
 
 
 
