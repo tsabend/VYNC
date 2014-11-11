@@ -107,6 +107,10 @@ class VideoMessageManager {
         success: {(response: HTTPResponse) in
             if response.responseObject != nil {
                 data = response.responseObject as? NSData
+                if let data = response.responseObject as? NSData {
+                    let str = NSString(data: data, encoding: NSUTF8StringEncoding)
+                    println("response from all vms: \(str)") //prints the HTML of the page
+                }
                 var newMessages = [VideoMessage]()
                 JSONDecoder(data!).arrayOf(&newMessages)
                 for message in newMessages {

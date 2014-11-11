@@ -33,6 +33,7 @@ class UserManager {
                 let data = response.responseObject as NSData
                 let str = NSString(data: data, encoding: NSUTF8StringEncoding)
                 JSONDecoder(data).arrayOf(&self.users)
+                println("get all users safely returned: \(str)")
             }
         },failure: {(error: NSError, response: HTTPResponse?) in //failure
             println("error: \(error)")
