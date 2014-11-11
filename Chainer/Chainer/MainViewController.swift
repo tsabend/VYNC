@@ -36,10 +36,10 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell: UITableViewCell = UITableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: "test")
         
-        let array = videoMessageMgr.chains
+        let array = [Chain](videoMessageMgr.chainsById.values)
 
-        cell.textLabel.text = "First Chain's Video Id: \(array[indexPath.row])"
-        cell.detailTextLabel?.text = "Count: \(array[indexPath.row].videoMessages.count)"
+        cell.textLabel.text = "First Chain's Video Id: \(array[indexPath.row].videos.first!.messageID)"
+        cell.detailTextLabel?.text = "Count: \(array[indexPath.row].videos.count)"
         return cell
     }
     

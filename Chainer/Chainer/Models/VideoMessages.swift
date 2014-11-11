@@ -1,4 +1,7 @@
-//
+// iterate through all vms backwards. If vm.chain is already in my list of chains do nothing, if it isn't add it to my list of chains.
+
+
+
 //  VideosMessages.swift
 //  viewAllUsers
 //
@@ -16,29 +19,36 @@ struct VideoMessage : JSONJoy {
     var recipientID: Int?
     var videoID: String?
     var createdAt: String?
+    var chain : Chain?
+    
     init() {
     }
+    
     init(_ decoder: JSONDecoder) {
         messageID = decoder["id"].integer as Int!
-        replyToID = decoder["reply_to_id"].integer
-        senderID = decoder["sender_id"].integer
-        recipientID = decoder["recipient_id"].integer
-        videoID = decoder["video_id"].string
-        createdAt = decoder["created_at"].string
+        replyToID = decoder["reply_to_id"].integer as Int!
+        senderID = decoder["sender_id"].integer as Int!
+        recipientID = decoder["recipient_id"].integer as Int!
+        videoID = decoder["video_id"].string as String!
+        createdAt = decoder["created_at"].string as String!
     }
+    
+//    set(chain) {
+//        self.chain
+//    }
+    
 }
 
 struct Chain : JSONJoy {
-    var videoMessages : [VideoMessage] = []
-//    var status : String?
+    var videos : [VideoMessage] = []
     
     init() {
     }
     init(_ decoder: JSONDecoder) {
         if let vms = decoder.array {
-            videoMessages = [VideoMessage]()
+            videos = [VideoMessage]()
             for vmDecoder in vms {
-                videoMessages.append(VideoMessage(vmDecoder))
+                videos.append(VideoMessage(vmDecoder))
             }
         }
     }
@@ -48,66 +58,51 @@ struct Chain : JSONJoy {
 let device_id = 1
 
 class VideoMessageManager {
-    var openChains = [Chain]()
-    var newChains = [Chain]()
-    var finishedChains = [Chain]()
-    var chains = [Chain]()
+
+    var videos = [VideoMessage]()
+    
+    var chainsById = [ Int : Chain ]()
     
     func getInitialValues() {
-//        getNewChains()
-//        getOpenChains()
-//        getFinishedChains()
+
         updateChains()
     }
+    
+//    if recipientID is your id and the message is the last message in the chain it's your turn to reply.
+//    func newChains() {
+//        for chain in self.chainsById.values {
+////            if chain.videos.last.recipientID == device_id {
+//            
+//            }
+//        }
+//    }
 
     func updateChains() {
         var data : NSData?
         var request = HTTPTask()
-        request.GET("http://chainer.herokuapp.com/videomessages/\(device_id)/all", parameters: nil,
+        request.GET("http://chainer.herokuapp.com/videos/\(device_id)/all", parameters: nil,
             success: {(response: HTTPResponse) in
                 if response.responseObject != nil {
                     data = response.responseObject as? NSData
-                    JSONDecoder(data!).arrayOf(&self.chains)
+                    var newMessages = [VideoMessage]()
+                    JSONDecoder(data!).arrayOf(&newMessages)
+                    
+                    for message in newMessages {
+                        // add to our total list of messages
+                        self.videos.append(message)
+                        // add to our dictionary of chains
+                        var chain = self.chainsById[message.replyToID!]
+                        if chain == nil {
+                            self.chainsById[message.replyToID!] = Chain()
+                            chain = self.chainsById[message.replyToID!]
+                        }
+                        chain!.videos.append(message)
+//                        message.chain = chain
+                    }
                 }
         })
     }
     
-    
-    func getNewChains() {
-        var data : NSData?
-        var request = HTTPTask()
-        request.GET("http://chainer.herokuapp.com/videomessages/\(device_id)/new", parameters: nil,
-            success: {(response: HTTPResponse) in
-            if response.responseObject != nil {
-                data = response.responseObject as? NSData
-                JSONDecoder(data!).arrayOf(&self.newChains)
-            }
-        })
-    }
-
-    func getOpenChains() {
-        var data : NSData?
-        var request = HTTPTask()
-        request.GET("http://chainer.herokuapp.com/videomessages/\(device_id)/open", parameters: nil,
-            success: {(response: HTTPResponse) in
-                if response.responseObject != nil {
-                    data = response.responseObject as? NSData
-                    JSONDecoder(data!).arrayOf(&self.openChains)
-                }
-        })
-    }
-    
-    func getFinishedChains() {
-        var data : NSData?
-        var request = HTTPTask()
-        request.GET("http://chainer.herokuapp.com/videomessages/\(device_id)/finished", parameters: nil,
-            success: {(response: HTTPResponse) in
-                if response.responseObject != nil {
-                    data = response.responseObject as? NSData
-                    JSONDecoder(data!).arrayOf(&self.finishedChains)
-                }
-        })
-    }
 
 }
 

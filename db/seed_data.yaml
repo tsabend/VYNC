@@ -31,7 +31,7 @@
 
 :video_messages:
 - :id: 1
-  :reply_to_id: nil # Initial message in chain
+  :reply_to_id: 1 # Initial message in chain
   :sender_id: 1 # joyce
   :recipient_id: 2 # savannah
   :video_id: aaae3c85572dc9ad7cb77c2a638e3be24cc1b5bea9fdbb0b0299c9668475c534 # A video of joyce's cat
@@ -61,7 +61,7 @@
   :video_id: eee3c85572dc9ad7cb77c2a638e3be24cc1b5bea9fdbb0b0299c9668475c534 # A video of mary's mouse
   :created_at: 2014-02-01 12:00:00.000000000 -05:00
 - :id: 6
-  :reply_to_id: nil # Initial message in chain
+  :reply_to_id: 6 # Initial message in chain
   :sender_id: 6 # michelle
   :recipient_id: 7 # dennis
   :video_id: fffe3c85572dc9ad7cb77c2a638e3be24cc1b5bea9fdbb0b0299c9668475c534 # A video of michelle reciting terrible poetry
