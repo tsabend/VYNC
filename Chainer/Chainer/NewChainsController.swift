@@ -10,7 +10,7 @@ import UIKit
 
 class NewChainsController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
-    @IBOutlet var tblVideoMessages: UITableView!
+    @IBOutlet var tblvideos: UITableView!
     
     
     override func viewDidLoad() {
@@ -19,7 +19,7 @@ class NewChainsController: UIViewController, UITableViewDelegate, UITableViewDat
     }
     
     override func viewDidAppear(animated: Bool) {
-        tblVideoMessages.reloadData()
+        tblvideos.reloadData()
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -35,7 +35,7 @@ class NewChainsController: UIViewController, UITableViewDelegate, UITableViewDat
     // UITableViewDataSource requirements
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell: UITableViewCell = UITableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: "test")
-        cell.textLabel.text = "Chain Length: \(videoMessageMgr.newChains[indexPath.row].videoMessages.count)"
+        cell.textLabel.text = "Chain Length: \(videoMessageMgr.newChains[indexPath.row].videos.count)"
         cell.detailTextLabel?.text = "VideoChain"
         return cell
     }

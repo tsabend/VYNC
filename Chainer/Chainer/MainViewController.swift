@@ -38,8 +38,8 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         
         let array = [Chain](videoMessageMgr.chainsById.values)
 
-        cell.textLabel.text = "First Chain's Video Id: \(array[indexPath.row].videoMessages.first!.messageID)"
-        cell.detailTextLabel?.text = "Count: \(array[indexPath.row].videoMessages.count)"
+        cell.textLabel.text = "First Chain's Video Id: \(array[indexPath.row].videos.first!.messageID)"
+        cell.detailTextLabel?.text = "Count: \(array[indexPath.row].videos.count)"
         return cell
     }
     

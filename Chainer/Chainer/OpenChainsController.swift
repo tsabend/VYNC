@@ -9,7 +9,7 @@ import UIKit
 
 class OpenChainsController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
-    @IBOutlet var tblVideoMessages: UITableView!
+    @IBOutlet var tblvideos: UITableView!
     
     
     override func viewDidLoad() {
@@ -18,7 +18,7 @@ class OpenChainsController: UIViewController, UITableViewDelegate, UITableViewDa
     }
     
     override func viewDidAppear(animated: Bool) {
-        tblVideoMessages.reloadData()
+        tblvideos.reloadData()
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -34,7 +34,7 @@ class OpenChainsController: UIViewController, UITableViewDelegate, UITableViewDa
     // UITableViewDataSource requirements
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell: UITableViewCell = UITableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: "test")
-        cell.textLabel.text = "Video Id: \(videoMessageMgr.openChains[indexPath.row].videoMessages.count)"
+        cell.textLabel.text = "Video Id: \(videoMessageMgr.openChains[indexPath.row].videos.count)"
         cell.detailTextLabel?.text = "VideoChain"
         return cell
     }
