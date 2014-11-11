@@ -20,17 +20,16 @@ struct VideoMessage : JSONJoy {
     }
     init(_ decoder: JSONDecoder) {
         messageID = decoder["id"].integer as Int!
-        replyToID = decoder["reply_to_id"].integer
-        senderID = decoder["sender_id"].integer
-        recipientID = decoder["recipient_id"].integer
-        videoID = decoder["video_id"].string
-        createdAt = decoder["created_at"].string
+        replyToID = decoder["reply_to_id"].integer as Int!
+        senderID = decoder["sender_id"].integer as Int!
+        recipientID = decoder["recipient_id"].integer as Int!
+        videoID = decoder["video_id"].string as String!
+        createdAt = decoder["created_at"].string as String!
     }
 }
 
 struct Chain : JSONJoy {
     var videoMessages : [VideoMessage] = []
-//    var status : String?
     
     init() {
     }
@@ -53,6 +52,8 @@ class VideoMessageManager {
     var finishedChains = [Chain]()
     var chains = [Chain]()
     
+    var chainsById = [ Int : Chain ]()
+    
     func getInitialValues() {
 //        getNewChains()
 //        getOpenChains()
@@ -67,7 +68,16 @@ class VideoMessageManager {
             success: {(response: HTTPResponse) in
                 if response.responseObject != nil {
                     data = response.responseObject as? NSData
-                    JSONDecoder(data!).arrayOf(&self.chains)
+                    var newMessages = [VideoMessage]()
+                    JSONDecoder(data!).arrayOf(&newMessages)
+                    for message in newMessages {
+                        var chain = self.chainsById[message.replyToID!]
+                        if chain == nil {
+                            self.chainsById[message.replyToID!] = Chain()
+                            chain = self.chainsById[message.replyToID!]
+                        }
+                        chain!.videoMessages.append(message)
+                    }
                 }
         })
     }

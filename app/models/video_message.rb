@@ -4,7 +4,7 @@ class VideoMessage < ActiveRecord::Base
 
 
   def is_first_message?
-    reply_to_id == 0
+    reply_to_id == id
   end
 
   def is_finished?
