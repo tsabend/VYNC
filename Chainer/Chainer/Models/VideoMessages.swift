@@ -15,6 +15,7 @@ struct VideoMessage : JSONJoy {
     var recipientID: Int?
     var videoID: String?
     var createdAt: String?
+    var chain : Chain?
     
     
     init() {
@@ -29,13 +30,11 @@ struct VideoMessage : JSONJoy {
         createdAt = decoder["created_at"].string as String!
     }
     
-//    set(chain) {
-//        self.chain
-//    }
+
     
 }
 
-struct Chain : JSONJoy {
+struct Chain : JSONJoy, Equatable {
     
     var videos : [VideoMessage] = []
     
@@ -49,11 +48,14 @@ struct Chain : JSONJoy {
             }
         }
     }
-//    
-//    func ==(lhs: Chain, rhs: Chain) -> Bool {
-//        return lhs.videos.first.replyToID == rhs.videos.first.replyToID
-//    }
+    
 }
+
+func ==(c1 : Chain, c2 : Chain) -> Bool {
+    return c1.videos.first?.replyToID == c2.videos.first?.replyToID
+}
+
+
 
 // This hard coding is to allow for more simple refactoring later.
 let device_id = 1
@@ -79,24 +81,24 @@ class VideoMessageManager {
 //    }
     // iterate through all vms backwards. If vm.chain is already in my list of chains do nothing, if it isn't add it to my list of chains.
 
-//    func showChains() -> [Chain]{
-//        // Reverse the videos to get most recent first. (could also sort by created_at...may be a better solution...)
-//        let allMessages = reverse(self.videos)
-//        // list of chains
-//        var readyChains = [Chain]()
-//        
-//        // iterate through videos
-//        for video in allMessages {
-//            println(video.replyToID!)
-//            if contains(readyChains, chainsById[video.replyToID]) {
-//                println("\(video.messageID!)'s chain is already there")
-//            } else {
-//                readyChains.append(chainsById[video.replyToID!])
-//                println("\(chainsById[video.messageID!])'s chain was added")
-//            }
-//        }
-//        return readyChains
-//    }
+    func showChains() -> [Chain]{
+        // Reverse the videos to get most recent first. (could also sort by created_at...may be a better solution...)
+        let allMessages = reverse(self.videos)
+        // list of chains
+        var readyChains = [Chain]()
+        
+        // iterate through videos
+        for video in allMessages {
+            println(video.replyToID!)
+            if contains(readyChains, chainsById[video.replyToID!]!) {
+                println("\(video.messageID!)'s chain is already there")
+            } else {
+                readyChains.append(chainsById[video.replyToID!]!)
+                println("\(chainsById[video.messageID!]!)'s chain was added")
+            }
+        }
+        return readyChains
+    }
     
     
 
@@ -114,15 +116,18 @@ class VideoMessageManager {
                     var newMessages = [VideoMessage]()
                     JSONDecoder(data!).arrayOf(&newMessages)
                     for message in newMessages {
-                        // add to our total list of messages
-                        self.videos.append(message)
+                        var msg = message
                         // add to our dictionary of chains
-                        var chain = self.chainsById[message.replyToID!]
+                        var chain = self.chainsById[msg.replyToID!]
                         if chain == nil {
-                            self.chainsById[message.replyToID!] = Chain()
-                            chain = self.chainsById[message.replyToID!]
+                            self.chainsById[msg.replyToID!] = Chain()
+                            chain = self.chainsById[msg.replyToID!]
                         }
-                        chain!.videos.append(message)
+                        msg.chain = chain
+                        chain!.videos.append(msg)
+                        
+                        // add to our total list of messages
+                        self.videos.append(msg)
                     }
                 }
         })
