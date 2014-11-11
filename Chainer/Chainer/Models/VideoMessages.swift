@@ -31,10 +31,6 @@ class VideoMessageManager {
         vid.createdAt = decoder["created_at"].string as String!
         return vid
     }
-
-    //var videos = [VideoMessage]()
-    
-//    var chainsById = [ Int : Chain ]()
     
     func getInitialValues() {
 
@@ -67,6 +63,7 @@ class VideoMessageManager {
         for decoder in decoderArray.array! {
 //            println("Adding message with attributes: \(message.attributes)")
             createVideoFromJSON(decoder)
+            db!.save(nil)
         }
     }
 
