@@ -18,7 +18,7 @@ let PathToFile = docFolderToSaveFiles + fileName
 class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITableViewDelegate, UITableViewDataSource {
 
     @IBOutlet var tblChains: UITableView!
-    var chains : [[VideoMessage]] = []
+
  
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,44 +33,6 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
-        // I want all the videos nested into chains. Data structure: array of arrays OR Array of Reply_to_ids
-        // SELECT reply_to_id FROM videomessage ORDER BY CREATED_AT, REPLY_TO_ID
-        
-        //1
-        let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
-        
-        let managedContext = appDelegate.managedObjectContext!
-        
-        //2
-        let fetchRequest = NSFetchRequest(entityName:"VideoMessage")
-        let ed = NSEntityDescription.entityForName("VideoMessage",
-            inManagedObjectContext: managedContext)!
-        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "createdAt", ascending: false)]
-        fetchRequest.returnsDistinctResults = true
-        fetchRequest.propertiesToFetch = ["replyToID"]
-        //3
-        var error: NSError?
-
-        
-        let fetchedResults: [AnyObject]? = managedContext.executeFetchRequest(fetchRequest, error: &error)
-        if let results = fetchedResults as? [VideoMessage] {
-            chains = [[VideoMessage]]()
-            var chain = [VideoMessage]()
-            for video in results {
-                if chain.isEmpty || chain.last!.replyToID == video.replyToID {
-                    chain.append(video)
-                } else {
-                    chains.append(chain)
-                    chain = [video]
-                }
-            }
-            if chain.isEmpty == false {
-                chains.append(chain)
-            }
-
-        } else {
-            println("Could not fetch \(error), \(error!.userInfo)")
-        }
         
         
         
@@ -80,14 +42,14 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         let cell: UITableViewCell = UITableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: "test")
     
 
-        cell.textLabel.text = "Chain in reply to: \(chains[indexPath.row].first!.replyToID)"
-        cell.detailTextLabel?.text = "Length: \(chains[indexPath.row].count)"
+        cell.textLabel.text = "Chain in reply to: \(videoMessageMgr.asChains()[indexPath.row].first!.replyToID)"
+        cell.detailTextLabel?.text = "Length: \(videoMessageMgr.asChains()[indexPath.row].count)"
         
         return cell
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return chains.count
+        return videoMessageMgr.asChains().count
     }
     
     func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
