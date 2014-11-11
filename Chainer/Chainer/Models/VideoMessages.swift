@@ -1,7 +1,3 @@
-// iterate through all vms backwards. If vm.chain is already in my list of chains do nothing, if it isn't add it to my list of chains.
-
-
-
 //  VideosMessages.swift
 //  viewAllUsers
 //
@@ -19,7 +15,7 @@ struct VideoMessage : JSONJoy {
     var recipientID: Int?
     var videoID: String?
     var createdAt: String?
-    var chain : Chain?
+    
     
     init() {
     }
@@ -76,30 +72,47 @@ class VideoMessageManager {
 //            }
 //        }
 //    }
+    // iterate through all vms backwards. If vm.chain is already in my list of chains do nothing, if it isn't add it to my list of chains.
+
+    func showChains() -> [Int : Chain]{
+        // Reverse the videos to get most recent first. (could also sort by created_at...may be a better solution...)
+        let allMessages = reverse(self.videos)
+        // list of chains
+        var readyChains = [Int : Chain]()
+        
+        // iterate through videos
+        for video in allMessages {
+            if readyChains[video.replyToID!] == nil {
+                readyChains[video.replyToID!] = chainsById[video.replyToID!]
+            }
+        }
+        println(readyChains)
+        return readyChains
+    }
+    
+    
 
     func updateChains() {
         var data : NSData?
         var request = HTTPTask()
         request.GET("http://chainer.herokuapp.com/videos/\(device_id)/all", parameters: nil,
-            success: {(response: HTTPResponse) in
-                if response.responseObject != nil {
-                    data = response.responseObject as? NSData
-                    var newMessages = [VideoMessage]()
-                    JSONDecoder(data!).arrayOf(&newMessages)
-                    
-                    for message in newMessages {
-                        // add to our total list of messages
-                        self.videos.append(message)
-                        // add to our dictionary of chains
-                        var chain = self.chainsById[message.replyToID!]
-                        if chain == nil {
-                            self.chainsById[message.replyToID!] = Chain()
-                            chain = self.chainsById[message.replyToID!]
-                        }
-                        chain!.videos.append(message)
-//                        message.chain = chain
+        success: {(response: HTTPResponse) in
+            if response.responseObject != nil {
+                data = response.responseObject as? NSData
+                var newMessages = [VideoMessage]()
+                JSONDecoder(data!).arrayOf(&newMessages)
+                for message in newMessages {
+                    // add to our total list of messages
+                    self.videos.append(message)
+                    // add to our dictionary of chains
+                    var chain = self.chainsById[message.replyToID!]
+                    if chain == nil {
+                        self.chainsById[message.replyToID!] = Chain()
+                        chain = self.chainsById[message.replyToID!]
                     }
+                    chain!.videos.append(message)
                 }
+            }
         })
     }
     
