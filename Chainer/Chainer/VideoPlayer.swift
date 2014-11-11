@@ -11,9 +11,10 @@ import AVKit
 import AVFoundation
 import Foundation
 
-public func avPlayerControllerFor(url: NSURL) -> AVPlayerViewController {
+public func avPlayerControllerFor(url: String) -> AVPlayerViewController {
     // create player controller
-    let player: AVPlayer = AVPlayer(URL: url)
+//    let testUrl = "https://s3-us-west-2.amazonaws.com/telephono/395998122c2e7ba0e06ce82a71dac347.mov?"
+    let player: AVPlayer = AVPlayer(URL: NSURL(string: url))
 
     // create player view controller
     let avPlayerVC = AVPlayerViewController()
@@ -22,7 +23,7 @@ public func avPlayerControllerFor(url: NSURL) -> AVPlayerViewController {
     return avPlayerVC
 }
 
-public func playVidUrlOnViewController(vidUrl: NSURL, vc: UIViewController) {
+public func playVidUrlOnViewController(vidUrl: String, vc: UIViewController) {
     
     let avPlayerVC = avPlayerControllerFor(vidUrl)
     

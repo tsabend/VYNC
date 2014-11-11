@@ -12,7 +12,7 @@ import CoreData
 import MobileCoreServices
 import AVKit
 
-let s3Url = NSURL(string: "https://s3-us-west-2.amazonaws.com/telephono/")
+let s3Url = "https://s3-us-west-2.amazonaws.com/telephono/"
 let docFolderToSaveFiles = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as String
 let fileName = "/videoToSend.MOV"
 let PathToFile = docFolderToSaveFiles + fileName
@@ -106,10 +106,10 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let url = NSURL(string: videos[indexPath.row].videoID, relativeToURL: s3Url)!
+        let url = s3Url + videos[indexPath.row].videoID
         println("A Video message was clicked")
-        println("\(url.absoluteURL!)")
-        playVidUrlOnViewController(url.absoluteURL!, self)
+        println("The URl to use: \(url)")
+        playVidUrlOnViewController(url, self)
     }
 }
 
