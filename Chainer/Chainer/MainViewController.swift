@@ -8,17 +8,23 @@
 
 import UIKit
 import CoreMedia
+import CoreData
 import MobileCoreServices
 import AVKit
 
+let s3Url = NSURL(string: "https://s3-us-west-2.amazonaws.com/telephono/")
 let docFolderToSaveFiles = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as String
 let fileName = "/videoToSend.MOV"
 let PathToFile = docFolderToSaveFiles + fileName
 
+public let sampleVideoPath =
+NSBundle.mainBundle().resourcePath!.stringByAppendingPathComponent("/sample_iTunes.mov")
+
 class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITableViewDelegate, UITableViewDataSource {
 
     @IBOutlet var tblChains: UITableView!
-    
+    var videos : [VideoMessage] = []
+ 
     override func viewDidLoad() {
         super.viewDidLoad()
         let rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Camera, target: self, action: "showCam")
@@ -30,24 +36,41 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     // Returning to view. Loops through users and reloads them.
     override func viewWillAppear(animated: Bool) {
-        tblChains.reloadData()
-
+        super.viewWillAppear(animated)
+        
+        //1
+        let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
+        
+        let managedContext = appDelegate.managedObjectContext!
+        
+        //2
+        let fetchRequest = NSFetchRequest(entityName:"VideoMessage")
+        
+        //3
+        var error: NSError?
+        
+        let fetchedResults = managedContext.executeFetchRequest(fetchRequest,
+            error: &error) as [NSManagedObject]?
+        
+        if let results = fetchedResults {
+            videos = results as [VideoMessage]
+        } else {
+            println("Could not fetch \(error), \(error!.userInfo)")
+        }
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell: UITableViewCell = UITableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: "test")
-        
-        let array = videoMessageMgr.showChains()
-        println(array)
-        
-        cell.textLabel.text = "First Message Id: \(array[indexPath.row].videos.count)"
-        cell.detailTextLabel?.text = "Url: \(array[indexPath.row])"
+    
+
+        cell.textLabel.text = "Video Url: \(videos[indexPath.row].videoID)"
+        cell.detailTextLabel?.text = "Is In Reply To: \(videos[indexPath.row].replyToID)"
         
         return cell
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return videoMessageMgr.showChains().count
+        return videos.count
     }
     
     func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
@@ -83,9 +106,10 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let videoURL = NSURL(string: PathToFile)
+        let url = NSURL(string: videos[indexPath.row].videoID, relativeToURL: s3Url)!
         println("A Video message was clicked")
-        playVidUrlOnViewController(PathToFile, self)
+        println("\(url.absoluteURL!)")
+        playVidUrlOnViewController(url.absoluteURL!, self)
     }
 }
 
