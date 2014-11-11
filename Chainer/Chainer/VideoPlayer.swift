@@ -8,5 +8,17 @@
 
 import UIKit
 import AVKit
+import AVFoundation
 import Foundation
 
+public func avPlayerControllerFor(vidUrl: String) -> AVPlayerViewController {
+    
+    // create player controller
+    let player = AVPlayer(URL: NSURL(string: vidUrl))
+    
+    // create player view controller
+    let avPlayerVC = AVPlayerViewController()
+    avPlayerVC.player = player
+    
+    return avPlayerVC
+}
