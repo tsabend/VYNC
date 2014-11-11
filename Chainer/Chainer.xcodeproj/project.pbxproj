@@ -27,6 +27,7 @@
 		09D00EB31A114F4A006827B4 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09D00EB21A114F4A006827B4 /* MediaPlayer.framework */; };
 		09D00EB51A114F5D006827B4 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09D00EB41A114F5D006827B4 /* CoreMedia.framework */; };
 		C42AE58B1A111ECB0009C213 /* AVKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C42AE58A1A111ECB0009C213 /* AVKit.framework */; };
+		C4B296031A12688900757B85 /* VideoPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4B296021A12688900757B85 /* VideoPlayer.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -64,6 +65,7 @@
 		09D00EB21A114F4A006827B4 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		09D00EB41A114F5D006827B4 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
 		C42AE58A1A111ECB0009C213 /* AVKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVKit.framework; path = System/Library/Frameworks/AVKit.framework; sourceTree = SDKROOT; };
+		C4B296021A12688900757B85 /* VideoPlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoPlayer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -168,6 +170,7 @@
 				097ECD541A105AD700D1D2D1 /* HTTPTask.swift */,
 				097ECD551A105AD700D1D2D1 /* HTTPUpload.swift */,
 				097ECD561A105AD700D1D2D1 /* JsonJoy.swift */,
+				C4B296021A12688900757B85 /* VideoPlayer.swift */,
 			);
 			name = HelperLibraries;
 			sourceTree = "<group>";
@@ -282,6 +285,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C4B296031A12688900757B85 /* VideoPlayer.swift in Sources */,
 				0962E45E1A119EC400661226 /* UserLoginController.swift in Sources */,
 				097ECD581A105AD700D1D2D1 /* HTTPResponseSerializer.swift in Sources */,
 				097ECD631A105AFA00D1D2D1 /* ContactsViewController.swift in Sources */,
