@@ -19,6 +19,7 @@ post '/upload' do
   tempfile = request.params["file"][:tempfile]
   # A random hex to use as a filename, shasum was not working...
   video_id = SecureRandom.hex
+  puts video_id
   # Instantiate a new videomessage object
   newVid = VideoMessage.new(sender_id: params["sender"],
   recipient_id: params["recipient"], video_id: video_id)
