@@ -107,8 +107,6 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let url = s3Url + videos[indexPath.row].videoID
-        println("A Video message was clicked")
-        println("The URl to use: \(url)")
         playVidUrlOnViewController(url, self)
     }
 }
