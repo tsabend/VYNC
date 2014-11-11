@@ -17,9 +17,6 @@ let PathToFile = docFolderToSaveFiles + fileName
 
 class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITableViewDelegate, UITableViewDataSource {
 
-    var avPlayerController : AVPlayerViewController!
-    var videoIsShowing = false
-    
     @IBOutlet var tblChains: UITableView!
     
     override func viewDidLoad() {
@@ -78,7 +75,8 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         //save the video that the user records
         let fileUrl = info[UIImagePickerControllerMediaURL] as? NSURL
         var myVideo : NSData = NSData(contentsOfURL: fileUrl!)!
-        myVideo.writeToFile(PathToFile, atomically: true)
+        var boolean = myVideo.writeToFile(PathToFile, atomically: true)
+        println("Save to file was successful: \(boolean)")
         
         let vc = self.storyboard?.instantiateViewControllerWithIdentifier("Contacts") as ContactsViewController
         self.presentViewController(vc, animated:false, completion:{})
@@ -86,16 +84,8 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let videoURL = NSURL(string: PathToFile)
-        println("This should work")
-        avPlayerController = avPlayerControllerFor(PathToFile)
-        if (!videoIsShowing) {
-            // play the video
-            self.presentViewController(avPlayerController, animated: true, completion: {
-                self.avPlayerController.player.play()
-            })
-        }
-        videoIsShowing = !videoIsShowing
-        println("This should have played!")
+        println("A Video message was clicked")
+        playVidUrlOnViewController(PathToFile, self)
     }
 }
 
