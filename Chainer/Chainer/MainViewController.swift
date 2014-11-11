@@ -15,10 +15,11 @@ let docFolderToSaveFiles = NSSearchPathForDirectoriesInDomains(.DocumentDirector
 let fileName = "/videoToSend.MOV"
 let PathToFile = docFolderToSaveFiles + fileName
 
-var avPlayerController : AVPlayerViewController!
-
 class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITableViewDelegate, UITableViewDataSource {
 
+    var avPlayerController : AVPlayerViewController!
+    var videoIsShowing = false
+    
     @IBOutlet var tblChains: UITableView!
     
     override func viewDidLoad() {
@@ -87,9 +88,14 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         let videoURL = NSURL(string: PathToFile)
         println("This should work")
         avPlayerController = avPlayerControllerFor(PathToFile)
+        if (!videoIsShowing) {
+            // play the video
+            self.presentViewController(avPlayerController, animated: true, completion: {
+                self.avPlayerController.player.play()
+            })
+        }
+        videoIsShowing = !videoIsShowing
+        println("This should have played!")
     }
-    
-    
-    
 }
 
