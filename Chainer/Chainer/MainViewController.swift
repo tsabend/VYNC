@@ -9,10 +9,13 @@
 import UIKit
 import CoreMedia
 import MobileCoreServices
+import AVKit
 
 let docFolderToSaveFiles = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as String
 let fileName = "/videoToSend.MOV"
 let PathToFile = docFolderToSaveFiles + fileName
+
+var avPlayerController : AVPlayerViewController!
 
 class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITableViewDelegate, UITableViewDataSource {
 
@@ -83,6 +86,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let videoURL = NSURL(string: PathToFile)
         println("This should work")
+        avPlayerController = avPlayerControllerFor(PathToFile)
     }
     
     
