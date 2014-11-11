@@ -10,7 +10,7 @@ end
 
 get '/videomessages/:user_id/all' do
   content_type :json
-  User.find(params[:user_id]).all_messages.to_json
+  User.find(params[:user_id]).all_messages(params["since"].to_i).to_json
 end
 
 post '/upload' do

@@ -7,7 +7,11 @@ class User < ActiveRecord::Base
   has_many :chain_updated_notifications
   # validates :device_id, uniqueness: true
 
-  def all_messages
-    (received_messages + sent_messages).map {|vm| vm.chain}.flatten.uniq
+  def all_messages(since = 0)
+    (received_messages + sent_messages).
+    map {|vm| vm.chain}.
+    flatten.
+    select {|vm| vm.id > since}.
+    uniq
   end
 end
