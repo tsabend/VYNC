@@ -64,7 +64,7 @@ class ContactsViewController: UIViewController, UITableViewDelegate, UITableView
 //        
 //    }
     
-    // Sending a video message to a user
+    // Sending a video message to the server
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let videoURL = NSURL(string: PathToFile)
         let userID = users[indexPath.item].userID
@@ -92,20 +92,16 @@ class ContactsViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     //MARK: - UISearchBarDelegate
-    //not quite working...
-//    func searchDisplayController(controller: UISearchDisplayController!, shouldReloadTableForSearchString searchString: String!) -> Bool {
-//        let scopes = self.searchBar.scopeButtonTitles as [String]
-//        let selectedScope = scopes[self.searchDisplayController!.searchBar.selectedScopeButtonIndex] as String
-//        self.filterContentForSearchText(searchString, scope: selectedScope)
-//        return true
-//    }
-//    
-//    func searchDisplayController(controller: UISearchDisplayController!,
-//        shouldReloadTableForSearchScope searchOption: Int) -> Bool {
-//        let scope = self.searchBar.scopeButtonTitles as [String]
-//        self.filterContentForSearchText(self.searchDisplayController!.searchBar.text, scope: scope[searchOption])
-//        return true
-//    }
+    func searchDisplayController(controller: UISearchDisplayController!, shouldReloadTableForSearchString searchString: String!) -> Bool {
+        self.filterContentForSearchText(searchString)
+        return true
+    }
+    
+    func searchDisplayController(controller: UISearchDisplayController!,
+        shouldReloadTableForSearchScope searchOption: Int) -> Bool {
+        self.filterContentForSearchText(self.searchDisplayController!.searchBar.text)
+        return true
+    }
     
 }
 

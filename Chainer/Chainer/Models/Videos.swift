@@ -11,6 +11,8 @@ import CoreData
 
 class Videos {
     
+    var view : ViewController?
+    
     lazy var db : NSManagedObjectContext? = {
         let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
         if let managedObjectContext = appDelegate.managedObjectContext {
@@ -19,6 +21,12 @@ class Videos {
             return nil
         }
     }()
+    
+    init () {
+        view = nil
+    }
+    
+    
     
     var mostRecent : VideoMessage? {
         get {
@@ -123,6 +131,9 @@ class Videos {
             }
         }
         db!.save(nil)
+        if view != nil {
+            view!.onModelUpdate(self)
+        }
     }
     
     func find(id : Int)-> VideoMessage? {

@@ -57,6 +57,9 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <gestureRecognizers/>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="UoE-2A-gbw" appends="YES" id="GeD-Ef-HI1"/>
+                        </connections>
                     </view>
                     <navigationItem key="navigationItem" id="eJH-ff-6Q2"/>
                     <value key="contentSizeForViewInPopover" type="size" width="375" height="667"/>
@@ -65,8 +68,13 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="u8o-le-TIr" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <swipeGestureRecognizer direction="down" id="UoE-2A-gbw">
+                    <connections>
+                        <action selector="onSwipe" destination="d19-Z0-Qnq" id="WC5-b9-wdv"/>
+                    </connections>
+                </swipeGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="12" y="-341"/>
+            <point key="canvasLocation" x="58" y="-509"/>
         </scene>
         <!--Contacts View Controller-->
         <scene sceneID="5iJ-DW-Oex">
