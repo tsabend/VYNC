@@ -36,7 +36,8 @@ class UserLoginController: UIViewController,UINavigationControllerDelegate, UIIm
         } else {
             var request = HTTPTask()
             let params: Dictionary<String,AnyObject!> = ["deviceId": deviceId, "username": usernameTxt.text, "devicetoken": devicetoken]
-            request.POST("http://chainer.herokupapp.com/newuser", parameters: params, success: {(response: HTTPResponse) in
+            println("just before user post")
+            request.POST("http://chainer.herokuapp.com/newuser", parameters: params, success: {(response: HTTPResponse) in
                 if response.responseObject != nil {
                     println("success")
                     self.theFileManager.createFileAtPath(pathToUserFile, contents: NSData(), attributes: nil )
