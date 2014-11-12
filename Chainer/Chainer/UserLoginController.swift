@@ -1,11 +1,3 @@
-//
-//  userLoginController.swift
-//  Chainer
-//
-//  Created by Apprentice on 11/10/14.
-//  Copyright (c) 2014 DBC. All rights reserved.
-//
-
 import Foundation
 import UIKit
 
@@ -31,10 +23,7 @@ class UserLoginController: UIViewController,UINavigationControllerDelegate, UIIm
         view.addSubview(activityIndicator)
         activityIndicator.startAnimating()
         UIApplication.sharedApplication().beginIgnoringInteractionEvents()
-        func createFileAtPath
-        
-        
-        
+//        func createFileAtPath
         var deviceId = UIDevice.currentDevice().identifierForVendor.UUIDString
         if usernameTxt.text == "" {
             displayAlert("Error In Form", error: "Please enter a username")
@@ -64,8 +53,8 @@ class UserLoginController: UIViewController,UINavigationControllerDelegate, UIIm
         super.viewDidLoad()
     }
     override func viewDidAppear(animated: Bool) {
-        if ]]]] {
-            self.performSegueWithIdentifier("jumpToChainsTabl", sender: self)
-        }
+//        if ]]]] {
+//            self.performSegueWithIdentifier("jumpToChainsTabl", sender: self)
+//        }
     }
 }
