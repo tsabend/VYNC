@@ -19,10 +19,9 @@ post '/upload' do
   tempfile = request.params[:file][:tempfile]
   # A random hex to use as a filename, shasum was not working...
   video_id = SecureRandom.hex + ".mov"
-  puts video_id
   # Instantiate a new videomessage object
-  newVid = VideoMessage.new(sender_id: params[:sender],
-  recipient_id: params[:recipient], video_id: video_id)
+  sender = User.find_by(device_id: params[:senderDevice])
+  newVid = VideoMessage.new(sender_id: sender.id, recipient_id: params[:recipient], video_id: video_id)
   # If there was a replyId sent with this request use that,
   # otherwise assume it's the first video in a chain and set the reply_to_id
   # to its own id
