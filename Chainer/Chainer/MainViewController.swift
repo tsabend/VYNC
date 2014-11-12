@@ -14,11 +14,12 @@ public let sampleVideoPath =
 NSBundle.mainBundle().resourcePath!.stringByAppendingPathComponent("/sample_iTunes.mov")
 
 class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITableViewDelegate, UITableViewDataSource {
-
+    
     @IBOutlet var tblChains: UITableView!
 
     var chains = [[VideoMessage]]()
     var urlsToPlay : [String] = []
+    var replyToID : Int? = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -59,11 +60,13 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     }
 
     //swipable functions on tableView
-//    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-//        if editingStyle == UITableViewCellEditingStyle.Delete {
-//            println("delete")
-//        }
-//    }
+    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        if editingStyle == UITableViewCellEditingStyle.Delete{
+            println("Replying to:")
+            replyToID = chains[indexPath.row].first!.replyToID as? Int
+            showCam()
+        }
+    }
     
     // Load the camera on top
     
@@ -86,8 +89,12 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         var boolean = myVideo.writeToFile(PathToFile, atomically: true)
         println("Save to file was successful: \(boolean)")
         
+        
         let vc = self.storyboard?.instantiateViewControllerWithIdentifier("Contacts") as ContactsViewController
-        self.presentViewController(vc, animated:false, completion:{})
+        vc.replyToID = self.replyToID
+        self.presentViewController(vc, animated:false, completion:{
+            self.replyToID = nil
+        })
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
