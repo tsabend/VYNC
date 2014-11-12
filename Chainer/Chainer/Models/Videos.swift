@@ -100,8 +100,8 @@ class Videos {
 //        var deviceID = UIDevice.currentDevice().identifierForVendor.UUIDString
         var deviceID = 1
         println("device id : \(deviceID)")
-//        request.GET("http://chainer.herokuapp.com/videomessages/\(deviceID)/all",
-        request.GET("http://localhost:9393/videomessages/\(deviceID)/all",
+        request.GET("http://chainer.herokuapp.com/videomessages/\(deviceID)/all",
+//        request.GET("http://localhost:9393/videomessages/\(deviceID)/all",
             parameters: ["since" : since],
             success: { (response: HTTPResponse) in
                 if response.responseObject != nil {
