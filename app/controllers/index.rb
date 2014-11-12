@@ -42,6 +42,6 @@ end
 
 post "/newuser" do
   puts params
-  User.create(devicetoken: params[:deviceToken], device_id: params[:deviceId], username: params[:username])
+  User.create(devicetoken: params[:devicetoken], device_id: params[:deviceId], username: params[:username])
   notify(params[:deviceToken], "Welcome to Chainer!")
 end
