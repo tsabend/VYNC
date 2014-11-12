@@ -21,16 +21,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             .stringByReplacingOccurrencesOfString( " ", withString: "" ) as String
         println(deviceTokenString)
         currentUser.deviceToken = deviceTokenString
-    
-        var request = HTTPTask()
-        let params: Dictionary<String,AnyObject!> = ["deviceToken" : deviceTokenString]
-        request.POST("http://chainer.herokuapp.com/usernotification", parameters: params, success: {(response: HTTPResponse) in
-            if response.responseObject != nil {
-                print("success")
-            }
-            } ,failure: {(error: NSError, response: HTTPResponse?) in
-                println("failure")
-        })
     }
     
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
