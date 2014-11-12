@@ -13,6 +13,7 @@ class UserLoginController: UIViewController,UINavigationControllerDelegate, UIIm
 
     @IBOutlet weak var usernameTxt: UITextField!
     
+    
     func displayAlert(title:String, error:String) {
         
         var alert = UIAlertController(title: title, message: error, preferredStyle: UIAlertControllerStyle.Alert)
@@ -30,6 +31,10 @@ class UserLoginController: UIViewController,UINavigationControllerDelegate, UIIm
         view.addSubview(activityIndicator)
         activityIndicator.startAnimating()
         UIApplication.sharedApplication().beginIgnoringInteractionEvents()
+        func createFileAtPath
+        
+        
+        
         var deviceId = UIDevice.currentDevice().identifierForVendor.UUIDString
         if usernameTxt.text == "" {
             displayAlert("Error In Form", error: "Please enter a username")
@@ -44,6 +49,8 @@ class UserLoginController: UIViewController,UINavigationControllerDelegate, UIIm
                 } ,failure: {(error: NSError, response: HTTPResponse?) in
                     println("failure")
             })
+            activityIndicator.stopAnimating()
+            UIApplication.sharedApplication().endIgnoringInteractionEvents()
         }
         
         let vc = self.storyboard?.instantiateViewControllerWithIdentifier("Home") as ViewController
@@ -57,6 +64,8 @@ class UserLoginController: UIViewController,UINavigationControllerDelegate, UIIm
         super.viewDidLoad()
     }
     override func viewDidAppear(animated: Bool) {
-        
+        if ]]]] {
+            self.performSegueWithIdentifier("jumpToChainsTabl", sender: self)
+        }
     }
 }
