@@ -11,6 +11,8 @@ import CoreData
 
 class Videos {
     
+    var view : ViewController?
+    
     lazy var db : NSManagedObjectContext? = {
         let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
         if let managedObjectContext = appDelegate.managedObjectContext {
@@ -19,6 +21,12 @@ class Videos {
             return nil
         }
     }()
+    
+    init () {
+        view = nil
+    }
+    
+    
     
     var mostRecent : VideoMessage? {
         get {
@@ -89,8 +97,7 @@ class Videos {
         }
         var data : NSData?
         var request = HTTPTask()
-//        var deviceID = UIDevice.currentDevice().identifierForVendor.UUIDString
-        var deviceID = 1
+        var deviceID = UIDevice.currentDevice().identifierForVendor.UUIDString
         println("device id : \(deviceID)")
         request.GET("http://chainer.herokuapp.com/videomessages/\(deviceID)/all",
 //        request.GET("http://localhost:9393/videomessages/\(deviceID)/all",
@@ -123,6 +130,9 @@ class Videos {
             }
         }
         db!.save(nil)
+        if view != nil {
+            view!.onModelUpdate(self)
+        }
     }
     
     func find(id : Int)-> VideoMessage? {

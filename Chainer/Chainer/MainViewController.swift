@@ -22,16 +22,28 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        videoMessageMgr.view = self
         let rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Camera, target: self, action: "showCam")
         self.navigationItem.rightBarButtonItem = rightBarButtonItem
+        
+        let leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: "onSwipe")
+        self.navigationItem.leftBarButtonItem = leftBarButtonItem
+        
+    }
+        // Load the table view
+    func onModelUpdate(model: Videos) {
+        chains = model.asChains()
+        tblChains.reloadData()
     }
     
-    // Load the table view
-    
+    @IBAction func onSwipe() {
+        videoMessageMgr.update()
+        println("Hello world")
+    }
+
     // Returning to view. Loops through users and reloads them.
     override func viewWillAppear(animated: Bool) {
-        chains = videoMessageMgr.asChains()
-        tblChains.reloadData()
+        onModelUpdate(videoMessageMgr)
         super.viewWillAppear(animated)
     }
     
