@@ -10,15 +10,10 @@ end
 
 get '/videomessages/:device_id/all' do
   content_type :json
-  User.find(params[:device_id]).all_messages(params[:since].to_i).to_json
+  User.find_by(device_id: params[:device_id]).all_messages(params[:since].to_i).to_json
 end
 
 post '/upload' do
-  puts "----------------------------post!-------------------------------"
-  puts "params => #{params}"
-  puts "params[file] => #{params['file']}"
-  puts "params[file][tempfile] => #{params['file'][:tempfile]}"
-  puts "----------------------------post!-------------------------------"
   tempfile = request.params["file"][:tempfile]
   # A random hex to use as a filename, shasum was not working...
   video_id = SecureRandom.hex + ".mov"
