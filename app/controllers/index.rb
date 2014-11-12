@@ -19,11 +19,12 @@ post '/upload' do
   video_id = SecureRandom.hex + ".mov"
   # Instantiate a new videomessage object
   sender = User.find_by(device_id: params[:senderDevice])
+  recipient = User.find(params[:recipient])
   newVid = VideoMessage.new(sender_id: sender.id, recipient_id: params[:recipient], video_id: video_id)
   # If there was a replyId sent with this request use that,
   # otherwise assume it's the first video in a chain and set the reply_to_id
   # to its own id
-  newVid.save!  
+  newVid.save!
   if params[:replyToID] == "0"
     newVid.reply_to_id = newVid.id
   else
@@ -33,8 +34,14 @@ post '/upload' do
   newVid.save!
   # Upload to s3!
   $s3.buckets.first.objects.create(video_id, tempfile)
+# notify all users on chain
+  user_ids = newVid.chain.map {|video| [video.sender_id, video.recipient_id]}.flatten.uniq
+  following_user_ids = user_ids.reject {|id| id == sender.id || id == recipient.id}
+  following_user_ids.each do |id|
+    notify(User.find(id).devicetoken, "Your video has been forwarded!")
+  end
   # Notify the recipient of their new message
-  notify(User.find(params[:recipient]).devicetoken, "You have a new video!")
+  notify(recipient.devicetoken, "You have a new video, watch it now!")
   "Hey There Cowboy"
 end
 
