@@ -29,7 +29,6 @@ class UserLoginController: UIViewController {
     
     @IBAction func signUp(sender: AnyObject) {
         var deviceId = UIDevice.currentDevice().identifierForVendor.UUIDString
-        
         if usernameTxt.text == "" {
             displayAlert("Error In Form", error: "Please fill in all fields")
         } else {
@@ -43,14 +42,11 @@ class UserLoginController: UIViewController {
                     println("failure")
             })
         }
-        
     }
-    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+     
     }
-    
     override func viewDidLoad() {
 
         super.viewDidLoad()

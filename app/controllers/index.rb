@@ -39,14 +39,9 @@ end
 get '/download' do
   send_file $s3.buckets.first.objects[params["download"]].read, :type => :mov
 end
-# This will be changed when we adjust at what point we ask for notification permissions
-post "/usernotification" do
-    User.create(devicetoken: params[:deviceToken])
-    notify(params[:deviceToken], "Welcome to chainer!")
-end
-# Man, this is really backwards right now...
+
 post "/newuser" do
-  "in new user"
-  currentUser = User.find_by(devicetoken: params[:deviceToken])
-  currentUser.update(device_id: params[:device_id], username: params[:username])
+  puts params
+  User.create(devicetoken: params[:deviceToken], device_id: params[:deviceId], username: params[:username])
+  notify(params[:deviceToken], "Welcome to chainer!")
 end
