@@ -10,10 +10,15 @@ import UIKit
 import CoreMedia
 import CoreData
 import MobileCoreServices
+import AVKit
 
+let s3Url = "https://s3-us-west-2.amazonaws.com/telephono/"
 let docFolderToSaveFiles = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as String
 let fileName = "/videoToSend.MOV"
 let PathToFile = docFolderToSaveFiles + fileName
+
+public let sampleVideoPath =
+NSBundle.mainBundle().resourcePath!.stringByAppendingPathComponent("/sample_iTunes.mov")
 
 class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITableViewDelegate, UITableViewDataSource {
 
@@ -31,6 +36,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     // Returning to view. Loops through users and reloads them.
     override func viewWillAppear(animated: Bool) {
+        tblChains.reloadData()
         super.viewWillAppear(animated)
     }
     
@@ -69,13 +75,16 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         //save the video that the user records
         let fileUrl = info[UIImagePickerControllerMediaURL] as? NSURL
         var myVideo : NSData = NSData(contentsOfURL: fileUrl!)!
-        myVideo.writeToFile(PathToFile, atomically: true)
+        var boolean = myVideo.writeToFile(PathToFile, atomically: true)
+        println("Save to file was successful: \(boolean)")
         
         let vc = self.storyboard?.instantiateViewControllerWithIdentifier("Contacts") as ContactsViewController
         self.presentViewController(vc, animated:false, completion:{})
     }
     
-    
-    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        let url = s3Url + videoMessageMgr.asChains()[indexPath.row].first!.videoID
+        playVidUrlOnViewController(url, self)
+    }
 }
 
