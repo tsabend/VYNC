@@ -10,9 +10,6 @@ end
 
 get '/videomessages/:user_id/all' do
   content_type :json
-
-  puts "state #{params["state"]}"
-
   User.find(params[:user_id]).all_messages(params[:since].to_i).to_json
 end
 

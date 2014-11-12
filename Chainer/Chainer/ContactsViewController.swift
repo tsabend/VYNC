@@ -60,9 +60,9 @@ class ContactsViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     // UITableViewDelegateFunctions: These are to help launch events from the table view
-    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        
-    }
+//    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+//        
+//    }
     
     // Sending a video message to a user
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {

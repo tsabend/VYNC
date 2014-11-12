@@ -8,10 +8,13 @@ class User < ActiveRecord::Base
   # validates :device_id, uniqueness: true
 
   def all_messages(since = 0)
-    (received_messages + sent_messages).
-    map {|vm| vm.chain}.
-    flatten.
-    select {|vm| vm.id > since}.
-    uniq
+    past = VideoMessage.all.limit(since)
+    past_chains = past.chains(messages.where(id < since))
+    VideoMessage.chains(messages).where.not(id: past_chains.pluck(:id))
   end
+
+  def messages
+    VideoMessage.where("sender_id = ? or recipient_id = ?", id, id)
+  end
+
 end

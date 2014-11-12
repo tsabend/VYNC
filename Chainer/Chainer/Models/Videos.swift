@@ -87,11 +87,13 @@ class Videos {
         if let sinceVid = self.mostRecent {
             since = sinceVid.messageID as Int
         }
-        
         var data : NSData?
         var request = HTTPTask()
-        var deviceId = UIDevice.currentDevice().identifierForVendor.UUIDString
-        request.GET("http://chainer.herokuapp.com/videomessages/\(deviceId)/all",
+//        var deviceID = UIDevice.currentDevice().identifierForVendor.UUIDString
+        var deviceID = 1
+        println("device id : \(deviceID)")
+//        request.GET("http://chainer.herokuapp.com/videomessages/\(deviceID)/all",
+        request.GET("http://localhost:9393/videomessages/\(deviceID)/all",
             parameters: ["since" : since],
             success: { (response: HTTPResponse) in
                 if response.responseObject != nil {
@@ -116,9 +118,26 @@ class Videos {
     
     func addVideosToSql(decoderArray: JSONDecoder) {
         for decoder in decoderArray.array! {
-            createVideoFromJSON(decoder)
+            if find(decoder["id"].integer as Int!) == nil {
+                createVideoFromJSON(decoder)
+            }
         }
         db!.save(nil)
+    }
+    
+    func find(id : Int)-> VideoMessage? {
+        var req = NSFetchRequest(entityName: "VideoMessage")
+        req.predicate = NSPredicate(format: "messageID == %@", argumentArray: [id])
+        req.fetchLimit = 1
+        var error: NSError?
+        if let db = self.db {
+            let results = db.executeFetchRequest(req, error: &error) as [VideoMessage]
+            if results.count == 1 {
+                return results[0]
+            }
+        }
+
+        return nil
     }
 
 }

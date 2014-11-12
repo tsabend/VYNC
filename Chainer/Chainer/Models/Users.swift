@@ -12,7 +12,7 @@ import CoreData
 
 
 class UserManager {
-
+    
     lazy var db : NSManagedObjectContext? = {
         let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
         if let managedObjectContext = appDelegate.managedObjectContext {

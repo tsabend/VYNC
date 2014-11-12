@@ -132,6 +132,7 @@
 		097ECD251A1059AE00D1D2D1 /* Chainer */ = {
 			isa = PBXGroup;
 			children = (
+				097ECD4B1A105A1A00D1D2D1 /* OnStartUp.swift */,
 				097ECD671A105B0B00D1D2D1 /* ViewControllers */,
 				097ECD511A105A2600D1D2D1 /* Models */,
 				097ECD281A1059AE00D1D2D1 /* AppDelegate.swift */,
@@ -177,7 +178,6 @@
 			children = (
 				099F7C861A1273F500604D63 /* VideoMessage.swift */,
 				097ECD4D1A105A1A00D1D2D1 /* Videos.swift */,
-				097ECD4B1A105A1A00D1D2D1 /* OnStartUp.swift */,
 				097ECD4C1A105A1A00D1D2D1 /* Users.swift */,
 				09854DB11A12FEF50048391D /* User.swift */,
 			);
