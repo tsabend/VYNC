@@ -41,8 +41,7 @@ get '/download' do
 end
 
 post "/newuser" do
-  byebug
   puts params
-  User.create(devicetoken: params[:deviceToken])
+  User.create(devicetoken: params[:deviceToken], device_id: params[:deviceId], username: params[:username])
   notify(params[:deviceToken], "Welcome to chainer!")
 end
