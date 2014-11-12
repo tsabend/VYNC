@@ -29,18 +29,17 @@ class UserLoginController: UIViewController,UINavigationControllerDelegate, UIIm
         view.addSubview(activityIndicator)
         activityIndicator.startAnimating()
         UIApplication.sharedApplication().beginIgnoringInteractionEvents()
-        var deviceId = UIDevice.currentDevice().identifierForVendor.UUIDString
+        var deviceID = UIDevice.currentDevice().identifierForVendor.UUIDString
         var devicetoken = currentUser.deviceToken
         if usernameTxt.text == "" {
             displayAlert("Error In Form", error: "Please enter a username")
         } else {
             var request = HTTPTask()
-            let params: Dictionary<String,AnyObject!> = ["deviceId": deviceId, "username": usernameTxt.text, "devicetoken": devicetoken]
-            println("just before user post")
-            request.POST("http://chainer.herokuapp.com/newuser", parameters: params, success: {(response: HTTPResponse) in
-                if response.responseObject != nil {
-                    println("success")
-                    self.theFileManager.createFileAtPath(pathToUserFile, contents: NSData(), attributes: nil )
+            let params: Dictionary<String,AnyObject!> = ["deviceID": deviceID, "username": usernameTxt.text, "devicetoken": devicetoken]
+            request.POST("http://chainer.herokupapp.com/newuser", parameters: params, success: {(response: HTTPResponse) in
+                if let data = response.responseObject as? NSData {
+
+                    self.theFileManager.createFileAtPath(pathToUserFile, contents: NSData(data: data), attributes: nil )
                 }
                 } ,failure: {(error: NSError, response: HTTPResponse?) in
                     println("failure")

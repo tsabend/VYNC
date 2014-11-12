@@ -22,7 +22,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UDi-ZW-433" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-334" y="-347"/>
+            <point key="canvasLocation" x="-410" y="-341"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="4Q3-rA-yZ2">
@@ -66,7 +66,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="u8o-le-TIr" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="120" y="-357"/>
+            <point key="canvasLocation" x="12" y="-341"/>
         </scene>
         <!--Contacts View Controller-->
         <scene sceneID="5iJ-DW-Oex">
@@ -84,7 +84,7 @@
                                 </items>
                             </navigationBar>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="Bky-Oe-Ont">
-                                <rect key="frame" x="0.0" y="58" width="320" height="505"/>
+                                <rect key="frame" x="0.0" y="101" width="320" height="467"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <connections>
@@ -92,16 +92,34 @@
                                     <outlet property="delegate" destination="KXR-rk-bvN" id="Apt-LZ-UaF"/>
                                 </connections>
                             </tableView>
+                            <searchBar contentMode="redraw" text="" placeholder="Search Users" id="XPR-O8-J8T">
+                                <rect key="frame" x="0.0" y="52" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
+                                <connections>
+                                    <outlet property="delegate" destination="KXR-rk-bvN" id="HPl-A8-7dW"/>
+                                </connections>
+                            </searchBar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <connections>
+                        <outlet property="searchDisplayController" destination="vQz-oZ-ZcY" id="u5G-pg-Zd5"/>
                         <outlet property="tblUsers" destination="Bky-Oe-Ont" id="Xgk-vr-SO1"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yX9-lP-gpv" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <searchDisplayController id="vQz-oZ-ZcY">
+                    <connections>
+                        <outlet property="delegate" destination="KXR-rk-bvN" id="Ysg-W7-hEo"/>
+                        <outlet property="searchBar" destination="XPR-O8-J8T" id="oot-lE-buD"/>
+                        <outlet property="searchContentsController" destination="KXR-rk-bvN" id="L1g-ie-x8T"/>
+                        <outlet property="searchResultsDataSource" destination="KXR-rk-bvN" id="Zz9-6W-FAB"/>
+                        <outlet property="searchResultsDelegate" destination="KXR-rk-bvN" id="Yi0-Q8-YOj"/>
+                    </connections>
+                </searchDisplayController>
             </objects>
-            <point key="canvasLocation" x="1355" y="-347"/>
+            <point key="canvasLocation" x="501" y="-357"/>
         </scene>
         <!--userLogin-->
         <scene sceneID="9iM-FY-NpQ">

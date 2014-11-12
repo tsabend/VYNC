@@ -12,7 +12,7 @@ import CoreData
 
 
 class UserManager {
-
+    
     lazy var db : NSManagedObjectContext? = {
         let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
         if let managedObjectContext = appDelegate.managedObjectContext {
@@ -88,9 +88,26 @@ class UserManager {
     
     func addUsersToSql(decoderArray: JSONDecoder) {
         for decoder in decoderArray.array! {
-            createUserFromJSON(decoder)
+            if find(decoder["username"].string as String!) == nil {
+                createUserFromJSON(decoder)
+            }
         }
         db!.save(nil)
+    }
+    
+    func find(username: String)-> User? {
+        var req = NSFetchRequest(entityName: "User")
+        req.predicate = NSPredicate(format: "username == %@", argumentArray: [username])
+        req.fetchLimit = 1
+        var error: NSError?
+        if let db = self.db {
+            let results = db.executeFetchRequest(req, error: &error) as [User]
+            if results.count == 1 {
+                return results[0]
+            }
+        }
+        
+        return nil
     }
     
 }
