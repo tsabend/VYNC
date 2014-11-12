@@ -8,45 +8,116 @@
 //
 import Foundation
 import UIKit
+import CoreData
 
-struct User : JSONJoy {
-    var userID: Int?
-    var deviceID: Int?
-    var createdAt: String?
-    
-    init(_ decoder: JSONDecoder) {
-        userID = decoder["id"].integer
-        deviceID = decoder["device_id"].integer
-        createdAt = decoder["created_at"].string
-    }
-}
 
 class UserManager {
-    var users = [User]()
+    
+    lazy var db : NSManagedObjectContext? = {
+        let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
+        if let managedObjectContext = appDelegate.managedObjectContext {
+            return managedObjectContext
+        } else {
+            return nil
+        }
+    }()
 
-    func getUsers(){
-        println("getting all users")
-        var request = HTTPTask()
-        request.GET("http://chainer.herokuapp.com/allusers", parameters: nil, success: {
-            (response: HTTPResponse) in // success
-            if response.responseObject != nil {
-                let data = response.responseObject as NSData
-                let str = NSString(data: data, encoding: NSUTF8StringEncoding)
-                JSONDecoder(data).arrayOf(&self.users)
-                println("get all users safely returned: \(str)")
+    func asUsers() -> [User] {
+        let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
+        let managedContext = appDelegate.managedObjectContext!
+        // define our fetch request. We are looking for a list of replyToIDs order of most recently created at.
+        let fetchRequest = NSFetchRequest(entityName:"User")
+        let ed = NSEntityDescription.entityForName("User",
+            inManagedObjectContext: managedContext)!
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "username", ascending: false)]
+        var error: NSError?
+        // Make the request
+        let fetchedResults: [AnyObject]? = managedContext.executeFetchRequest(fetchRequest, error: &error)
+        return fetchedResults as [User]
+    }
+    
+    
+    
+    var mostRecent : User? {
+        get {
+            var req = NSFetchRequest(entityName: "User")
+            req.sortDescriptors = [UserManager.sortBy("userID", ascending: false)]
+            req.fetchLimit = 1
+            var error: NSError?
+            if let db = self.db {
+                let results = db.executeFetchRequest(req, error: &error) as [User]
+                if results.count == 1 {
+                    return results[0]
+                }
             }
-        },failure: {(error: NSError, response: HTTPResponse?) in //failure
-            println("error: \(error)")
+            return nil
+        }
+    }
+    
+    class func sortBy(key: NSString, ascending: Bool) -> NSSortDescriptor {
+        return NSSortDescriptor(key: key, ascending: ascending)
+    }
+
+    func update() {
+        var since = 0
+        if let sinceUser = self.mostRecent {
+            since = sinceUser.userID as Int
+        }
+        println("getting all users")
+        var data : NSData?
+        var request = HTTPTask()
+        request.GET("http://chainer.herokuapp.com/allusers",
+            parameters: ["since" : since ],
+            success: { (response: HTTPResponse) in
+                if response.responseObject != nil {
+                    if let data = response.responseObject as? NSData {
+                        self.addUsersToSql(JSONDecoder(data))
+                    }
+                }
         })
     }
+    
+    
+    func createUserFromJSON(decoder: JSONDecoder) -> User {
+        var user = NSEntityDescription.insertNewObjectForEntityForName("User",
+            inManagedObjectContext: self.db!) as User
+        user.userID = decoder["id"].integer as Int!
+        user.username = decoder["username"].string as String!
+        return user
+    }
+    
+    func addUsersToSql(decoderArray: JSONDecoder) {
+        for decoder in decoderArray.array! {
+            if find(decoder["username"].string as String!) == nil {
+                createUserFromJSON(decoder)
+            }
+        }
+        db!.save(nil)
+    }
+    
+    func find(username: String)-> User? {
+        var req = NSFetchRequest(entityName: "User")
+        req.predicate = NSPredicate(format: "username == %@", argumentArray: [username])
+        req.fetchLimit = 1
+        var error: NSError?
+        if let db = self.db {
+            let results = db.executeFetchRequest(req, error: &error) as [User]
+            if results.count == 1 {
+                return results[0]
+            }
+        }
+        
+        return nil
+    }
+    
 }
+
+
 
 let userMgr = UserManager()
 
 class globalUser {
     var deviceToken : String? = ""
-    init(){
-    }
 }
 
 let currentUser = globalUser()

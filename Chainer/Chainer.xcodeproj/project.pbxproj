@@ -17,17 +17,33 @@
 		097ECD421A1059AE00D1D2D1 /* ChainerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 097ECD411A1059AE00D1D2D1 /* ChainerTests.swift */; };
 		097ECD4E1A105A1A00D1D2D1 /* OnStartUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 097ECD4B1A105A1A00D1D2D1 /* OnStartUp.swift */; };
 		097ECD4F1A105A1A00D1D2D1 /* Users.swift in Sources */ = {isa = PBXBuildFile; fileRef = 097ECD4C1A105A1A00D1D2D1 /* Users.swift */; };
-		097ECD501A105A1A00D1D2D1 /* VideoMessages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 097ECD4D1A105A1A00D1D2D1 /* VideoMessages.swift */; };
+		097ECD501A105A1A00D1D2D1 /* Videos.swift in Sources */ = {isa = PBXBuildFile; fileRef = 097ECD4D1A105A1A00D1D2D1 /* Videos.swift */; };
 		097ECD571A105AD700D1D2D1 /* HTTPRequestSerializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 097ECD521A105AD700D1D2D1 /* HTTPRequestSerializer.swift */; };
 		097ECD581A105AD700D1D2D1 /* HTTPResponseSerializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 097ECD531A105AD700D1D2D1 /* HTTPResponseSerializer.swift */; };
 		097ECD591A105AD700D1D2D1 /* HTTPTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 097ECD541A105AD700D1D2D1 /* HTTPTask.swift */; };
 		097ECD5A1A105AD700D1D2D1 /* HTTPUpload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 097ECD551A105AD700D1D2D1 /* HTTPUpload.swift */; };
 		097ECD5B1A105AD700D1D2D1 /* JsonJoy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 097ECD561A105AD700D1D2D1 /* JsonJoy.swift */; };
 		097ECD631A105AFA00D1D2D1 /* ContactsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 097ECD5E1A105AFA00D1D2D1 /* ContactsViewController.swift */; };
+		09854DB21A12FEF50048391D /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09854DB11A12FEF50048391D /* User.swift */; };
+		099F7C871A1273F500604D63 /* VideoMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 099F7C861A1273F500604D63 /* VideoMessage.swift */; };
+		099F7CBC1A131AF200604D63 /* Zinc-Chain.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 099F7CBB1A131AF200604D63 /* Zinc-Chain.jpg */; };
 		09D00EB31A114F4A006827B4 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09D00EB21A114F4A006827B4 /* MediaPlayer.framework */; };
 		09D00EB51A114F5D006827B4 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09D00EB41A114F5D006827B4 /* CoreMedia.framework */; };
 		C42AE58B1A111ECB0009C213 /* AVKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C42AE58A1A111ECB0009C213 /* AVKit.framework */; };
+		C4B296031A12688900757B85 /* VideoPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4B296021A12688900757B85 /* VideoPlayer.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXBuildRule section */
+		09B1CFD71A1307C500A5D2D7 /* PBXBuildRule */ = {
+			isa = PBXBuildRule;
+			compilerSpec = com.apple.compilers.proxy.script;
+			fileType = wrapper.xcmappingmodel;
+			isEditable = 1;
+			outputFiles = (
+			);
+			script = "# mapc\n";
+		};
+/* End PBXBuildRule section */
 
 /* Begin PBXContainerItemProxy section */
 		097ECD3C1A1059AE00D1D2D1 /* PBXContainerItemProxy */ = {
@@ -54,16 +70,21 @@
 		097ECD411A1059AE00D1D2D1 /* ChainerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChainerTests.swift; sourceTree = "<group>"; };
 		097ECD4B1A105A1A00D1D2D1 /* OnStartUp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OnStartUp.swift; path = Models/OnStartUp.swift; sourceTree = "<group>"; };
 		097ECD4C1A105A1A00D1D2D1 /* Users.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Users.swift; path = Models/Users.swift; sourceTree = "<group>"; };
-		097ECD4D1A105A1A00D1D2D1 /* VideoMessages.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = VideoMessages.swift; path = Models/VideoMessages.swift; sourceTree = "<group>"; };
+		097ECD4D1A105A1A00D1D2D1 /* Videos.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Videos.swift; path = Models/Videos.swift; sourceTree = "<group>"; };
 		097ECD521A105AD700D1D2D1 /* HTTPRequestSerializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPRequestSerializer.swift; sourceTree = "<group>"; };
 		097ECD531A105AD700D1D2D1 /* HTTPResponseSerializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPResponseSerializer.swift; sourceTree = "<group>"; };
 		097ECD541A105AD700D1D2D1 /* HTTPTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPTask.swift; sourceTree = "<group>"; };
 		097ECD551A105AD700D1D2D1 /* HTTPUpload.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPUpload.swift; sourceTree = "<group>"; };
 		097ECD561A105AD700D1D2D1 /* JsonJoy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JsonJoy.swift; sourceTree = "<group>"; };
 		097ECD5E1A105AFA00D1D2D1 /* ContactsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactsViewController.swift; sourceTree = "<group>"; };
+		09854DB11A12FEF50048391D /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		099F7C851A1273A700604D63 /* Chainer-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Chainer-Bridging-Header.h"; sourceTree = "<group>"; };
+		099F7C861A1273F500604D63 /* VideoMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoMessage.swift; sourceTree = "<group>"; };
+		099F7CBB1A131AF200604D63 /* Zinc-Chain.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Zinc-Chain.jpg"; sourceTree = "<group>"; };
 		09D00EB21A114F4A006827B4 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		09D00EB41A114F5D006827B4 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
 		C42AE58A1A111ECB0009C213 /* AVKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVKit.framework; path = System/Library/Frameworks/AVKit.framework; sourceTree = SDKROOT; };
+		C4B296021A12688900757B85 /* VideoPlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoPlayer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -111,15 +132,17 @@
 		097ECD251A1059AE00D1D2D1 /* Chainer */ = {
 			isa = PBXGroup;
 			children = (
+				097ECD4B1A105A1A00D1D2D1 /* OnStartUp.swift */,
 				097ECD671A105B0B00D1D2D1 /* ViewControllers */,
 				097ECD511A105A2600D1D2D1 /* Models */,
 				097ECD281A1059AE00D1D2D1 /* AppDelegate.swift */,
-				0962E45D1A119EC400661226 /* UserLoginController.swift */,
 				097ECD2F1A1059AE00D1D2D1 /* Main.storyboard */,
 				097ECD5C1A105ADE00D1D2D1 /* HelperLibraries */,
 				097ECD321A1059AE00D1D2D1 /* Images.xcassets */,
+				099F7CBB1A131AF200604D63 /* Zinc-Chain.jpg */,
 				097ECD341A1059AE00D1D2D1 /* LaunchScreen.xib */,
 				097ECD2A1A1059AE00D1D2D1 /* Chainer.xcdatamodeld */,
+				099F7C851A1273A700604D63 /* Chainer-Bridging-Header.h */,
 				097ECD261A1059AE00D1D2D1 /* Supporting Files */,
 			);
 			path = Chainer;
@@ -153,9 +176,10 @@
 		097ECD511A105A2600D1D2D1 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				097ECD4B1A105A1A00D1D2D1 /* OnStartUp.swift */,
+				099F7C861A1273F500604D63 /* VideoMessage.swift */,
+				097ECD4D1A105A1A00D1D2D1 /* Videos.swift */,
 				097ECD4C1A105A1A00D1D2D1 /* Users.swift */,
-				097ECD4D1A105A1A00D1D2D1 /* VideoMessages.swift */,
+				09854DB11A12FEF50048391D /* User.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -168,6 +192,7 @@
 				097ECD541A105AD700D1D2D1 /* HTTPTask.swift */,
 				097ECD551A105AD700D1D2D1 /* HTTPUpload.swift */,
 				097ECD561A105AD700D1D2D1 /* JsonJoy.swift */,
+				C4B296021A12688900757B85 /* VideoPlayer.swift */,
 			);
 			name = HelperLibraries;
 			sourceTree = "<group>";
@@ -177,6 +202,7 @@
 			children = (
 				097ECD2D1A1059AE00D1D2D1 /* MainViewController.swift */,
 				097ECD5E1A105AFA00D1D2D1 /* ContactsViewController.swift */,
+				0962E45D1A119EC400661226 /* UserLoginController.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -193,6 +219,7 @@
 				097ECD211A1059AE00D1D2D1 /* Resources */,
 			);
 			buildRules = (
+				09B1CFD71A1307C500A5D2D7 /* PBXBuildRule */,
 			);
 			dependencies = (
 			);
@@ -263,6 +290,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				097ECD311A1059AE00D1D2D1 /* Main.storyboard in Resources */,
+				099F7CBC1A131AF200604D63 /* Zinc-Chain.jpg in Resources */,
 				097ECD361A1059AE00D1D2D1 /* LaunchScreen.xib in Resources */,
 				097ECD331A1059AE00D1D2D1 /* Images.xcassets in Resources */,
 			);
@@ -282,17 +310,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C4B296031A12688900757B85 /* VideoPlayer.swift in Sources */,
 				0962E45E1A119EC400661226 /* UserLoginController.swift in Sources */,
 				097ECD581A105AD700D1D2D1 /* HTTPResponseSerializer.swift in Sources */,
 				097ECD631A105AFA00D1D2D1 /* ContactsViewController.swift in Sources */,
+				09854DB21A12FEF50048391D /* User.swift in Sources */,
 				097ECD2E1A1059AE00D1D2D1 /* MainViewController.swift in Sources */,
 				097ECD5B1A105AD700D1D2D1 /* JsonJoy.swift in Sources */,
 				097ECD2C1A1059AE00D1D2D1 /* Chainer.xcdatamodeld in Sources */,
 				097ECD591A105AD700D1D2D1 /* HTTPTask.swift in Sources */,
 				097ECD4F1A105A1A00D1D2D1 /* Users.swift in Sources */,
-				097ECD501A105A1A00D1D2D1 /* VideoMessages.swift in Sources */,
+				097ECD501A105A1A00D1D2D1 /* Videos.swift in Sources */,
 				097ECD5A1A105AD700D1D2D1 /* HTTPUpload.swift in Sources */,
 				097ECD571A105AD700D1D2D1 /* HTTPRequestSerializer.swift in Sources */,
+				099F7C871A1273F500604D63 /* VideoMessage.swift in Sources */,
 				097ECD4E1A105A1A00D1D2D1 /* OnStartUp.swift in Sources */,
 				097ECD291A1059AE00D1D2D1 /* AppDelegate.swift in Sources */,
 			);
@@ -419,12 +450,15 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = Chainer/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "Chainer/Chainer-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
@@ -432,12 +466,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = Chainer/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "Chainer/Chainer-Bridging-Header.h";
 			};
 			name = Release;
 		};

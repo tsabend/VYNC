@@ -8,7 +8,7 @@ class VideoMessage < ActiveRecord::Base
   end
 
   def is_finished?
-    show_chain.size == 5
+    show_chain.size == 6
   end
 
   def is_last_link?
@@ -16,10 +16,10 @@ class VideoMessage < ActiveRecord::Base
   end
 
   def chain
-    if is_first_message?
-      VideoMessage.where(reply_to_id: id).unshift(self)
-    else
-      VideoMessage.where(reply_to_id: reply_to_id).unshift(VideoMessage.find(reply_to_id))
-    end
+    where(reply_to_id: reply_to_id)
+  end
+
+  def self.chains(messages)
+    where(reply_to_id: messages.pluck(:reply_to_id))
   end
 end

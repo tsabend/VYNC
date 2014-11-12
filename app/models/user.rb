@@ -7,7 +7,14 @@ class User < ActiveRecord::Base
   has_many :chain_updated_notifications
   # validates :device_id, uniqueness: true
 
-  def all_messages
-    (received_messages + sent_messages).map {|vm| vm.chain}.flatten.uniq
+  def all_messages(since = 0)
+    past = VideoMessage.all.limit(since)
+    past_chains = past.chains(messages.where(id < since))
+    VideoMessage.chains(messages).where.not(id: past_chains.pluck(:id))
   end
+
+  def messages
+    VideoMessage.where("sender_id = ? or recipient_id = ?", id, id)
+  end
+
 end

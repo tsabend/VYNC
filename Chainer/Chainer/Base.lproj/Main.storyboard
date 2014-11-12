@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6250" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="m6T-Yp-eQo">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6250" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="g35-FI-sWG">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
     </dependencies>
@@ -10,6 +10,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="m6T-Yp-eQo" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="New Chains" id="rQa-JR-eyX"/>
                     <toolbarItems/>
+                    <navigationItem key="navigationItem" id="Lao-hS-gvn"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="p6O-7F-wJ1">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -21,7 +22,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UDi-ZW-433" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-334" y="-347"/>
+            <point key="canvasLocation" x="-410" y="-341"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="4Q3-rA-yZ2">
@@ -56,6 +57,9 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <gestureRecognizers/>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="UoE-2A-gbw" appends="YES" id="GeD-Ef-HI1"/>
+                        </connections>
                     </view>
                     <navigationItem key="navigationItem" id="eJH-ff-6Q2"/>
                     <value key="contentSizeForViewInPopover" type="size" width="375" height="667"/>
@@ -64,8 +68,13 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="u8o-le-TIr" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <swipeGestureRecognizer direction="down" id="UoE-2A-gbw">
+                    <connections>
+                        <action selector="onSwipe" destination="d19-Z0-Qnq" id="WC5-b9-wdv"/>
+                    </connections>
+                </swipeGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="916" y="-347"/>
+            <point key="canvasLocation" x="58" y="-509"/>
         </scene>
         <!--Contacts View Controller-->
         <scene sceneID="5iJ-DW-Oex">
@@ -83,7 +92,7 @@
                                 </items>
                             </navigationBar>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="Bky-Oe-Ont">
-                                <rect key="frame" x="0.0" y="58" width="320" height="505"/>
+                                <rect key="frame" x="0.0" y="101" width="320" height="467"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <connections>
@@ -91,16 +100,34 @@
                                     <outlet property="delegate" destination="KXR-rk-bvN" id="Apt-LZ-UaF"/>
                                 </connections>
                             </tableView>
+                            <searchBar contentMode="redraw" text="" placeholder="Search Users" id="XPR-O8-J8T">
+                                <rect key="frame" x="0.0" y="52" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
+                                <connections>
+                                    <outlet property="delegate" destination="KXR-rk-bvN" id="HPl-A8-7dW"/>
+                                </connections>
+                            </searchBar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <connections>
+                        <outlet property="searchDisplayController" destination="vQz-oZ-ZcY" id="u5G-pg-Zd5"/>
                         <outlet property="tblUsers" destination="Bky-Oe-Ont" id="Xgk-vr-SO1"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yX9-lP-gpv" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <searchDisplayController id="vQz-oZ-ZcY">
+                    <connections>
+                        <outlet property="delegate" destination="KXR-rk-bvN" id="Ysg-W7-hEo"/>
+                        <outlet property="searchBar" destination="XPR-O8-J8T" id="oot-lE-buD"/>
+                        <outlet property="searchContentsController" destination="KXR-rk-bvN" id="L1g-ie-x8T"/>
+                        <outlet property="searchResultsDataSource" destination="KXR-rk-bvN" id="Zz9-6W-FAB"/>
+                        <outlet property="searchResultsDelegate" destination="KXR-rk-bvN" id="Yi0-Q8-YOj"/>
+                    </connections>
+                </searchDisplayController>
             </objects>
-            <point key="canvasLocation" x="1355" y="-347"/>
+            <point key="canvasLocation" x="501" y="-357"/>
         </scene>
         <!--userLogin-->
         <scene sceneID="9iM-FY-NpQ">
@@ -111,7 +138,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome to Chainer!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="9Hp-Fe-ZpC">
-                                <rect key="frame" x="20" y="45" width="288" height="38"/>
+                                <rect key="frame" x="16" y="45" width="288" height="38"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -124,12 +151,6 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" minimumFontSize="17" id="4Vd-mg-g4D">
-                                <rect key="frame" x="77" y="168" width="167" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
-                            </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="taq-Zh-AGb">
                                 <rect key="frame" x="127" y="243" width="55" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -140,12 +161,6 @@
                                     <action selector="signUp:" destination="g35-FI-sWG" eventType="touchUpInside" id="Ior-95-QTd"/>
                                 </connections>
                             </button>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Confirm Password" minimumFontSize="17" id="qLI-Bq-OYC">
-                                <rect key="frame" x="77" y="201" width="167" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
-                            </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Username" minimumFontSize="17" id="dZq-au-pWP">
                                 <rect key="frame" x="77" y="134" width="167" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -157,11 +172,12 @@
                     </view>
                     <connections>
                         <outlet property="usernameTxt" destination="dZq-au-pWP" id="Cc2-eN-FAF"/>
+                        <segue destination="m6T-Yp-eQo" kind="modal" identifier="jumpToNewChains" id="6S8-lY-sLb"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QLg-QU-cde" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="258" y="-719"/>
+            <point key="canvasLocation" x="-852" y="-347"/>
         </scene>
     </scenes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

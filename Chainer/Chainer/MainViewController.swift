@@ -1,60 +1,69 @@
-//
-//  ViewController.swift
-//  Chainer
-//
-//  Created by Apprentice on 11/9/14.
-//  Copyright (c) 2014 DBC. All rights reserved.
-//
-
 import UIKit
 import CoreMedia
+import CoreData
 import MobileCoreServices
+import AVKit
+import AVFoundation
 
+let s3Url = "https://s3-us-west-2.amazonaws.com/telephono/"
 let docFolderToSaveFiles = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as String
 let fileName = "/videoToSend.MOV"
 let PathToFile = docFolderToSaveFiles + fileName
 
+public let sampleVideoPath =
+NSBundle.mainBundle().resourcePath!.stringByAppendingPathComponent("/sample_iTunes.mov")
+
 class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITableViewDelegate, UITableViewDataSource {
 
     @IBOutlet var tblChains: UITableView!
+
+    var chains = [[VideoMessage]]()
+    var urlsToPlay : [String] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        videoMessageMgr.view = self
         let rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Camera, target: self, action: "showCam")
         self.navigationItem.rightBarButtonItem = rightBarButtonItem
-
+        
+        let leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: "onSwipe")
+        self.navigationItem.leftBarButtonItem = leftBarButtonItem
+        
+    }
+        // Load the table view
+    func onModelUpdate(model: Videos) {
+        chains = model.asChains()
+        tblChains.reloadData()
     }
     
-    // Load the table view
-    
+    @IBAction func onSwipe() {
+        videoMessageMgr.update()
+        println("Hello world")
+    }
+
     // Returning to view. Loops through users and reloads them.
     override func viewWillAppear(animated: Bool) {
-        tblChains.reloadData()
-
+        onModelUpdate(videoMessageMgr)
+        super.viewWillAppear(animated)
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell: UITableViewCell = UITableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: "test")
-        
-        let array = videoMessageMgr.showChains()
-        println(array)
-        
-        cell.textLabel.text = "First Message Id: \(array[indexPath.row].videos.count)"
-        cell.detailTextLabel?.text = "Url: \(array[indexPath.row])"
-        
+        cell.textLabel.text = "Chain in reply to: \(chains[indexPath.row].first!.replyToID)"
+        cell.detailTextLabel?.text = "Length: \(chains[indexPath.row].count)"
         return cell
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return videoMessageMgr.showChains().count
+        return chains.count
     }
-    
-    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        
-        if editingStyle == UITableViewCellEditingStyle.Delete {
-            println("delete")
-        }
-    }
+
+    //swipable functions on tableView
+//    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+//        if editingStyle == UITableViewCellEditingStyle.Delete {
+//            println("delete")
+//        }
+//    }
     
     // Load the camera on top
     
@@ -74,13 +83,26 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         //save the video that the user records
         let fileUrl = info[UIImagePickerControllerMediaURL] as? NSURL
         var myVideo : NSData = NSData(contentsOfURL: fileUrl!)!
-        myVideo.writeToFile(PathToFile, atomically: true)
+        var boolean = myVideo.writeToFile(PathToFile, atomically: true)
+        println("Save to file was successful: \(boolean)")
         
         let vc = self.storyboard?.instantiateViewControllerWithIdentifier("Contacts") as ContactsViewController
         self.presentViewController(vc, animated:false, completion:{})
     }
     
-    
-    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        if chains[indexPath.row].last?.recipientID == userID {
+            // display only the most recent video in chain
+            urlsToPlay = [String]()
+            urlsToPlay = [s3Url + chains[indexPath.row].first!.videoID]
+            playVidUrlOnViewController(urlsToPlay, self)
+        } else {
+            // display the whole the chain
+            println("loop through the whole chain")
+            urlsToPlay = [String]()
+            urlsToPlay = map(chains[indexPath.row], { s3Url + $0.videoID})
+            playVidUrlOnViewController(urlsToPlay, self)
+        }
+    }
 }
 
