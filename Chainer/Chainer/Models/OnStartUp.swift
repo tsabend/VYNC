@@ -19,5 +19,3 @@ func onStartup() {
     userMgr.update()
     videoMessageMgr.update()
 }
-
-

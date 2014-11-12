@@ -2,4 +2,53 @@
 <Bucket
    type = "1"
    version = "2.0">
+<<<<<<< HEAD
+=======
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Chainer/Models/OnStartUp.swift"
+            timestampString = "437492864.409899"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "13"
+            endingLineNumber = "13">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "globalinit_func1"
+                  moduleName = "Chainer"
+                  urlString = "file:///Users/apprentice/Desktop/chainer/Chainer/Chainer/Models/OnStartUp.swift"
+                  timestampString = "437503305.312013"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "14"
+                  endingLineNumber = "14"
+                  offsetFromSymbolStart = "16">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Chainer.userID.mutableAddressor : Swift.Int"
+                  moduleName = "Chainer"
+                  urlString = "file:///Users/apprentice/Desktop/chainer/Chainer/Chainer/Models/OnStartUp.swift"
+                  timestampString = "437503305.312314"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "14"
+                  endingLineNumber = "14"
+                  offsetFromSymbolStart = "36">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
+>>>>>>> 86b49d5e72dfb916e44558f9db57c318dc24cfeb
 </Bucket>
