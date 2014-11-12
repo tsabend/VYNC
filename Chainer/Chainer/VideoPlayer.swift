@@ -13,7 +13,6 @@ import Foundation
 
 public func avPlayerControllerFor(url: [AVPlayerItem]) -> AVPlayerViewController {
     
-    
     let player: AVQueuePlayer = AVQueuePlayer(items: url)// NSURL(string: url)
     // create player view controller
     let avPlayerVC = AVPlayerViewController()
