@@ -24,7 +24,6 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         super.viewDidLoad()
         let rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Camera, target: self, action: "showCam")
         self.navigationItem.rightBarButtonItem = rightBarButtonItem
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "replayVideo", name: AVPlayerItemDidPlayToEndTimeNotification, object: nil)
     }
     
     // Load the table view
@@ -91,11 +90,6 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             urlsToPlay = map(chains[indexPath.row], { s3Url + $0.videoID})
             playVidUrlOnViewController(urlsToPlay, self)
         }
-    }
-    func replayVideo(){
-        println("Video in queue ended")
-        println("Comment when all the videos end")
-//        playVidUrlOnViewController(urlsToPlay, self)
     }
 }
 
