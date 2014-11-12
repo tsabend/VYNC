@@ -23,8 +23,9 @@ NSBundle.mainBundle().resourcePath!.stringByAppendingPathComponent("/sample_iTun
 class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITableViewDelegate, UITableViewDataSource {
 
     @IBOutlet var tblChains: UITableView!
-    var videos : [VideoMessage] = []
- 
+
+    var chains = [[VideoMessage]]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         let rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Camera, target: self, action: "showCam")
@@ -36,45 +37,23 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     // Returning to view. Loops through users and reloads them.
     override func viewWillAppear(animated: Bool) {
+        chains = videoMessageMgr.asChains()
+        tblChains.reloadData()
         super.viewWillAppear(animated)
-        
-        //1
-        let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
-        
-        let managedContext = appDelegate.managedObjectContext!
-        
-        //2
-        let fetchRequest = NSFetchRequest(entityName:"VideoMessage")
-        
-        //3
-        var error: NSError?
-        
-        let fetchedResults = managedContext.executeFetchRequest(fetchRequest,
-            error: &error) as [NSManagedObject]?
-        
-        if let results = fetchedResults {
-            videos = results as [VideoMessage]
-        } else {
-            println("Could not fetch \(error), \(error!.userInfo)")
-        }
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell: UITableViewCell = UITableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: "test")
-    
-
-        cell.textLabel.text = "Video Url: \(videos[indexPath.row].videoID)"
-        cell.detailTextLabel?.text = "Is In Reply To: \(videos[indexPath.row].replyToID)"
-        
+        cell.textLabel.text = "Chain in reply to: \(chains[indexPath.row].first!.replyToID)"
+        cell.detailTextLabel?.text = "Length: \(chains[indexPath.row].count)"
         return cell
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return videos.count
+        return chains.count
     }
     
     func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        
         if editingStyle == UITableViewCellEditingStyle.Delete {
             println("delete")
         }
@@ -106,8 +85,16 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let url = s3Url + videos[indexPath.row].videoID
-        playVidUrlOnViewController(url, self)
+        if chains[indexPath.row].last?.recipientID == userID {
+            // display only the most recent video in chain
+            let url = s3Url + chains[indexPath.row].first!.videoID
+            playVidUrlOnViewController(url, self)
+        } else {
+            // display the whole the chain
+            println("loop through the whole chain")
+            let urls = map(chains[indexPath.row], { s3Url + $0.videoID})
+            println("\(urls)")
+        }
     }
 }
 

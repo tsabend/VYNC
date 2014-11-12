@@ -34,7 +34,7 @@ class UserLoginController: UIViewController {
             displayAlert("Error In Form", error: "Please fill in all fields")
         } else {
             var request = HTTPTask()
-            let params: Dictionary<String,AnyObject!> = ["device_id": deviceId, "username": usernameTxt.text, "devicetoken": currentUser.deviceToken!]
+            let params: Dictionary<String,AnyObject!> = ["deviceId": deviceId, "username": usernameTxt.text, "devicetoken": currentUser.deviceToken!]
             request.POST("http://chainer.herokupapp.com/newuser", parameters: params, success: {(response: HTTPResponse) in
                 if response.responseObject != nil {
                     print("success")
