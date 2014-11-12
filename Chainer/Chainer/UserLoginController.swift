@@ -1,11 +1,17 @@
 import Foundation
 import UIKit
 
+
+let userSaveFolder = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as String
+let userFileName = "/userexists.txt"
+let pathToUserFile = userSaveFolder + userFileName as NSString
+
+
 class UserLoginController: UIViewController,UINavigationControllerDelegate, UIImagePickerControllerDelegate {
 
     @IBOutlet weak var usernameTxt: UITextField!
-    
-    
+    let theFileManager = NSFileManager.defaultManager()
+
     func displayAlert(title:String, error:String) {
         
         var alert = UIAlertController(title: title, message: error, preferredStyle: UIAlertControllerStyle.Alert)
@@ -23,14 +29,14 @@ class UserLoginController: UIViewController,UINavigationControllerDelegate, UIIm
         view.addSubview(activityIndicator)
         activityIndicator.startAnimating()
         UIApplication.sharedApplication().beginIgnoringInteractionEvents()
-//        func createFileAtPath
         var deviceId = UIDevice.currentDevice().identifierForVendor.UUIDString
+        var devicetoken = currentUser.deviceToken!
         if usernameTxt.text == "" {
             displayAlert("Error In Form", error: "Please enter a username")
         } else {
             
             var request = HTTPTask()
-            let params: Dictionary<String,AnyObject!> = ["deviceId": deviceId, "username": usernameTxt.text, "devicetoken": currentUser.deviceToken!]
+            let params: Dictionary<String,AnyObject!> = ["deviceId": deviceId, "username": usernameTxt.text, "devicetoken": devicetoken]
             request.POST("http://chainer.herokupapp.com/newuser", parameters: params, success: {(response: HTTPResponse) in
                 if response.responseObject != nil {
                     print("success")
@@ -40,6 +46,7 @@ class UserLoginController: UIViewController,UINavigationControllerDelegate, UIIm
             })
             activityIndicator.stopAnimating()
             UIApplication.sharedApplication().endIgnoringInteractionEvents()
+            theFileManager.createFileAtPath(pathToUserFile, contents: NSData(), attributes: nil )
         }
         
         let vc = self.storyboard?.instantiateViewControllerWithIdentifier("Home") as ViewController
@@ -53,8 +60,8 @@ class UserLoginController: UIViewController,UINavigationControllerDelegate, UIIm
         super.viewDidLoad()
     }
     override func viewDidAppear(animated: Bool) {
-//        if ]]]] {
-//            self.performSegueWithIdentifier("jumpToChainsTabl", sender: self)
-//        }
+        if  theFileManager.fileExistsAtPath(pathToUserFile) {
+            self.performSegueWithIdentifier("jumpToNewChains", sender: self)
+        }
     }
 }
