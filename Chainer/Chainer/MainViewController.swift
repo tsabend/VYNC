@@ -1,11 +1,3 @@
-//
-//  ViewController.swift
-//  Chainer
-//
-//  Created by Apprentice on 11/9/14.
-//  Copyright (c) 2014 DBC. All rights reserved.
-//
-
 import UIKit
 import CoreMedia
 import CoreData
@@ -26,12 +18,13 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     @IBOutlet var tblChains: UITableView!
 
     var chains = [[VideoMessage]]()
+    var urlsToPlay : [String] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
         let rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Camera, target: self, action: "showCam")
         self.navigationItem.rightBarButtonItem = rightBarButtonItem
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "playVideo", name: AVPlayerItemDidPlayToEndTimeNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "replayVideo", name: AVPlayerItemDidPlayToEndTimeNotification, object: nil)
     }
     
     // Load the table view
@@ -88,17 +81,20 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         if chains[indexPath.row].last?.recipientID == userID {
             // display only the most recent video in chain
-            let url = [s3Url + chains[indexPath.row].first!.videoID]
-            playVidUrlOnViewController(url, self)
+            urlsToPlay = [String]()
+            urlsToPlay = [s3Url + chains[indexPath.row].first!.videoID]
+            playVidUrlOnViewController(urlsToPlay, self)
         } else {
             // display the whole the chain
             println("loop through the whole chain")
-            let urls = map(chains[indexPath.row], { s3Url + $0.videoID})
-            playVidUrlOnViewController(urls, self)
+            urlsToPlay = [String]()
+            urlsToPlay = map(chains[indexPath.row], { s3Url + $0.videoID})
+            playVidUrlOnViewController(urlsToPlay, self)
         }
     }
-    func playVideo(){
+    func replayVideo(){
         println("This message should pop up when the video ends")
+        playVidUrlOnViewController(urlsToPlay, self)
     }
 }
 
