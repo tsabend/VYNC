@@ -11,8 +11,10 @@ import AVKit
 import AVFoundation
 import Foundation
 
-public func avPlayerControllerFor(url: String) -> AVPlayerViewController {
-    let player: AVPlayer = AVPlayer(URL: NSURL(string: url))
+public func avPlayerControllerFor(url: [AVPlayerItem]) -> AVPlayerViewController {
+    
+    
+    let player: AVQueuePlayer = AVQueuePlayer(items: url)// NSURL(string: url)
     // create player view controller
     let avPlayerVC = AVPlayerViewController()
     avPlayerVC.player = player
@@ -20,13 +22,20 @@ public func avPlayerControllerFor(url: String) -> AVPlayerViewController {
     return avPlayerVC
 }
 
-public func playVidUrlOnViewController(vidUrl: String, vc: UIViewController) {
+public func playVidUrlOnViewController(vidUrl: [String], vc: UIViewController) {
     
-    let avPlayerVC = avPlayerControllerFor(vidUrl)
+    let avPlayerVC = avPlayerControllerFor(createAVItems(vidUrl))
     
     // show player view controller
     vc.presentViewController(avPlayerVC, animated: true, completion: {
         avPlayerVC.player.play()
     })
     
+}
+public func createAVItems(items : [String]) -> [AVPlayerItem]{
+    var avItems : [AVPlayerItem] = []
+    for item in items {
+        avItems.append(AVPlayerItem(URL: NSURL(string: item)))
+    }
+    return avItems
 }

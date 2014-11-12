@@ -87,13 +87,13 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         if chains[indexPath.row].last?.recipientID == userID {
             // display only the most recent video in chain
-            let url = s3Url + chains[indexPath.row].first!.videoID
+            let url = [s3Url + chains[indexPath.row].first!.videoID]
             playVidUrlOnViewController(url, self)
         } else {
             // display the whole the chain
             println("loop through the whole chain")
             let urls = map(chains[indexPath.row], { s3Url + $0.videoID})
-            println("\(urls)")
+            playVidUrlOnViewController(urls, self)
         }
     }
 }
