@@ -24,7 +24,8 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
 
     @IBOutlet var tblChains: UITableView!
 
- 
+    var chains = [[VideoMessage]]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         let rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Camera, target: self, action: "showCam")
@@ -36,19 +37,20 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     // Returning to view. Loops through users and reloads them.
     override func viewWillAppear(animated: Bool) {
+        chains = videoMessageMgr.asChains()
         tblChains.reloadData()
         super.viewWillAppear(animated)
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell: UITableViewCell = UITableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: "test")
-        cell.textLabel.text = "Chain in reply to: \(videoMessageMgr.asChains()[indexPath.row].first!.replyToID)"
-        cell.detailTextLabel?.text = "Length: \(videoMessageMgr.asChains()[indexPath.row].count)"
+        cell.textLabel.text = "Chain in reply to: \(chains[indexPath.row].first!.replyToID)"
+        cell.detailTextLabel?.text = "Length: \(chains[indexPath.row].count)"
         return cell
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return videoMessageMgr.asChains().count
+        return chains.count
     }
     
     func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
@@ -83,8 +85,16 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let url = s3Url + videoMessageMgr.asChains()[indexPath.row].first!.videoID
-        playVidUrlOnViewController(url, self)
+        if chains[indexPath.row].last?.recipientID == userID {
+            // display only the most recent video in chain
+            let url = s3Url + chains[indexPath.row].first!.videoID
+            playVidUrlOnViewController(url, self)
+        } else {
+            // display the whole the chain
+            println("loop through the whole chain")
+            let urls = map(chains[indexPath.row], { s3Url + $0.videoID})
+            println("\(urls)")
+        }
     }
 }
 

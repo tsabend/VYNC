@@ -16,7 +16,7 @@ struct User : JSONJoy {
     
     init(_ decoder: JSONDecoder) {
         userID = decoder["id"].integer
-        deviceID = decoder["device_id"].integer
+        deviceID = decoder["deviceId"].integer
         createdAt = decoder["created_at"].string
     }
 }

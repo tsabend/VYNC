@@ -90,7 +90,7 @@ class Videos {
         
         var data : NSData?
         var request = HTTPTask()
-        request.GET("http://chainer.herokuapp.com/videomessages/\(device_id)/all",
+        request.GET("http://chainer.herokuapp.com/videomessages/\(deviceId)/all",
             parameters: ["since" : since],
             success: { (response: HTTPResponse) in
                 if response.responseObject != nil {
