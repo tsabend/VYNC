@@ -8,6 +8,8 @@ class User < ActiveRecord::Base
   # validates :device_id, uniqueness: true
 
   def all_messages(since = 0)
+    # temporarily ignoring since because it's giving off by one errors.
+    since = 0
     past = VideoMessage.all.limit(since)
     past_chains = past.chains(messages.where(id < since))
     VideoMessage.chains(messages).where.not(id: past_chains.pluck(:id))
