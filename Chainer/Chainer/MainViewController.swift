@@ -93,7 +93,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             // display the whole the chain
             println("loop through the whole chain")
             let urls = map(chains[indexPath.row], { s3Url + $0.videoID})
-            println("\(urls)")
+            playVidUrlOnViewController(urls, self)
         }
     }
 }
