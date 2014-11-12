@@ -93,8 +93,9 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         }
     }
     func replayVideo(){
-        println("This message should pop up when the video ends")
-        playVidUrlOnViewController(urlsToPlay, self)
+        println("Video in queue ended")
+        println("Comment when all the videos end")
+//        playVidUrlOnViewController(urlsToPlay, self)
     }
 }
 
