@@ -10,6 +10,8 @@ class ContactsViewController: UIViewController, UITableViewDelegate, UITableView
 
     @IBOutlet var tblUsers: UITableView!
     
+    var users = [User]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -23,6 +25,7 @@ class ContactsViewController: UIViewController, UITableViewDelegate, UITableView
 
     // Returning to view. Loops through users and reloads them.
     override func viewWillAppear(animated: Bool) {
+        users = userMgr.asUsers()
         tblUsers.reloadData()
 
     }
@@ -30,28 +33,24 @@ class ContactsViewController: UIViewController, UITableViewDelegate, UITableView
     // UITableViewDataSource requirements
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell: UITableViewCell = UITableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: "test")
-        cell.textLabel.text = "User Id: \(userMgr.users[indexPath.row].userID)"
-        cell.detailTextLabel?.text = "Device Id: \(userMgr.users[indexPath.row].deviceID). Created at \(userMgr.users[indexPath.row].createdAt)"
+        cell.textLabel.text = "Username: \(users[indexPath.row].username)"
+        cell.detailTextLabel?.text = "User Id: \(users[indexPath.row].userID))"
         return cell
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return userMgr.users.count
+        return users.count
     }
     
     // UITableViewDelegateFunctions: These are to help launch events from the table view
     func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         
-        if editingStyle == UITableViewCellEditingStyle.Delete {
-            userMgr.users.removeAtIndex(indexPath.row)
-            tblUsers.reloadData()
-        }
     }
     
     // Sending a video message to a user
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let videoURL = NSURL(string: PathToFile)
-        let userID = userMgr.users[indexPath.item].userID as Int!
+        let userID = users[indexPath.item].userID
         //post the video that the user takes to the server
         var request = HTTPTask()
         request.POST("http://chainer.herokuapp.com/upload", parameters:  ["sender": "1", "recipient" : "\(userID)",  "file": HTTPUpload(fileUrl: videoURL!) ], success: {(response: HTTPResponse) in
