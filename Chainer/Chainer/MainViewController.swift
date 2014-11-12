@@ -19,7 +19,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
 
     var chains = [[VideoMessage]]()
     var urlsToPlay : [String] = []
-    var replyToID : Int? = nil
+    var replyToID : Int? = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -93,7 +93,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         let vc = self.storyboard?.instantiateViewControllerWithIdentifier("Contacts") as ContactsViewController
         vc.replyToID = self.replyToID
         self.presentViewController(vc, animated:false, completion:{
-            self.replyToID = nil
+            self.replyToID = 0
         })
     }
     

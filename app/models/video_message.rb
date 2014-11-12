@@ -16,7 +16,7 @@ class VideoMessage < ActiveRecord::Base
   end
 
   def chain
-    where(reply_to_id: reply_to_id)
+    VideoMessage.where(reply_to_id: reply_to_id)
   end
 
   def self.chains(messages)
