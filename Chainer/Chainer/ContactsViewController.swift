@@ -12,7 +12,7 @@ class ContactsViewController: UIViewController, UITableViewDelegate, UITableView
 
     var users = [User]()
     var filteredUsers = [User]()
-    var replyToID : Int? = nil
+    var replyToID : Int? = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -78,7 +78,7 @@ class ContactsViewController: UIViewController, UITableViewDelegate, UITableView
             "file": HTTPUpload(fileUrl: videoURL!) ],
             success: {(response: HTTPResponse) in
                 if let data = response.responseObject as? NSData {
-                    self.replyToID = nil
+                    self.replyToID = 0
                     let str = NSString(data: data, encoding: NSUTF8StringEncoding)
                     println("response from upload: \(str)") //prints the HTML of the page
                 }

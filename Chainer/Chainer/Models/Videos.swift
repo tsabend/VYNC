@@ -55,7 +55,7 @@ class Videos {
         let fetchRequest = NSFetchRequest(entityName:"VideoMessage")
         let ed = NSEntityDescription.entityForName("VideoMessage",
             inManagedObjectContext: managedContext)!
-        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "createdAt", ascending: false)]
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "replyToID", ascending: true), NSSortDescriptor(key: "createdAt", ascending: false)]
         fetchRequest.returnsDistinctResults = true
         fetchRequest.propertiesToFetch = ["replyToID"]
         var error: NSError?
@@ -66,6 +66,7 @@ class Videos {
             // set data structures. Chain will be passed around and manipulated, we will be building into chains.
             var chain = [VideoMessage]()
             for video in results {
+                println("video reply to id= \(video.replyToID)")
                 // If it's the first chain or it's on the same chain as the previous video add it to chain
                 if chain.isEmpty || chain.last!.replyToID == video.replyToID {
                     chain.append(video)
@@ -79,6 +80,7 @@ class Videos {
             if chain.isEmpty == false {
                 chains.append(chain)
             }
+            println(chains)
         } else {
             println("Could not fetch \(error), \(error!.userInfo)")
         }

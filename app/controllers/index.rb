@@ -24,7 +24,7 @@ post '/upload' do
   # otherwise assume it's the first video in a chain and set the reply_to_id
   # to its own id
   newVid.save!  
-  if params[:replyToID] == ""
+  if params[:replyToID] == "0"
     newVid.reply_to_id = newVid.id
   else
     newVid.reply_to_id = params[:replyToID]
