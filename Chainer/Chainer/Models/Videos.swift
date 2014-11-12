@@ -97,8 +97,7 @@ class Videos {
         }
         var data : NSData?
         var request = HTTPTask()
-//        var deviceID = UIDevice.currentDevice().identifierForVendor.UUIDString
-        var deviceID = 1
+        var deviceID = UIDevice.currentDevice().identifierForVendor.UUIDString
         println("device id : \(deviceID)")
         request.GET("http://chainer.herokuapp.com/videomessages/\(deviceID)/all",
 //        request.GET("http://localhost:9393/videomessages/\(deviceID)/all",
