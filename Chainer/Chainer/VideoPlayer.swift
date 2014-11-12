@@ -17,6 +17,7 @@ public func avPlayerControllerFor(url: [AVPlayerItem]) -> AVPlayerViewController
     let player: AVQueuePlayer = AVQueuePlayer(items: url)// NSURL(string: url)
     // create player view controller
     let avPlayerVC = AVPlayerViewController()
+    player.actionAtItemEnd = AVPlayerActionAtItemEnd(rawValue: 2)!
     avPlayerVC.player = player
     
     return avPlayerVC
@@ -39,3 +40,4 @@ public func createAVItems(items : [String]) -> [AVPlayerItem]{
     }
     return avItems
 }
+

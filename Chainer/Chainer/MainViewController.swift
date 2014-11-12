@@ -11,6 +11,7 @@ import CoreMedia
 import CoreData
 import MobileCoreServices
 import AVKit
+import AVFoundation
 
 let s3Url = "https://s3-us-west-2.amazonaws.com/telephono/"
 let docFolderToSaveFiles = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as String
@@ -30,7 +31,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         super.viewDidLoad()
         let rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Camera, target: self, action: "showCam")
         self.navigationItem.rightBarButtonItem = rightBarButtonItem
-
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "replayVideo", name: AVPlayerItemDidPlayToEndTimeNotification, object: nil)
     }
     
     // Load the table view
