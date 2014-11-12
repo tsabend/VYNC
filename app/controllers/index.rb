@@ -14,9 +14,12 @@ get '/videomessages/:device_id/all' do
 end
 
 post '/upload' do
-  puts "post!"
-  # the incoming file
-  tempfile = request.params[:file][:tempfile]
+  puts "----------------------------post!-------------------------------"
+  puts "params => #{params}"
+  puts "params[file] => #{params['file']}"
+  puts "params[file][tempfile] => #{params['file'][:tempfile]}"
+  puts "----------------------------post!-------------------------------"
+  tempfile = request.params["file"][:tempfile]
   # A random hex to use as a filename, shasum was not working...
   video_id = SecureRandom.hex + ".mov"
   # Instantiate a new videomessage object
