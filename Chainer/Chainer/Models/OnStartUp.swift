@@ -13,6 +13,6 @@ let videoMessageMgr = Videos()
 let deviceId = 1//UIDevice.currentDevice().identifierForVendor.UUIDString
 let userID = 1
 func onStartup() {
-    userMgr.getUsers()
+    userMgr.update()
     videoMessageMgr.update()
 }

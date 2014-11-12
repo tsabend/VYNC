@@ -5,7 +5,7 @@ end
 
 get '/allusers' do
   content_type :json
-  User.all.to_json
+  User.all.offset(params["since"]).to_json
 end
 
 get '/videomessages/:user_id/all' do
@@ -43,5 +43,5 @@ end
 post "/newuser" do
   puts params
   User.create(devicetoken: params[:deviceToken], device_id: params[:deviceId], username: params[:username])
-  notify(params[:deviceToken], "Welcome to chainer!")
+  notify(params[:deviceToken], "Welcome to Chainer!")
 end
