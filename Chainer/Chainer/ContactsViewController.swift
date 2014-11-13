@@ -17,9 +17,8 @@ class ContactsViewController: UIViewController, UITableViewDelegate, UITableView
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -29,7 +28,6 @@ class ContactsViewController: UIViewController, UITableViewDelegate, UITableView
     override func viewWillAppear(animated: Bool) {
         users = userMgr.asUsers()
         tblUsers.reloadData()
-
     }
     
     // UITableViewDataSource requirements
@@ -75,8 +73,7 @@ class ContactsViewController: UIViewController, UITableViewDelegate, UITableView
             
             },failure: {(error: NSError, response: HTTPResponse?) in
         })
-        let vc = self.storyboard?.instantiateViewControllerWithIdentifier("Home") as ViewController
-        self.presentViewController(vc, animated:false, completion:{})
+        self.performSegueWithIdentifier("backToHome", sender: self)
     }
     
     func filterContentForSearchText(searchText: String, scope: String = "All") {
@@ -98,6 +95,5 @@ class ContactsViewController: UIViewController, UITableViewDelegate, UITableView
         self.filterContentForSearchText(self.searchDisplayController!.searchBar.text)
         return true
     }
-    
 }
 
