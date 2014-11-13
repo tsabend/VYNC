@@ -63,7 +63,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         
         // The id of the person who sent you this video.
         let sentID = self.chains[indexPath.row].first!.senderID
-        let recipientID = self.chains[indexPath.row].last!.recipientID
+        let recipientID = self.chains[indexPath.row].first!.recipientID
         // The username of the person who sent you this video.
         let usersArray = userMgr.asUsers()
         var sendingUser = usersArray.filter({$0.userID == sentID as NSNumber }).first?.username
@@ -79,12 +79,15 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         formatter.timeStyle = .ShortStyle
         formatter.dateFormat = "MMMM d"
         let stringDate = formatter.stringFromDate(date)
-        
+        println(recipientID)
+        println(userID.toInt()!)
         if recipientID == userID.toInt()! {                               // if you are holding up the chain
+            println("holding up chain")
             let button   = UIButton.buttonWithType(UIButtonType.System) as UIButton
-            button.frame = CGRectMake(250, 0, 78, 78)
+            button.frame = CGRectMake(245, 0, 78, 78)
 //            button.backgroundColor = UIColor.greenColor()
             button.setTitle("VYNC", forState: UIControlState.Normal)
+            button.titleLabel!.font =  UIFont(name: "Helvetica", size: 20)
             button.addTarget(self, action: "buttonAction:", forControlEvents: UIControlEvents.TouchDown)
             var replyTo = self.chains[indexPath.row].first!.replyToID as? Int
             button.tag = replyTo!
@@ -95,12 +98,15 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             cell.detailTextLabel?.text = "\(chains[indexPath.row].count) \(link) long. \(stringDate)"
             cell.imageView.image = UIImage(contentsOfFile :"/Users/apprentice/Documents/thomas/chainer/Chainer/Chainer/Images.xcassets/envelope5.imageset/envelope5.png")
 
-        } else if sentID == userID.toInt()! {                                           // if you sent the message
+        } else if sentID == userID.toInt()! {
+            // if you sent the message
+            println("following chain")
             cell.textLabel.text = "Following"
             cell.detailTextLabel?.text = "\(chains[indexPath.row].count) \(link) long. \(stringDate)"
             cell.imageView.image = UIImage(contentsOfFile : "/Users/apprentice/Documents/thomas/chainer/Chainer/Chainer/group41.png")
             println(UIImage(contentsOfFile : "/Users/apprentice/Documents/thomas/chainer/Chainer/Chainer/group41.png"))
         } else {                                                        // if you are just following
+            println("chain you started")
             cell.textLabel.text = "Following \(sendingUser!)"
             cell.detailTextLabel?.text = "\(chains[indexPath.row].count) \(link) long. \(stringDate)"
             cell.imageView.image = UIImage(contentsOfFile : "/Users/apprentice/Downloads/new.png")
@@ -119,6 +125,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     }
 
     @IBAction func onSwipe() {
+        userMgr.update()
         videoMessageMgr.update()
     }
     
