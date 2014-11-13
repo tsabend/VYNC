@@ -42,7 +42,7 @@ class ContactsViewController: UIViewController, UITableViewDelegate, UITableView
             user = users[indexPath.row]
         }
         cell.textLabel.text = "\(user.username)"
-        cell.imageView.image = UIImage(contentsOfFile :"/Users/apprentice/Documents/thomas/chainer/Chainer/Chainer/Zinc-Chain.jpg")
+
         return cell
     }
     
