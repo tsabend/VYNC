@@ -66,24 +66,17 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
 //        }
 //    }
     func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [AnyObject]? {
-        
-        let deleteClosure = { (action: UITableViewRowAction!, indexPath: NSIndexPath!) -> Void in
-            println("Delete closure called")
-        }
-        
         let moreClosure = { (action: UITableViewRowAction!, indexPath: NSIndexPath!) -> Void in
-            println("Reply closure is called")
+            self.replyToID = self.chains[indexPath.row].first!.replyToID as? Int
+            self.showCam()
         }
-        
-//        let deleteAction = UITableViewRowAction(style: .Default, title: "Delete", handler: deleteClosure)
+
         let moreAction = UITableViewRowAction(style: .Normal, title: "Reply", handler: moreClosure)
         
         return [moreAction]
     }
-    
+//
    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        
-        // Intentionally blank. Required to use UITableViewRowActions
     }
     // Load the camera on top
     
