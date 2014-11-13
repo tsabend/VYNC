@@ -96,21 +96,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         return chains.count
     }
 
-//    func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [AnyObject]? {
-//        let moreClosure = { (action: UITableViewRowAction!, indexPath: NSIndexPath!) -> Void in
-//            self.replyToID = self.chains[indexPath.row].first!.replyToID as? Int
-//            self.showCam()
-//        }
-//
-//        let moreAction = UITableViewRowAction(style: .Normal, title: "Reply", handler: moreClosure)
-//        
-//        return [moreAction]
-//    }
-    
-//    //necessary function for reply button
-//   func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-//
-//    }
+
     
     @IBAction func onSwipe(sender: UISwipeGestureRecognizer) {
         videoMessageMgr.update()
@@ -121,7 +107,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         imagePicker.delegate = self
         imagePicker.sourceType = UIImagePickerControllerSourceType.Camera // Set the media type to allow movies
         imagePicker.mediaTypes = [kUTTypeMovie] // Maximum length 6 seconds
-        imagePicker.videoMaximumDuration = 5.00
+        imagePicker.videoMaximumDuration = 6.00
         self.presentViewController(imagePicker, animated: false, completion:{})
     }
     

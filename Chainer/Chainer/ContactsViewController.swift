@@ -34,7 +34,7 @@ class ContactsViewController: UIViewController, UITableViewDelegate, UITableView
     
     // UITableViewDataSource requirements
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell: UITableViewCell = UITableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: "test")
+        let cell: UITableViewCell = UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: "test")
         
         var user : User
         
@@ -43,9 +43,7 @@ class ContactsViewController: UIViewController, UITableViewDelegate, UITableView
         } else {
             user = users[indexPath.row]
         }
-        
-        cell.textLabel.text = "Username: \(user.username)"
-        cell.detailTextLabel?.text = "User Id: \(user.userID))"
+        cell.textLabel.text = "\(user.username)"
         cell.imageView.image = UIImage(contentsOfFile :"/Users/apprentice/Documents/thomas/chainer/Chainer/Chainer/Zinc-Chain.jpg")
         return cell
     }
@@ -76,7 +74,6 @@ class ContactsViewController: UIViewController, UITableViewDelegate, UITableView
                 }
             
             },failure: {(error: NSError, response: HTTPResponse?) in
-                //error out on stuff
         })
         let vc = self.storyboard?.instantiateViewControllerWithIdentifier("Home") as ViewController
         self.presentViewController(vc, animated:false, completion:{})
@@ -85,7 +82,7 @@ class ContactsViewController: UIViewController, UITableViewDelegate, UITableView
     func filterContentForSearchText(searchText: String, scope: String = "All") {
         self.filteredUsers = self.users.filter({( user : User) -> Bool in
             var categoryMatch = (scope == "All") || (user.username == scope)
-            var stringMatch = user.username.rangeOfString(searchText)
+            var stringMatch = user.username.rangeOfString(searchText.lowercaseString)
             return categoryMatch && (stringMatch != nil)
         })
     }
