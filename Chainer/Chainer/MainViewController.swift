@@ -44,7 +44,6 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         tblChains.reloadData()
     }
 
-
     // Returning to view. Loops through users and reloads them.
     override func viewWillAppear(animated: Bool) {
         onModelUpdate(videoMessageMgr)
@@ -56,6 +55,12 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         // Your user id, from that file we made
         var userID = NSString(data: theFileManager.contentsAtPath(pathToUserFile)!, encoding: NSUTF8StringEncoding) as String
 
+        // conditional links vs. link
+        var link = "links"
+        if chains[indexPath.row].count == 1 {
+            link = "link"
+        }
+        
         // The id of the person who sent you this video.
         let sentID = self.chains[indexPath.row].first!.senderID
         let recipientID = self.chains[indexPath.row].last!.recipientID
@@ -65,8 +70,8 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         
         if sentID == userID.toInt()! {                                           // if you sent the message
             cell.textLabel.text = "You Started It!"
-            cell.detailTextLabel?.text = "\(chains[indexPath.row].count) links long  :  click to the first video!"
-        } else if recipientID == userID {                               // if you are holding up the chain
+            cell.detailTextLabel?.text = "\(chains[indexPath.row].count) \(link) long"
+        } else if recipientID == userID.toInt()! {                               // if you are holding up the chain
             let button   = UIButton.buttonWithType(UIButtonType.System) as UIButton
             button.frame = CGRectMake(210, 16,
                 100,
@@ -76,13 +81,12 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             button.addTarget(self, action: "buttonAction:", forControlEvents: UIControlEvents.TouchDown)
             button.layer.cornerRadius = 14
             cell.addSubview(button)
-            cell.textLabel.text = "New Chain From: \(sendingUser)"
-            cell.detailTextLabel?.text = "\(chains[indexPath.row].count) links long  :  click to play!"
+            cell.textLabel.text = "New Chain From: \(sendingUser!)"
+            cell.detailTextLabel?.text = "\(chains[indexPath.row].count) \(link) long"
         } else {                                                        // if you are just following
-            cell.textLabel.text = "From: \(sendingUser)"
-            cell.detailTextLabel?.text = "\(chains[indexPath.row].count) links long  :  click to play!"
+            cell.textLabel.text = "From: \(sendingUser!)"
+            cell.detailTextLabel?.text = "\(chains[indexPath.row].count) \(link) long"
         }
-        
         return cell
     }
     
@@ -96,8 +100,6 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         return chains.count
     }
 
-
-    
     @IBAction func onSwipe(sender: UISwipeGestureRecognizer) {
         videoMessageMgr.update()
         println("Hello world")
