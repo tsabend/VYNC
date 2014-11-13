@@ -79,7 +79,7 @@ class ContactsViewController: UIViewController, UITableViewDelegate, UITableView
     func filterContentForSearchText(searchText: String, scope: String = "All") {
         self.filteredUsers = self.users.filter({( user : User) -> Bool in
             var categoryMatch = (scope == "All") || (user.username == scope)
-            var stringMatch = user.username.rangeOfString(searchText)
+            var stringMatch = user.username.rangeOfString(searchText.lowercaseString)
             return categoryMatch && (stringMatch != nil)
         })
     }
@@ -92,7 +92,7 @@ class ContactsViewController: UIViewController, UITableViewDelegate, UITableView
     
     func searchDisplayController(controller: UISearchDisplayController!,
         shouldReloadTableForSearchScope searchOption: Int) -> Bool {
-        self.filterContentForSearchText(self.searchDisplayController!.searchBar.text)
+        self.filterContentForSearchText(self.searchDisplayController!.searchBar.text.lowercaseString)
         return true
     }
 }
