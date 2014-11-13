@@ -12,14 +12,6 @@ let PathToFile = docFolderToSaveFiles + fileName
 let unlockUrl : String = "https://s3-us-west-2.amazonaws.com/telephono/IMG_0370.MOV"
 
 
-
-
-
-
-
-
-
-
 class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet var tblChains: UITableView!

@@ -26,7 +26,6 @@
 		097ECD631A105AFA00D1D2D1 /* ContactsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 097ECD5E1A105AFA00D1D2D1 /* ContactsViewController.swift */; };
 		09854DB21A12FEF50048391D /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09854DB11A12FEF50048391D /* User.swift */; };
 		099F7C871A1273F500604D63 /* VideoMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 099F7C861A1273F500604D63 /* VideoMessage.swift */; };
-		099F7CCA1A15329200604D63 /* logobutton-40px.png in Resources */ = {isa = PBXBuildFile; fileRef = 099F7CC91A15329200604D63 /* logobutton-40px.png */; };
 		099F7F081A15349900604D63 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 099F7F071A15349900604D63 /* LaunchScreen.xib */; };
 		099F7F0B1A1534DA00604D63 /* background.png in Resources */ = {isa = PBXBuildFile; fileRef = 099F7F091A1534DA00604D63 /* background.png */; };
 		099F7F0C1A1534DA00604D63 /* vynclogo copy.png in Resources */ = {isa = PBXBuildFile; fileRef = 099F7F0A1A1534DA00604D63 /* vynclogo copy.png */; };
@@ -83,7 +82,6 @@
 		09854DB11A12FEF50048391D /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		099F7C851A1273A700604D63 /* Chainer-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Chainer-Bridging-Header.h"; sourceTree = "<group>"; };
 		099F7C861A1273F500604D63 /* VideoMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoMessage.swift; sourceTree = "<group>"; };
-		099F7CC91A15329200604D63 /* logobutton-40px.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "logobutton-40px.png"; path = "../../../../../Downloads/logobutton-40px.png"; sourceTree = "<group>"; };
 		099F7F071A15349900604D63 /* LaunchScreen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LaunchScreen.xib; sourceTree = "<group>"; };
 		099F7F091A1534DA00604D63 /* background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = background.png; sourceTree = "<group>"; };
 		099F7F0A1A1534DA00604D63 /* vynclogo copy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "vynclogo copy.png"; sourceTree = "<group>"; };
@@ -149,7 +147,6 @@
 				099F7F091A1534DA00604D63 /* background.png */,
 				0901F5271A153AAD00EEC6F9 /* background copy.png */,
 				099F7F0A1A1534DA00604D63 /* vynclogo copy.png */,
-				099F7CC91A15329200604D63 /* logobutton-40px.png */,
 				097ECD2A1A1059AE00D1D2D1 /* Chainer.xcdatamodeld */,
 				099F7C851A1273A700604D63 /* Chainer-Bridging-Header.h */,
 				097ECD261A1059AE00D1D2D1 /* Supporting Files */,
@@ -302,7 +299,6 @@
 				097ECD311A1059AE00D1D2D1 /* Main.storyboard in Resources */,
 				099F7F0B1A1534DA00604D63 /* background.png in Resources */,
 				099F7F081A15349900604D63 /* LaunchScreen.xib in Resources */,
-				099F7CCA1A15329200604D63 /* logobutton-40px.png in Resources */,
 				099F7F0C1A1534DA00604D63 /* vynclogo copy.png in Resources */,
 				0901F5281A153AAD00EEC6F9 /* background copy.png in Resources */,
 				097ECD331A1059AE00D1D2D1 /* Images.xcassets in Resources */,
@@ -409,7 +405,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				PROVISIONING_PROFILE = "89521e70-d646-4042-b4c2-805615894af5";
+				PROVISIONING_PROFILE = "cb3abbf1-65da-436f-9647-f72d3c78d796";
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -445,7 +441,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
-				PROVISIONING_PROFILE = "89521e70-d646-4042-b4c2-805615894af5";
+				PROVISIONING_PROFILE = "cb3abbf1-65da-436f-9647-f72d3c78d796";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
