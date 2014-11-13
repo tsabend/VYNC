@@ -5,7 +5,6 @@
 
 import UIKit
 
-
 class ContactsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UINavigationControllerDelegate, UISearchBarDelegate, UISearchDisplayDelegate {
 
     @IBOutlet var tblUsers: UITableView!
@@ -13,6 +12,7 @@ class ContactsViewController: UIViewController, UITableViewDelegate, UITableView
 
     var users = [User]()
     var filteredUsers = [User]()
+    var replyToID : Int? = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -71,8 +71,14 @@ class ContactsViewController: UIViewController, UITableViewDelegate, UITableView
         var deviceID = UIDevice.currentDevice().identifierForVendor.UUIDString
         //post the video that the user takes to the server
         var request = HTTPTask()
-        request.POST("http://chainer.herokuapp.com/upload", parameters:  ["senderDevice": deviceID, "recipient" : userID,  "file": HTTPUpload(fileUrl: videoURL!) ], success: {(response: HTTPResponse) in
+        request.POST("http://chainer.herokuapp.com/upload", parameters: [
+            "replyToID": self.replyToID!,
+            "senderDevice": deviceID,
+            "recipient" : userID,
+            "file": HTTPUpload(fileUrl: videoURL!) ],
+            success: {(response: HTTPResponse) in
                 if let data = response.responseObject as? NSData {
+                    self.replyToID = 0
                     let str = NSString(data: data, encoding: NSUTF8StringEncoding)
                     println("response from upload: \(str)") //prints the HTML of the page
                 }

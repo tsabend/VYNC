@@ -14,11 +14,12 @@ public let sampleVideoPath =
 NSBundle.mainBundle().resourcePath!.stringByAppendingPathComponent("/sample_iTunes.mov")
 
 class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITableViewDelegate, UITableViewDataSource {
-
+    
     @IBOutlet var tblChains: UITableView!
 
     var chains = [[VideoMessage]]()
     var urlsToPlay : [String] = []
+    var replyToID : Int? = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -59,11 +60,13 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     }
 
     //swipable functions on tableView
-//    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-//        if editingStyle == UITableViewCellEditingStyle.Delete {
-//            println("delete")
-//        }
-//    }
+    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        if editingStyle == UITableViewCellEditingStyle.Delete{
+            println("Replying to:")
+            replyToID = chains[indexPath.row].first!.replyToID as? Int
+            showCam()
+        }
+    }
     
     // Load the camera on top
     
@@ -86,12 +89,20 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         var boolean = myVideo.writeToFile(PathToFile, atomically: true)
         println("Save to file was successful: \(boolean)")
         
+        
         let vc = self.storyboard?.instantiateViewControllerWithIdentifier("Contacts") as ContactsViewController
-        self.presentViewController(vc, animated:false, completion:{})
+        vc.replyToID = self.replyToID
+        self.presentViewController(vc, animated:false, completion:{
+            self.replyToID = 0
+        })
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        if chains[indexPath.row].last?.recipientID == userID {
+        var userID = NSString(data: theFileManager.contentsAtPath(pathToUserFile)!, encoding: NSUTF8StringEncoding) as String
+        println("RecipientId : \(chains[indexPath.row].last?.recipientID)")
+        println("MyOwnId : \(userID.toInt()!)")
+        if chains[indexPath.row].first?.recipientID == userID.toInt()! {
+            println("we are here")
             // display only the most recent video in chain
             urlsToPlay = [String]()
             urlsToPlay = [s3Url + chains[indexPath.row].first!.videoID]

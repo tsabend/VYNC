@@ -19,17 +19,29 @@ post '/upload' do
   video_id = SecureRandom.hex + ".mov"
   # Instantiate a new videomessage object
   sender = User.find_by(device_id: params[:senderDevice])
+  recipient = User.find(params[:recipient])
   newVid = VideoMessage.new(sender_id: sender.id, recipient_id: params[:recipient], video_id: video_id)
   # If there was a replyId sent with this request use that,
   # otherwise assume it's the first video in a chain and set the reply_to_id
   # to its own id
   newVid.save!
-  newVid.reply_to_id = params[:replyToID] || newVid.id
+  if params[:replyToID] == "0"
+    newVid.reply_to_id = newVid.id
+  else
+    newVid.reply_to_id = params[:replyToID]
+  end
+
   newVid.save!
   # Upload to s3!
   $s3.buckets.first.objects.create(video_id, tempfile)
+# notify all users on chain
+  user_ids = newVid.chain.map {|video| [video.sender_id, video.recipient_id]}.flatten.uniq
+  following_user_ids = user_ids.reject {|id| id == sender.id || id == recipient.id}
+  following_user_ids.each do |id|
+    notify(User.find(id).devicetoken, "Your video has been forwarded!")
+  end
   # Notify the recipient of their new message
-  notify(User.find(params[:recipient]).devicetoken, "You have a new video!")
+  notify(recipient.devicetoken, "You have a new video, watch it now!")
   "Hey There Cowboy"
 end
 
@@ -38,8 +50,8 @@ get '/download' do
 end
 
 post "/newuser" do
-  puts params
-  User.create(devicetoken: params[:devicetoken], device_id: params[:deviceID], username: params[:username])
+  user = User.create(devicetoken: params[:devicetoken], device_id: params[:deviceID], username: params[:username])
   notify(params[:deviceToken], "Welcome to Chainer!")
-  "Hey There Cowboy"
+
+  user.id.to_s
 end
