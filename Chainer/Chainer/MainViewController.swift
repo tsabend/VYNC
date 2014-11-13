@@ -54,19 +54,12 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell: UITableViewCell = UITableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: "test")
         
-        
-        let sentID = self.chains[indexPath.row].first!.senderID
-        
-        println(sentID)
+        // find the username of the person who sent you this video.
+        let sentID = self.chains[indexPath.row].last!.senderID
         let usersArray = userMgr.asUsers()
-//        println(find(userMgr.asUsers(), $0.userID == 26 ))
-        let sendingUser = usersArray.filter({$0.userID == 9 as NSNumber })
+        let sendingUser = usersArray.filter({$0.userID == sentID as NSNumber }).first?.username
         
-        println("sent from: \(usersArray.first?.userID)")
-        println("sent from: \(sendingUser.first?.username)")
-        
-        
-        
+ 
         let button   = UIButton.buttonWithType(UIButtonType.System) as UIButton
         button.frame = CGRectMake(210, 16,
             100,
@@ -78,8 +71,8 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
 
         cell.addSubview(button)
         
-        cell.textLabel.text = "Chain in reply to: \(chains[indexPath.row].first!.replyToID)"
-        cell.detailTextLabel?.text = "Length: \(chains[indexPath.row].count)"
+        cell.textLabel.text = "From: \(sendingUser)"
+        cell.detailTextLabel?.text = "\(chains[indexPath.row].count) links long"
         return cell
     }
     
