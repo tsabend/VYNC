@@ -53,26 +53,36 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell: UITableViewCell = UITableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: "test")
-        
-        // find the username of the person who sent you this video.
-        let sentID = self.chains[indexPath.row].last!.senderID
-        let usersArray = userMgr.asUsers()
-        let sendingUser = usersArray.filter({$0.userID == sentID as NSNumber }).first?.username
-        
- 
-        let button   = UIButton.buttonWithType(UIButtonType.System) as UIButton
-        button.frame = CGRectMake(210, 16,
-            100,
-            CGRectGetHeight(cell.bounds))
-        button.backgroundColor = UIColor.greenColor()
-        button.setTitle("Reply", forState: UIControlState.Normal)
-        button.addTarget(self, action: "buttonAction:", forControlEvents: UIControlEvents.AllEvents)
-        button.layer.cornerRadius = 14
+        // Your user id, from that file we made
+        var userID = NSString(data: theFileManager.contentsAtPath(pathToUserFile)!, encoding: NSUTF8StringEncoding) as String
 
-        cell.addSubview(button)
+        // The id of the person who sent you this video.
+        let sentID = self.chains[indexPath.row].first!.senderID
+        let recipientID = self.chains[indexPath.row].last!.recipientID
+        // The username of the person who sent you this video.
+        let usersArray = userMgr.asUsers()
+        var sendingUser = usersArray.filter({$0.userID == sentID as NSNumber }).first?.username
         
-        cell.textLabel.text = "From: \(sendingUser)"
-        cell.detailTextLabel?.text = "\(chains[indexPath.row].count) links long"
+        if sentID == userID.toInt()! {                                           // if you sent the message
+            cell.textLabel.text = "You Started It!"
+            cell.detailTextLabel?.text = "\(chains[indexPath.row].count) links long  :  click to the first video!"
+        } else if recipientID == userID {                               // if you are holding up the chain
+            let button   = UIButton.buttonWithType(UIButtonType.System) as UIButton
+            button.frame = CGRectMake(210, 16,
+                100,
+                CGRectGetHeight(cell.bounds))
+            button.backgroundColor = UIColor.greenColor()
+            button.setTitle("Reply", forState: UIControlState.Normal)
+            button.addTarget(self, action: "buttonAction:", forControlEvents: UIControlEvents.TouchDown)
+            button.layer.cornerRadius = 14
+            cell.addSubview(button)
+            cell.textLabel.text = "New Chain From: \(sendingUser)"
+            cell.detailTextLabel?.text = "\(chains[indexPath.row].count) links long  :  click to play!"
+        } else {                                                        // if you are just following
+            cell.textLabel.text = "From: \(sendingUser)"
+            cell.detailTextLabel?.text = "\(chains[indexPath.row].count) links long  :  click to play!"
+        }
+        
         return cell
     }
     

@@ -10,9 +10,6 @@ import Foundation
 import CoreData
 
 let videoMessageMgr = Videos()
-//var deviceID = UIDevice.currentDevice().identifierForVendor.UUIDString
-let userID = 1
-
 
 
 func onStartup() {
