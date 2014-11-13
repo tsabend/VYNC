@@ -7,13 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0901F5281A153AAD00EEC6F9 /* background copy.png in Resources */ = {isa = PBXBuildFile; fileRef = 0901F5271A153AAD00EEC6F9 /* background copy.png */; };
 		0962E45E1A119EC400661226 /* UserLoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0962E45D1A119EC400661226 /* UserLoginController.swift */; };
 		097ECD291A1059AE00D1D2D1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 097ECD281A1059AE00D1D2D1 /* AppDelegate.swift */; };
 		097ECD2C1A1059AE00D1D2D1 /* Chainer.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 097ECD2A1A1059AE00D1D2D1 /* Chainer.xcdatamodeld */; };
 		097ECD2E1A1059AE00D1D2D1 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 097ECD2D1A1059AE00D1D2D1 /* MainViewController.swift */; };
 		097ECD311A1059AE00D1D2D1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 097ECD2F1A1059AE00D1D2D1 /* Main.storyboard */; };
 		097ECD331A1059AE00D1D2D1 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 097ECD321A1059AE00D1D2D1 /* Images.xcassets */; };
-		097ECD361A1059AE00D1D2D1 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 097ECD341A1059AE00D1D2D1 /* LaunchScreen.xib */; };
 		097ECD421A1059AE00D1D2D1 /* ChainerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 097ECD411A1059AE00D1D2D1 /* ChainerTests.swift */; };
 		097ECD4E1A105A1A00D1D2D1 /* OnStartUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 097ECD4B1A105A1A00D1D2D1 /* OnStartUp.swift */; };
 		097ECD4F1A105A1A00D1D2D1 /* Users.swift in Sources */ = {isa = PBXBuildFile; fileRef = 097ECD4C1A105A1A00D1D2D1 /* Users.swift */; };
@@ -26,7 +26,10 @@
 		097ECD631A105AFA00D1D2D1 /* ContactsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 097ECD5E1A105AFA00D1D2D1 /* ContactsViewController.swift */; };
 		09854DB21A12FEF50048391D /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09854DB11A12FEF50048391D /* User.swift */; };
 		099F7C871A1273F500604D63 /* VideoMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 099F7C861A1273F500604D63 /* VideoMessage.swift */; };
-		099F7CBC1A131AF200604D63 /* Zinc-Chain.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 099F7CBB1A131AF200604D63 /* Zinc-Chain.jpg */; };
+		099F7CCA1A15329200604D63 /* logobutton-40px.png in Resources */ = {isa = PBXBuildFile; fileRef = 099F7CC91A15329200604D63 /* logobutton-40px.png */; };
+		099F7F081A15349900604D63 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 099F7F071A15349900604D63 /* LaunchScreen.xib */; };
+		099F7F0B1A1534DA00604D63 /* background.png in Resources */ = {isa = PBXBuildFile; fileRef = 099F7F091A1534DA00604D63 /* background.png */; };
+		099F7F0C1A1534DA00604D63 /* vynclogo copy.png in Resources */ = {isa = PBXBuildFile; fileRef = 099F7F0A1A1534DA00604D63 /* vynclogo copy.png */; };
 		09D00EB31A114F4A006827B4 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09D00EB21A114F4A006827B4 /* MediaPlayer.framework */; };
 		09D00EB51A114F5D006827B4 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09D00EB41A114F5D006827B4 /* CoreMedia.framework */; };
 		C42AE58B1A111ECB0009C213 /* AVKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C42AE58A1A111ECB0009C213 /* AVKit.framework */; };
@@ -56,6 +59,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0901F5271A153AAD00EEC6F9 /* background copy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "background copy.png"; sourceTree = "<group>"; };
 		0962E45D1A119EC400661226 /* UserLoginController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserLoginController.swift; sourceTree = "<group>"; };
 		097ECD231A1059AE00D1D2D1 /* Chainer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Chainer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		097ECD271A1059AE00D1D2D1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -64,7 +68,6 @@
 		097ECD2D1A1059AE00D1D2D1 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		097ECD301A1059AE00D1D2D1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		097ECD321A1059AE00D1D2D1 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		097ECD351A1059AE00D1D2D1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		097ECD3B1A1059AE00D1D2D1 /* ChainerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ChainerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		097ECD401A1059AE00D1D2D1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		097ECD411A1059AE00D1D2D1 /* ChainerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChainerTests.swift; sourceTree = "<group>"; };
@@ -80,7 +83,10 @@
 		09854DB11A12FEF50048391D /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		099F7C851A1273A700604D63 /* Chainer-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Chainer-Bridging-Header.h"; sourceTree = "<group>"; };
 		099F7C861A1273F500604D63 /* VideoMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoMessage.swift; sourceTree = "<group>"; };
-		099F7CBB1A131AF200604D63 /* Zinc-Chain.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Zinc-Chain.jpg"; sourceTree = "<group>"; };
+		099F7CC91A15329200604D63 /* logobutton-40px.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "logobutton-40px.png"; path = "../../../../../Downloads/logobutton-40px.png"; sourceTree = "<group>"; };
+		099F7F071A15349900604D63 /* LaunchScreen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LaunchScreen.xib; sourceTree = "<group>"; };
+		099F7F091A1534DA00604D63 /* background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = background.png; sourceTree = "<group>"; };
+		099F7F0A1A1534DA00604D63 /* vynclogo copy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "vynclogo copy.png"; sourceTree = "<group>"; };
 		09D00EB21A114F4A006827B4 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		09D00EB41A114F5D006827B4 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
 		C42AE58A1A111ECB0009C213 /* AVKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVKit.framework; path = System/Library/Frameworks/AVKit.framework; sourceTree = SDKROOT; };
@@ -139,8 +145,11 @@
 				097ECD2F1A1059AE00D1D2D1 /* Main.storyboard */,
 				097ECD5C1A105ADE00D1D2D1 /* HelperLibraries */,
 				097ECD321A1059AE00D1D2D1 /* Images.xcassets */,
-				099F7CBB1A131AF200604D63 /* Zinc-Chain.jpg */,
-				097ECD341A1059AE00D1D2D1 /* LaunchScreen.xib */,
+				099F7F071A15349900604D63 /* LaunchScreen.xib */,
+				099F7F091A1534DA00604D63 /* background.png */,
+				0901F5271A153AAD00EEC6F9 /* background copy.png */,
+				099F7F0A1A1534DA00604D63 /* vynclogo copy.png */,
+				099F7CC91A15329200604D63 /* logobutton-40px.png */,
 				097ECD2A1A1059AE00D1D2D1 /* Chainer.xcdatamodeld */,
 				099F7C851A1273A700604D63 /* Chainer-Bridging-Header.h */,
 				097ECD261A1059AE00D1D2D1 /* Supporting Files */,
@@ -257,6 +266,7 @@
 				TargetAttributes = {
 					097ECD221A1059AE00D1D2D1 = {
 						CreatedOnToolsVersion = 6.1;
+						DevelopmentTeam = 3K93EXS2KS;
 					};
 					097ECD3A1A1059AE00D1D2D1 = {
 						CreatedOnToolsVersion = 6.1;
@@ -290,8 +300,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				097ECD311A1059AE00D1D2D1 /* Main.storyboard in Resources */,
-				099F7CBC1A131AF200604D63 /* Zinc-Chain.jpg in Resources */,
-				097ECD361A1059AE00D1D2D1 /* LaunchScreen.xib in Resources */,
+				099F7F0B1A1534DA00604D63 /* background.png in Resources */,
+				099F7F081A15349900604D63 /* LaunchScreen.xib in Resources */,
+				099F7CCA1A15329200604D63 /* logobutton-40px.png in Resources */,
+				099F7F0C1A1534DA00604D63 /* vynclogo copy.png in Resources */,
+				0901F5281A153AAD00EEC6F9 /* background copy.png in Resources */,
 				097ECD331A1059AE00D1D2D1 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -354,14 +367,6 @@
 				097ECD301A1059AE00D1D2D1 /* Base */,
 			);
 			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		097ECD341A1059AE00D1D2D1 /* LaunchScreen.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				097ECD351A1059AE00D1D2D1 /* Base */,
-			);
-			name = LaunchScreen.xib;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -450,6 +455,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchScreen;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -466,6 +472,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchScreen;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";

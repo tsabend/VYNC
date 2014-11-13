@@ -42,7 +42,7 @@ class ContactsViewController: UIViewController, UITableViewDelegate, UITableView
             user = users[indexPath.row]
         }
         cell.textLabel.text = "\(user.username)"
-        cell.imageView.image = UIImage(contentsOfFile :"/Users/apprentice/Documents/thomas/chainer/Chainer/Chainer/Zinc-Chain.jpg")
+
         return cell
     }
     
@@ -61,6 +61,7 @@ class ContactsViewController: UIViewController, UITableViewDelegate, UITableView
         var deviceID = UIDevice.currentDevice().identifierForVendor.UUIDString
         //post the video that the user takes to the server
         var request = HTTPTask()
+        println(self.replyToID!)
         request.POST("http://chainer.herokuapp.com/upload", parameters: [
             "replyToID": self.replyToID!,
             "senderDevice": deviceID,
@@ -86,13 +87,13 @@ class ContactsViewController: UIViewController, UITableViewDelegate, UITableView
     
     //MARK: - UISearchBarDelegate
     func searchDisplayController(controller: UISearchDisplayController!, shouldReloadTableForSearchString searchString: String!) -> Bool {
-        self.filterContentForSearchText(searchString)
+        self.filterContentForSearchText(searchString.lowercaseString)
         return true
     }
     
     func searchDisplayController(controller: UISearchDisplayController!,
         shouldReloadTableForSearchScope searchOption: Int) -> Bool {
-        self.filterContentForSearchText(self.searchDisplayController!.searchBar.text)
+        self.filterContentForSearchText(self.searchDisplayController!.searchBar.text.lowercaseString)
         return true
     }
 }
