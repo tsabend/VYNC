@@ -57,14 +57,6 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         return chains.count
     }
 
-    //swipable functions on tableView
-//    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-//        if editingStyle == UITableViewCellEditingStyle.Delete{
-//            println("Replying to:")
-//            replyToID = chains[indexPath.row].first!.replyToID as? Int
-//            showCam()
-//        }
-//    }
     func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [AnyObject]? {
         let moreClosure = { (action: UITableViewRowAction!, indexPath: NSIndexPath!) -> Void in
             self.replyToID = self.chains[indexPath.row].first!.replyToID as? Int
@@ -75,10 +67,10 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         
         return [moreAction]
     }
-//
+    
+    //necessary function for reply button
    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
     }
-    // Load the camera on top
     
     @IBAction func showCam() {
         let imagePicker = UIImagePickerController() //inst
