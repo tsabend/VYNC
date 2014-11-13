@@ -47,7 +47,6 @@ class Videos {
     func asChains() -> [[VideoMessage]] {
         // declaring this at the top...using it below in the for loop and returning it.
         var chains = [[VideoMessage]]()
-        
         // set the App delegate and managed context  before query.
         let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
         let managedContext = appDelegate.managedObjectContext!
@@ -66,7 +65,6 @@ class Videos {
             // set data structures. Chain will be passed around and manipulated, we will be building into chains.
             var chain = [VideoMessage]()
             for video in results {
-                println("video reply to id= \(video.replyToID)")
                 // If it's the first chain or it's on the same chain as the previous video add it to chain
                 if chain.isEmpty || chain.last!.replyToID == video.replyToID {
                     chain.append(video)
@@ -80,7 +78,6 @@ class Videos {
             if chain.isEmpty == false {
                 chains.append(chain)
             }
-            println(chains)
         } else {
             println("Could not fetch \(error), \(error!.userInfo)")
         }
@@ -100,9 +97,7 @@ class Videos {
         var data : NSData?
         var request = HTTPTask()
         var deviceID = UIDevice.currentDevice().identifierForVendor.UUIDString
-        println("device id : \(deviceID)")
         request.GET("http://chainer.herokuapp.com/videomessages/\(deviceID)/all",
-//        request.GET("http://localhost:9393/videomessages/\(deviceID)/all",
             parameters: ["since" : since],
             success: { (response: HTTPResponse) in
                 if response.responseObject != nil {

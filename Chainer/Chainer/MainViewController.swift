@@ -11,6 +11,15 @@ let fileName = "/videoToSend.MOV"
 let PathToFile = docFolderToSaveFiles + fileName
 let unlockUrl : String = "https://s3-us-west-2.amazonaws.com/telephono/IMG_0370.MOV"
 
+
+
+
+
+
+
+
+
+
 class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet var tblChains: UITableView!
@@ -34,11 +43,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         chains = model.asChains().reverse()
         tblChains.reloadData()
     }
-    
-    @IBAction func onSwipe() {
-        videoMessageMgr.update()
-        println("Hello world")
-    }
+
 
     // Returning to view. Loops through users and reloads them.
     override func viewWillAppear(animated: Bool) {
@@ -48,30 +53,62 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell: UITableViewCell = UITableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: "test")
+        
+//        println(userMgr.findByID(chains[indexPath.row].first!.senderID))
+//        var stringy = ""
+//        if userMgr.findByID(chains[indexPath.row].first!.senderID) != nil {
+//            stringy = userMgr.findByID(chains[indexPath.row].first!.senderID)!.username
+//        } else {
+//            stringy = "test"
+//        }
+//        
+//        println(stringy)
+        
+        let button   = UIButton.buttonWithType(UIButtonType.System) as UIButton
+        button.frame = CGRectMake(210, 0,
+            100,
+            CGRectGetHeight(cell.bounds))
+        button.backgroundColor = UIColor.greenColor()
+        button.setTitle("Reply", forState: UIControlState.Normal)
+        button.addTarget(self, action: "buttonAction:", forControlEvents: UIControlEvents.TouchUpInside)
+        button.layer.cornerRadius = 14
+
+        cell.addSubview(button)
+        
         cell.textLabel.text = "Chain in reply to: \(chains[indexPath.row].first!.replyToID)"
         cell.detailTextLabel?.text = "Length: \(chains[indexPath.row].count)"
         return cell
+    }
+    
+    func buttonAction(sender:UIButton!)
+    {
+        println("Button tapped")
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return chains.count
     }
 
-    func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [AnyObject]? {
-        let moreClosure = { (action: UITableViewRowAction!, indexPath: NSIndexPath!) -> Void in
-            self.replyToID = self.chains[indexPath.row].first!.replyToID as? Int
-            self.showCam()
-        }
-
-        let moreAction = UITableViewRowAction(style: .Normal, title: "Reply", handler: moreClosure)
-        
-        return [moreAction]
-    }
+//    func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [AnyObject]? {
+//        let moreClosure = { (action: UITableViewRowAction!, indexPath: NSIndexPath!) -> Void in
+//            self.replyToID = self.chains[indexPath.row].first!.replyToID as? Int
+//            self.showCam()
+//        }
+//
+//        let moreAction = UITableViewRowAction(style: .Normal, title: "Reply", handler: moreClosure)
+//        
+//        return [moreAction]
+//    }
     
-    //necessary function for reply button
-   func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-    }
+//    //necessary function for reply button
+//   func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+//
+//    }
     
+    @IBAction func onSwipe(sender: UISwipeGestureRecognizer) {
+        videoMessageMgr.update()
+        println("Hello world")
+    }
     @IBAction func showCam() {
         let imagePicker = UIImagePickerController() //inst
         imagePicker.delegate = self
@@ -89,7 +126,6 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         let fileUrl = info[UIImagePickerControllerMediaURL] as? NSURL
         var myVideo : NSData = NSData(contentsOfURL: fileUrl!)!
         var boolean = myVideo.writeToFile(PathToFile, atomically: true)
-        println("Save to file was successful: \(boolean)")
         
         
         let vc = self.storyboard?.instantiateViewControllerWithIdentifier("Contacts") as ContactsViewController
@@ -101,17 +137,13 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         var userID = NSString(data: theFileManager.contentsAtPath(pathToUserFile)!, encoding: NSUTF8StringEncoding) as String
-        println("RecipientId : \(chains[indexPath.row].last?.recipientID)")
-        println("MyOwnId : \(userID.toInt()!)")
         if chains[indexPath.row].first?.recipientID == userID.toInt()! {
-            println("we are here")
             // display only the most recent video in chain
             urlsToPlay = [s3Url + chains[indexPath.row].first!.videoID]
             urlsToPlay.append(unlockUrl)
             playVidUrlOnViewController(urlsToPlay, self)
         } else {
             // display the whole the chain
-            println("loop through the whole chain")
             urlsToPlay = [String]()
             urlsToPlay = map(chains[indexPath.row], { s3Url + $0.videoID}).reverse()
             playVidUrlOnViewController(urlsToPlay, self)

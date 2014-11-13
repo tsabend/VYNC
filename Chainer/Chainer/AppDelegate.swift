@@ -19,7 +19,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         var deviceTokenString: String = ( deviceToken.description as NSString )
             .stringByTrimmingCharactersInSet( characterSet )
             .stringByReplacingOccurrencesOfString( " ", withString: "" ) as String
-        println(deviceTokenString)
         currentUser.deviceToken = deviceTokenString
     }
     

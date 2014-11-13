@@ -44,7 +44,6 @@ class ContactsViewController: UIViewController, UITableViewDelegate, UITableView
             user = users[indexPath.row]
         }
         
-        
         cell.textLabel.text = "Username: \(user.username)"
         cell.detailTextLabel?.text = "User Id: \(user.userID))"
         cell.imageView.image = UIImage(contentsOfFile :"/Users/apprentice/Documents/thomas/chainer/Chainer/Chainer/Zinc-Chain.jpg")
@@ -79,8 +78,6 @@ class ContactsViewController: UIViewController, UITableViewDelegate, UITableView
             success: {(response: HTTPResponse) in
                 if let data = response.responseObject as? NSData {
                     self.replyToID = 0
-                    let str = NSString(data: data, encoding: NSUTF8StringEncoding)
-                    println("response from upload: \(str)") //prints the HTML of the page
                 }
             
             },failure: {(error: NSError, response: HTTPResponse?) in

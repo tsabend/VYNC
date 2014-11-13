@@ -63,7 +63,7 @@ class UserManager {
         if let sinceUser = self.mostRecent {
             since = sinceUser.userID as Int
         }
-        println("getting all users")
+
         var data : NSData?
         var request = HTTPTask()
         request.GET("http://chainer.herokuapp.com/allusers",
@@ -106,12 +106,13 @@ class UserManager {
                 return results[0]
             }
         }
-        
         return nil
     }
-    
-}
 
+//    func findByID(var id: Int) -> User? {
+//        WHYYYYY!!!!!
+//    }
+}
 
 
 let userMgr = UserManager()
