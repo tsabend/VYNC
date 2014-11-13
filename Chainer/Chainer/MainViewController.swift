@@ -10,9 +10,6 @@ let docFolderToSaveFiles = NSSearchPathForDirectoriesInDomains(.DocumentDirector
 let fileName = "/videoToSend.MOV"
 let PathToFile = docFolderToSaveFiles + fileName
 
-public let sampleVideoPath =
-NSBundle.mainBundle().resourcePath!.stringByAppendingPathComponent("/sample_iTunes.mov")
-
 class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet var tblChains: UITableView!
@@ -33,7 +30,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     }
         // Load the table view
     func onModelUpdate(model: Videos) {
-        chains = model.asChains()
+        chains = model.asChains().reverse()
         tblChains.reloadData()
     }
     
@@ -111,7 +108,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             // display the whole the chain
             println("loop through the whole chain")
             urlsToPlay = [String]()
-            urlsToPlay = map(chains[indexPath.row], { s3Url + $0.videoID})
+            urlsToPlay = map(chains[indexPath.row], { s3Url + $0.videoID}).reverse()
             playVidUrlOnViewController(urlsToPlay, self)
         }
     }
