@@ -61,6 +61,7 @@ class ContactsViewController: UIViewController, UITableViewDelegate, UITableView
         var deviceID = UIDevice.currentDevice().identifierForVendor.UUIDString
         //post the video that the user takes to the server
         var request = HTTPTask()
+        println(self.replyToID!)
         request.POST("http://chainer.herokuapp.com/upload", parameters: [
             "replyToID": self.replyToID!,
             "senderDevice": deviceID,

@@ -8,8 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		0901F5281A153AAD00EEC6F9 /* background copy.png in Resources */ = {isa = PBXBuildFile; fileRef = 0901F5271A153AAD00EEC6F9 /* background copy.png */; };
-		0901F52B1A153D3100EEC6F9 /* envelope5.png in Resources */ = {isa = PBXBuildFile; fileRef = 0901F5291A153D3100EEC6F9 /* envelope5.png */; };
-		0901F52C1A153D3100EEC6F9 /* group41.png in Resources */ = {isa = PBXBuildFile; fileRef = 0901F52A1A153D3100EEC6F9 /* group41.png */; };
 		0962E45E1A119EC400661226 /* UserLoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0962E45D1A119EC400661226 /* UserLoginController.swift */; };
 		097ECD291A1059AE00D1D2D1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 097ECD281A1059AE00D1D2D1 /* AppDelegate.swift */; };
 		097ECD2C1A1059AE00D1D2D1 /* Chainer.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 097ECD2A1A1059AE00D1D2D1 /* Chainer.xcdatamodeld */; };
@@ -62,8 +60,6 @@
 
 /* Begin PBXFileReference section */
 		0901F5271A153AAD00EEC6F9 /* background copy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "background copy.png"; sourceTree = "<group>"; };
-		0901F5291A153D3100EEC6F9 /* envelope5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = envelope5.png; sourceTree = "<group>"; };
-		0901F52A1A153D3100EEC6F9 /* group41.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = group41.png; sourceTree = "<group>"; };
 		0962E45D1A119EC400661226 /* UserLoginController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserLoginController.swift; sourceTree = "<group>"; };
 		097ECD231A1059AE00D1D2D1 /* Chainer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Chainer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		097ECD271A1059AE00D1D2D1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -152,8 +148,6 @@
 				099F7F071A15349900604D63 /* LaunchScreen.xib */,
 				099F7F091A1534DA00604D63 /* background.png */,
 				0901F5271A153AAD00EEC6F9 /* background copy.png */,
-				0901F5291A153D3100EEC6F9 /* envelope5.png */,
-				0901F52A1A153D3100EEC6F9 /* group41.png */,
 				099F7F0A1A1534DA00604D63 /* vynclogo copy.png */,
 				099F7CC91A15329200604D63 /* logobutton-40px.png */,
 				097ECD2A1A1059AE00D1D2D1 /* Chainer.xcdatamodeld */,
@@ -305,10 +299,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				097ECD311A1059AE00D1D2D1 /* Main.storyboard in Resources */,
-				0901F52C1A153D3100EEC6F9 /* group41.png in Resources */,
 				099F7F0B1A1534DA00604D63 /* background.png in Resources */,
 				099F7F081A15349900604D63 /* LaunchScreen.xib in Resources */,
-				0901F52B1A153D3100EEC6F9 /* envelope5.png in Resources */,
 				099F7CCA1A15329200604D63 /* logobutton-40px.png in Resources */,
 				099F7F0C1A1534DA00604D63 /* vynclogo copy.png in Resources */,
 				0901F5281A153AAD00EEC6F9 /* background copy.png in Resources */,

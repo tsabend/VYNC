@@ -86,16 +86,20 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
 //            button.backgroundColor = UIColor.greenColor()
             button.setTitle("VYNC", forState: UIControlState.Normal)
             button.addTarget(self, action: "buttonAction:", forControlEvents: UIControlEvents.TouchDown)
+            var replyTo = self.chains[indexPath.row].first!.replyToID as? Int
+            button.tag = replyTo!
 //            button.alpha = 0.2
 //            button.layer.cornerRadius = 156
             cell.addSubview(button)
             cell.textLabel.text = "\(sendingUser!)"
             cell.detailTextLabel?.text = "\(chains[indexPath.row].count) \(link) long. \(stringDate)"
-            cell.imageView.image = UIImage(contentsOfFile : "/Users/apprentice/Documents/thomas/chainer/Chainer/Chainer/envelope5.png")
+            cell.imageView.image = UIImage(contentsOfFile :"/Users/apprentice/Documents/thomas/chainer/Chainer/Chainer/Images.xcassets/envelope5.imageset/envelope5.png")
+
         } else if sentID == userID.toInt()! {                                           // if you sent the message
             cell.textLabel.text = "Following"
             cell.detailTextLabel?.text = "\(chains[indexPath.row].count) \(link) long. \(stringDate)"
             cell.imageView.image = UIImage(contentsOfFile : "/Users/apprentice/Documents/thomas/chainer/Chainer/Chainer/group41.png")
+            println(UIImage(contentsOfFile : "/Users/apprentice/Documents/thomas/chainer/Chainer/Chainer/group41.png"))
         } else {                                                        // if you are just following
             cell.textLabel.text = "Following \(sendingUser!)"
             cell.detailTextLabel?.text = "\(chains[indexPath.row].count) \(link) long. \(stringDate)"
@@ -106,6 +110,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     func buttonAction(sender:UIButton!)
     {
+        self.replyToID = sender.tag
         self.showCam()
     }
     
@@ -116,6 +121,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     @IBAction func onSwipe() {
         videoMessageMgr.update()
     }
+    
     @IBAction func showCam() {
         let imagePicker = UIImagePickerController() //inst
         imagePicker.delegate = self

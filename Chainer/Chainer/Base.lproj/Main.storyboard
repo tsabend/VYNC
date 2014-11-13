@@ -24,7 +24,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UDi-ZW-433" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-423.5" y="-333.5"/>
+            <point key="canvasLocation" x="-421.5" y="-537.5"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="4Q3-rA-yZ2">
@@ -78,7 +78,7 @@
                     </connections>
                 </swipeGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="33.5" y="-277.5"/>
+            <point key="canvasLocation" x="1.5" y="20.5"/>
         </scene>
         <!--Contacts View Controller-->
         <scene sceneID="5iJ-DW-Oex">
@@ -173,6 +173,7 @@
                                 </state>
                                 <connections>
                                     <action selector="signUp:" destination="g35-FI-sWG" eventType="touchUpInside" id="Ior-95-QTd"/>
+                                    <segue destination="m6T-Yp-eQo" kind="modal" identifier="jumpToNewChains" id="Plm-LG-OGZ"/>
                                 </connections>
                             </button>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Username" minimumFontSize="17" id="dZq-au-pWP">
@@ -188,7 +189,6 @@
                     <size key="freeformSize" width="325" height="667"/>
                     <connections>
                         <outlet property="usernameTxt" destination="dZq-au-pWP" id="Cc2-eN-FAF"/>
-                        <segue destination="m6T-Yp-eQo" kind="modal" identifier="jumpToNewChains" id="6S8-lY-sLb"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QLg-QU-cde" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -202,7 +202,7 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="Uxd-v3-5KP"/>
+        <segue reference="Plm-LG-OGZ"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.68849887460000003" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
 </document>
