@@ -79,14 +79,14 @@ class ContactsViewController: UIViewController, UITableViewDelegate, UITableView
     func filterContentForSearchText(searchText: String, scope: String = "All") {
         self.filteredUsers = self.users.filter({( user : User) -> Bool in
             var categoryMatch = (scope == "All") || (user.username == scope)
-            var stringMatch = user.username.rangeOfString(searchText.lowercaseString)
+            var stringMatch = user.username.rangeOfString(searchText)
             return categoryMatch && (stringMatch != nil)
         })
     }
     
     //MARK: - UISearchBarDelegate
     func searchDisplayController(controller: UISearchDisplayController!, shouldReloadTableForSearchString searchString: String!) -> Bool {
-        self.filterContentForSearchText(searchString)
+        self.filterContentForSearchText(searchString.lowercaseString)
         return true
     }
     
