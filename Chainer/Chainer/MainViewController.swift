@@ -54,23 +54,26 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell: UITableViewCell = UITableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: "test")
         
-//        println(userMgr.findByID(chains[indexPath.row].first!.senderID))
-//        var stringy = ""
-//        if userMgr.findByID(chains[indexPath.row].first!.senderID) != nil {
-//            stringy = userMgr.findByID(chains[indexPath.row].first!.senderID)!.username
-//        } else {
-//            stringy = "test"
-//        }
-//        
-//        println(stringy)
+        
+        let sentID = self.chains[indexPath.row].first!.senderID
+        
+        println(sentID)
+        let usersArray = userMgr.asUsers()
+//        println(find(userMgr.asUsers(), $0.userID == 26 ))
+        let sendingUser = usersArray.filter({$0.userID == 9 as NSNumber })
+        
+        println("sent from: \(usersArray.first?.userID)")
+        println("sent from: \(sendingUser.first?.username)")
+        
+        
         
         let button   = UIButton.buttonWithType(UIButtonType.System) as UIButton
-        button.frame = CGRectMake(210, 0,
+        button.frame = CGRectMake(210, 16,
             100,
             CGRectGetHeight(cell.bounds))
         button.backgroundColor = UIColor.greenColor()
         button.setTitle("Reply", forState: UIControlState.Normal)
-        button.addTarget(self, action: "buttonAction:", forControlEvents: UIControlEvents.TouchUpInside)
+        button.addTarget(self, action: "buttonAction:", forControlEvents: UIControlEvents.AllEvents)
         button.layer.cornerRadius = 14
 
         cell.addSubview(button)
@@ -83,6 +86,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     func buttonAction(sender:UIButton!)
     {
         println("Button tapped")
+        self.showCam()
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
