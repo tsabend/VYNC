@@ -5,7 +5,7 @@ end
 
 get '/allusers' do
   content_type :json
-  User.all.offset(params[:since]).to_json
+  User.all.to_json
 end
 
 get '/videomessages/:device_id/all' do
