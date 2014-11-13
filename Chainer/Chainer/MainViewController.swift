@@ -91,11 +91,11 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             cell.addSubview(button)
             cell.textLabel.text = "\(sendingUser!)"
             cell.detailTextLabel?.text = "\(chains[indexPath.row].count) \(link) long. \(stringDate)"
-            cell.imageView.image = UIImage(contentsOfFile :"/Users/apprentice/Downloads/new.png")
+            cell.imageView.image = UIImage(contentsOfFile :"/Users/apprentice/Documents/thomas/chainer/Chainer/Chainer/envelope5.png")
         } else if sentID == userID.toInt()! {                                           // if you sent the message
             cell.textLabel.text = "Following"
             cell.detailTextLabel?.text = "\(chains[indexPath.row].count) \(link) long. \(stringDate)"
-            cell.imageView.image = UIImage(contentsOfFile :"/Users/apprentice/Downloads/new.png")
+            cell.imageView.image = UIImage(contentsOfFile :"/Users/apprentice/Documents/thomas/chainer/Chainer/Chainer/group41.png")
         } else {                                                        // if you are just following
             cell.textLabel.text = "Following \(sendingUser!)"
             cell.detailTextLabel?.text = "\(chains[indexPath.row].count) \(link) long. \(stringDate)"
