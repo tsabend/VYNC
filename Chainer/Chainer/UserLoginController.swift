@@ -5,12 +5,12 @@ import UIKit
 let userSaveFolder = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as String
 let userFileName = "/userexists.txt"
 let pathToUserFile = userSaveFolder + userFileName as NSString
+let theFileManager = NSFileManager.defaultManager()
 
 
 class UserLoginController: UIViewController,UINavigationControllerDelegate, UIImagePickerControllerDelegate {
 
     @IBOutlet weak var usernameTxt: UITextField!
-    let theFileManager = NSFileManager.defaultManager()
 
     func displayAlert(title:String, error:String) {
         
@@ -39,7 +39,7 @@ class UserLoginController: UIViewController,UINavigationControllerDelegate, UIIm
             request.POST("http://chainer.herokuapp.com/newuser", parameters: params, success: {(response: HTTPResponse) in
                 if let data = response.responseObject as? NSData {
 
-                    self.theFileManager.createFileAtPath(pathToUserFile, contents: NSData(data: data), attributes: nil )
+                    theFileManager.createFileAtPath(pathToUserFile, contents: NSData(data: data), attributes: nil )
                 }
                 } ,failure: {(error: NSError, response: HTTPResponse?) in
                     println("failure")

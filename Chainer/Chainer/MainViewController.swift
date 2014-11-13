@@ -98,7 +98,11 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        if chains[indexPath.row].last?.recipientID == userID {
+        var userID = NSString(data: theFileManager.contentsAtPath(pathToUserFile)!, encoding: NSUTF8StringEncoding) as String
+        println("RecipientId : \(chains[indexPath.row].last?.recipientID)")
+        println("MyOwnId : \(userID.toInt()!)")
+        if chains[indexPath.row].first?.recipientID == userID.toInt()! {
+            println("we are here")
             // display only the most recent video in chain
             urlsToPlay = [String]()
             urlsToPlay = [s3Url + chains[indexPath.row].first!.videoID]
