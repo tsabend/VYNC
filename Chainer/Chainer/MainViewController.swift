@@ -9,9 +9,7 @@ let s3Url = "https://s3-us-west-2.amazonaws.com/telephono/"
 let docFolderToSaveFiles = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as String
 let fileName = "/videoToSend.MOV"
 let PathToFile = docFolderToSaveFiles + fileName
-
-public let sampleVideoPath =
-NSBundle.mainBundle().resourcePath!.stringByAppendingPathComponent("/sample_iTunes.mov")
+let unlockUrl : String = "https://s3-us-west-2.amazonaws.com/telephono/IMG_0370.MOV"
 
 class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITableViewDelegate, UITableViewDataSource {
     
@@ -33,7 +31,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     }
         // Load the table view
     func onModelUpdate(model: Videos) {
-        chains = model.asChains()
+        chains = model.asChains().reverse()
         tblChains.reloadData()
     }
     
@@ -59,16 +57,20 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         return chains.count
     }
 
-    //swipable functions on tableView
-    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        if editingStyle == UITableViewCellEditingStyle.Delete{
-            println("Replying to:")
-            replyToID = chains[indexPath.row].first!.replyToID as? Int
-            showCam()
+    func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [AnyObject]? {
+        let moreClosure = { (action: UITableViewRowAction!, indexPath: NSIndexPath!) -> Void in
+            self.replyToID = self.chains[indexPath.row].first!.replyToID as? Int
+            self.showCam()
         }
+
+        let moreAction = UITableViewRowAction(style: .Normal, title: "Reply", handler: moreClosure)
+        
+        return [moreAction]
     }
     
-    // Load the camera on top
+    //necessary function for reply button
+   func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+    }
     
     @IBAction func showCam() {
         let imagePicker = UIImagePickerController() //inst
@@ -104,14 +106,14 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         if chains[indexPath.row].first?.recipientID == userID.toInt()! {
             println("we are here")
             // display only the most recent video in chain
-            urlsToPlay = [String]()
             urlsToPlay = [s3Url + chains[indexPath.row].first!.videoID]
+            urlsToPlay.append(unlockUrl)
             playVidUrlOnViewController(urlsToPlay, self)
         } else {
             // display the whole the chain
             println("loop through the whole chain")
             urlsToPlay = [String]()
-            urlsToPlay = map(chains[indexPath.row], { s3Url + $0.videoID})
+            urlsToPlay = map(chains[indexPath.row], { s3Url + $0.videoID}).reverse()
             playVidUrlOnViewController(urlsToPlay, self)
         }
     }
