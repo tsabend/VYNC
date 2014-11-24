@@ -4,3 +4,6 @@ Our goal is to create an IOS app that allows users to emulate the game telephone
 
 
 
+== Next Steps ==
+
+Incorporating Facebook OAuth, Naming chains, Customizing AVQueuPlayer
