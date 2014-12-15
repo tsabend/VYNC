@@ -67,6 +67,7 @@
                     <navigationItem key="navigationItem" id="eJH-ff-6Q2"/>
                     <value key="contentSizeForViewInPopover" type="size" width="375" height="667"/>
                     <connections>
+                        <outlet property="tblChains" destination="a3m-MC-eb7" id="N5k-hH-u0T"/>
                         <outlet property="view" destination="a3m-MC-eb7" id="CQo-Lk-wzb"/>
                         <segue destination="KXR-rk-bvN" kind="modal" identifier="fromVideoToContacts" id="B6x-Jn-f5t"/>
                     </connections>
