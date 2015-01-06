@@ -20,11 +20,21 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     var chains = [[VideoMessage]]()
     var urlsToPlay : [String] = []
     var replyToID : Int? = 0
+    var refreshControl:UIRefreshControl!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         tblChains.reloadData()
         videoMessageMgr.view = self
+        
+        
+        self.refreshControl = UIRefreshControl()
+        self.refreshControl.attributedTitle = NSAttributedString(string: "Pull to refersh")
+        self.refreshControl.addTarget(self, action: "onSwipe", forControlEvents: UIControlEvents.ValueChanged)
+        self.tblChains.addSubview(refreshControl)
+        
+        
+        
         let rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Camera, target: self, action: "showCam")
         self.navigationItem.rightBarButtonItem = rightBarButtonItem
         
