@@ -58,7 +58,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell: UITableViewCell = UITableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: "test")
         // Your user id, from that file we made
-        var userID = NSString(data: theFileManager.contentsAtPath(pathToUserFile)!, encoding: NSUTF8StringEncoding) as String
+        var userID = NSString(data: theFileManager.contentsAtPath(pathToUserFile)!, encoding: NSUTF8StringEncoding) as String?
 
         // conditional links vs. link
         var link = "VYNCs"
@@ -85,8 +85,8 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         formatter.dateFormat = "MMMM d"
         let stringDate = formatter.stringFromDate(date)
         println(recipientID)
-        println(userID.toInt()!)
-        if recipientID == userID.toInt()! {                               // if you are holding up the chain
+        println(userID?.toInt())
+        if recipientID == userID?.toInt() {                               // if you are holding up the chain
             println("holding up chain")
             let button   = UIButton.buttonWithType(UIButtonType.System) as UIButton
             button.frame = CGRectMake(245, 0, 78, 78)
@@ -103,7 +103,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             cell.detailTextLabel?.text = "\(chains[indexPath.row].count) \(link) long. \(stringDate)"
             cell.imageView?.image = UIImage(contentsOfFile :"/Users/apprentice/Documents/thomas/chainer/Chainer/Chainer/Images.xcassets/envelope5.imageset/envelope5.png")
 
-        } else if sentID == userID.toInt()! {
+        } else if sentID == userID?.toInt() {
             // if you sent the message
             println("following chain")
             cell.textLabel?.text = "Following"
@@ -112,7 +112,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             println(UIImage(contentsOfFile : "/Users/apprentice/Documents/thomas/chainer/Chainer/Chainer/group41.png"))
         } else {                                                        // if you are just following
             println("chain you started")
-            cell.textLabel?.text = "Following \(sendingUser!)"
+            cell.textLabel?.text = "Following \(sendingUser)"
             cell.detailTextLabel?.text = "\(chains[indexPath.row].count) \(link) long. \(stringDate)"
             cell.imageView?.image = UIImage(contentsOfFile : "/Users/apprentice/Downloads/new.png")
         }
