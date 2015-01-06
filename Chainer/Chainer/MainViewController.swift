@@ -12,6 +12,7 @@ let PathToFile = docFolderToSaveFiles + fileName
 let unlockUrl : String = "https://s3-us-west-2.amazonaws.com/telephono/IMG_0370.MOV"
 
 
+
 class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet var tblChains: UITableView!
@@ -35,6 +36,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     func onModelUpdate(model: Videos) {
         chains = model.asChains().reverse()
         tblChains.reloadData()
+        tblChains.setNeedsDisplay()
     }
 
     // Returning to view. Loops through users and reloads them.
@@ -118,8 +120,12 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     }
 
     @IBAction func onSwipe() {
+        println("swiped")
         userMgr.update()
         videoMessageMgr.update()
+        tblChains.reloadData()
+        tblChains.setNeedsDisplay()
+        self.refreshControl.endRefreshing()
     }
     
     @IBAction func showCam() {
@@ -149,8 +155,8 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        var userID = NSString(data: theFileManager.contentsAtPath(pathToUserFile)!, encoding: NSUTF8StringEncoding) as String
-        if chains[indexPath.row].first?.recipientID == userID.toInt()! {
+        var userID = NSString(data: theFileManager.contentsAtPath(pathToUserFile)!, encoding: NSUTF8StringEncoding) as String?
+        if chains[indexPath.row].first?.recipientID == userID?.toInt() {
             // display only the most recent video in chain
             urlsToPlay = [s3Url + chains[indexPath.row].first!.videoID]
             urlsToPlay.append(unlockUrl)
