@@ -263,13 +263,15 @@
 				TargetAttributes = {
 					097ECD221A1059AE00D1D2D1 = {
 						CreatedOnToolsVersion = 6.1;
-						DevelopmentTeam = 3K93EXS2KS;
+						DevelopmentTeam = 6AHNV3SNX5;
 					};
+/*
 					097ECD3A1A1059AE00D1D2D1 = {
 						CreatedOnToolsVersion = 6.1;
 						DevelopmentTeam = 3K93EXS2KS;
 						TestTargetID = 097ECD221A1059AE00D1D2D1;
 					};
+*/
 				};
 			};
 			buildConfigurationList = 097ECD1E1A1059AE00D1D2D1 /* Build configuration list for PBXProject "Chainer" */;
