@@ -56,6 +56,9 @@ class VyncListViewController: UIViewController, UITableViewDelegate, UITableView
         
         self.vyncTable.rowHeight = 50
         vyncTable.reloadData()
+    
+
+        
     }
     
     override func didReceiveMemoryWarning() {
@@ -153,7 +156,18 @@ class VyncListViewController: UIViewController, UITableViewDelegate, UITableView
         imagePicker.videoMaximumDuration = 6.00
         imagePicker.showsCameraControls = false
 
+        
+
+        
         let overlay = UIView()
+        
+        let button   = UIButton()
+        button.frame = CGRectMake(245, 0, 78, 78)
+        button.backgroundColor = UIColor.greenColor()
+        button.setTitle("VYNC", forState: UIControlState.Normal)
+        button.titleLabel!.font =  UIFont(name: "Helvetica", size: 20)
+        button.addTarget(self, action: "flipCamera", forControlEvents: UIControlEvents.TouchUpInside)
+        overlay.addSubview(button)
         
         
         // flip button
@@ -165,34 +179,34 @@ class VyncListViewController: UIViewController, UITableViewDelegate, UITableView
 
         flipButton.addTarget(self, action: "flipCamera:", forControlEvents: UIControlEvents.TouchUpInside)
         flipButton.frame = flipFrame
+        
         overlay.addSubview(flipButton)
 
-        let button   = UIButton()
-        button.frame = CGRectMake(245, 0, 78, 78)
-        button.backgroundColor = UIColor.greenColor()
-        button.setTitle("VYNC", forState: UIControlState.Normal)
-        button.titleLabel!.font =  UIFont(name: "Helvetica", size: 20)
-        button.addTarget(self, action: "flipCamera:", forControlEvents: UIControlEvents.TouchUpInside)
-        overlay.addSubview(button)
-        
         imagePicker.cameraOverlayView = overlay
+        
         self.presentViewController(imagePicker, animated: false, completion:{
             let backToVyncView = UIScreenEdgePanGestureRecognizer(target: self, action: "dismissCamera:")
             backToVyncView.edges = UIRectEdge.Left
+            imagePicker.view.addGestureRecognizer(backToVyncView)
+            
+            
+            
         })
         
     }
     
 
     @IBAction func dismissCamera(sender:UIScreenEdgePanGestureRecognizer) {
-        //            imagePickerControllerDidCancel()
-        println("hey")
+        if sender.state == .Ended {
+            self.dismissViewControllerAnimated(false, completion: nil)
+        }
         
     }
     
     @IBAction func flipCamera() {
         //            imagePickerControllerDidCancel()
-        println("hey flip")
+        println("hey flip")//
+        UIAlertView(title: "flip", message: "am i working", delegate: nil, cancelButtonTitle: "ok").show()
         
     }
 
