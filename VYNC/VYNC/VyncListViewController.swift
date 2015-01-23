@@ -162,14 +162,12 @@ class VyncListViewController: UIViewController, UITableViewDelegate, UITableView
         let overlay = UIView()
         
         let button   = UIButton()
-        button.frame = CGRectMake(245, 0, 78, 78)
-        button.backgroundColor = UIColor.greenColor()
+        button.frame = CGRectMake(160, 500, 78, 78)
+        button.backgroundColor = UIColor.redColor()
         button.setTitle("VYNC", forState: UIControlState.Normal)
         button.titleLabel!.font =  UIFont(name: "Helvetica", size: 20)
-        button.addTarget(self, action: "flipCamera", forControlEvents: UIControlEvents.TouchUpInside)
-        overlay.addSubview(button)
-        
-        
+        button.addGestureRecognizer(UILongPressGestureRecognizer(target: self, action: "record:"))
+
         // flip button
         let flipImage = UIImage(contentsOfFile: "camera-rotate")
         let flipButton = UIButton()
@@ -180,7 +178,7 @@ class VyncListViewController: UIViewController, UITableViewDelegate, UITableView
         flipButton.addTarget(self, action: "flipCamera:", forControlEvents: UIControlEvents.TouchUpInside)
         flipButton.frame = flipFrame
         
-        overlay.addSubview(flipButton)
+//        overlay.addSubview(flipButton)
 
         imagePicker.cameraOverlayView = overlay
         
@@ -189,12 +187,22 @@ class VyncListViewController: UIViewController, UITableViewDelegate, UITableView
             backToVyncView.edges = UIRectEdge.Left
             imagePicker.view.addGestureRecognizer(backToVyncView)
             
+            imagePicker.view.addSubview(button)
             
             
         })
         
     }
     
+    @IBAction func record(sender:UILongPressGestureRecognizer){
+        if sender.state == .Began {
+            println("Received longPress!")
+        }
+        if sender.state == .Ended {
+            println("later")
+        }
+
+    }
 
     @IBAction func dismissCamera(sender:UIScreenEdgePanGestureRecognizer) {
         if sender.state == .Ended {
