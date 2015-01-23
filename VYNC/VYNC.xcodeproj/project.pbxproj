@@ -1,0 +1,505 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		481AF2591A705B630018B887 /* Egypt22.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 481AF2581A705B630018B887 /* Egypt22.ttf */; };
+		481AF25B1A706B5F0018B887 /* VyncCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 481AF25A1A706B5F0018B887 /* VyncCell.swift */; };
+		4875B2FD1A6C79760030AABD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4875B2FC1A6C79760030AABD /* AppDelegate.swift */; };
+		4875B3001A6C79760030AABD /* VYNC.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 4875B2FE1A6C79760030AABD /* VYNC.xcdatamodeld */; };
+		4875B3051A6C79760030AABD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4875B3031A6C79760030AABD /* Main.storyboard */; };
+		4875B3071A6C79760030AABD /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4875B3061A6C79760030AABD /* Images.xcassets */; };
+		4875B30A1A6C79760030AABD /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4875B3081A6C79760030AABD /* LaunchScreen.xib */; };
+		4875B3161A6C79760030AABD /* VYNCTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4875B3151A6C79760030AABD /* VYNCTests.swift */; };
+		4875B3201A6C79B50030AABD /* VyncListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4875B31F1A6C79B50030AABD /* VyncListViewController.swift */; };
+		48883BA91A71CFD70024F2DA /* HexColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48883BA81A71CFD70024F2DA /* HexColor.swift */; };
+		48883BAC1A720AF00024F2DA /* VideoPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48883BAB1A720AF00024F2DA /* VideoPlayer.swift */; };
+		48883BAE1A7224A50024F2DA /* IMG_0370.MOV in Resources */ = {isa = PBXBuildFile; fileRef = 48883BAD1A7224A50024F2DA /* IMG_0370.MOV */; };
+		48883BB01A72967F0024F2DA /* camera-rotate.png in Resources */ = {isa = PBXBuildFile; fileRef = 48883BAF1A72967F0024F2DA /* camera-rotate.png */; };
+		4899A1C21A705A6D005D3BE0 /* envelope.png in Resources */ = {isa = PBXBuildFile; fileRef = 4899A1C01A705A6D005D3BE0 /* envelope.png */; };
+		4899A1C31A705A6D005D3BE0 /* vynclogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 4899A1C11A705A6D005D3BE0 /* vynclogo.png */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		4875B3101A6C79760030AABD /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4875B2EF1A6C79760030AABD /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4875B2F61A6C79760030AABD;
+			remoteInfo = VYNC;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		481AF2581A705B630018B887 /* Egypt22.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Egypt22.ttf; sourceTree = "<group>"; };
+		481AF25A1A706B5F0018B887 /* VyncCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VyncCell.swift; sourceTree = "<group>"; };
+		4875B2F71A6C79760030AABD /* VYNC.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VYNC.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		4875B2FB1A6C79760030AABD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4875B2FC1A6C79760030AABD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		4875B2FF1A6C79760030AABD /* VYNC.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = VYNC.xcdatamodel; sourceTree = "<group>"; };
+		4875B3041A6C79760030AABD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		4875B3061A6C79760030AABD /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		4875B3091A6C79760030AABD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
+		4875B30F1A6C79760030AABD /* VYNCTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VYNCTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		4875B3141A6C79760030AABD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4875B3151A6C79760030AABD /* VYNCTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VYNCTests.swift; sourceTree = "<group>"; };
+		4875B31F1A6C79B50030AABD /* VyncListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VyncListViewController.swift; sourceTree = "<group>"; };
+		48883BA81A71CFD70024F2DA /* HexColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HexColor.swift; sourceTree = "<group>"; };
+		48883BAB1A720AF00024F2DA /* VideoPlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoPlayer.swift; sourceTree = "<group>"; };
+		48883BAD1A7224A50024F2DA /* IMG_0370.MOV */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; name = IMG_0370.MOV; path = ../../../../../../../Downloads/IMG_0370.MOV; sourceTree = "<group>"; };
+		48883BAF1A72967F0024F2DA /* camera-rotate.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "camera-rotate.png"; sourceTree = "<group>"; };
+		4899A1C01A705A6D005D3BE0 /* envelope.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = envelope.png; sourceTree = "<group>"; };
+		4899A1C11A705A6D005D3BE0 /* vynclogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = vynclogo.png; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		4875B2F41A6C79760030AABD /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4875B30C1A6C79760030AABD /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		4875B2EE1A6C79760030AABD = {
+			isa = PBXGroup;
+			children = (
+				4875B2F91A6C79760030AABD /* VYNC */,
+				4875B3121A6C79760030AABD /* VYNCTests */,
+				4875B2F81A6C79760030AABD /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		4875B2F81A6C79760030AABD /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				4875B2F71A6C79760030AABD /* VYNC.app */,
+				4875B30F1A6C79760030AABD /* VYNCTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		4875B2F91A6C79760030AABD /* VYNC */ = {
+			isa = PBXGroup;
+			children = (
+				48883BA71A71CFBC0024F2DA /* Libraries */,
+				4899A1B91A705A36005D3BE0 /* Resources */,
+				4875B31F1A6C79B50030AABD /* VyncListViewController.swift */,
+				481AF25A1A706B5F0018B887 /* VyncCell.swift */,
+				4875B2FC1A6C79760030AABD /* AppDelegate.swift */,
+				4875B3031A6C79760030AABD /* Main.storyboard */,
+				4875B3061A6C79760030AABD /* Images.xcassets */,
+				4875B3081A6C79760030AABD /* LaunchScreen.xib */,
+				4875B2FE1A6C79760030AABD /* VYNC.xcdatamodeld */,
+				4875B2FA1A6C79760030AABD /* Supporting Files */,
+			);
+			path = VYNC;
+			sourceTree = "<group>";
+		};
+		4875B2FA1A6C79760030AABD /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				4875B2FB1A6C79760030AABD /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		4875B3121A6C79760030AABD /* VYNCTests */ = {
+			isa = PBXGroup;
+			children = (
+				4875B3151A6C79760030AABD /* VYNCTests.swift */,
+				4875B3131A6C79760030AABD /* Supporting Files */,
+			);
+			path = VYNCTests;
+			sourceTree = "<group>";
+		};
+		4875B3131A6C79760030AABD /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				4875B3141A6C79760030AABD /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		48883BA71A71CFBC0024F2DA /* Libraries */ = {
+			isa = PBXGroup;
+			children = (
+				48883BA81A71CFD70024F2DA /* HexColor.swift */,
+				48883BAB1A720AF00024F2DA /* VideoPlayer.swift */,
+			);
+			name = Libraries;
+			sourceTree = "<group>";
+		};
+		4899A1B91A705A36005D3BE0 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				4899A1BE1A705A6D005D3BE0 /* Fonts */,
+				4899A1BF1A705A6D005D3BE0 /* Images */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		4899A1BE1A705A6D005D3BE0 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				481AF2581A705B630018B887 /* Egypt22.ttf */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
+		4899A1BF1A705A6D005D3BE0 /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				48883BAF1A72967F0024F2DA /* camera-rotate.png */,
+				48883BAD1A7224A50024F2DA /* IMG_0370.MOV */,
+				4899A1C01A705A6D005D3BE0 /* envelope.png */,
+				4899A1C11A705A6D005D3BE0 /* vynclogo.png */,
+			);
+			path = Images;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		4875B2F61A6C79760030AABD /* VYNC */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4875B3191A6C79760030AABD /* Build configuration list for PBXNativeTarget "VYNC" */;
+			buildPhases = (
+				4875B2F31A6C79760030AABD /* Sources */,
+				4875B2F41A6C79760030AABD /* Frameworks */,
+				4875B2F51A6C79760030AABD /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = VYNC;
+			productName = VYNC;
+			productReference = 4875B2F71A6C79760030AABD /* VYNC.app */;
+			productType = "com.apple.product-type.application";
+		};
+		4875B30E1A6C79760030AABD /* VYNCTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4875B31C1A6C79760030AABD /* Build configuration list for PBXNativeTarget "VYNCTests" */;
+			buildPhases = (
+				4875B30B1A6C79760030AABD /* Sources */,
+				4875B30C1A6C79760030AABD /* Frameworks */,
+				4875B30D1A6C79760030AABD /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				4875B3111A6C79760030AABD /* PBXTargetDependency */,
+			);
+			name = VYNCTests;
+			productName = VYNCTests;
+			productReference = 4875B30F1A6C79760030AABD /* VYNCTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		4875B2EF1A6C79760030AABD /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0610;
+				ORGANIZATIONNAME = "Thomas Abend";
+				TargetAttributes = {
+					4875B2F61A6C79760030AABD = {
+						CreatedOnToolsVersion = 6.1.1;
+					};
+					4875B30E1A6C79760030AABD = {
+						CreatedOnToolsVersion = 6.1.1;
+						TestTargetID = 4875B2F61A6C79760030AABD;
+					};
+				};
+			};
+			buildConfigurationList = 4875B2F21A6C79760030AABD /* Build configuration list for PBXProject "VYNC" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 4875B2EE1A6C79760030AABD;
+			productRefGroup = 4875B2F81A6C79760030AABD /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				4875B2F61A6C79760030AABD /* VYNC */,
+				4875B30E1A6C79760030AABD /* VYNCTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		4875B2F51A6C79760030AABD /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				48883BAE1A7224A50024F2DA /* IMG_0370.MOV in Resources */,
+				48883BB01A72967F0024F2DA /* camera-rotate.png in Resources */,
+				4899A1C31A705A6D005D3BE0 /* vynclogo.png in Resources */,
+				481AF2591A705B630018B887 /* Egypt22.ttf in Resources */,
+				4875B3051A6C79760030AABD /* Main.storyboard in Resources */,
+				4875B30A1A6C79760030AABD /* LaunchScreen.xib in Resources */,
+				4875B3071A6C79760030AABD /* Images.xcassets in Resources */,
+				4899A1C21A705A6D005D3BE0 /* envelope.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4875B30D1A6C79760030AABD /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		4875B2F31A6C79760030AABD /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4875B3201A6C79B50030AABD /* VyncListViewController.swift in Sources */,
+				481AF25B1A706B5F0018B887 /* VyncCell.swift in Sources */,
+				48883BAC1A720AF00024F2DA /* VideoPlayer.swift in Sources */,
+				48883BA91A71CFD70024F2DA /* HexColor.swift in Sources */,
+				4875B2FD1A6C79760030AABD /* AppDelegate.swift in Sources */,
+				4875B3001A6C79760030AABD /* VYNC.xcdatamodeld in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4875B30B1A6C79760030AABD /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4875B3161A6C79760030AABD /* VYNCTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		4875B3111A6C79760030AABD /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4875B2F61A6C79760030AABD /* VYNC */;
+			targetProxy = 4875B3101A6C79760030AABD /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		4875B3031A6C79760030AABD /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				4875B3041A6C79760030AABD /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		4875B3081A6C79760030AABD /* LaunchScreen.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				4875B3091A6C79760030AABD /* Base */,
+			);
+			name = LaunchScreen.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		4875B3171A6C79760030AABD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		4875B3181A6C79760030AABD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		4875B31A1A6C79760030AABD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = VYNC/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		4875B31B1A6C79760030AABD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = VYNC/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		4875B31D1A6C79760030AABD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = VYNCTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/VYNC.app/VYNC";
+			};
+			name = Debug;
+		};
+		4875B31E1A6C79760030AABD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = VYNCTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/VYNC.app/VYNC";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		4875B2F21A6C79760030AABD /* Build configuration list for PBXProject "VYNC" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4875B3171A6C79760030AABD /* Debug */,
+				4875B3181A6C79760030AABD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4875B3191A6C79760030AABD /* Build configuration list for PBXNativeTarget "VYNC" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4875B31A1A6C79760030AABD /* Debug */,
+				4875B31B1A6C79760030AABD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4875B31C1A6C79760030AABD /* Build configuration list for PBXNativeTarget "VYNCTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4875B31D1A6C79760030AABD /* Debug */,
+				4875B31E1A6C79760030AABD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		4875B2FE1A6C79760030AABD /* VYNC.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				4875B2FF1A6C79760030AABD /* VYNC.xcdatamodel */,
+			);
+			currentVersion = 4875B2FF1A6C79760030AABD /* VYNC.xcdatamodel */;
+			path = VYNC.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = 4875B2EF1A6C79760030AABD /* Project object */;
+}

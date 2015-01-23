@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Bucket
+   type = "1"
+   version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "VYNC/VyncListViewController.swift"
+            timestampString = "443688664.021575"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "25"
+            endingLineNumber = "25"
+            landmarkName = "VyncListViewController"
+            landmarkType = "3">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "VYNC.VyncListViewController.vyncTable.getter : Swift.ImplicitlyUnwrappedOptional&lt;ObjectiveC.UITableView&gt;"
+                  moduleName = "VYNC"
+                  urlString = "file:///Users/thomasabend/Desktop/Programming/VYNC_Bumblebees/VYNC/VYNC/VyncListViewController.swift"
+                  timestampString = "443319835.453609"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "12"
+                  endingLineNumber = "12"
+                  offsetFromSymbolStart = "12">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "VYNC.VyncListViewController.vyncTable.setter : Swift.ImplicitlyUnwrappedOptional&lt;ObjectiveC.UITableView&gt;"
+                  moduleName = "VYNC"
+                  urlString = "file:///Users/thomasabend/Desktop/Programming/VYNC_Bumblebees/VYNC/VYNC/VyncListViewController.swift"
+                  timestampString = "443319835.454822"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "12"
+                  endingLineNumber = "12"
+                  offsetFromSymbolStart = "16">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "VYNC.VyncListViewController.vyncTable.materializeForSet : Swift.ImplicitlyUnwrappedOptional&lt;ObjectiveC.UITableView&gt;"
+                  moduleName = "VYNC"
+                  urlString = "file:///Users/thomasabend/Desktop/Programming/VYNC_Bumblebees/VYNC/VYNC/VyncListViewController.swift"
+                  timestampString = "443319835.454991"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "12"
+                  endingLineNumber = "12"
+                  offsetFromSymbolStart = "16">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "VYNC.VyncListViewController.init (VYNC.VyncListViewController.Type)(style : C.UITableViewStyle) -&gt; VYNC.VyncListViewController"
+                  moduleName = "VYNC"
+                  urlString = "file:///Users/thomasabend/Desktop/Programming/VYNC_Bumblebees/VYNC/VYNC/VyncListViewController.swift"
+                  timestampString = "443319835.455141"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "12"
+                  endingLineNumber = "12"
+                  offsetFromSymbolStart = "61">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "VYNC.VyncListViewController.init (VYNC.VyncListViewController.Type)(nibName : Swift.Optional&lt;Swift.String&gt;, bundle : Swift.Optional&lt;ObjectiveC.NSBundle&gt;) -&gt; VYNC.VyncListViewController"
+                  moduleName = "VYNC"
+                  urlString = "file:///Users/thomasabend/Desktop/Programming/VYNC_Bumblebees/VYNC/VYNC/VyncListViewController.swift"
+                  timestampString = "443319835.455408"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "12"
+                  endingLineNumber = "12"
+                  offsetFromSymbolStart = "55">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "VYNC.VyncListViewController.init (VYNC.VyncListViewController.Type)() -&gt; VYNC.VyncListViewController"
+                  moduleName = "VYNC"
+                  urlString = "file:///Users/thomasabend/Desktop/Programming/VYNC_Bumblebees/VYNC/VYNC/VyncListViewController.swift"
+                  timestampString = "443319835.455551"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "12"
+                  endingLineNumber = "12"
+                  offsetFromSymbolStart = "57">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "VYNC.VyncListViewController.init (VYNC.VyncListViewController.Type)(coder : ObjectiveC.NSCoder) -&gt; VYNC.VyncListViewController"
+                  moduleName = "VYNC"
+                  urlString = "file:///Users/thomasabend/Desktop/Programming/VYNC_Bumblebees/VYNC/VYNC/VyncListViewController.swift"
+                  timestampString = "443319835.455686"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "12"
+                  endingLineNumber = "12"
+                  offsetFromSymbolStart = "64">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
+</Bucket>
