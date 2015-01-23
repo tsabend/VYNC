@@ -25,6 +25,7 @@ let standin = NSURL.fileURLWithPath(path!) as NSURL!
 class VyncListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
     @IBOutlet var vyncTable: UITableView!
+    var refreshControl:UIRefreshControl!
 
     
     var vyncs = [
@@ -47,8 +48,12 @@ class VyncListViewController: UIViewController, UITableViewDelegate, UITableView
         
         let leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Refresh, target: self, action: "onSwipe")
         self.navigationItem.leftBarButtonItem = leftBarButtonItem
-
-//        self.vyncTable.backgroundColor = UIColor.greenColor()
+        
+        self.refreshControl = UIRefreshControl()
+        self.refreshControl.attributedTitle = NSAttributedString(string: "Pull to refersh")
+        self.refreshControl.addTarget(self, action: "reloadVyncs", forControlEvents: UIControlEvents.ValueChanged)
+        self.vyncTable.addSubview(refreshControl)
+        
         self.vyncTable.rowHeight = 50
         vyncTable.reloadData()
     }
@@ -190,9 +195,18 @@ class VyncListViewController: UIViewController, UITableViewDelegate, UITableView
         println("hey flip")
         
     }
+
     
+    @IBAction func reloadVyncs() {
+        //            imagePickerControllerDidCancel()
+        self.refreshControl.beginRefreshing()
+        println("reloading Vyncs")
+        self.refreshControl.endRefreshing()
+    }
 }
 
+
+//        self.vyncTable.backgroundColor = UIColor.greenColor()
 
 //            let avPlayerVC = VyncPlayer()
 //            avPlayerVC.player = player
