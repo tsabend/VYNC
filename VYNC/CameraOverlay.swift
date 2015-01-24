@@ -82,7 +82,18 @@ class CameraOverlay: UIView {
     }
     
     @IBAction func flash(sender: AnyObject) {
-            println("set flash")
+        println("set flash")
+        let currentFlash = camera!.cameraFlashMode.hashValue
+        if currentFlash == 0 {
+            camera?.cameraFlashMode = UIImagePickerControllerCameraFlashMode.Auto
+            let button = sender as UIButton
+            button.setImage(UIImage(named: "envelope"), forState: .Normal)
+        } else {
+            camera?.cameraFlashMode = UIImagePickerControllerCameraFlashMode.Off
+            let button = sender as UIButton
+            button.setImage(UIImage(named: "vynclogo"), forState: .Normal)
+        }
+        
     }
     
     @IBAction func startRecord(sender: AnyObject) {

@@ -38,7 +38,7 @@
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
                     <connections>
-                        <action selector="endRecord:" destination="iN0-l3-epB" eventType="touchUpInside" id="qdN-gk-su9"/>
+                        <action selector="endRecord:" destination="iN0-l3-epB" eventType="touchUpInside" id="fnR-yQ-hVf"/>
                         <action selector="startRecord:" destination="iN0-l3-epB" eventType="touchDown" id="uy9-nq-2rM"/>
                     </connections>
                 </button>

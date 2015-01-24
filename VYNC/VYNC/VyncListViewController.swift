@@ -85,29 +85,13 @@ class VyncListViewController: UIViewController, UITableViewDelegate, UITableView
         return cell
     }
     
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let currentCell = vyncTable.cellForRowAtIndexPath(indexPath) as VyncCell
-        currentCell.selectCellAnimation()
-        currentCell.deselectCellAnimation()
-    }
-
+//    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+//        let currentCell = vyncTable.cellForRowAtIndexPath(indexPath) as VyncCell
+//        currentCell.selectCellAnimation()
+//    }
+//    
     
-    @IBAction func holdToPlayVideos(sender: UIGestureRecognizer) {
-        if sender.state == .Began {
-            println("Playing Videos")
-            let playerLayer = videoPlayer([standin])
-            playerLayer.player.play()
-            self.view.layer.addSublayer(playerLayer)
-        }
-        if sender.state == .Ended {
-            println("Dismissing PlayerLayer")
-            if let avView : AVPlayerLayer = self.view.layer.sublayers.last as AVPlayerLayer! {
-                avView.removeFromSuperlayer()
-            }
-            self.navigationController?.navigationBar.hidden = false
-            UIApplication.sharedApplication().statusBarHidden=false
-        }
-    }
+    
 
     @IBAction func reply(sender:UIPanGestureRecognizer){
         if sender.state == .Ended {
