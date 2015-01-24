@@ -21,7 +21,6 @@ class VyncCell: UITableViewCell {
         self.selectionStyle = UITableViewCellSelectionStyle.None
         lengthLabel.layer.masksToBounds = true
         lengthLabel.layer.cornerRadius = 12.5
-        
     }
     
     override func setSelected(selected: Bool, animated: Bool) {

@@ -12,21 +12,19 @@ import MobileCoreServices
 import AVKit
 import AVFoundation
 
-//
-//class VyncCell: UITableViewCell {
-//    @IBOutlet var backgroundImage: UIImageView
-//    @IBOutlet var titleLabel: UILabel
-//}
-
 //let standin = "https://s3-us-west-2.amazonaws.com/telephono/IMG_0370.MOV"
 let path = NSBundle.mainBundle().pathForResource("IMG_0370", ofType:"MOV")
 let standin = NSURL.fileURLWithPath(path!) as NSURL!
+let docFolderToSaveFiles = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as String
+let fileName = "/videoToSend.MOV"
+let PathToFile = docFolderToSaveFiles + fileName
+
 
 class VyncListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
     @IBOutlet var vyncTable: UITableView!
+    let camera = VyncCamera()
     var refreshControl:UIRefreshControl!
-
     
     var vyncs = [
         ["title": "Crazy vync", "length": "4", "new": "false"],
@@ -41,12 +39,12 @@ class VyncListViewController: UIViewController, UITableViewDelegate, UITableView
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
-
+        // Do any additional setup after loading the view, typically from a nib
+        camera.delegate = self
         let rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Camera, target: self, action: "showCam")
         self.navigationItem.rightBarButtonItem = rightBarButtonItem
         
-        let leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Refresh, target: self, action: "onSwipe")
+        let leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Refresh, target: self, action: "showCam")
         self.navigationItem.leftBarButtonItem = leftBarButtonItem
         
         self.refreshControl = UIRefreshControl()
@@ -54,11 +52,7 @@ class VyncListViewController: UIViewController, UITableViewDelegate, UITableView
         self.refreshControl.addTarget(self, action: "reloadVyncs", forControlEvents: UIControlEvents.ValueChanged)
         self.vyncTable.addSubview(refreshControl)
         
-        self.vyncTable.rowHeight = 50
         vyncTable.reloadData()
-    
-
-        
     }
     
     override func didReceiveMemoryWarning() {
@@ -71,20 +65,15 @@ class VyncListViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-// font size/type, padd text and image, hold to play video, animate single click event, open vid player on hold event, logo at the top, use different font and color for the navigation bar
-        
         let cell = tableView.dequeueReusableCellWithIdentifier("VyncCell", forIndexPath: indexPath) as VyncCell
 //        Listen for long touch
         let longTouch = UILongPressGestureRecognizer()
-        longTouch.addTarget(self, action: "longPressed:")
+        longTouch.addTarget(self, action: "holdToPlayVideos:")
         cell.addGestureRecognizer(longTouch)
-        
 //        Set Title
         cell.lengthLabel.text = vyncs[indexPath.row]["length"]
         cell.statusLogo.textColor = UIColor(netHex:0x7FF2FF)
         cell.subTitle.text = "January 14 - Hold to Play"
-        
-        
         // New vyncs
         if vyncs[indexPath.row]["new"] == "true" {
             cell.statusLogo.textColor = UIColor(netHex:0xFFB5C9)
@@ -92,14 +81,8 @@ class VyncListViewController: UIViewController, UITableViewDelegate, UITableView
             let pan = UIPanGestureRecognizer(target: self, action: "reply:")
             cell.addGestureRecognizer(pan)
         }
-        
-        
-        
         cell.titleLabel.text = vyncs[indexPath.row]["title"]
-
-        
         return cell
-        
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
@@ -107,30 +90,17 @@ class VyncListViewController: UIViewController, UITableViewDelegate, UITableView
         currentCell.selectCellAnimation()
         currentCell.deselectCellAnimation()
     }
-    
-    @IBAction func longPressed(sender: UIGestureRecognizer) {
-        if sender.state == .Began {
-            println("Received longPress!")
-            var urlsToPlay = createAVItems([standin])
-            let player = AVQueuePlayer(items: urlsToPlay)// NSURL(string: url)
-            let layer = AVPlayerLayer(player: player)
 
-            self.navigationController?.navigationBar.hidden = true
-            UIApplication.sharedApplication().statusBarHidden=true
-            var bounds = self.view.frame
-            //            bounds.offset(dx: CGFloat(0), dy: CGFloat(64))
-            bounds.size.height += 60
-            bounds.origin.y -= 60
-            
-            println("bounds: \(bounds)")
-            layer.bounds = bounds
-            layer.videoGravity = AVLayerVideoGravityResizeAspectFill
-            layer.position = CGPointMake(CGRectGetMidX(bounds), CGRectGetMidY(bounds))
-            layer.player.play()
-            self.view.layer.addSublayer(layer)
+    
+    @IBAction func holdToPlayVideos(sender: UIGestureRecognizer) {
+        if sender.state == .Began {
+            println("Playing Videos")
+            let playerLayer = videoPlayer([standin])
+            playerLayer.player.play()
+            self.view.layer.addSublayer(playerLayer)
         }
         if sender.state == .Ended {
-            println("later")
+            println("Dismissing PlayerLayer")
             if let avView : AVPlayerLayer = self.view.layer.sublayers.last as AVPlayerLayer! {
                 avView.removeFromSuperlayer()
             }
@@ -139,7 +109,6 @@ class VyncListViewController: UIViewController, UITableViewDelegate, UITableView
         }
     }
 
-    
     @IBAction func reply(sender:UIPanGestureRecognizer){
         if sender.state == .Ended {
             println("reply")
@@ -148,77 +117,26 @@ class VyncListViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     @IBAction func showCam() {
-        println("sup! in showcam")
-        let imagePicker = UIImagePickerController() //inst
-        imagePicker.delegate = self
-        imagePicker.sourceType = UIImagePickerControllerSourceType.Camera // Set the media type to allow movies
-        imagePicker.mediaTypes = [kUTTypeMovie] // Maximum length 6 seconds
-        imagePicker.videoMaximumDuration = 6.00
-        imagePicker.showsCameraControls = false
-
-        
-
-        
-        let overlay = UIView()
-        
-        let button   = UIButton()
-        button.frame = CGRectMake(160, 500, 78, 78)
-        button.backgroundColor = UIColor.redColor()
-        button.setTitle("VYNC", forState: UIControlState.Normal)
-        button.titleLabel!.font =  UIFont(name: "Helvetica", size: 20)
-        button.addGestureRecognizer(UILongPressGestureRecognizer(target: self, action: "record:"))
-
-        // flip button
-        let flipImage = UIImage(contentsOfFile: "camera-rotate")
-        let flipButton = UIButton()
-        flipButton.setImage(flipImage, forState: UIControlState.Normal)
-        var flipFrame = CGRectMake(30,30,100,100)
-        flipButton.frame = flipFrame
-
-        flipButton.addTarget(self, action: "flipCamera:", forControlEvents: UIControlEvents.TouchUpInside)
-        flipButton.frame = flipFrame
-        
-//        overlay.addSubview(flipButton)
-
-        imagePicker.cameraOverlayView = overlay
-        
-        self.presentViewController(imagePicker, animated: false, completion:{
-            let backToVyncView = UIScreenEdgePanGestureRecognizer(target: self, action: "dismissCamera:")
-            backToVyncView.edges = UIRectEdge.Left
-            imagePicker.view.addGestureRecognizer(backToVyncView)
-            
-            imagePicker.view.addSubview(button)
-            
-            
-        })
-        
+        println("showing Camera")
+        UIApplication.sharedApplication().statusBarHidden=true
+        self.presentViewController(camera, animated: false, completion: nil)
     }
     
-    @IBAction func record(sender:UILongPressGestureRecognizer){
-        if sender.state == .Began {
-            println("Received longPress!")
-        }
-        if sender.state == .Ended {
-            println("later")
-        }
-
-    }
-
-    @IBAction func dismissCamera(sender:UIScreenEdgePanGestureRecognizer) {
-        if sender.state == .Ended {
-            self.dismissViewControllerAnimated(false, completion: nil)
-        }
+    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [NSObject : AnyObject]) {
+        println("and out")
+        //save the video that the user records
+        let fileUrl = info[UIImagePickerControllerMediaURL] as? NSURL
+        var myVideo : NSData = NSData(contentsOfURL: fileUrl!)!
+        var boolean = myVideo.writeToFile(PathToFile, atomically: true)
+        let playerLayer = videoPlayer([fileUrl!])
         
-    }
-    
-    @IBAction func flipCamera() {
-        //            imagePickerControllerDidCancel()
-        println("hey flip")//
-        UIAlertView(title: "flip", message: "am i working", delegate: nil, cancelButtonTitle: "ok").show()
-        
+        let pickingOverlay = PickingOverlay.loadFromNib() as PickingOverlay!
+        pickingOverlay.playerLayer = playerLayer
+        playerLayer.player.play()
+        picker.view.layer.addSublayer(playerLayer)
+        picker.view.addSubview(pickingOverlay)
     }
 
-    
     @IBAction func reloadVyncs() {
         //            imagePickerControllerDidCancel()
         self.refreshControl.beginRefreshing()
@@ -226,6 +144,13 @@ class VyncListViewController: UIViewController, UITableViewDelegate, UITableView
         self.refreshControl.endRefreshing()
     }
 }
+
+
+
+//let button   = UIButton()
+//button.frame = CGRectMake(140, 500, 80, 80)
+//button.backgroundColor = UIColor.redColor()
+//button.addGestureRecognizer(UILongPressGestureRecognizer(target: self, action: "record:"))
 
 
 //        self.vyncTable.backgroundColor = UIColor.greenColor()

@@ -11,25 +11,6 @@ import AVKit
 import AVFoundation
 import Foundation
 
-public func avPlayerControllerFor(url: [AVPlayerItem]) -> AVPlayerViewController {
-    let player: AVQueuePlayer = AVQueuePlayer(items: url)// NSURL(string: url)
-    // create player view controller
-    let avPlayerVC = AVPlayerViewController()
-    avPlayerVC.player = player
-    
-    return avPlayerVC
-}
-
-public func playVidUrlOnViewController(vidUrl: [String], vc: UIViewController) {
-    
-    let avPlayerVC = avPlayerControllerFor(createAVItems(vidUrl))
-    
-    // show player view controller
-    vc.presentViewController(avPlayerVC, animated: false, completion: {
-        avPlayerVC.player.play()
-    })
-    
-}
 public func createAVItems(items : [String]) -> [AVPlayerItem]{
     var avItems : [AVPlayerItem] = []
     for i in 1...10 {
@@ -50,9 +31,15 @@ public func createAVItems(items : [NSURL]) -> [AVPlayerItem]{
     return avItems
 }
 
-class VyncPlayer:AVPlayerViewController {
-    override func touchesEnded(touches: NSSet, withEvent event: UIEvent) {
-        println("touchended")
-    }
-    
+public func videoPlayer(videos:[NSURL]) -> AVPlayerLayer {
+    var urlsToPlay = createAVItems(videos)
+    let player = AVQueuePlayer(items: urlsToPlay)// NSURL(string: url)
+    let layer = AVPlayerLayer(player: player)
+
+    UIApplication.sharedApplication().statusBarHidden=true
+    var bounds = UIScreen.mainScreen().bounds
+    layer.bounds = bounds
+    layer.videoGravity = AVLayerVideoGravityResizeAspectFill
+    layer.position = CGPointMake(CGRectGetMidX(bounds), CGRectGetMidY(bounds))
+    return layer
 }
