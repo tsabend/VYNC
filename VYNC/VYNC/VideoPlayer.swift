@@ -35,7 +35,6 @@ public func videoPlayer(videos:[NSURL]) -> AVPlayerLayer {
     var urlsToPlay = createAVItems(videos)
     let player = AVQueuePlayer(items: urlsToPlay)// NSURL(string: url)
     let layer = AVPlayerLayer(player: player)
-
     UIApplication.sharedApplication().statusBarHidden=true
     var bounds = UIScreen.mainScreen().bounds
     layer.bounds = bounds

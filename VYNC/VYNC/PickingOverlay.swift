@@ -22,11 +22,21 @@ class PickingOverlay: UIView {
         
     }
     
-    @IBAction func retake() {
-        println("retake")
+    @IBAction func remove() {
+        println("removing layer")
         self.removeFromSuperview()
         if let player = self.playerLayer {
             player.removeFromSuperlayer()
         }
     }
+
+    @IBAction func selectVync(sender: AnyObject) {
+//        let vc = 
+//            storyboard?.instantiateViewControllerWithIdentifier("Contacts") as ContactsViewController
+//        vc.replyToID = self.replyToID
+//        self.presentViewController(vc, animated:false, completion:{
+//            self.replyToID = 0
+//        })
+    }
+    
 }

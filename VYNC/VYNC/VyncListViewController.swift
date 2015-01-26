@@ -26,32 +26,33 @@ class VyncListViewController: UIViewController, UITableViewDelegate, UITableView
     let camera = VyncCamera()
     var refreshControl:UIRefreshControl!
     
-    var vyncs = [
-        ["title": "Crazy vync", "length": "4", "new": "false"],
-        ["title": "Wild vync", "length": "1", "new": "false"],
-        ["title": "vyncMi", "length": "2", "new": "true"],
-        ["title": "Look at this amazing couch!", "length": "4", "new": "false"],
-        ["title": "Backfliiiiip", "length": "4", "new": "true"],
-        ["title": "guess who?", "length": "6", "new": "false"],
-        ["title": "vyncMe", "length": "4", "new": "true"]
-    ]
+//    Setting this equal to a global variable that is an array of vyncs. 
+//    This will later be replaced by a function return from a dB query.
+    var vyncs = vyncList
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib
         camera.delegate = self
+        let color = UIColor(netHex:0x73A1FF)
+        let font = [NSFontAttributeName: UIFont(name: "Egypt 22", size: 50)!, NSForegroundColorAttributeName: color]
+//        let color = [NSForegroundColorAttributeName: UIColor.redColor()]
+        self.navigationController!.navigationBar.titleTextAttributes = font
+        
         let rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Camera, target: self, action: "showCam")
         self.navigationItem.rightBarButtonItem = rightBarButtonItem
         
-        let leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Refresh, target: self, action: "showCam")
-        self.navigationItem.leftBarButtonItem = leftBarButtonItem
+//        let leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Refresh, target: self, action: "showCam")
+//        self.navigationItem.leftBarButtonItem = leftBarButtonItem
         
         self.refreshControl = UIRefreshControl()
         self.refreshControl.attributedTitle = NSAttributedString(string: "Pull to refersh")
         self.refreshControl.addTarget(self, action: "reloadVyncs", forControlEvents: UIControlEvents.ValueChanged)
+        self.refreshControl.layer.zPosition = -1
         self.vyncTable.addSubview(refreshControl)
         
+        self.vyncTable.rowHeight = 70
         vyncTable.reloadData()
     }
     
@@ -64,42 +65,182 @@ class VyncListViewController: UIViewController, UITableViewDelegate, UITableView
         return vyncs.count
     }
     
+    @IBAction func reloadVyncs() {
+        self.refreshControl.beginRefreshing()
+        println("reloading Vyncs")
+        self.refreshControl.endRefreshing()
+    }
+    
+    // Set the properties of cells
+    
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("VyncCell", forIndexPath: indexPath) as VyncCell
-//        Listen for long touch
-        let longTouch = UILongPressGestureRecognizer()
-        longTouch.addTarget(self, action: "holdToPlayVideos:")
-        cell.addGestureRecognizer(longTouch)
-//        Set Title
-        cell.lengthLabel.text = vyncs[indexPath.row]["length"]
-        cell.statusLogo.textColor = UIColor(netHex:0x7FF2FF)
-        cell.subTitle.text = "January 14 - Hold to Play"
-        // New vyncs
-        if vyncs[indexPath.row]["new"] == "true" {
+
+        addGesturesToCell(cell)
+       //        Set Title and Length Labels
+        cell.titleLabel.text = vyncs[indexPath.row].title()
+        cell.lengthLabel.text = vyncs[indexPath.row].size()
+        
+        // New vyncs get special color and gesture
+        if vyncs[indexPath.row].waitingOnYou() {
             cell.statusLogo.textColor = UIColor(netHex:0xFFB5C9)
             cell.subTitle.text = "January 14 - Swipe to Reply"
-            let pan = UIPanGestureRecognizer(target: self, action: "reply:")
-            cell.addGestureRecognizer(pan)
+        } else {
+            cell.subTitle.text = "January 14 - Hold to Play"
+//            cell.statusLogo.textColor = UIColor(netHex:0xD9FF85)
+            cell.statusLogo.textColor = UIColor(netHex:0x7FF2FF)
         }
-        cell.titleLabel.text = vyncs[indexPath.row]["title"]
+        
+        // Unwatched vyncs get special background color
+        if vyncs[indexPath.row].unwatched {
+            cell.backgroundColor = UIColor(netHex: 0xD3D3D3)
+        } else {
+            cell.backgroundColor = UIColor.whiteColor()
+        }
+
         return cell
     }
     
-//    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-//        let currentCell = vyncTable.cellForRowAtIndexPath(indexPath) as VyncCell
-//        currentCell.selectCellAnimation()
-//    }
-//    
-    
-    
+    func addGesturesToCell(cell:UITableViewCell){
+        // long touch for playback
+        let longTouch = UILongPressGestureRecognizer()
+        longTouch.addTarget(self, action: "holdToPlayVideos:")
+        cell.addGestureRecognizer(longTouch)
+        
+        let singleTap = UITapGestureRecognizer(target: self, action: "singleTapCell:")
+        singleTap.numberOfTapsRequired = 1
+        
+        let doubleTap = UITapGestureRecognizer(target:self, action: "doubleTapCell:")
+        doubleTap.numberOfTapsRequired = 2
+        
+        cell.addGestureRecognizer(singleTap)
+        cell.addGestureRecognizer(doubleTap)
+        singleTap.requireGestureRecognizerToFail(doubleTap)
+    }
 
-    @IBAction func reply(sender:UIPanGestureRecognizer){
-        if sender.state == .Ended {
-            println("reply")
-            showCam()
+    func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        if vyncs[indexPath.row].waitingOnYou(){
+            return true
+        } else {
+            return false
         }
     }
     
+    func tableView(tableView: UITableView, editingStyleForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCellEditingStyle {
+        return UITableViewCellEditingStyle.Delete
+    }
+    
+    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        
+    }
+    
+    func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [AnyObject]? {
+        let replyClosure = { (action: UITableViewRowAction!, indexPath: NSIndexPath!) -> Void in
+            self.reply(indexPath.row)
+        }
+        
+        let reply = UITableViewRowAction(
+            style: UITableViewRowActionStyle.Normal,
+            title: "REPLY",
+            handler: replyClosure
+            )
+        reply.backgroundColor = UIColor(netHex: 0xFFB5C9)
+        return [reply]
+    }
+    
+    
+    @IBAction func holdToPlayVideos(sender: UIGestureRecognizer) {
+        if sender.state == .Began {
+            let index = self.vyncTable.indexPathForRowAtPoint(sender.view!.center)?.row
+            println("Playing Videos)")
+            vyncs[index!].unwatched = false
+            let urls = vyncs[index!].videoUrls()
+            println(urls)
+            let playerLayer = videoPlayer([standin])
+            playerLayer.player.play()
+            self.view.layer.addSublayer(playerLayer)
+            self.navigationController?.setNavigationBarHidden(true, animated: true)
+            UIApplication.sharedApplication().setStatusBarHidden(true, withAnimation: .None)
+            println(UIApplication.sharedApplication().statusBarHidden)
+            self.view.layer.bounds = playerLayer.bounds
+
+        }
+        if sender.state == .Ended {
+            println("Dismissing PlayerLayer")
+            if let avView : AVPlayerLayer = self.view.layer.sublayers.last as AVPlayerLayer! {
+                UIApplication.sharedApplication().setStatusBarHidden(false, withAnimation: .None)
+                self.navigationController?.setNavigationBarHidden(false, animated: true)
+                avView.removeFromSuperlayer()
+                }
+            self.navigationController?.navigationBar.hidden = false
+            UIApplication.sharedApplication().statusBarHidden=false
+            self.vyncTable.reloadData()
+//            self.vyncTable.setNeedsDisplay()
+        }
+    }
+    
+    func singleTapCell(sender:UITapGestureRecognizer){
+        println("single tapped")
+        let indexPath = self.vyncTable.indexPathForRowAtPoint(sender.view!.center)?
+        if let cell = vyncTable.cellForRowAtIndexPath(indexPath!) as? VyncCell {
+            cell.selectCellAnimation()
+        }
+
+    }
+    
+    func doubleTapCell(sender:UITapGestureRecognizer){
+        let indexPath:NSIndexPath = self.vyncTable.indexPathForRowAtPoint(sender.view!.center)!
+        if let cell = vyncTable.cellForRowAtIndexPath(indexPath) as? VyncCell {
+            if cell.isFlipped {
+                let view = self.view.viewWithTag(19)
+                cell.isFlipped = false
+                UIView.transitionFromView(
+                    view!,
+                    toView: cell.contentView,
+                    duration: 0.66,
+                    options: UIViewAnimationOptions.TransitionFlipFromBottom,
+                    completion: nil
+                )
+            } else {
+                let viewHeight = Int(cell.frame.height)
+                let viewWidth = Int(cell.frame.width)
+                let view = UIView(frame:CGRect(x: 0, y: 0, width: viewWidth, height: viewHeight))
+                let label = UILabel()
+                label.frame = view.frame
+                
+                let labelText = ", ".join(vyncs[indexPath.row].usersList())
+                label.text = "Users on this Vync: \(labelText)"
+                
+                view.addSubview(label)
+                view.tag = 19
+                cell.isFlipped = true
+                UIView.transitionFromView(
+                    cell.contentView,
+                    toView: view,
+                    duration: 0.66,
+                    options: UIViewAnimationOptions.TransitionFlipFromTop,
+                    completion: {
+                        finished in
+                        //                    Auto flip back after 4 seconds
+                        delay(4){
+                            if cell.isFlipped {
+                                self.doubleTapCell(sender)
+                            }
+                        }
+                    }
+                )
+            }
+        }
+    }
+
+    
+    func reply(index:Int){
+        println(index)
+        // Should pass the replyToID along to the camera for eventual replying
+        // TODO
+        showCam()
+    }
+
     @IBAction func showCam() {
         println("showing Camera")
         UIApplication.sharedApplication().statusBarHidden=true
@@ -120,33 +261,23 @@ class VyncListViewController: UIViewController, UITableViewDelegate, UITableView
         picker.view.layer.addSublayer(playerLayer)
         picker.view.addSubview(pickingOverlay)
     }
-
-    @IBAction func reloadVyncs() {
-        //            imagePickerControllerDidCancel()
-        self.refreshControl.beginRefreshing()
-        println("reloading Vyncs")
-        self.refreshControl.endRefreshing()
-    }
 }
 
 
-
-//let button   = UIButton()
-//button.frame = CGRectMake(140, 500, 80, 80)
-//button.backgroundColor = UIColor.redColor()
-//button.addGestureRecognizer(UILongPressGestureRecognizer(target: self, action: "record:"))
-
-
-//        self.vyncTable.backgroundColor = UIColor.greenColor()
-
-//            let avPlayerVC = VyncPlayer()
-//            avPlayerVC.player = player
-//            avPlayerVC.showsPlaybackControls = false
 //
 //
-//            self.presentViewController(avPlayerVC, animated: false, completion: {
-//                avPlayerVC.player.play()
-//                })
-//            var newView = UIView(frame: self.view.bounds)
-//            newView.backgroundColor=UIColor.redColor()
-//            newView.tag = 10
+//func addReplyGestureToCell(cell:UITableViewCell){
+//    let reply = UISwipeGestureRecognizer(target: self, action: "replySwipe:")
+//    reply.direction = UISwipeGestureRecognizerDirection.Left
+//    cell.addGestureRecognizer(reply)
+//}
+
+//
+//@IBAction func replySwipe(sender:UISwipeGestureRecognizer){
+//    
+//    //        if sender.state == .Ended {
+//    //            println("swipe reply")
+//    //            let index = self.vyncTable.indexPathForRowAtPoint(sender.view!.center)?.row
+//    //            reply(index!)
+//    //        }
+//}

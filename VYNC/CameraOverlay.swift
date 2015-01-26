@@ -15,6 +15,10 @@ import AVKit
 import AVFoundation
 
 class VyncCamera:UIImagePickerController {
+    override func prefersStatusBarHidden() -> Bool {
+        return true
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -36,7 +40,6 @@ class VyncCamera:UIImagePickerController {
 
 //        cameraOverlay.backgroundColor = UIColor.whiteColor()
         self.view.addSubview(cameraOverlay)
-        println(self.view.subviews)
     }
     
 
@@ -46,15 +49,15 @@ class VyncCamera:UIImagePickerController {
         if sender.state == .Ended {
             println("dismissing camera")
             removePickingOverlayFromImagePickerView()
-            self.dismissViewControllerAnimated(false, completion:nil)
+            self.dismissViewControllerAnimated(false, completion:{finished in
+                UIApplication.sharedApplication().setStatusBarHidden(false, withAnimation: .None)})
         }
     }
     
     func removePickingOverlayFromImagePickerView(){
         for view in self.view.subviews {
-            println(view)
             if let pickingOverlay = view as? PickingOverlay {
-                pickingOverlay.retake()
+                pickingOverlay.remove()
             }
         }
     }

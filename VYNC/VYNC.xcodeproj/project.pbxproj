@@ -11,6 +11,8 @@
 		481AF25B1A706B5F0018B887 /* VyncCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 481AF25A1A706B5F0018B887 /* VyncCell.swift */; };
 		4836638A1A742EB70096AE64 /* PickingOverlay.xib in Resources */ = {isa = PBXBuildFile; fileRef = 483663891A742EB70096AE64 /* PickingOverlay.xib */; };
 		4836638C1A74321B0096AE64 /* PickingOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4836638B1A74321B0096AE64 /* PickingOverlay.swift */; };
+		483663911A7536070096AE64 /* Vync.swift in Sources */ = {isa = PBXBuildFile; fileRef = 483663901A7536070096AE64 /* Vync.swift */; };
+		483663991A75A80E0096AE64 /* ContactsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 483663981A75A80E0096AE64 /* ContactsViewController.swift */; };
 		4875B2FD1A6C79760030AABD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4875B2FC1A6C79760030AABD /* AppDelegate.swift */; };
 		4875B3001A6C79760030AABD /* VYNC.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 4875B2FE1A6C79760030AABD /* VYNC.xcdatamodeld */; };
 		4875B3051A6C79760030AABD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4875B3031A6C79760030AABD /* Main.storyboard */; };
@@ -44,6 +46,8 @@
 		481AF25A1A706B5F0018B887 /* VyncCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VyncCell.swift; sourceTree = "<group>"; };
 		483663891A742EB70096AE64 /* PickingOverlay.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PickingOverlay.xib; sourceTree = "<group>"; };
 		4836638B1A74321B0096AE64 /* PickingOverlay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PickingOverlay.swift; sourceTree = "<group>"; };
+		483663901A7536070096AE64 /* Vync.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Vync.swift; sourceTree = "<group>"; };
+		483663981A75A80E0096AE64 /* ContactsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactsViewController.swift; sourceTree = "<group>"; };
 		4875B2F71A6C79760030AABD /* VYNC.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VYNC.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4875B2FB1A6C79760030AABD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4875B2FC1A6C79760030AABD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -84,6 +88,36 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4836638D1A7535B50096AE64 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				483663901A7536070096AE64 /* Vync.swift */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+		4836638E1A7535C40096AE64 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				4875B31F1A6C79B50030AABD /* VyncListViewController.swift */,
+				481AF25A1A706B5F0018B887 /* VyncCell.swift */,
+				483663981A75A80E0096AE64 /* ContactsViewController.swift */,
+			);
+			name = ViewControllers;
+			sourceTree = "<group>";
+		};
+		4836638F1A7535E40096AE64 /* Views_And_Layers */ = {
+			isa = PBXGroup;
+			children = (
+				48CE7BB71A73DF9E008DCFC2 /* CameraOverlay.xib */,
+				48883BB31A7340090024F2DA /* CameraOverlay.swift */,
+				4836638B1A74321B0096AE64 /* PickingOverlay.swift */,
+				4875B3031A6C79760030AABD /* Main.storyboard */,
+				483663891A742EB70096AE64 /* PickingOverlay.xib */,
+			);
+			name = Views_And_Layers;
+			sourceTree = "<group>";
+		};
 		4875B2EE1A6C79760030AABD = {
 			isa = PBXGroup;
 			children = (
@@ -105,16 +139,12 @@
 		4875B2F91A6C79760030AABD /* VYNC */ = {
 			isa = PBXGroup;
 			children = (
+				4836638F1A7535E40096AE64 /* Views_And_Layers */,
+				4836638E1A7535C40096AE64 /* ViewControllers */,
+				4836638D1A7535B50096AE64 /* Models */,
 				48883BA71A71CFBC0024F2DA /* Libraries */,
 				4899A1B91A705A36005D3BE0 /* Resources */,
-				4875B31F1A6C79B50030AABD /* VyncListViewController.swift */,
-				48CE7BB71A73DF9E008DCFC2 /* CameraOverlay.xib */,
-				48883BB31A7340090024F2DA /* CameraOverlay.swift */,
-				4836638B1A74321B0096AE64 /* PickingOverlay.swift */,
-				483663891A742EB70096AE64 /* PickingOverlay.xib */,
-				481AF25A1A706B5F0018B887 /* VyncCell.swift */,
 				4875B2FC1A6C79760030AABD /* AppDelegate.swift */,
-				4875B3031A6C79760030AABD /* Main.storyboard */,
 				4875B3061A6C79760030AABD /* Images.xcassets */,
 				4875B3081A6C79760030AABD /* LaunchScreen.xib */,
 				4875B2FE1A6C79760030AABD /* VYNC.xcdatamodeld */,
@@ -294,6 +324,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4875B3201A6C79B50030AABD /* VyncListViewController.swift in Sources */,
+				483663991A75A80E0096AE64 /* ContactsViewController.swift in Sources */,
 				481AF25B1A706B5F0018B887 /* VyncCell.swift in Sources */,
 				48883BAC1A720AF00024F2DA /* VideoPlayer.swift in Sources */,
 				4836638C1A74321B0096AE64 /* PickingOverlay.swift in Sources */,
@@ -302,6 +333,7 @@
 				4875B3001A6C79760030AABD /* VYNC.xcdatamodeld in Sources */,
 				48883BB41A7340090024F2DA /* CameraOverlay.swift in Sources */,
 				48883BB81A73D96D0024F2DA /* LoadFromNibExtension.swift in Sources */,
+				483663911A7536070096AE64 /* Vync.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
