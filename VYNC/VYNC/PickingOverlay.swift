@@ -11,8 +11,14 @@ import UIKit
 import AVFoundation
 import Foundation
 
+protocol PickingOverlayDelegate {
+    func transitionToTitle()
+}
 
 class PickingOverlay: UIView {
+    
+    var delegate:PickingOverlayDelegate! = nil
+    
     var playerLayer : AVPlayerLayer?
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -23,7 +29,6 @@ class PickingOverlay: UIView {
     }
     
     @IBAction func remove() {
-        println("removing layer")
         self.removeFromSuperview()
         if let player = self.playerLayer {
             player.removeFromSuperlayer()
@@ -31,12 +36,7 @@ class PickingOverlay: UIView {
     }
 
     @IBAction func selectVync(sender: AnyObject) {
-//        let vc = 
-//            storyboard?.instantiateViewControllerWithIdentifier("Contacts") as ContactsViewController
-//        vc.replyToID = self.replyToID
-//        self.presentViewController(vc, animated:false, completion:{
-//            self.replyToID = 0
-//        })
+        remove()
+        delegate!.transitionToTitle()
     }
-    
 }

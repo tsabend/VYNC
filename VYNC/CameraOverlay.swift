@@ -14,14 +14,20 @@ import MobileCoreServices
 import AVKit
 import AVFoundation
 
-class VyncCamera:UIImagePickerController {
-    override func prefersStatusBarHidden() -> Bool {
-        return true
-    }
+
+protocol CameraOverlayDelegate {
+    func flipCamera()
+    func toggleFlash(button:UIButton)
+    func startRecording()
+    func stopRecording()
+}
+
+
+
+class VyncCamera:UIImagePickerController, CameraOverlayDelegate, PickingOverlayDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         
         self.sourceType = UIImagePickerControllerSourceType.Camera // Set the media type to allow movies
         self.mediaTypes = [kUTTypeMovie] // Maximum length 6 seconds
@@ -36,14 +42,15 @@ class VyncCamera:UIImagePickerController {
         
 //
         let cameraOverlay = CameraOverlay.loadFromNib() as CameraOverlay!
-        cameraOverlay.camera = self
+        cameraOverlay.delegate = self
 
 //        cameraOverlay.backgroundColor = UIColor.whiteColor()
         self.view.addSubview(cameraOverlay)
     }
     
-
-
+    override func prefersStatusBarHidden() -> Bool {
+        return true
+    }
 
     @IBAction func dismissCamera(sender:UIScreenEdgePanGestureRecognizer) {
         if sender.state == .Ended {
@@ -61,11 +68,44 @@ class VyncCamera:UIImagePickerController {
             }
         }
     }
+    
+    // PickingOverlayDelegate methods
+    func transitionToTitle(){
+        println("transitioning")
+        delegate?.imagePickerControllerDidCancel!(self)
+    }
+    
+    // CameraOverlayDelegate methods
+    func flipCamera() {
+        if self.cameraDevice == UIImagePickerControllerCameraDevice.Rear{
+            self.cameraDevice = UIImagePickerControllerCameraDevice.Front
+        } else {
+            self.cameraDevice = UIImagePickerControllerCameraDevice.Rear
+        }
+    }
+    
+    func toggleFlash(button:UIButton){
+        let currentFlash = self.cameraFlashMode.hashValue
+        if currentFlash == 0 {
+            self.cameraFlashMode = UIImagePickerControllerCameraFlashMode.Auto
+            button.setImage(UIImage(named: "envelope"), forState: .Normal)
+        } else {
+            self.cameraFlashMode = UIImagePickerControllerCameraFlashMode.Off
+            button.setImage(UIImage(named: "vynclogo"), forState: .Normal)
+        }
+    }
 
+    func startRecording() {
+        self.startVideoCapture()
+    }
+    
+    func stopRecording() {
+        self.stopVideoCapture()
+    }
 }
 
 class CameraOverlay: UIView {
-    var camera : VyncCamera?
+    var delegate:CameraOverlayDelegate! = nil
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -73,42 +113,21 @@ class CameraOverlay: UIView {
         frame = UIScreen.mainScreen().bounds
         backgroundColor = UIColor.clearColor()
     }
-    
 
     @IBAction func flipCamera(sender: AnyObject) {
-        println("flipping camera")
-        if camera?.cameraDevice == UIImagePickerControllerCameraDevice.Rear{
-            camera?.cameraDevice = UIImagePickerControllerCameraDevice.Front
-        } else {
-            camera?.cameraDevice = UIImagePickerControllerCameraDevice.Rear
-        }
+        delegate!.flipCamera()
     }
     
     @IBAction func flash(sender: AnyObject) {
-        println("set flash")
-        let currentFlash = camera!.cameraFlashMode.hashValue
-        if currentFlash == 0 {
-            camera?.cameraFlashMode = UIImagePickerControllerCameraFlashMode.Auto
-            let button = sender as UIButton
-            button.setImage(UIImage(named: "envelope"), forState: .Normal)
-        } else {
-            camera?.cameraFlashMode = UIImagePickerControllerCameraFlashMode.Off
-            let button = sender as UIButton
-            button.setImage(UIImage(named: "vynclogo"), forState: .Normal)
-        }
-        
+        delegate!.toggleFlash(sender as UIButton)
     }
     
     @IBAction func startRecord(sender: AnyObject) {
-        println("begin recording")
-        camera?.startVideoCapture()
+        delegate!.startRecording()
     }
     
     @IBAction func endRecord(sender: AnyObject) {
-        println("end recording")
-        camera?.stopVideoCapture()
-        
+        delegate!.stopRecording()
     }
-
 
 }

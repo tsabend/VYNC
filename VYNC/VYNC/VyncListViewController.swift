@@ -61,6 +61,10 @@ class VyncListViewController: UIViewController, UITableViewDelegate, UITableView
         // Dispose of any resources that can be recreated.
     }
     
+    override func shouldAutorotate() -> Bool {
+        return false
+    }
+    
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return vyncs.count
     }
@@ -93,7 +97,8 @@ class VyncListViewController: UIViewController, UITableViewDelegate, UITableView
         
         // Unwatched vyncs get special background color
         if vyncs[indexPath.row].unwatched {
-            cell.backgroundColor = UIColor(netHex: 0xD3D3D3)
+            let color = UIColor(netHex: 0xD3D3D3).colorWithAlphaComponent(0.1)
+            cell.backgroundColor = color
         } else {
             cell.backgroundColor = UIColor.whiteColor()
         }
@@ -157,16 +162,18 @@ class VyncListViewController: UIViewController, UITableViewDelegate, UITableView
             let urls = vyncs[index!].videoUrls()
             println(urls)
             let playerLayer = videoPlayer([standin])
-            playerLayer.player.play()
-            self.view.layer.addSublayer(playerLayer)
+            
             self.navigationController?.setNavigationBarHidden(true, animated: true)
             UIApplication.sharedApplication().setStatusBarHidden(true, withAnimation: .None)
-            println(UIApplication.sharedApplication().statusBarHidden)
-            self.view.layer.bounds = playerLayer.bounds
+            
+            self.view.layer.addSublayer(playerLayer)
+            playerLayer.player.play()
 
         }
         if sender.state == .Ended {
             println("Dismissing PlayerLayer")
+            let view = self.view.viewWithTag(100)
+            view?.removeFromSuperview()
             if let avView : AVPlayerLayer = self.view.layer.sublayers.last as AVPlayerLayer! {
                 UIApplication.sharedApplication().setStatusBarHidden(false, withAnimation: .None)
                 self.navigationController?.setNavigationBarHidden(false, animated: true)
@@ -248,7 +255,7 @@ class VyncListViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [NSObject : AnyObject]) {
-        println("and out")
+        println("didFinishPicking")
         //save the video that the user records
         let fileUrl = info[UIImagePickerControllerMediaURL] as? NSURL
         var myVideo : NSData = NSData(contentsOfURL: fileUrl!)!
@@ -256,11 +263,19 @@ class VyncListViewController: UIViewController, UITableViewDelegate, UITableView
         let playerLayer = videoPlayer([fileUrl!])
         
         let pickingOverlay = PickingOverlay.loadFromNib() as PickingOverlay!
+        pickingOverlay.delegate = picker as? VyncCamera
+
         pickingOverlay.playerLayer = playerLayer
         playerLayer.player.play()
         picker.view.layer.addSublayer(playerLayer)
         picker.view.addSubview(pickingOverlay)
     }
+    
+    func imagePickerControllerDidCancel(picker: UIImagePickerController) {
+        println("hey")
+    }
+    
+
 }
 
 

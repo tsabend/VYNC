@@ -9,6 +9,50 @@
         </mutableArray>
     </customFonts>
     <scenes>
+        <!--Title View Controller-->
+        <scene sceneID="oo8-IK-vWa">
+            <objects>
+                <viewController restorationIdentifier="TitleViewController" storyboardIdentifier="TitleViewController" id="ym8-4g-NrY" customClass="TitleViewController" customModule="VYNC" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="aXR-PV-nB5"/>
+                        <viewControllerLayoutGuide type="bottom" id="9nO-yr-MeW"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="yTi-iy-edy">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2cN-Vv-d3f">
+                                <rect key="frame" x="137" y="251" width="49" height="30"/>
+                                <state key="normal" title="Submit">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="submit:" destination="ym8-4g-NrY" eventType="touchUpInside" id="cTG-Zw-3fy"/>
+                                </connections>
+                            </button>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="3e0-ab-Gzd">
+                                <rect key="frame" x="16" y="198" width="288" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="ADD A TITLE" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ddr-8m-fED">
+                                <rect key="frame" x="111" y="154" width="100" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="Kpa-CY-rE5"/>
+                    <connections>
+                        <outlet property="vyncTitle" destination="3e0-ab-Gzd" id="BdR-eg-ab0"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="hp9-ZG-oOW" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-898" y="608"/>
+        </scene>
         <!--CONTACTS-->
         <scene sceneID="mQp-AN-uUk">
             <objects>
@@ -39,11 +83,7 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="CONTACTS" id="C8L-nh-Uwp">
-                        <barButtonItem key="leftBarButtonItem" systemItem="trash" id="aqt-0f-KeK">
-                            <connections>
-                                <segue destination="dsR-ck-NC2" kind="push" id="t5d-DF-cuv"/>
-                            </connections>
-                        </barButtonItem>
+                        <barButtonItem key="leftBarButtonItem" systemItem="trash" id="aqt-0f-KeK"/>
                     </navigationItem>
                     <connections>
                         <outlet property="contactsList" destination="lM5-tR-un0" id="lQ8-Za-TtO"/>
@@ -117,38 +157,32 @@
                             <outlet property="delegate" destination="dsR-ck-NC2" id="gbA-LE-rYG"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="VYNC" prompt="" id="qkv-kQ-Vxn">
-                        <barButtonItem key="leftBarButtonItem" systemItem="search" id="kjS-og-Fdd">
-                            <connections>
-                                <segue destination="Lak-Bc-0ex" kind="push" id="NR0-si-kd6"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="VYNC" id="Atc-5g-E4S"/>
                     <connections>
                         <outlet property="vyncTable" destination="xin-Fj-KEb" id="g0h-zk-9eD"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="69J-j4-g5P" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-110" y="-137"/>
+            <point key="canvasLocation" x="-6" y="-216"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="LQm-Nx-EDq">
             <objects>
                 <navigationController id="VOQ-KP-4gu" sceneMemberID="viewController">
-                    <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="dS5-xF-5Gk">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" red="0.85098039215686272" green="1" blue="0.52156862745098043" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <textAttributes key="titleTextAttributes">
-                            <fontDescription key="fontDescription" name="Egypt22" family="Egypt 22" pointSize="32"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="32"/>
                             <color key="textColor" red="0.45098039215686275" green="0.63137254901960782" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         </textAttributes>
                     </navigationBar>
                     <connections>
-                        <segue destination="dsR-ck-NC2" kind="relationship" relationship="rootViewController" id="v7t-jN-dcD"/>
                         <segue destination="Lak-Bc-0ex" kind="push" identifier="backToHome" id="LH3-Wy-Acl"/>
+                        <segue destination="dsR-ck-NC2" kind="relationship" relationship="rootViewController" id="Qh0-dH-CfD"/>
+                        <segue destination="ym8-4g-NrY" kind="push" identifier="toTitle" id="GQg-Xe-VqI"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wCB-XK-kEg" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -161,8 +195,4 @@
         <simulatedOrientationMetrics key="orientation"/>
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
-    <inferredMetricsTieBreakers>
-        <segue reference="v7t-jN-dcD"/>
-        <segue reference="NR0-si-kd6"/>
-    </inferredMetricsTieBreakers>
 </document>
