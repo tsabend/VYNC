@@ -170,6 +170,7 @@
         <scene sceneID="LQm-Nx-EDq">
             <objects>
                 <navigationController id="VOQ-KP-4gu" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="6rU-j7-3oi"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="dS5-xF-5Gk">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -188,6 +189,60 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wCB-XK-kEg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-610" y="-216"/>
+        </scene>
+        <!--Vync Camera View Controller-->
+        <scene sceneID="BOL-aq-HwZ">
+            <objects>
+                <viewController restorationIdentifier="Camera" storyboardIdentifier="Camera" id="hqV-3T-Vx2" customClass="VyncCameraViewController" customModule="VYNC" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="ced-Ji-OtZ"/>
+                        <viewControllerLayoutGuide type="bottom" id="2uh-AT-T7j"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="UHc-fq-aam">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lG1-yh-0yR">
+                                <rect key="frame" x="270" y="20" width="34" height="19"/>
+                                <state key="normal" title="flip">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="flipCamera:" destination="hqV-3T-Vx2" eventType="touchUpInside" id="aPM-PV-uZW"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RbB-QH-7zf">
+                                <rect key="frame" x="128" y="518" width="64" height="30"/>
+                                <state key="normal" title="RECORD">
+                                    <color key="titleColor" red="1" green="0.34117648010000001" blue="0.0" alpha="1" colorSpace="deviceRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="startRecording:" destination="hqV-3T-Vx2" eventType="touchUpInside" id="6GJ-Bo-hZR"/>
+                                    <action selector="startRecording:" destination="hqV-3T-Vx2" eventType="touchDown" id="LEd-ZG-cVF"/>
+                                    <action selector="stopRecording:" destination="hqV-3T-Vx2" eventType="touchUpInside" id="2qb-CM-l03"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bq0-pP-Gxq">
+                                <rect key="frame" x="23" y="6" width="33" height="30"/>
+                                <state key="normal" title="flash">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="autoFlash:" destination="hqV-3T-Vx2" eventType="touchUpInside" id="gS5-Xq-MHp"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <connections>
+                        <outlet property="flashButton" destination="Bq0-pP-Gxq" id="5g0-co-DxT"/>
+                        <outlet property="recordButton" destination="RbB-QH-7zf" id="jZY-5L-C4q"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Baq-Ht-PtC" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-58" y="616"/>
         </scene>
     </scenes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

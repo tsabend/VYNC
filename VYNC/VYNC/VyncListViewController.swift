@@ -15,29 +15,23 @@ import AVFoundation
 //let standin = "https://s3-us-west-2.amazonaws.com/telephono/IMG_0370.MOV"
 let path = NSBundle.mainBundle().pathForResource("IMG_0370", ofType:"MOV")
 let standin = NSURL.fileURLWithPath(path!) as NSURL!
-let docFolderToSaveFiles = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as String
-let fileName = "/videoToSend.MOV"
-let PathToFile = docFolderToSaveFiles + fileName
 
 
-class VyncListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+
+class VyncListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UINavigationControllerDelegate {
 
     @IBOutlet var vyncTable: UITableView!
-    let camera = VyncCamera()
     var refreshControl:UIRefreshControl!
     
-//    Setting this equal to a global variable that is an array of vyncs. 
-//    This will later be replaced by a function return from a dB query.
+//    Setting this equal to a global variable that is an array of vyncs. This will later be replaced by a function return from a dB query.
     var vyncs = vyncList
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib
-        camera.delegate = self
+
         let color = UIColor(netHex:0x73A1FF)
         let font = [NSFontAttributeName: UIFont(name: "Egypt 22", size: 50)!, NSForegroundColorAttributeName: color]
-//        let color = [NSForegroundColorAttributeName: UIColor.redColor()]
         self.navigationController!.navigationBar.titleTextAttributes = font
         
         let rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Camera, target: self, action: "showCam")
@@ -51,7 +45,6 @@ class VyncListViewController: UIViewController, UITableViewDelegate, UITableView
         self.refreshControl.addTarget(self, action: "reloadVyncs", forControlEvents: UIControlEvents.ValueChanged)
         self.refreshControl.layer.zPosition = -1
         self.vyncTable.addSubview(refreshControl)
-        
         self.vyncTable.rowHeight = 70
         vyncTable.reloadData()
     }
@@ -250,31 +243,13 @@ class VyncListViewController: UIViewController, UITableViewDelegate, UITableView
 
     @IBAction func showCam() {
         println("showing Camera")
-        UIApplication.sharedApplication().statusBarHidden=true
+        UIApplication.sharedApplication().setStatusBarHidden(true, withAnimation: .None)
+//        let camera = VyncCameraViewController()
+        let camera = self.storyboard?.instantiateViewControllerWithIdentifier("Camera") as VyncCameraViewController
         self.presentViewController(camera, animated: false, completion: nil)
     }
     
-    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [NSObject : AnyObject]) {
-        println("didFinishPicking")
-        //save the video that the user records
-        let fileUrl = info[UIImagePickerControllerMediaURL] as? NSURL
-        var myVideo : NSData = NSData(contentsOfURL: fileUrl!)!
-        var boolean = myVideo.writeToFile(PathToFile, atomically: true)
-        let playerLayer = videoPlayer([fileUrl!])
-        
-        let pickingOverlay = PickingOverlay.loadFromNib() as PickingOverlay!
-        pickingOverlay.delegate = picker as? VyncCamera
-
-        pickingOverlay.playerLayer = playerLayer
-        playerLayer.player.play()
-        picker.view.layer.addSublayer(playerLayer)
-        picker.view.addSubview(pickingOverlay)
-    }
-    
-    func imagePickerControllerDidCancel(picker: UIImagePickerController) {
-        println("hey")
-    }
-    
+   
 
 }
 
