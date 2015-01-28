@@ -110,7 +110,7 @@ class User {
 }
 
 // Fake Data
-var allUsers : [User] = [
+var allUsers : [User]  = [
     User(username: "John", userID:1),
     User(username: "Misty", userID:2),
     User(username: "Frank", userID:3),
@@ -148,7 +148,7 @@ let message11 : VideoMessage = VideoMessage(videoID: path!, senderID: 4, recipie
 let vync4 = Vync(messages: [message11])
 
 //Vync 5 - Vync you just sent
-let message12 : VideoMessage = VideoMessage(videoID: path!, senderID: 1, recipientID: 2, messageID: 12, replyToID: 12, createdAt: "January 25" , title: "Too many cooks?")
+let message12 : VideoMessage = VideoMessage(videoID: "crazyvideo.com", senderID: 1, recipientID: 2, messageID: 12, replyToID: 12, createdAt: "January 25" , title: "Too many cooks?")
 
 let vync5 = Vync(messages: [message12])
 

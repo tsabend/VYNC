@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+
 func getName(classType:AnyClass) -> String {
     
     let classString = NSStringFromClass(classType)

@@ -41,7 +41,7 @@ class ContactsViewController: UIViewController, UITableViewDelegate, UITableView
         if tableView == self.searchDisplayController!.searchResultsTableView {
             user = filteredUsers[indexPath.row]
         } else {
-            user = contacts[indexPath.row]
+            user = contacts[indexPath.row] as User
         }
         
         cell.textLabel?.text = "\(user.username)"
@@ -79,6 +79,7 @@ class ContactsViewController: UIViewController, UITableViewDelegate, UITableView
             return nameMatch && (stringMatch != nil)
         })
     }
+    
     //MARK: - UISearchBarDelegate
     func searchDisplayController(controller: UISearchDisplayController!, shouldReloadTableForSearchString searchString: String!) -> Bool {
         self.filterContentForSearchText(searchString.lowercaseString)
