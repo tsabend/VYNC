@@ -61,10 +61,10 @@ class Vync {
         return yourUserId == self.messages.last?.recipientID
     }
     
-    func videoUrls()->[String]{
+    func videoUrls()->[NSURL]{
         return self.messages.map({
             message in
-            message.videoID
+            NSURL.fileURLWithPath(message.videoID) as NSURL!
         })
     }
 
@@ -121,34 +121,34 @@ var allUsers : [User] = [
 let yourUserId = 1
 
 // Vync 1 - Long vync you are following
-let message1 : VideoMessage = VideoMessage(videoID: "crazyvideo.com", senderID: 1, recipientID: 2, messageID: 1, replyToID: 1, createdAt: "January 20" , title: "Check out my cat!")
-let message2 : VideoMessage = VideoMessage(videoID: "crazyvideo.com", senderID: 2, recipientID: 4, messageID: 2, replyToID: 1, createdAt: "January 20")
-let message3 : VideoMessage = VideoMessage(videoID: "crazyvideo.com", senderID: 4, recipientID: 3, messageID: 3, replyToID: 1, createdAt: "January 20")
-let message4 : VideoMessage = VideoMessage(videoID: "crazyvideo.com", senderID: 3, recipientID: 2, messageID: 4, replyToID: 1, createdAt: "January 20")
+let message1 : VideoMessage = VideoMessage(videoID: path!, senderID: 1, recipientID: 2, messageID: 1, replyToID: 1, createdAt: "January 20" , title: "Check out my cat!")
+let message2 : VideoMessage = VideoMessage(videoID: path!, senderID: 2, recipientID: 4, messageID: 2, replyToID: 1, createdAt: "January 20")
+let message3 : VideoMessage = VideoMessage(videoID: path!, senderID: 4, recipientID: 3, messageID: 3, replyToID: 1, createdAt: "January 20")
+let message4 : VideoMessage = VideoMessage(videoID: path!, senderID: 3, recipientID: 2, messageID: 4, replyToID: 1, createdAt: "January 20")
 
 let vync1 : Vync = Vync(messages:[message1, message2, message3, message4])
 
 // Vync 2 - Short vync you are following
-let message5 : VideoMessage = VideoMessage(videoID: "crazyvideo.com", senderID: 2, recipientID: 1, messageID: 5, replyToID: 5, createdAt: "January 24", title: "This Vync is unreal")
-let message6 : VideoMessage = VideoMessage(videoID: "crazyvideo.com", senderID: 1, recipientID: 5, messageID: 6, replyToID: 5, createdAt: "January 24")
+let message5 : VideoMessage = VideoMessage(videoID: path!, senderID: 2, recipientID: 1, messageID: 5, replyToID: 5, createdAt: "January 24", title: "This Vync is unreal")
+let message6 : VideoMessage = VideoMessage(videoID: path!, senderID: 1, recipientID: 5, messageID: 6, replyToID: 5, createdAt: "January 24")
 
 let vync2 : Vync = Vync(messages: [message5, message6])
 
 //Vync 3 - Long Vync you are holding up
-let message7 : VideoMessage = VideoMessage(videoID: "crazyvideo.com", senderID: 5, recipientID: 4, messageID: 7, replyToID: 7, createdAt: "January 23", title: "If I were a bannanna")
-let message8 : VideoMessage = VideoMessage(videoID: "crazyvideo.com", senderID: 4, recipientID: 3, messageID: 8, replyToID: 7, createdAt: "January 25")
-let message9 : VideoMessage = VideoMessage(videoID: "crazyvideo.com", senderID: 3, recipientID: 2, messageID: 9, replyToID: 7, createdAt: "January 25")
-let message10 : VideoMessage = VideoMessage(videoID: "crazyvideo.com", senderID: 2, recipientID: 1, messageID: 10, replyToID: 7, createdAt: "January 25")
+let message7 : VideoMessage = VideoMessage(videoID: path!, senderID: 5, recipientID: 4, messageID: 7, replyToID: 7, createdAt: "January 23", title: "If I were a bannanna")
+let message8 : VideoMessage = VideoMessage(videoID: path!, senderID: 4, recipientID: 3, messageID: 8, replyToID: 7, createdAt: "January 25")
+let message9 : VideoMessage = VideoMessage(videoID: path!, senderID: 3, recipientID: 2, messageID: 9, replyToID: 7, createdAt: "January 25")
+let message10 : VideoMessage = VideoMessage(videoID: path!, senderID: 2, recipientID: 1, messageID: 10, replyToID: 7, createdAt: "January 25")
 
 let vync3 = Vync(messages: [message7, message8, message9, message10])
 
 //Vync 4 - Short vync you are holding up
-let message11 : VideoMessage = VideoMessage(videoID: "crazyvideo.com", senderID: 4, recipientID: 1, messageID: 11, replyToID: 12, createdAt: "January 24" , title: "Woo!")
+let message11 : VideoMessage = VideoMessage(videoID: path!, senderID: 4, recipientID: 1, messageID: 11, replyToID: 12, createdAt: "January 24" , title: "Woo!")
 
 let vync4 = Vync(messages: [message11])
 
 //Vync 5 - Vync you just sent
-let message12 : VideoMessage = VideoMessage(videoID: "crazyvideo.com", senderID: 1, recipientID: 2, messageID: 12, replyToID: 12, createdAt: "January 25" , title: "Too many cooks?")
+let message12 : VideoMessage = VideoMessage(videoID: path!, senderID: 1, recipientID: 2, messageID: 12, replyToID: 12, createdAt: "January 25" , title: "Too many cooks?")
 
 let vync5 = Vync(messages: [message12])
 

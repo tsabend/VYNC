@@ -60,6 +60,15 @@ class ContactsViewController: UIViewController, UITableViewDelegate, UITableView
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         println(self.replyToID)
         println(self.vyncTitle)
+        if self.replyToID != 0 {
+            let vyncToUpdate = vyncList.filter({vync in vync.replyToID() == self.replyToID})[0]
+            let newMessage = VideoMessage(videoID: pathToFile, senderID: 1, recipientID: 2, messageID: 1, replyToID: self.replyToID, createdAt: "today", title: self.vyncTitle)
+            vyncToUpdate.messages.append(newMessage)
+        } else {
+            let newMessage = VideoMessage(videoID: pathToFile, senderID: 1, recipientID: 2, messageID: 1, replyToID: 1, createdAt: "today", title: self.vyncTitle)
+            let newVync = Vync(messages: [newMessage])
+            vyncList.append(newVync)
+        }
         performSegueWithIdentifier("backToHome", sender: self)
     }
     

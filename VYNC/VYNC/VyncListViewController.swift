@@ -158,7 +158,7 @@ class VyncListViewController: UIViewController, UITableViewDelegate, UITableView
             
             self.videoPlayer = QueueLoopVideoPlayer()
             self.videoPlayer!.view.addGestureRecognizer(sender)
-            self.videoPlayer!.videoList = [standin, standin]
+            self.videoPlayer!.videoList = urls + urls
             self.videoPlayer!.playVideos()
             self.presentViewController(self.videoPlayer!, animated: false, completion:nil)
         }
