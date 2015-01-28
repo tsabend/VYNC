@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "VYNC/VyncListViewController.swift"
-            timestampString = "444083012.727461"
+            timestampString = "444095147.551606"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "21"
-            endingLineNumber = "21"
+            startingLineNumber = "19"
+            endingLineNumber = "19"
             landmarkName = "VyncListViewController"
             landmarkType = "3">
             <Locations>

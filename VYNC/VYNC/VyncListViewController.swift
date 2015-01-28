@@ -16,8 +16,6 @@ import AVFoundation
 let path = NSBundle.mainBundle().pathForResource("IMG_0370", ofType:"MOV")
 let standin = NSURL.fileURLWithPath(path!) as NSURL!
 
-
-
 class VyncListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UINavigationControllerDelegate {
 
     @IBOutlet var vyncTable: UITableView!
@@ -25,6 +23,8 @@ class VyncListViewController: UIViewController, UITableViewDelegate, UITableView
     
 //    Setting this equal to a global variable that is an array of vyncs. This will later be replaced by a function return from a dB query.
     var vyncs = vyncList
+    var videoPlayer : QueueLoopVideoPlayer?
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -147,35 +147,26 @@ class VyncListViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     
-    @IBAction func holdToPlayVideos(sender: UIGestureRecognizer) {
+    @IBAction func holdToPlayVideos(sender: UILongPressGestureRecognizer) {
+
         if sender.state == .Began {
             let index = self.vyncTable.indexPathForRowAtPoint(sender.view!.center)?.row
             println("Playing Videos)")
             vyncs[index!].unwatched = false
             let urls = vyncs[index!].videoUrls()
             println(urls)
-            let playerLayer = videoPlayer([standin])
             
-            self.navigationController?.setNavigationBarHidden(true, animated: true)
-            UIApplication.sharedApplication().setStatusBarHidden(true, withAnimation: .None)
-            
-            self.view.layer.addSublayer(playerLayer)
-            playerLayer.player.play()
-
+            self.videoPlayer = QueueLoopVideoPlayer()
+            self.videoPlayer!.view.addGestureRecognizer(sender)
+            self.videoPlayer!.videoList = [standin, standin]
+            self.presentViewController(self.videoPlayer!, animated: false, completion: {finished in self.videoPlayer!.playVideos()})
         }
         if sender.state == .Ended {
             println("Dismissing PlayerLayer")
-            let view = self.view.viewWithTag(100)
-            view?.removeFromSuperview()
-            if let avView : AVPlayerLayer = self.view.layer.sublayers.last as AVPlayerLayer! {
-                UIApplication.sharedApplication().setStatusBarHidden(false, withAnimation: .None)
-                self.navigationController?.setNavigationBarHidden(false, animated: true)
-                avView.removeFromSuperlayer()
-                }
-            self.navigationController?.navigationBar.hidden = false
-            UIApplication.sharedApplication().statusBarHidden=false
+            self.videoPlayer?.stop()
+            self.view.addGestureRecognizer(sender)
             self.vyncTable.reloadData()
-//            self.vyncTable.setNeedsDisplay()
+            self.vyncTable.setNeedsDisplay()
         }
     }
     
