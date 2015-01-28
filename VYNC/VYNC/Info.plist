@@ -38,16 +38,14 @@
 	</array>
 	<key>UIAppFonts</key>
 	<array>
-		<string></string>
+		<string>Egpyt22.ttf</string>
 	</array>
-	<key>Item 0</key>
-	<string>Egypt22.ttf</string>
 	<key>UISupportedInterfaceOrientations~ipad</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
 		<string>UIInterfaceOrientationPortraitUpsideDown</string>
-		<string>UIInterfaceOrientationLandscapeLeft</string>
-		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>UIViewControllerBasedStatusBarAppearance</key>
+	<true/>
 </dict>
 </plist>
