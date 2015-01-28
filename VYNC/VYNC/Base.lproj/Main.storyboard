@@ -9,7 +9,7 @@
         </mutableArray>
     </customFonts>
     <scenes>
-        <!--Title View Controller-->
+        <!--TITLE-->
         <scene sceneID="oo8-IK-vWa">
             <objects>
                 <viewController restorationIdentifier="TitleViewController" storyboardIdentifier="TitleViewController" id="ym8-4g-NrY" customClass="TitleViewController" customModule="VYNC" customModuleProvider="target" sceneMemberID="viewController">
@@ -21,9 +21,15 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="ADD A TITLE" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ddr-8m-fED">
+                                <rect key="frame" x="24" y="124" width="272" height="49"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="31"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2cN-Vv-d3f">
-                                <rect key="frame" x="137" y="251" width="49" height="30"/>
-                                <state key="normal" title="Submit">
+                                <rect key="frame" x="136" y="262" width="62" height="30"/>
+                                <state key="normal" title="Continue">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
@@ -31,32 +37,39 @@
                                 </connections>
                             </button>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="3e0-ab-Gzd">
-                                <rect key="frame" x="16" y="198" width="288" height="30"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <rect key="frame" x="16" y="215" width="288" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="ADD A TITLE" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ddr-8m-fED">
-                                <rect key="frame" x="111" y="154" width="100" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="30" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eDY-15-0r3">
+                                <rect key="frame" x="150" y="181" width="20" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.85098039219999999" green="1" blue="0.52156862749999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
-                    <navigationItem key="navigationItem" id="Kpa-CY-rE5"/>
+                    <navigationItem key="navigationItem" title="TITLE" id="Kpa-CY-rE5">
+                        <barButtonItem key="leftBarButtonItem" systemItem="trash" id="gRw-j4-7Jg">
+                            <connections>
+                                <segue destination="VOQ-KP-4gu" kind="modal" id="oYY-E7-jHJ"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
+                        <outlet property="charsLeft" destination="eDY-15-0r3" id="aC8-Nk-6Iq"/>
                         <outlet property="vyncTitle" destination="3e0-ab-Gzd" id="BdR-eg-ab0"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hp9-ZG-oOW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-898" y="608"/>
+            <point key="canvasLocation" x="704" y="-458"/>
         </scene>
         <!--CONTACTS-->
         <scene sceneID="mQp-AN-uUk">
             <objects>
-                <tableViewController storyboardIdentifier="Contacts" id="Lak-Bc-0ex" customClass="ContactsViewController" customModule="VYNC" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController restorationIdentifier="Contacts" storyboardIdentifier="Contacts" id="Lak-Bc-0ex" customClass="ContactsViewController" customModule="VYNC" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="lM5-tR-un0">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -83,7 +96,11 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="CONTACTS" id="C8L-nh-Uwp">
-                        <barButtonItem key="leftBarButtonItem" systemItem="trash" id="aqt-0f-KeK"/>
+                        <barButtonItem key="leftBarButtonItem" systemItem="trash" id="aqt-0f-KeK">
+                            <connections>
+                                <segue destination="VOQ-KP-4gu" kind="modal" identifier="backToHome" id="KJ3-WZ-2GY"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="contactsList" destination="lM5-tR-un0" id="lQ8-Za-TtO"/>
@@ -102,7 +119,7 @@
                     </connections>
                 </searchDisplayController>
             </objects>
-            <point key="canvasLocation" x="-538" y="609"/>
+            <point key="canvasLocation" x="722" y="285"/>
         </scene>
         <!--VYNC-->
         <scene sceneID="uui-mk-D8O">
@@ -164,7 +181,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="69J-j4-g5P" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-6" y="-216"/>
+            <point key="canvasLocation" x="-886" y="-244"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="LQm-Nx-EDq">
@@ -181,14 +198,12 @@
                         </textAttributes>
                     </navigationBar>
                     <connections>
-                        <segue destination="Lak-Bc-0ex" kind="push" identifier="backToHome" id="LH3-Wy-Acl"/>
                         <segue destination="dsR-ck-NC2" kind="relationship" relationship="rootViewController" id="Qh0-dH-CfD"/>
-                        <segue destination="ym8-4g-NrY" kind="push" identifier="toTitle" id="GQg-Xe-VqI"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wCB-XK-kEg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-610" y="-216"/>
+            <point key="canvasLocation" x="-1366" y="-244"/>
         </scene>
         <!--Vync Camera View Controller-->
         <scene sceneID="BOL-aq-HwZ">
@@ -235,6 +250,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
+                    <navigationItem key="navigationItem" id="DAP-78-p0d"/>
                     <connections>
                         <outlet property="flashButton" destination="Bq0-pP-Gxq" id="5g0-co-DxT"/>
                         <outlet property="recordButton" destination="RbB-QH-7zf" id="jZY-5L-C4q"/>
@@ -242,7 +258,44 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Baq-Ht-PtC" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-58" y="616"/>
+            <point key="canvasLocation" x="-350" y="-244"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="lxg-ur-gMt">
+            <objects>
+                <navigationController restorationIdentifier="TitleNav" storyboardIdentifier="TitleNav" automaticallyAdjustsScrollViewInsets="NO" id="H1Y-X3-pov" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Mdh-QR-bpi">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="ym8-4g-NrY" kind="relationship" relationship="rootViewController" id="YSE-E8-TZB"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="eS4-i9-0zc" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="172" y="-458"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="z8p-R0-Qkk">
+            <objects>
+                <navigationController restorationIdentifier="ContactsNav" storyboardIdentifier="ContactsNav" automaticallyAdjustsScrollViewInsets="NO" id="cId-Tf-Mn1" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" id="L2J-cs-L1E"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="MbL-7V-jfZ">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="Lak-Bc-0ex" kind="relationship" relationship="rootViewController" id="U8S-bA-vxf"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="HQg-uh-Gr4" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="182" y="285"/>
         </scene>
     </scenes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
@@ -250,4 +303,7 @@
         <simulatedOrientationMetrics key="orientation"/>
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
+    <inferredMetricsTieBreakers>
+        <segue reference="oYY-E7-jHJ"/>
+    </inferredMetricsTieBreakers>
 </document>

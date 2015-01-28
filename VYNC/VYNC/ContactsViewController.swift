@@ -13,6 +13,8 @@ class ContactsViewController: UIViewController, UITableViewDelegate, UITableView
     
     var contacts = allUsers
     var filteredUsers = [User]()
+    var replyToID : Int = 0
+    var vyncTitle : String?
 
     @IBOutlet var contactsList: UITableView!
     @IBOutlet weak var searchBar: UISearchBar!
@@ -22,6 +24,7 @@ class ContactsViewController: UIViewController, UITableViewDelegate, UITableView
         contactsList.reloadData()
     }
 
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -52,6 +55,12 @@ class ContactsViewController: UIViewController, UITableViewDelegate, UITableView
         } else {
             return contacts.count
         }
+    }
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        println(self.replyToID)
+        println(self.vyncTitle)
+        performSegueWithIdentifier("backToHome", sender: self)
     }
     
     func filterContentForSearchText(searchText: String, scope: String = "All") {

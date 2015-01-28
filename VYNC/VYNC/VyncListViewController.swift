@@ -90,7 +90,7 @@ class VyncListViewController: UIViewController, UITableViewDelegate, UITableView
         
         // Unwatched vyncs get special background color
         if vyncs[indexPath.row].unwatched {
-            let color = UIColor(netHex: 0xD3D3D3).colorWithAlphaComponent(0.1)
+            let color = UIColor(netHex: 0xD3D3D3)
             cell.backgroundColor = color
         } else {
             cell.backgroundColor = UIColor.whiteColor()
@@ -159,7 +159,8 @@ class VyncListViewController: UIViewController, UITableViewDelegate, UITableView
             self.videoPlayer = QueueLoopVideoPlayer()
             self.videoPlayer!.view.addGestureRecognizer(sender)
             self.videoPlayer!.videoList = [standin, standin]
-            self.presentViewController(self.videoPlayer!, animated: false, completion: {finished in self.videoPlayer!.playVideos()})
+            self.videoPlayer!.playVideos()
+            self.presentViewController(self.videoPlayer!, animated: false, completion:nil)
         }
         if sender.state == .Ended {
             println("Dismissing PlayerLayer")
@@ -226,39 +227,21 @@ class VyncListViewController: UIViewController, UITableViewDelegate, UITableView
 
     
     func reply(index:Int){
-        println(index)
-        // Should pass the replyToID along to the camera for eventual replying
-        // TODO
-        showCam()
+        println("showing Reply Camera")
+        UIApplication.sharedApplication().setStatusBarHidden(true, withAnimation: .None)
+        let camera = self.storyboard?.instantiateViewControllerWithIdentifier("Camera") as VyncCameraViewController
+        camera.vync = vyncs[index]
+        self.presentViewController(camera, animated: false, completion: nil)
     }
 
     @IBAction func showCam() {
         println("showing Camera")
         UIApplication.sharedApplication().setStatusBarHidden(true, withAnimation: .None)
-//        let camera = VyncCameraViewController()
         let camera = self.storyboard?.instantiateViewControllerWithIdentifier("Camera") as VyncCameraViewController
+
         self.presentViewController(camera, animated: false, completion: nil)
     }
     
    
 
 }
-
-
-//
-//
-//func addReplyGestureToCell(cell:UITableViewCell){
-//    let reply = UISwipeGestureRecognizer(target: self, action: "replySwipe:")
-//    reply.direction = UISwipeGestureRecognizerDirection.Left
-//    cell.addGestureRecognizer(reply)
-//}
-
-//
-//@IBAction func replySwipe(sender:UISwipeGestureRecognizer){
-//    
-//    //        if sender.state == .Ended {
-//    //            println("swipe reply")
-//    //            let index = self.vyncTable.indexPathForRowAtPoint(sender.view!.center)?.row
-//    //            reply(index!)
-//    //        }
-//}

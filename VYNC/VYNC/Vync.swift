@@ -68,6 +68,13 @@ class Vync {
         })
     }
 
+    func replyToID()->Int {
+        if let first = self.messages.first {
+            return first.replyToID as Int
+        } else {
+            return 0
+        }
+    }
     
     func title()->String {
         if let first = self.messages.first {
@@ -75,7 +82,6 @@ class Vync {
         } else {
             return "Oops"
         }
-        
     }
 //    Will eventually be replaced with SQL statements
     func usersList()->[String]{

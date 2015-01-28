@@ -23,6 +23,8 @@ class VyncCameraViewController: UIViewController, AVCaptureFileOutputRecordingDe
     var captureMovieFileOutput: AVCaptureMovieFileOutput? = nil;
     var videoConnection : AVCaptureConnection!
     
+    var vync : Vync!
+    
     @IBOutlet weak var flashButton: UIButton!
     
     @IBOutlet weak var recordButton: UIButton!
@@ -185,10 +187,18 @@ class VyncCameraViewController: UIViewController, AVCaptureFileOutputRecordingDe
     }
     
     func acceptVideo(view:VyncCameraPlaybackLayer) {
-        if let player = view.playerLayer.player as? AVQueuePlayer {
-            println(player.items().first?.asset)
+        if (self.vync != nil) {
+            println("reply")
+            let contactsNav = self.storyboard?.instantiateViewControllerWithIdentifier("ContactsNav") as UINavigationController
+            let contacts = contactsNav.viewControllers[0] as ContactsViewController
+            // TODO: replace this code with the actual replyToID that has been passed around
+            contacts.replyToID = vync.replyToID()
+            self.presentViewController(contactsNav, animated: false, completion: nil)
+        } else {
+            println("first")
+            let title = self.storyboard?.instantiateViewControllerWithIdentifier("TitleNav") as UINavigationController
+            self.presentViewController(title, animated: false, completion: nil)
         }
-        
     }
     
     
