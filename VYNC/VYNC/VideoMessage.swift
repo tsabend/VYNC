@@ -57,11 +57,6 @@ func createObjectFromJSON(decoder: JSONDecoder, db:NSManagedObjectContext){
 
 let UserSyncer = Syncer<UserX>(entityName:"UserX", primaryKeyName:"id", url: "http://chainer.herokuapp.com/allusers")
 
-
-//protocol SyncDelegate {
-//    func createObjectsFromJSON(decoder:JSONDecoder, db:NSManagedObjectContext)
-//}
-
 class QueryBuilder<T : NSManagedObject> {
 
     let entityDescription : NSEntityDescription!
