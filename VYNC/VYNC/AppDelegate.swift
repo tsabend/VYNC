@@ -21,7 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //        UserSyncer.sync()
         vyncSyncer.sync()
         for vync in asVyncs() {
-            println(vync.size())
+            vync.saveNewVids()
         }
 //        println(UserSyncer.all().find(67).exec()?.map({user in "\(user.username) \(user.id)"}))
         return true

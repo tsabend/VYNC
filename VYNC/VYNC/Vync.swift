@@ -96,23 +96,26 @@ class Vync {
     func videoUrls()->[NSURL]{
         return self.messages.map({
             message in
-            NSURL.fileURLWithPath(pathToFile + "/" + message.videoId)
+            NSURL.fileURLWithPath(docFolderToSaveFiles + "/" + message.videoId) as NSURL!
         })
     }
-
     
     func saveNewVids() {
         for message in messages {
-            let localUrlString = pathToFile + "/" + message.videoId
-            let localUrl = NSURL(fileURLWithPath: localUrlString)
+            let localUrlString = docFolderToSaveFiles + "/" + message.videoId
+            let localUrl = NSURL(fileURLWithPath: localUrlString) as NSURL!
             let cloudUrl = NSURL(string: s3Url + message.videoId) as NSURL!
-            if let exists:NSURL = localUrl {
-                println("already there")
-            } else {
+            
+            let localData = NSData(contentsOfURL: localUrl)
+
+            if localData?.length == nil {
                 println("saving to core data")
                 let data = NSData(contentsOfURL: cloudUrl)
                 data?.writeToFile(localUrlString, atomically: true)
                 println("holy shit that worked i think")
+            } else {
+                println(localData?.length)
+                println("already there")
             }
         }
     }
