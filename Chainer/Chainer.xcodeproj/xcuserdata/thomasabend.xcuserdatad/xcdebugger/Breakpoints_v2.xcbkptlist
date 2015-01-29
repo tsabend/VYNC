@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Bucket
+   type = "1"
+   version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Chainer/ContactsViewController.swift"
+            timestampString = "443938554.753487"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "11"
+            endingLineNumber = "11"
+            landmarkName = "ContactsViewController"
+            landmarkType = "3">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Chainer.ContactsViewController.searchBar.getter : Swift.ImplicitlyUnwrappedOptional&lt;ObjectiveC.UISearchBar&gt;"
+                  moduleName = "Chainer"
+                  urlString = "file:///Users/thomasabend/Desktop/Programming/VYNC/Chainer/Chainer/ContactsViewController.swift"
+                  timestampString = "443971244.154061"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "11"
+                  endingLineNumber = "11"
+                  offsetFromSymbolStart = "24">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Chainer.ContactsViewController.searchBar.setter : Swift.ImplicitlyUnwrappedOptional&lt;ObjectiveC.UISearchBar&gt;"
+                  moduleName = "Chainer"
+                  urlString = "file:///Users/thomasabend/Desktop/Programming/VYNC/Chainer/Chainer/ContactsViewController.swift"
+                  timestampString = "443971244.154408"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "11"
+                  endingLineNumber = "11"
+                  offsetFromSymbolStart = "24">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Chainer.ContactsViewController.searchBar.materializeForSet : Swift.ImplicitlyUnwrappedOptional&lt;ObjectiveC.UISearchBar&gt;"
+                  moduleName = "Chainer"
+                  urlString = "file:///Users/thomasabend/Desktop/Programming/VYNC/Chainer/Chainer/ContactsViewController.swift"
+                  timestampString = "443971244.154635"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "11"
+                  endingLineNumber = "11"
+                  offsetFromSymbolStart = "0">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Chainer.ContactsViewController.init (Chainer.ContactsViewController.Type)(nibName : Swift.Optional&lt;Swift.String&gt;, bundle : Swift.Optional&lt;ObjectiveC.NSBundle&gt;) -&gt; Chainer.ContactsViewController"
+                  moduleName = "Chainer"
+                  urlString = "file:///Users/thomasabend/Desktop/Programming/VYNC/Chainer/Chainer/ContactsViewController.swift"
+                  timestampString = "443971244.154825"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "11"
+                  endingLineNumber = "11"
+                  offsetFromSymbolStart = "92">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Chainer.ContactsViewController.init (Chainer.ContactsViewController.Type)() -&gt; Chainer.ContactsViewController"
+                  moduleName = "Chainer"
+                  urlString = "file:///Users/thomasabend/Desktop/Programming/VYNC/Chainer/Chainer/ContactsViewController.swift"
+                  timestampString = "443971244.154975"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "11"
+                  endingLineNumber = "11"
+                  offsetFromSymbolStart = "64">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Chainer.ContactsViewController.init (Chainer.ContactsViewController.Type)(coder : ObjectiveC.NSCoder) -&gt; Chainer.ContactsViewController"
+                  moduleName = "Chainer"
+                  urlString = "file:///Users/thomasabend/Desktop/Programming/VYNC/Chainer/Chainer/ContactsViewController.swift"
+                  timestampString = "443971244.155131"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "11"
+                  endingLineNumber = "11"
+                  offsetFromSymbolStart = "68">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
+</Bucket>

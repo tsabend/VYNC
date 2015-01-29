@@ -34,10 +34,17 @@ import CoreData
 //}
 
 
-class UserX: NSManagedObject {
+class UserX: NSManagedObject, Printable {
     
     @NSManaged var username: String
     @NSManaged var id: NSNumber
+    
+    override var description:String {
+        get {
+            return username
+        }
+
+    }
     
 }
 
@@ -55,15 +62,79 @@ let UserSyncer = Syncer<UserX>(entityName:"UserX", primaryKeyName:"id", url: "ht
 //    func createObjectsFromJSON(decoder:JSONDecoder, db:NSManagedObjectContext)
 //}
 
+class QueryBuilder<T : NSManagedObject> {
+
+    let entityDescription : NSEntityDescription!
+    let req : NSFetchRequest!
+    
+    lazy var db : NSManagedObjectContext? = {
+        let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
+        if let managedObjectContext = appDelegate.managedObjectContext {
+            return managedObjectContext
+        } else {
+            return nil
+        }
+        }()
+    
+    var first:T? {
+        get {
+            return exec()!.first
+        }
+    }
+    
+    var last:T? {
+        get {
+            return exec()!.last
+        }
+    }
+    
+    init(entityDescription:NSEntityDescription) {
+        self.entityDescription = entityDescription
+        self.req = NSFetchRequest()
+        req.entity = entityDescription
+        req.propertiesToFetch = req.entity?.properties
+    }
+    
+    func sortBy(key: String, ascending: Bool) -> QueryBuilder<T> {
+        req.sortDescriptors?.append(NSSortDescriptor(key: key, ascending: ascending))
+        return self
+    }
+    
+    func limit(count: Int) -> QueryBuilder<T> {
+        req.fetchLimit = count
+        return self
+    }
+    
+    func exec() -> [T]? {
+        var error: NSError?
+        if let results = db!.executeFetchRequest(req, error: &error) as? [T] {
+            return results
+        }
+        return nil
+    }
+    
+    func filter(format:String, args:AnyObject...)->QueryBuilder<T> {
+        req.predicate = NSPredicate(format: format, argumentArray: args)
+        return self
+    }
+    
+    func find(id:Int)->QueryBuilder<T> {
+        return filter("id == %@", args: id).limit(1)
+    }
+    
+}
+
 class Syncer<T: NSManagedObject> {
     let primaryKeyName:String
     let entityName:String
     let url:String
+    let entityDescription:NSEntityDescription!
     
     init(entityName:String, primaryKeyName:String, url:String) {
         self.url = url
         self.entityName = entityName
         self.primaryKeyName = primaryKeyName
+        self.entityDescription = NSEntityDescription.entityForName("UserX", inManagedObjectContext: self.db!)
     }
     
     // NSManaged Functions
@@ -76,21 +147,21 @@ class Syncer<T: NSManagedObject> {
         }
         }()
     
-    var mostRecent : T? {
-        get {
-            var req = NSFetchRequest(entityName: entityName)
-            req.sortDescriptors = [self.sortBy(primaryKeyName, ascending: false)]
-            req.fetchLimit = 1
-            var error: NSError?
-            if let db = self.db {
-                let results = db.executeFetchRequest(req, error: &error) as [T]
-                if results.count == 1 {
-                    return results[0]
-                }
-            }
-            return nil
-        }
-    }
+//    var mostRecent : T? {
+////        get {
+////            var req = NSFetchRequest(entityName: entityName)
+////            req.sortDescriptors = [self.sortBy(primaryKeyName, ascending: false)]
+////            req.fetchLimit = 1
+////            var error: NSError?
+////            if let db = self.db {
+////                let results = db.executeFetchRequest(req, error: &error) as [T]
+////                if results.count == 1 {
+////                    return results[0]
+////                }
+////            }
+////            return nil
+////        }
+//    }
     
     func find(id : Int)-> T? {
         var req = NSFetchRequest(entityName: entityName)
@@ -101,15 +172,16 @@ class Syncer<T: NSManagedObject> {
         if let db = self.db {
             let results = db.executeFetchRequest(req, error: &error) as [T]
             if results.count == 1 {
-                return results[0] as T
+                return results[0]
             }
         }
         return nil
     }
-
-    func sortBy(key: NSString, ascending: Bool) -> NSSortDescriptor {
-        return NSSortDescriptor(key: key, ascending: ascending)
+    
+    func all() -> QueryBuilder<T> {
+        return QueryBuilder<T>(entityDescription: self.entityDescription)
     }
+    
     
     // HTTP Functions
     func sync() {
@@ -132,20 +204,37 @@ class Syncer<T: NSManagedObject> {
 //                        println(data)
                     }
                 }
-
         })
     }
 
     func addJSONToSql(decoderArray: JSONDecoder) {
         for decoder in decoderArray.array! {
             if find(decoder["id"].integer as Int!) == nil {
-                createObjectFromJSON(decoder, self.db!)
+                createObjectFromJSON(decoder)
             }
         }
         db!.save(nil)
     }
-
     
+    func createObjectFromJSON(decoder: JSONDecoder){
+        var object = NSEntityDescription.insertNewObjectForEntityForName("UserX", inManagedObjectContext: self.db!) as T
+        if let desc = NSEntityDescription.entityForName("UserX", inManagedObjectContext: self.db!) {
+            for attribute in desc.attributesByName {
+                let name = attribute.0 as String
+                let attr = attribute.1 as NSAttributeDescription
+                switch attr.attributeType {
+                case .StringAttributeType:
+                    let value = decoder[name].string as String!
+                    object.setValue(value, forKey: name)
+                case .Integer64AttributeType:
+                    let value = decoder[name].integer as Int!
+                    object.setValue(value, forKey: name)
+                default:
+                    println("Oops")
+                }
+            }
+        }
+    }
 }
 
 //class VideoManager {

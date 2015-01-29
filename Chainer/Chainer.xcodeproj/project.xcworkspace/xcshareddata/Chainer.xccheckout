@@ -10,6 +10,8 @@
 	<string>Chainer</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
+		<key>117D169D59BDD5962A5A358FAA0DD3EBAACC3B0F</key>
+		<string>github.com:bumblebees-2014/VYNC.git</string>
 		<key>F9B9096C1069DE2AB63B502792ED511AC0840DD5</key>
 		<string>https://github.com/bumblebees-2014/chainer</string>
 	</dict>
@@ -17,15 +19,17 @@
 	<string>Chainer/Chainer.xcodeproj</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>F9B9096C1069DE2AB63B502792ED511AC0840DD5</key>
+		<key>117D169D59BDD5962A5A358FAA0DD3EBAACC3B0F</key>
 		<string>../../..</string>
+		<key>F9B9096C1069DE2AB63B502792ED511AC0840DD5</key>
+		<string>../../../../chainer</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
-	<string>https://github.com/bumblebees-2014/chainer</string>
+	<string>github.com:bumblebees-2014/VYNC.git</string>
 	<key>IDESourceControlProjectVersion</key>
 	<integer>111</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>F9B9096C1069DE2AB63B502792ED511AC0840DD5</string>
+	<string>117D169D59BDD5962A5A358FAA0DD3EBAACC3B0F</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
@@ -35,6 +39,14 @@
 			<string>F9B9096C1069DE2AB63B502792ED511AC0840DD5</string>
 			<key>IDESourceControlWCCName</key>
 			<string>chainer</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>117D169D59BDD5962A5A358FAA0DD3EBAACC3B0F</string>
+			<key>IDESourceControlWCCName</key>
+			<string>VYNC</string>
 		</dict>
 	</array>
 </dict>

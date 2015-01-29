@@ -31,6 +31,8 @@
 		099F7F0C1A1534DA00604D63 /* vynclogo copy.png in Resources */ = {isa = PBXBuildFile; fileRef = 099F7F0A1A1534DA00604D63 /* vynclogo copy.png */; };
 		09D00EB31A114F4A006827B4 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09D00EB21A114F4A006827B4 /* MediaPlayer.framework */; };
 		09D00EB51A114F5D006827B4 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09D00EB41A114F5D006827B4 /* CoreMedia.framework */; };
+		48930C071A5F482D00BE8C57 /* envelope.png in Resources */ = {isa = PBXBuildFile; fileRef = 48930C061A5F482D00BE8C57 /* envelope.png */; };
+		48930C091A5F728A00BE8C57 /* start.png in Resources */ = {isa = PBXBuildFile; fileRef = 48930C081A5F728A00BE8C57 /* start.png */; };
 		C42AE58B1A111ECB0009C213 /* AVKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C42AE58A1A111ECB0009C213 /* AVKit.framework */; };
 		C4B296031A12688900757B85 /* VideoPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4B296021A12688900757B85 /* VideoPlayer.swift */; };
 /* End PBXBuildFile section */
@@ -87,6 +89,8 @@
 		099F7F0A1A1534DA00604D63 /* vynclogo copy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "vynclogo copy.png"; sourceTree = "<group>"; };
 		09D00EB21A114F4A006827B4 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		09D00EB41A114F5D006827B4 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
+		48930C061A5F482D00BE8C57 /* envelope.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = envelope.png; sourceTree = "<group>"; };
+		48930C081A5F728A00BE8C57 /* start.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = start.png; sourceTree = "<group>"; };
 		C42AE58A1A111ECB0009C213 /* AVKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVKit.framework; path = System/Library/Frameworks/AVKit.framework; sourceTree = SDKROOT; };
 		C4B296021A12688900757B85 /* VideoPlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoPlayer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -207,6 +211,8 @@
 			isa = PBXGroup;
 			children = (
 				097ECD2D1A1059AE00D1D2D1 /* MainViewController.swift */,
+				48930C081A5F728A00BE8C57 /* start.png */,
+				48930C061A5F482D00BE8C57 /* envelope.png */,
 				097ECD5E1A105AFA00D1D2D1 /* ContactsViewController.swift */,
 				0962E45D1A119EC400661226 /* UserLoginController.swift */,
 			);
@@ -263,7 +269,10 @@
 				TargetAttributes = {
 					097ECD221A1059AE00D1D2D1 = {
 						CreatedOnToolsVersion = 6.1;
-						DevelopmentTeam = 6AHNV3SNX5;
+						DevelopmentTeam = 7VU28Z8W3T;
+					};
+					097ECD3A1A1059AE00D1D2D1 = {
+						DevelopmentTeam = 7VU28Z8W3T;
 					};
 				};
 			};
@@ -293,9 +302,11 @@
 			files = (
 				097ECD311A1059AE00D1D2D1 /* Main.storyboard in Resources */,
 				099F7F0B1A1534DA00604D63 /* background.png in Resources */,
+				48930C091A5F728A00BE8C57 /* start.png in Resources */,
 				099F7F081A15349900604D63 /* LaunchScreen.xib in Resources */,
 				099F7F0C1A1534DA00604D63 /* vynclogo copy.png in Resources */,
 				0901F5281A153AAD00EEC6F9 /* background copy.png in Resources */,
+				48930C071A5F482D00BE8C57 /* envelope.png in Resources */,
 				097ECD331A1059AE00D1D2D1 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -445,8 +456,6 @@
 		097ECD461A1059AE00D1D2D1 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchScreen;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -462,8 +471,6 @@
 		097ECD471A1059AE00D1D2D1 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchScreen;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
