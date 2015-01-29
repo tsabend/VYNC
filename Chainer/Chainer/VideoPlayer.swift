@@ -37,5 +37,6 @@ public func createAVItems(items : [String]) -> [AVPlayerItem]{
             avItems.append(AVPlayerItem(URL: NSURL(string: item)))
         }
     }
+    println(avItems)
     return avItems
 }

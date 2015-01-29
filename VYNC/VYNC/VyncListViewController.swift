@@ -12,9 +12,19 @@ import MobileCoreServices
 import AVKit
 import AVFoundation
 
+// DECLARE SOME GLOBAL VARS
+
 //let standin = "https://s3-us-west-2.amazonaws.com/telephono/IMG_0370.MOV"
 let path = NSBundle.mainBundle().pathForResource("IMG_0370", ofType:"MOV")
+let unlockUrl : String = "https://s3-us-west-2.amazonaws.com/telephono/IMG_0370.MOV"
+
+let remoteStandin = NSURL.fileURLWithPath(unlockUrl) as NSURL!
+
 let standin = NSURL.fileURLWithPath(path!) as NSURL!
+let s3Url = "https://s3-us-west-2.amazonaws.com/telephono/"
+
+
+
 
 class VyncListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UINavigationControllerDelegate {
 
@@ -64,6 +74,8 @@ class VyncListViewController: UIViewController, UITableViewDelegate, UITableView
     
     @IBAction func reloadVyncs() {
         self.refreshControl.beginRefreshing()
+        vyncSyncer.sync()
+        println(vyncSyncer.all().exec()?.map({video in "replyToId\(video.replyToId)"}))
         println("reloading Vyncs")
         self.refreshControl.endRefreshing()
     }
@@ -76,8 +88,7 @@ class VyncListViewController: UIViewController, UITableViewDelegate, UITableView
         addGesturesToCell(cell)
        //        Set Title and Length Labels
         cell.titleLabel.text = vyncs[indexPath.row].title()
-        cell.lengthLabel.text = vyncs[indexPath.row].size()
-        
+        cell.lengthLabel.text = String(vyncs[indexPath.row].size())
         // New vyncs get special color and gesture
         if vyncs[indexPath.row].waitingOnYou() {
             cell.statusLogo.textColor = UIColor(netHex:0xFFB5C9)
@@ -154,11 +165,10 @@ class VyncListViewController: UIViewController, UITableViewDelegate, UITableView
             println("Playing Videos)")
             vyncs[index!].unwatched = false
             let urls = vyncs[index!].videoUrls()
-            println(urls)
-            
             self.videoPlayer = QueueLoopVideoPlayer()
             self.videoPlayer!.view.addGestureRecognizer(sender)
-            self.videoPlayer!.videoList = urls + urls
+            println(remoteStandin)
+            self.videoPlayer!.videoList = urls
             self.videoPlayer!.playVideos()
             self.presentViewController(self.videoPlayer!, animated: false, completion:nil)
         }

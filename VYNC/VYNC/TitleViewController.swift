@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 class TitleViewController : UIViewController, UITextFieldDelegate {
-    var replyToID: Int = 0
+    var replyToId: Int = 0
 
     @IBOutlet weak var vyncTitle: UITextField!
 
@@ -28,7 +28,7 @@ class TitleViewController : UIViewController, UITextFieldDelegate {
     @IBAction func submit(sender: AnyObject) {
         let contactsNav = self.storyboard?.instantiateViewControllerWithIdentifier("ContactsNav") as UINavigationController
         let contacts = contactsNav.viewControllers[0] as ContactsViewController
-        contacts.replyToID = self.replyToID
+        contacts.replyToId = self.replyToId
         contacts.vyncTitle = vyncTitle.text
         self.presentViewController(contactsNav, animated: false, completion: nil)
     }

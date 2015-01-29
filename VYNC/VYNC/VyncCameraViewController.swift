@@ -192,7 +192,7 @@ class VyncCameraViewController: UIViewController, AVCaptureFileOutputRecordingDe
             let contactsNav = self.storyboard?.instantiateViewControllerWithIdentifier("ContactsNav") as UINavigationController
             let contacts = contactsNav.viewControllers[0] as ContactsViewController
             // TODO: replace this code with the actual replyToID that has been passed around
-            contacts.replyToID = vync.replyToID()
+            contacts.replyToId = vync.replyToId()
             self.presentViewController(contactsNav, animated: false, completion: nil)
         } else {
             println("first")

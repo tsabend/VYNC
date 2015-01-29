@@ -43,21 +43,6 @@ public class JSONDecoder {
         return value as? Array<JSONDecoder>
     }
     
-    
-    //pull the raw values out of an array
-    /*public func getArray<T>(inout collect: Array<T>?) {
-    if let array = value as? Array<JSONDecoder> {
-    if collect == nil {
-    collect = Array<T>()
-    }
-    for decoder in array {
-    if let obj = decoder.value as? T {
-    collect?.append(obj)
-    }
-    }
-    }
-    }*/
-    
     public func arrayOf<T: JSONJoy>(inout collect: Array<T>) -> Array<T> {
         if let array = value as? Array<JSONDecoder> {
             for decoder in array {
