@@ -9,12 +9,6 @@
 import Foundation
 import CoreData
 
-func remDupeInts(a:[Int]) -> [Int] {
-    return a.reduce([Int]()) { ac, x in contains(ac, x) ? ac : ac + [x] }
-}
-
-
-
 class Vync {
 
     var messages : [VideoMessage]
@@ -59,14 +53,19 @@ class Vync {
     func usersList()->[String]{
         return self.messages.map({
             message in
-            self.findUsername(message.senderId)
+            self.findUsername(message.senderId as Int)
         })
     }
     
-    func findUsername(userId:NSNumber)->String{
+    func findUsername(userId:Int)->String{
 //        let match = allUsers.filter({user in user.userId == userId})
 //        return match.first!.username
-        return "TODO"
+        println(User.syncer.all().find(userId).first)
+        if let user = User.syncer.all().find(userId).first as User! {
+            return user.username
+        } else {
+            return "Fail :("
+        }
     }
     
 }

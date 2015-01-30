@@ -27,5 +27,4 @@ let pathToFile = docFolderToSaveFiles + fileName
 // Fake Data
 var allUsers : [User] = User.syncer.all().exec()!
 
-let yourUserId = 1
-var vyncList: [Vync] = VideoMessage.asVyncs()
+let yourUserId = 67

@@ -1,26 +1,9 @@
 //
-//  VideoMessage.swift
+//  Syncer.swift
 //  Chainer
 //
-//  Created by Apprentice on 11/11/14.
+//  Created by Thomas Abend on 1/29/15.
 //  Copyright (c) 2014 DBC. All rights reserved.
-//
-//
-//import Foundation
-//import CoreData
-//
-//class VideoMessage: NSManagedObject {
-//    
-//    @NSManaged var createdAt: String
-//    @NSManaged var videoID: String
-//    @NSManaged var senderID: NSNumber
-//    @NSManaged var recipientID: NSNumber
-//    @NSManaged var messageID: NSNumber
-//    @NSManaged var replyToID: NSNumber
-//    @NSManaged var title: String
-//    
-//}
-
 
 import Foundation
 import UIKit
@@ -86,7 +69,7 @@ class Syncer<T: NSManagedObject> {
     }
     
     func createObjectFromJSON(decoder: JSONDecoder){
-        var object = NSEntityDescription.insertNewObjectForEntityForName(getName(T), inManagedObjectContext: self.db!) as T
+        var object = NSEntityDescription.insertNewObjectForEntityForName(self.entityName, inManagedObjectContext: self.db!) as T
         if let desc = self.entityDescription {
             for attribute in desc.attributesByName {
                 let name = attribute.0 as String

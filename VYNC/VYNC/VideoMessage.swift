@@ -9,6 +9,10 @@
 import Foundation
 import CoreData
 
+func remDupeInts(a:[Int]) -> [Int] {
+    return a.reduce([Int]()) { ac, x in contains(ac, x) ? ac : ac + [x] }
+}
+
 class VideoMessage:NSManagedObject {
     
     class var syncer : Syncer<VideoMessage> {
