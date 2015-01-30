@@ -40,8 +40,7 @@ class QueueLoopVideoPlayer : AVPlayerViewController {
     
     func stop(){
         println("dismissing")
-//        println(self.view)
-//        self.player = nil
+        self.player.pause()
         self.dismissViewControllerAnimated(false, completion: nil)
 //        removeFromParentViewController()
 

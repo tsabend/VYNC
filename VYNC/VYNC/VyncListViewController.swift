@@ -34,6 +34,7 @@ class VyncListViewController: UIViewController, UITableViewDelegate, UITableView
 //    Setting this equal to a global variable that is an array of vyncs. This will later be replaced by a function return from a dB query.
     var vyncs = vyncList
     var videoPlayer : QueueLoopVideoPlayer?
+    var lastPlayed : Int? = nil
 
     
     override func viewDidLoad() {
@@ -162,15 +163,22 @@ class VyncListViewController: UIViewController, UITableViewDelegate, UITableView
 
         if sender.state == .Began {
             let index = self.vyncTable.indexPathForRowAtPoint(sender.view!.center)?.row
-            println("Playing Videos)")
-            vyncs[index!].unwatched = false
-            let urls = vyncs[index!].videoUrls()
-            self.videoPlayer = QueueLoopVideoPlayer()
-            self.videoPlayer!.view.addGestureRecognizer(sender)
-            println(remoteStandin)
-            self.videoPlayer!.videoList = urls
-            self.videoPlayer!.playVideos()
-            self.presentViewController(self.videoPlayer!, animated: false, completion:nil)
+            //Why is the gesture removing itslef?
+            if index == self.lastPlayed {
+                self.videoPlayer?.player.play()
+                self.videoPlayer!.view.addGestureRecognizer(sender)
+                self.presentViewController(self.videoPlayer!, animated: false, completion:nil)
+            } else {
+                println("Playing Videos)")
+                vyncs[index!].unwatched = false
+                self.lastPlayed = index
+                let urls = vyncs[index!].videoUrls()
+                self.videoPlayer = QueueLoopVideoPlayer()
+                self.videoPlayer!.view.addGestureRecognizer(sender)
+                self.videoPlayer!.videoList = urls
+                self.videoPlayer!.playVideos()
+                self.presentViewController(self.videoPlayer!, animated: false, completion:nil)
+            }
         }
         if sender.state == .Ended {
             println("Dismissing PlayerLayer")
