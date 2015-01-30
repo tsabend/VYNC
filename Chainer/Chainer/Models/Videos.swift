@@ -102,6 +102,7 @@ class Videos {
             success: { (response: HTTPResponse) in
                 if response.responseObject != nil {
                     if let data = response.responseObject as? NSData {
+                        println("json", JSONDecoder(data))
                         self.addVideosToSql(JSONDecoder(data))
                     }
                 }

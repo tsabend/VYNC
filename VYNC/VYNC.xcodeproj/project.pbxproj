@@ -24,15 +24,19 @@
 		48883BB81A73D96D0024F2DA /* LoadFromNibExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48883BB71A73D96D0024F2DA /* LoadFromNibExtension.swift */; };
 		4899A1C21A705A6D005D3BE0 /* envelope.png in Resources */ = {isa = PBXBuildFile; fileRef = 4899A1C01A705A6D005D3BE0 /* envelope.png */; };
 		4899A1C31A705A6D005D3BE0 /* vynclogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 4899A1C11A705A6D005D3BE0 /* vynclogo.png */; };
+		48A4DE781A7A5FC8000087A2 /* AR.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48A4DE771A7A5FC8000087A2 /* AR.swift */; };
+		48A4DE7A1A7A600C000087A2 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48A4DE791A7A600C000087A2 /* User.swift */; };
 		48BAECD91A782897005CC762 /* VyncCameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48BAECD81A782897005CC762 /* VyncCameraViewController.swift */; };
 		48BAECDD1A7829F8005CC762 /* VyncCameraPlaybackLayer.xib in Resources */ = {isa = PBXBuildFile; fileRef = 48BAECDC1A7829F8005CC762 /* VyncCameraPlaybackLayer.xib */; };
 		48CBB63C1A76A76C004A6E6D /* TitleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48CBB63B1A76A76C004A6E6D /* TitleViewController.swift */; };
+		48CEDE201A7BC3AD0015997D /* GlobalVars.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48CEDE1F1A7BC3AD0015997D /* GlobalVars.swift */; };
+		48CEDE221A7BC4E00015997D /* VideoMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48CEDE211A7BC4E00015997D /* VideoMessage.swift */; };
 		48E9F7861A7960EB0034CF5E /* HTTPRequestSerializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48E9F7851A7960EB0034CF5E /* HTTPRequestSerializer.swift */; };
 		48E9F7881A7960F80034CF5E /* HTTPResponseSerializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48E9F7871A7960F80034CF5E /* HTTPResponseSerializer.swift */; };
 		48E9F78A1A7961050034CF5E /* HTTPTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48E9F7891A7961050034CF5E /* HTTPTask.swift */; };
 		48E9F78C1A79610D0034CF5E /* HTTPUpload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48E9F78B1A79610D0034CF5E /* HTTPUpload.swift */; };
 		48E9F78E1A79618C0034CF5E /* JSONJoy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48E9F78D1A79618C0034CF5E /* JSONJoy.swift */; };
-		48E9F7901A7961F90034CF5E /* VideoMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48E9F78F1A7961F90034CF5E /* VideoMessage.swift */; };
+		48E9F7901A7961F90034CF5E /* Sycner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48E9F78F1A7961F90034CF5E /* Sycner.swift */; };
 		48F1193A1A784CCD00A02828 /* QueueLoopVideoPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48F119391A784CCD00A02828 /* QueueLoopVideoPlayer.swift */; };
 		48F1193C1A78605D00A02828 /* PlaybackOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48F1193B1A78605D00A02828 /* PlaybackOverlay.swift */; };
 /* End PBXBuildFile section */
@@ -69,15 +73,19 @@
 		48883BB71A73D96D0024F2DA /* LoadFromNibExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadFromNibExtension.swift; sourceTree = "<group>"; };
 		4899A1C01A705A6D005D3BE0 /* envelope.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = envelope.png; sourceTree = "<group>"; };
 		4899A1C11A705A6D005D3BE0 /* vynclogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = vynclogo.png; sourceTree = "<group>"; };
+		48A4DE771A7A5FC8000087A2 /* AR.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AR.swift; sourceTree = "<group>"; };
+		48A4DE791A7A600C000087A2 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		48BAECD81A782897005CC762 /* VyncCameraViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VyncCameraViewController.swift; sourceTree = "<group>"; };
 		48BAECDC1A7829F8005CC762 /* VyncCameraPlaybackLayer.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VyncCameraPlaybackLayer.xib; sourceTree = "<group>"; };
 		48CBB63B1A76A76C004A6E6D /* TitleViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TitleViewController.swift; sourceTree = "<group>"; };
+		48CEDE1F1A7BC3AD0015997D /* GlobalVars.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GlobalVars.swift; sourceTree = "<group>"; };
+		48CEDE211A7BC4E00015997D /* VideoMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoMessage.swift; sourceTree = "<group>"; };
 		48E9F7851A7960EB0034CF5E /* HTTPRequestSerializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPRequestSerializer.swift; sourceTree = "<group>"; };
 		48E9F7871A7960F80034CF5E /* HTTPResponseSerializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPResponseSerializer.swift; sourceTree = "<group>"; };
 		48E9F7891A7961050034CF5E /* HTTPTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPTask.swift; sourceTree = "<group>"; };
 		48E9F78B1A79610D0034CF5E /* HTTPUpload.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPUpload.swift; sourceTree = "<group>"; };
 		48E9F78D1A79618C0034CF5E /* JSONJoy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONJoy.swift; sourceTree = "<group>"; };
-		48E9F78F1A7961F90034CF5E /* VideoMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoMessage.swift; sourceTree = "<group>"; };
+		48E9F78F1A7961F90034CF5E /* Sycner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Sycner.swift; sourceTree = "<group>"; };
 		48F119391A784CCD00A02828 /* QueueLoopVideoPlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QueueLoopVideoPlayer.swift; sourceTree = "<group>"; };
 		48F1193B1A78605D00A02828 /* PlaybackOverlay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaybackOverlay.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -104,7 +112,11 @@
 			isa = PBXGroup;
 			children = (
 				483663901A7536070096AE64 /* Vync.swift */,
-				48E9F78F1A7961F90034CF5E /* VideoMessage.swift */,
+				48E9F78F1A7961F90034CF5E /* Sycner.swift */,
+				48A4DE791A7A600C000087A2 /* User.swift */,
+				48A4DE771A7A5FC8000087A2 /* AR.swift */,
+				48CEDE1F1A7BC3AD0015997D /* GlobalVars.swift */,
+				48CEDE211A7BC4E00015997D /* VideoMessage.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -154,12 +166,12 @@
 		4875B2F91A6C79760030AABD /* VYNC */ = {
 			isa = PBXGroup;
 			children = (
+				4875B2FC1A6C79760030AABD /* AppDelegate.swift */,
 				4836638F1A7535E40096AE64 /* Views_And_Layers */,
 				4836638E1A7535C40096AE64 /* ViewControllers */,
 				4836638D1A7535B50096AE64 /* Models */,
 				48883BA71A71CFBC0024F2DA /* Libraries */,
 				4899A1B91A705A36005D3BE0 /* Resources */,
-				4875B2FC1A6C79760030AABD /* AppDelegate.swift */,
 				4875B3061A6C79760030AABD /* Images.xcassets */,
 				4875B3081A6C79760030AABD /* LaunchScreen.xib */,
 				4875B2FA1A6C79760030AABD /* Supporting Files */,
@@ -344,20 +356,24 @@
 				48F1193A1A784CCD00A02828 /* QueueLoopVideoPlayer.swift in Sources */,
 				48F1193C1A78605D00A02828 /* PlaybackOverlay.swift in Sources */,
 				4808922F1A79A1240050F230 /* VYNC.xcdatamodeld in Sources */,
+				48CEDE201A7BC3AD0015997D /* GlobalVars.swift in Sources */,
 				4875B3201A6C79B50030AABD /* VyncListViewController.swift in Sources */,
 				483663991A75A80E0096AE64 /* ContactsViewController.swift in Sources */,
 				481AF25B1A706B5F0018B887 /* VyncCell.swift in Sources */,
 				48CBB63C1A76A76C004A6E6D /* TitleViewController.swift in Sources */,
+				48A4DE7A1A7A600C000087A2 /* User.swift in Sources */,
 				48E9F78A1A7961050034CF5E /* HTTPTask.swift in Sources */,
 				48E9F7881A7960F80034CF5E /* HTTPResponseSerializer.swift in Sources */,
 				48BAECD91A782897005CC762 /* VyncCameraViewController.swift in Sources */,
 				48883BA91A71CFD70024F2DA /* HexColor.swift in Sources */,
 				4875B2FD1A6C79760030AABD /* AppDelegate.swift in Sources */,
-				48E9F7901A7961F90034CF5E /* VideoMessage.swift in Sources */,
+				48E9F7901A7961F90034CF5E /* Sycner.swift in Sources */,
 				48883BB81A73D96D0024F2DA /* LoadFromNibExtension.swift in Sources */,
 				48E9F7861A7960EB0034CF5E /* HTTPRequestSerializer.swift in Sources */,
 				48E9F78E1A79618C0034CF5E /* JSONJoy.swift in Sources */,
+				48A4DE781A7A5FC8000087A2 /* AR.swift in Sources */,
 				483663911A7536070096AE64 /* Vync.swift in Sources */,
+				48CEDE221A7BC4E00015997D /* VideoMessage.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

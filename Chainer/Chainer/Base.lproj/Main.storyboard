@@ -46,7 +46,7 @@
                                 <gestureRecognizers/>
                                 <color key="separatorColor" red="0.68849887460000003" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="80" id="q4b-nE-UPu">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="VyncCell" rowHeight="80" id="q4b-nE-UPu">
                                         <rect key="frame" x="0.0" y="0.0" width="325" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="q4b-nE-UPu" id="aV4-I7-DLa">

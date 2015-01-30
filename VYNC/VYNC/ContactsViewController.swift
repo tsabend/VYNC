@@ -13,7 +13,7 @@ class ContactsViewController: UIViewController, UITableViewDelegate, UITableView
     
     var contacts = allUsers
     var filteredUsers = [User]()
-    var replyToID : Int = 0
+    var replyToId : Int = 0
     var vyncTitle : String?
 
     @IBOutlet var contactsList: UITableView!
@@ -58,16 +58,16 @@ class ContactsViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        println(self.replyToID)
+        println(self.replyToId)
         println(self.vyncTitle)
-        if self.replyToID != 0 {
-            let vyncToUpdate = vyncList.filter({vync in vync.replyToID() == self.replyToID})[0]
-            let newMessage = VideoMessage(videoID: pathToFile, senderID: 1, recipientID: 2, messageID: 1, replyToID: self.replyToID, createdAt: "today", title: self.vyncTitle)
-            vyncToUpdate.messages.append(newMessage)
+        if self.replyToId != 0 {
+//            let vyncToUpdate = vyncList.filter({vync in vync.replyToId() == self.replyToId})[0]
+//            let newMessage = VideoMessageX(videoId: pathToFile, senderId: 1, id: 1, replyToID: self.replyToId, createdAt: "today", title: self.vyncTitle)
+//            vyncToUpdate.messages.append(newMessage)
         } else {
-            let newMessage = VideoMessage(videoID: pathToFile, senderID: 1, recipientID: 2, messageID: 1, replyToID: 1, createdAt: "today", title: self.vyncTitle)
-            let newVync = Vync(messages: [newMessage])
-            vyncList.append(newVync)
+//            let newMessage = VideoMessageX(videoId: pathToFile, senderId: 1, id: 1, replyToId: 1, createdAt: "today", title: self.vyncTitle)
+//            let newVync = Vync(messages: [newMessage])
+//            vyncList.append(newVync)
         }
         performSegueWithIdentifier("backToHome", sender: self)
     }

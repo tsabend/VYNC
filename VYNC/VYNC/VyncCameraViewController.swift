@@ -10,10 +10,6 @@ import UIKit
 import Foundation
 import AVFoundation
 
-let docFolderToSaveFiles = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as String
-let fileName = "/videoToSend.MOV"
-let pathToFile = docFolderToSaveFiles + fileName
-
 class VyncCameraViewController: UIViewController, AVCaptureFileOutputRecordingDelegate, VyncCameraPlaybackLayerDelegate {
     
     let captureSession = AVCaptureSession()
@@ -192,7 +188,7 @@ class VyncCameraViewController: UIViewController, AVCaptureFileOutputRecordingDe
             let contactsNav = self.storyboard?.instantiateViewControllerWithIdentifier("ContactsNav") as UINavigationController
             let contacts = contactsNav.viewControllers[0] as ContactsViewController
             // TODO: replace this code with the actual replyToID that has been passed around
-            contacts.replyToID = vync.replyToID()
+            contacts.replyToId = vync.replyToId()
             self.presentViewController(contactsNav, animated: false, completion: nil)
         } else {
             println("first")

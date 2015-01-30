@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-func getName(classType:AnyClass) -> String {
+public func getName(classType:AnyClass) -> String {
     
     let classString = NSStringFromClass(classType)
     let range = classString.rangeOfString(".", options: NSStringCompareOptions.CaseInsensitiveSearch, range: Range<String.Index>(start:classString.startIndex, end: classString.endIndex), locale: nil)

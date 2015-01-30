@@ -33,8 +33,6 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         self.refreshControl.addTarget(self, action: "onSwipe", forControlEvents: UIControlEvents.ValueChanged)
         self.tblChains.addSubview(refreshControl)
         
-        
-        
         let rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Camera, target: self, action: "showCam")
         self.navigationItem.rightBarButtonItem = rightBarButtonItem
         
@@ -56,7 +54,12 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell: UITableViewCell = UITableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: "test")
+        let cell: UITableViewCell = UITableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: "VyncCell")
+
+        let longTouch = UILongPressGestureRecognizer()
+        longTouch.addTarget(self, action: "longPressed:")
+        cell.addGestureRecognizer(longTouch)
+        
         // Your user id, from that file we made
         var userID = NSString(data: theFileManager.contentsAtPath(pathToUserFile)!, encoding: NSUTF8StringEncoding) as String?
 
@@ -71,7 +74,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         let recipientID = self.chains[indexPath.row].first!.recipientID
         // The username of the person who sent you this video.
         let usersArray = userMgr.asUsers()
-        var sendingUser = usersArray.filter({$0.userID == sentID as NSNumber }).first?.username
+        var sendingUser = usersArray.filter({$0.userID == sentID as NSNumber }).first!.username
         
         
         // The date of the most recent message on the chain.
@@ -79,43 +82,61 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         //  println(updatedDate)
 
         // Hack to use the current date because active record is sending back annoying dates at the moment.
-        let date = NSDate()
-        let formatter = NSDateFormatter()
-        formatter.timeStyle = .ShortStyle
-        formatter.dateFormat = "MMMM d"
-        let stringDate = formatter.stringFromDate(date)
-        println(recipientID)
-        println(userID?.toInt())
-        if recipientID == userID?.toInt() {                               // if you are holding up the chain
-            println("holding up chain")
-            let button   = UIButton.buttonWithType(UIButtonType.System) as UIButton
-            button.frame = CGRectMake(245, 0, 78, 78)
-//            button.backgroundColor = UIColor.greenColor()
-            button.setTitle("VYNC", forState: UIControlState.Normal)
-            button.titleLabel!.font =  UIFont(name: "Helvetica", size: 20)
-            button.addTarget(self, action: "buttonAction:", forControlEvents: UIControlEvents.TouchDown)
-            var replyTo = self.chains[indexPath.row].first!.replyToID as? Int
-            button.tag = replyTo!
-//            button.alpha = 0.2
-//            button.layer.cornerRadius = 156
-            cell.addSubview(button)
-            cell.textLabel?.text = "\(sendingUser!)"
-            cell.detailTextLabel?.text = "\(chains[indexPath.row].count) \(link) long. \(stringDate)"
-            cell.imageView?.image = UIImage(contentsOfFile :"/Users/apprentice/Documents/thomas/chainer/Chainer/Chainer/Images.xcassets/envelope5.imageset/envelope5.png")
+//        let date = NSDate()
+//        let formatter = NSDateFormatter()
+//        formatter.timeStyle = .ShortStyle
+//        formatter.dateFormat = "MMMM d"
+//        let stringDate = formatter.stringFromDate(date)
+        println("recipient\(recipientID)")
+        println("self \(userID?.toInt())")
+        cell.textLabel?.text = "\(sendingUser)"
+        cell.detailTextLabel?.text = "\(chains[indexPath.row].count) \(link) long."
+        let imageView = UIImageView(frame: CGRectMake(270, 24, 30, 30))
+        imageView.image = UIImage(named: "envelope")
+        
 
-        } else if sentID == userID?.toInt() {
-            // if you sent the message
-            println("following chain")
-            cell.textLabel?.text = "Following"
-            cell.detailTextLabel?.text = "\(chains[indexPath.row].count) \(link) long. \(stringDate)"
-            cell.imageView?.image = UIImage(contentsOfFile : "/Users/apprentice/Documents/thomas/chainer/Chainer/Chainer/group41.png")
-            println(UIImage(contentsOfFile : "/Users/apprentice/Documents/thomas/chainer/Chainer/Chainer/group41.png"))
-        } else {                                                        // if you are just following
-            println("chain you started")
-            cell.textLabel?.text = "Following \(sendingUser)"
-            cell.detailTextLabel?.text = "\(chains[indexPath.row].count) \(link) long. \(stringDate)"
-            cell.imageView?.image = UIImage(contentsOfFile : "/Users/apprentice/Downloads/new.png")
+        if recipientID == userID?.toInt() {
+            imageView.image = UIImage(named: "vynclogo")
         }
+        
+        cell.addSubview(imageView)
+        
+        //        if recipientID == userID?.toInt() {                               // if you are holding up the chain
+//            println("holding up chain")
+//            let button   = UIButton.buttonWithType(UIButtonType.System) as UIButton
+//            button.frame = CGRectMake(245, 0, 78, 78)
+////            button.backgroundColor = UIColor.greenColor()
+//            button.setTitle("VYNC", forState: UIControlState.Normal)
+//            button.titleLabel!.font =  UIFont(name: "Helvetica", size: 20)
+//            button.addTarget(self, action: "buttonAction:", forControlEvents: UIControlEvents.TouchDown)
+//            var replyTo = self.chains[indexPath.row].first!.replyToID as? Int
+//            button.tag = replyTo!
+////            button.alpha = 0.2
+////            button.layer.cornerRadius = 156
+//            cell.addSubview(button)
+//            cell.textLabel?.text = "\(sendingUser!)"
+//            cell.detailTextLabel?.text = "\(chains[indexPath.row].count) \(link) long. \(stringDate)"
+////            cell.imageView?.image = UIImage(named: "envelope")
+//            var imageView: UIImageView?
+//            imageView!.image = UIImage(contentsOfFile: "envelope")
+//
+//            cell.contentView.addSubview(imageView!)
+//        } else if sentID == userID?.toInt() {
+//            // if you sent the message
+//            println("following chain")
+//            cell.textLabel?.text = "Following"
+//
+//            println(UIImage(named: "group41"))
+//            var imageView: UIImageView?
+//            imageView!.image = UIImage(contentsOfFile: "envelope")
+//            
+//            cell.contentView.addSubview(imageView!)
+//        } else {                                                        // if you are just following
+//            println("chain you started")
+//            cell.textLabel?.text = "Following \(sendingUser)"
+//            cell.detailTextLabel?.text = "\(chains[indexPath.row].count) \(link) long. \(stringDate)"
+////            cell.imageView?.image = UIImage(contentsOfFile : "/Users/thomasabend/Desktop/Programming/VYNC/Chainer/Chainer/envelope.png")
+//        }
         return cell
     }
     
@@ -164,18 +185,34 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         })
     }
     
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        var userID = NSString(data: theFileManager.contentsAtPath(pathToUserFile)!, encoding: NSUTF8StringEncoding) as String?
-        if chains[indexPath.row].first?.recipientID == userID?.toInt() {
-            // display only the most recent video in chain
-            urlsToPlay = [s3Url + chains[indexPath.row].first!.videoID]
-            urlsToPlay.append(unlockUrl)
-            playVidUrlOnViewController(urlsToPlay, self)
-        } else {
-            // display the whole the chain
+//    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+//        println("didSelect")
+        //        var userID = NSString(data: theFileManager.contentsAtPath(pathToUserFile)!, encoding: NSUTF8StringEncoding) as String?
+//        if chains[indexPath.row].first?.recipientID == userID?.toInt() {
+//            // display only the most recent video in chain
+//            urlsToPlay = [s3Url + chains[indexPath.row].first!.videoID]
+//            urlsToPlay.append(unlockUrl)
+//            playVidUrlOnViewController(urlsToPlay, self)
+//        } else {
+//            // display the whole the chain
+//            urlsToPlay = [String]()
+//            urlsToPlay = map(chains[indexPath.row], { s3Url + $0.videoID}).reverse()
+//            playVidUrlOnViewController(urlsToPlay, self)
+//        }
+//    }
+    
+    
+
+    @IBAction func longPressed(sender: UIGestureRecognizer) {
+        if sender.state == .Began {
+            let selected = tblChains.indexPathForRowAtPoint(sender.locationInView(tblChains))!.row
             urlsToPlay = [String]()
-            urlsToPlay = map(chains[indexPath.row], { s3Url + $0.videoID}).reverse()
+            urlsToPlay = map(chains[selected], { s3Url + $0.videoID}).reverse()
             playVidUrlOnViewController(urlsToPlay, self)
+            println("Received longPress!")
+        }
+        if sender.state == .Ended {
+            println("later")
         }
     }
 }

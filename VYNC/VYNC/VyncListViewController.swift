@@ -12,18 +12,15 @@ import MobileCoreServices
 import AVKit
 import AVFoundation
 
-//let standin = "https://s3-us-west-2.amazonaws.com/telephono/IMG_0370.MOV"
-let path = NSBundle.mainBundle().pathForResource("IMG_0370", ofType:"MOV")
-let standin = NSURL.fileURLWithPath(path!) as NSURL!
-
 class VyncListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UINavigationControllerDelegate {
 
     @IBOutlet var vyncTable: UITableView!
     var refreshControl:UIRefreshControl!
     
 //    Setting this equal to a global variable that is an array of vyncs. This will later be replaced by a function return from a dB query.
-    var vyncs = vyncList
+    var vyncs = VideoMessage.asVyncs()
     var videoPlayer : QueueLoopVideoPlayer?
+    var lastPlayed : Int? = nil
 
     
     override func viewDidLoad() {
@@ -64,7 +61,13 @@ class VyncListViewController: UIViewController, UITableViewDelegate, UITableView
     
     @IBAction func reloadVyncs() {
         self.refreshControl.beginRefreshing()
+        VideoMessage.syncer.sync()
+        println(VideoMessage.syncer.all().exec()?.map({video in "replyToId\(video.replyToId)"}))
         println("reloading Vyncs")
+        vyncs = VideoMessage.asVyncs()
+        VideoMessage.saveNewVids()
+        vyncTable.reloadData()
+        vyncTable.setNeedsDisplay()
         self.refreshControl.endRefreshing()
     }
     
@@ -76,8 +79,7 @@ class VyncListViewController: UIViewController, UITableViewDelegate, UITableView
         addGesturesToCell(cell)
        //        Set Title and Length Labels
         cell.titleLabel.text = vyncs[indexPath.row].title()
-        cell.lengthLabel.text = vyncs[indexPath.row].size()
-        
+        cell.lengthLabel.text = String(vyncs[indexPath.row].size())
         // New vyncs get special color and gesture
         if vyncs[indexPath.row].waitingOnYou() {
             cell.statusLogo.textColor = UIColor(netHex:0xFFB5C9)
@@ -151,16 +153,22 @@ class VyncListViewController: UIViewController, UITableViewDelegate, UITableView
 
         if sender.state == .Began {
             let index = self.vyncTable.indexPathForRowAtPoint(sender.view!.center)?.row
-            println("Playing Videos)")
-            vyncs[index!].unwatched = false
-            let urls = vyncs[index!].videoUrls()
-            println(urls)
-            
-            self.videoPlayer = QueueLoopVideoPlayer()
-            self.videoPlayer!.view.addGestureRecognizer(sender)
-            self.videoPlayer!.videoList = urls + urls
-            self.videoPlayer!.playVideos()
-            self.presentViewController(self.videoPlayer!, animated: false, completion:nil)
+            //Why is the gesture removing itslef?
+            if index == self.lastPlayed {
+                self.videoPlayer?.player.play()
+                self.videoPlayer!.view.addGestureRecognizer(sender)
+                self.presentViewController(self.videoPlayer!, animated: false, completion:nil)
+            } else {
+                println("Playing Videos)")
+                vyncs[index!].unwatched = false
+                self.lastPlayed = index
+                let urls = vyncs[index!].videoUrls()
+                self.videoPlayer = QueueLoopVideoPlayer()
+                self.videoPlayer!.view.addGestureRecognizer(sender)
+                self.videoPlayer!.videoList = urls
+                self.videoPlayer!.playVideos()
+                self.presentViewController(self.videoPlayer!, animated: false, completion:nil)
+            }
         }
         if sender.state == .Ended {
             println("Dismissing PlayerLayer")
