@@ -11,6 +11,10 @@ import CoreData
 
 class User: NSManagedObject {
     
+    class var syncer : Syncer<User> {
+        return Syncer<User>(url: "http://chainer.herokuapp.com/allusers")
+    }
+    
     @NSManaged var username: String
     @NSManaged var id: NSNumber
     

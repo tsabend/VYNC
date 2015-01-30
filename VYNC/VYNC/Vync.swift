@@ -13,45 +13,7 @@ func remDupeInts(a:[Int]) -> [Int] {
     return a.reduce([Int]()) { ac, x in contains(ac, x) ? ac : ac + [x] }
 }
 
-func asVyncs()->[Vync]{
-    // TODO: Make this code better!
-    let allVideos = vyncSyncer.all().exec()!
-    let replyTos = allVideos.map({video in video.replyToId as Int})
-    let uniqReplyTos = remDupeInts(replyTos)
-    var vyncs = [Vync]()
-    for id in uniqReplyTos {
-        let messages = vyncSyncer.all().filter("replyToId == %@", args: id).exec()!
-        let newVync = Vync(messages: messages)
-        vyncs.append(newVync)
-    }
-    return vyncs
-}
 
-func saveNewVids() {
-    let priority = DISPATCH_QUEUE_PRIORITY_DEFAULT
-    dispatch_async(dispatch_get_global_queue(priority, 0)) {
-        // do some task
-        for message in vyncSyncer.all().exec()! {
-            let localUrlString = docFolderToSaveFiles + "/" + message.videoId
-            let localUrl = NSURL(fileURLWithPath: localUrlString) as NSURL!
-            let cloudUrl = NSURL(string: s3Url + message.videoId) as NSURL!
-            
-            let localData = NSData(contentsOfURL: localUrl)
-            
-            if localData?.length == nil {
-                println("saving to core data")
-                let data = NSData(contentsOfURL: cloudUrl)
-                data?.writeToFile(localUrlString, atomically: true)
-            } else {
-                println(localData?.length)
-                println("already there")
-            }
-        }
-        dispatch_async(dispatch_get_main_queue()) {
-            // update some UI
-        }
-    }
-}
 
 class Vync {
 

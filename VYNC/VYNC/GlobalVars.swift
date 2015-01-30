@@ -24,14 +24,8 @@ let fileName = "/videoToSend.MOV"
 let pathToFile = docFolderToSaveFiles + fileName
 
 
-
-
-
-let userSyncer = Syncer<User>(url: "http://chainer.herokuapp.com/allusers")
-let vyncSyncer = Syncer<VideoMessage>(url: "http://chainer.herokuapp.com/videomessages/C60397E6-DF95-4F65-9E2F-86C7B045E5F3/all")
-
 // Fake Data
-var allUsers : [User] = userSyncer.all().exec()!
+var allUsers : [User] = User.syncer.all().exec()!
 
 let yourUserId = 1
-var vyncList: [Vync] = asVyncs()
+var vyncList: [Vync] = VideoMessage.asVyncs()

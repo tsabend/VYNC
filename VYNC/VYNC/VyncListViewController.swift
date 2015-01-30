@@ -18,7 +18,7 @@ class VyncListViewController: UIViewController, UITableViewDelegate, UITableView
     var refreshControl:UIRefreshControl!
     
 //    Setting this equal to a global variable that is an array of vyncs. This will later be replaced by a function return from a dB query.
-    var vyncs = asVyncs()
+    var vyncs = VideoMessage.asVyncs()
     var videoPlayer : QueueLoopVideoPlayer?
     var lastPlayed : Int? = nil
 
@@ -61,11 +61,11 @@ class VyncListViewController: UIViewController, UITableViewDelegate, UITableView
     
     @IBAction func reloadVyncs() {
         self.refreshControl.beginRefreshing()
-        vyncSyncer.sync()
-        println(vyncSyncer.all().exec()?.map({video in "replyToId\(video.replyToId)"}))
+        VideoMessage.syncer.sync()
+        println(VideoMessage.syncer.all().exec()?.map({video in "replyToId\(video.replyToId)"}))
         println("reloading Vyncs")
-        vyncs = asVyncs()
-        saveNewVids()
+        vyncs = VideoMessage.asVyncs()
+        VideoMessage.saveNewVids()
         vyncTable.reloadData()
         vyncTable.setNeedsDisplay()
         self.refreshControl.endRefreshing()
