@@ -27,6 +27,32 @@ func asVyncs()->[Vync]{
     return vyncs
 }
 
+func saveNewVids() {
+    let priority = DISPATCH_QUEUE_PRIORITY_DEFAULT
+    dispatch_async(dispatch_get_global_queue(priority, 0)) {
+        // do some task
+        for message in vyncSyncer.all().exec()! {
+            let localUrlString = docFolderToSaveFiles + "/" + message.videoId
+            let localUrl = NSURL(fileURLWithPath: localUrlString) as NSURL!
+            let cloudUrl = NSURL(string: s3Url + message.videoId) as NSURL!
+            
+            let localData = NSData(contentsOfURL: localUrl)
+            
+            if localData?.length == nil {
+                println("saving to core data")
+                let data = NSData(contentsOfURL: cloudUrl)
+                data?.writeToFile(localUrlString, atomically: true)
+            } else {
+                println(localData?.length)
+                println("already there")
+            }
+        }
+        dispatch_async(dispatch_get_main_queue()) {
+            // update some UI
+        }
+    }
+}
+
 class Vync {
 
     var messages : [VideoMessage]
@@ -49,25 +75,6 @@ class Vync {
             message in
             NSURL.fileURLWithPath(docFolderToSaveFiles + "/" + message.videoId) as NSURL!
         })
-    }
-    
-    func saveNewVids() {
-        for message in messages {
-            let localUrlString = docFolderToSaveFiles + "/" + message.videoId
-            let localUrl = NSURL(fileURLWithPath: localUrlString) as NSURL!
-            let cloudUrl = NSURL(string: s3Url + message.videoId) as NSURL!
-            
-            let localData = NSData(contentsOfURL: localUrl)
-
-            if localData?.length == nil {
-                println("saving to core data")
-                let data = NSData(contentsOfURL: cloudUrl)
-                data?.writeToFile(localUrlString, atomically: true)
-            } else {
-                println(localData?.length)
-                println("already there")
-            }
-        }
     }
 
     func replyToId()->Int {

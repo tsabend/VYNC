@@ -65,7 +65,7 @@ class VyncListViewController: UIViewController, UITableViewDelegate, UITableView
         println(vyncSyncer.all().exec()?.map({video in "replyToId\(video.replyToId)"}))
         println("reloading Vyncs")
         vyncs = asVyncs()
-        
+        saveNewVids()
         vyncTable.reloadData()
         vyncTable.setNeedsDisplay()
         self.refreshControl.endRefreshing()
