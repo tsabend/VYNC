@@ -9,7 +9,7 @@
 import Foundation
 import CoreData
 
-class UserX: NSManagedObject {
+class User: NSManagedObject {
     
     @NSManaged var username: String
     @NSManaged var id: NSNumber

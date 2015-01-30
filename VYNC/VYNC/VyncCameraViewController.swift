@@ -10,10 +10,6 @@ import UIKit
 import Foundation
 import AVFoundation
 
-let docFolderToSaveFiles = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as String
-let fileName = "/videoToSend.MOV"
-let pathToFile = docFolderToSaveFiles + fileName
-
 class VyncCameraViewController: UIViewController, AVCaptureFileOutputRecordingDelegate, VyncCameraPlaybackLayerDelegate {
     
     let captureSession = AVCaptureSession()

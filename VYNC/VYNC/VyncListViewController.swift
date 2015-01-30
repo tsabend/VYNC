@@ -12,27 +12,13 @@ import MobileCoreServices
 import AVKit
 import AVFoundation
 
-// DECLARE SOME GLOBAL VARS
-
-//let standin = "https://s3-us-west-2.amazonaws.com/telephono/IMG_0370.MOV"
-let path = NSBundle.mainBundle().pathForResource("IMG_0370", ofType:"MOV")
-let unlockUrl : String = "https://s3-us-west-2.amazonaws.com/telephono/IMG_0370.MOV"
-
-let remoteStandin = NSURL.fileURLWithPath(unlockUrl) as NSURL!
-
-let standin = NSURL.fileURLWithPath(path!) as NSURL!
-let s3Url = "https://s3-us-west-2.amazonaws.com/telephono/"
-
-
-
-
 class VyncListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UINavigationControllerDelegate {
 
     @IBOutlet var vyncTable: UITableView!
     var refreshControl:UIRefreshControl!
     
 //    Setting this equal to a global variable that is an array of vyncs. This will later be replaced by a function return from a dB query.
-    var vyncs = vyncList
+    var vyncs = asVyncs()
     var videoPlayer : QueueLoopVideoPlayer?
     var lastPlayed : Int? = nil
 
@@ -78,6 +64,10 @@ class VyncListViewController: UIViewController, UITableViewDelegate, UITableView
         vyncSyncer.sync()
         println(vyncSyncer.all().exec()?.map({video in "replyToId\(video.replyToId)"}))
         println("reloading Vyncs")
+        vyncs = asVyncs()
+        
+        vyncTable.reloadData()
+        vyncTable.setNeedsDisplay()
         self.refreshControl.endRefreshing()
     }
     

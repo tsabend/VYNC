@@ -16,14 +16,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
-//        let UserSyncer = Syncer<UserX>(url: "http://chainer.herokuapp.com/allusers")
-
-//        UserSyncer.sync()
-        vyncSyncer.sync()
-        for vync in asVyncs() {
-            vync.saveNewVids()
-        }
-//        println(UserSyncer.all().find(67).exec()?.map({user in "\(user.username) \(user.id)"}))
+        
+//        for vync in asVyncs() {
+//            vync.saveNewVids()
+//        }
         return true
     }
 
