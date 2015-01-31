@@ -29,20 +29,47 @@ class Vync {
     func videoUrls()->[NSURL]{
         return self.messages.map({
             message in
-            NSURL.fileURLWithPath(docFolderToSaveFiles + "/" + message.videoId) as NSURL!
+            NSURL.fileURLWithPath(docFolderToSaveFiles + "/" + message.videoId!) as NSURL!
         })
     }
 
     func replyToId()->Int {
-        if let first = self.messages.first {
+        if let first = self.messages.last {
             return first.replyToId as Int
         } else {
             return 0
         }
     }
     
-    func title()->String {
+    func mostRecent()->String{
         return "TODO"
+//        let formatter = NSDateFormatter()
+//        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
+//        if let createdAt = messages.last?.createdAt {
+//            if let date = formatter.dateFromString(createdAt) as NSDate! {
+//                let uMonth = UInt(date.month)
+//                let month = NSDateFormatterStyle(rawValue: uMonth)
+//                return "\(month) \(date.day)"
+//            } else {
+//                return "oops"
+//            }
+//        } else {
+//            return "Just now"
+//        }
+    }
+    
+    func title()->String {
+        if self.messages.count != 0 {
+        if let video = messages.first as VideoMessage! {
+            if let title = video.title as String! {
+                return title
+            } else {
+                return "TODO"
+            }
+        } else {
+            return "ToDo"
+        }
+        } else {return "wtf"}
 //        if let first = self.messages.first {
 //            return first.title
 //        } else {

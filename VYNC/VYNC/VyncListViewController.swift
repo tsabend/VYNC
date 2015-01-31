@@ -78,14 +78,16 @@ class VyncListViewController: UIViewController, UITableViewDelegate, UITableView
 
         addGesturesToCell(cell)
        //        Set Title and Length Labels
+        let date = vyncs[indexPath.row].mostRecent()
+        
         cell.titleLabel.text = vyncs[indexPath.row].title()
         cell.lengthLabel.text = String(vyncs[indexPath.row].size())
         // New vyncs get special color and gesture
         if vyncs[indexPath.row].waitingOnYou() {
             cell.statusLogo.textColor = UIColor(netHex:0xFFB5C9)
-            cell.subTitle.text = "January 14 - Swipe to Reply"
+            cell.subTitle.text = "\(date) - Swipe to Reply"
         } else {
-            cell.subTitle.text = "January 14 - Hold to Play"
+            cell.subTitle.text = "\(date) - Hold to Play"
 //            cell.statusLogo.textColor = UIColor(netHex:0xD9FF85)
             cell.statusLogo.textColor = UIColor(netHex:0x7FF2FF)
         }

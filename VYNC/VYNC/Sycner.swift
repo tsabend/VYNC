@@ -30,8 +30,6 @@ class Syncer<T: NSManagedObject> {
         }
     }()
     
-
-    
     func all() -> AR<T> {
         return AR<T>()
     }
@@ -87,6 +85,14 @@ class Syncer<T: NSManagedObject> {
                 }
             }
         }
+    }
+    
+    func newObj()->T{
+        return NSEntityDescription.insertNewObjectForEntityForName(self.entityName, inManagedObjectContext: self.db!) as T
+    }
+
+    func save(){
+        db!.save(nil)
     }
     
     func camelToSnake(attribute:String)->String{
