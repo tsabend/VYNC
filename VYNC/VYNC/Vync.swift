@@ -32,6 +32,12 @@ class Vync {
             NSURL.fileURLWithPath(docFolderToSaveFiles + "/" + message.videoId!) as NSURL!
         })
     }
+    
+    func waitingVideoUrls()->[NSURL]{
+        let message = self.messages.first!
+        let messageUrl = NSURL.fileURLWithPath(docFolderToSaveFiles + "/" + message.videoId!) as NSURL!
+        return [messageUrl, standin]
+    }
 
     func replyToId()->Int {
         if let first = self.messages.last {
@@ -42,20 +48,17 @@ class Vync {
     }
     
     func mostRecent()->String{
-        return "TODO"
-//        let formatter = NSDateFormatter()
-//        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
-//        if let createdAt = messages.last?.createdAt {
-//            if let date = formatter.dateFromString(createdAt) as NSDate! {
-//                let uMonth = UInt(date.month)
-//                let month = NSDateFormatterStyle(rawValue: uMonth)
-//                return "\(month) \(date.day)"
-//            } else {
-//                return "oops"
-//            }
-//        } else {
-//            return "Just now"
-//        }
+        let formatter = NSDateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
+        if let createdAt = messages.last?.createdAt {
+            if let date = formatter.dateFromString(createdAt) as NSDate! {
+                return "\(date.mediumDateString)"
+            } else {
+                return "oops"
+            }
+        } else {
+            return "Just now"
+        }
     }
     
     func title()->String {
@@ -69,14 +72,9 @@ class Vync {
         } else {
             return "ToDo"
         }
-        } else {return "wtf"}
-//        if let first = self.messages.first {
-//            return first.title
-//        } else {
-//            return "Oops"
-//        }
+        } else {return "oops"}
     }
-//    Will eventually be replaced with SQL statements
+    
     func usersList()->[String]{
         return self.messages.map({
             message in
@@ -85,8 +83,6 @@ class Vync {
     }
     
     func findUsername(userId:Int)->String{
-//        let match = allUsers.filter({user in user.userId == userId})
-//        return match.first!.username
         println(User.syncer.all().find(userId).first)
         if let user = User.syncer.all().find(userId).first as User! {
             return user.username

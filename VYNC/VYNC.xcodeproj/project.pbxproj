@@ -24,6 +24,7 @@
 		48883BB81A73D96D0024F2DA /* LoadFromNibExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48883BB71A73D96D0024F2DA /* LoadFromNibExtension.swift */; };
 		4899A1C21A705A6D005D3BE0 /* envelope.png in Resources */ = {isa = PBXBuildFile; fileRef = 4899A1C01A705A6D005D3BE0 /* envelope.png */; };
 		4899A1C31A705A6D005D3BE0 /* vynclogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 4899A1C11A705A6D005D3BE0 /* vynclogo.png */; };
+		48A361041A7FBD380023D6DC /* AF+Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48A361031A7FBD380023D6DC /* AF+Date+Extension.swift */; };
 		48A4DE781A7A5FC8000087A2 /* AR.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48A4DE771A7A5FC8000087A2 /* AR.swift */; };
 		48A4DE7A1A7A600C000087A2 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48A4DE791A7A600C000087A2 /* User.swift */; };
 		48BAECD91A782897005CC762 /* VyncCameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48BAECD81A782897005CC762 /* VyncCameraViewController.swift */; };
@@ -73,6 +74,7 @@
 		48883BB71A73D96D0024F2DA /* LoadFromNibExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadFromNibExtension.swift; sourceTree = "<group>"; };
 		4899A1C01A705A6D005D3BE0 /* envelope.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = envelope.png; sourceTree = "<group>"; };
 		4899A1C11A705A6D005D3BE0 /* vynclogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = vynclogo.png; sourceTree = "<group>"; };
+		48A361031A7FBD380023D6DC /* AF+Date+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AF+Date+Extension.swift"; sourceTree = "<group>"; };
 		48A4DE771A7A5FC8000087A2 /* AR.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AR.swift; sourceTree = "<group>"; };
 		48A4DE791A7A600C000087A2 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		48BAECD81A782897005CC762 /* VyncCameraViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VyncCameraViewController.swift; sourceTree = "<group>"; };
@@ -214,6 +216,7 @@
 				48E9F7891A7961050034CF5E /* HTTPTask.swift */,
 				48E9F78B1A79610D0034CF5E /* HTTPUpload.swift */,
 				48E9F78D1A79618C0034CF5E /* JSONJoy.swift */,
+				48A361031A7FBD380023D6DC /* AF+Date+Extension.swift */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -369,6 +372,7 @@
 				4875B2FD1A6C79760030AABD /* AppDelegate.swift in Sources */,
 				48E9F7901A7961F90034CF5E /* Sycner.swift in Sources */,
 				48883BB81A73D96D0024F2DA /* LoadFromNibExtension.swift in Sources */,
+				48A361041A7FBD380023D6DC /* AF+Date+Extension.swift in Sources */,
 				48E9F7861A7960EB0034CF5E /* HTTPRequestSerializer.swift in Sources */,
 				48E9F78E1A79618C0034CF5E /* JSONJoy.swift in Sources */,
 				48A4DE781A7A5FC8000087A2 /* AR.swift in Sources */,
