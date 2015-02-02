@@ -78,21 +78,25 @@ class VyncListViewController: UIViewController, UITableViewDelegate, UITableView
 
         addGesturesToCell(cell)
        //        Set Title and Length Labels
+        let date = vyncs[indexPath.row].mostRecent()
+        
         cell.titleLabel.text = vyncs[indexPath.row].title()
         cell.lengthLabel.text = String(vyncs[indexPath.row].size())
         // New vyncs get special color and gesture
         if vyncs[indexPath.row].waitingOnYou() {
             cell.statusLogo.textColor = UIColor(netHex:0xFFB5C9)
-            cell.subTitle.text = "January 14 - Swipe to Reply"
+            cell.lengthLabel.text = "?"
+            cell.lengthLabel.backgroundColor = UIColor(netHex:0xFFB5C9)
+            cell.subTitle.text = "\(date) - Swipe to Reply"
         } else {
-            cell.subTitle.text = "January 14 - Hold to Play"
-//            cell.statusLogo.textColor = UIColor(netHex:0xD9FF85)
+            cell.subTitle.text = "\(date) - Hold to Play"
             cell.statusLogo.textColor = UIColor(netHex:0x7FF2FF)
+            cell.lengthLabel.backgroundColor = UIColor(netHex:0x7FF2FF)
         }
         
         // Unwatched vyncs get special background color
         if vyncs[indexPath.row].unwatched {
-            let color = UIColor(netHex: 0xD3D3D3)
+            let color = UIColor(netHex: 0xFAFAFA)
             cell.backgroundColor = color
         } else {
             cell.backgroundColor = UIColor.whiteColor()
@@ -119,7 +123,7 @@ class VyncListViewController: UIViewController, UITableViewDelegate, UITableView
     }
 
     func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        if vyncs[indexPath.row].waitingOnYou(){
+        if vyncs[indexPath.row].waitingOnYou() {
             return true
         } else {
             return false
@@ -141,7 +145,7 @@ class VyncListViewController: UIViewController, UITableViewDelegate, UITableView
         
         let reply = UITableViewRowAction(
             style: UITableViewRowActionStyle.Normal,
-            title: "REPLY",
+            title: "FORWARD",
             handler: replyClosure
             )
         reply.backgroundColor = UIColor(netHex: 0xFFB5C9)
@@ -153,7 +157,6 @@ class VyncListViewController: UIViewController, UITableViewDelegate, UITableView
 
         if sender.state == .Began {
             let index = self.vyncTable.indexPathForRowAtPoint(sender.view!.center)?.row
-            //Why is the gesture removing itslef?
             if index == self.lastPlayed {
                 self.videoPlayer?.player.play()
                 self.videoPlayer!.view.addGestureRecognizer(sender)
@@ -162,7 +165,14 @@ class VyncListViewController: UIViewController, UITableViewDelegate, UITableView
                 println("Playing Videos)")
                 vyncs[index!].unwatched = false
                 self.lastPlayed = index
-                let urls = vyncs[index!].videoUrls()
+                // waiting on you vs. following logic 
+                var urls : [NSURL]
+                if vyncs[index!].waitingOnYou() {
+                    urls = vyncs[index!].waitingVideoUrls()
+                }
+                else {
+                    urls = vyncs[index!].videoUrls()
+                }
                 self.videoPlayer = QueueLoopVideoPlayer()
                 self.videoPlayer!.view.addGestureRecognizer(sender)
                 self.videoPlayer!.videoList = urls
@@ -190,6 +200,7 @@ class VyncListViewController: UIViewController, UITableViewDelegate, UITableView
     
     func doubleTapCell(sender:UITapGestureRecognizer){
         let indexPath:NSIndexPath = self.vyncTable.indexPathForRowAtPoint(sender.view!.center)!
+        println(indexPath)
         if let cell = vyncTable.cellForRowAtIndexPath(indexPath) as? VyncCell {
             if cell.isFlipped {
                 let view = self.view.viewWithTag(19)
@@ -208,11 +219,19 @@ class VyncListViewController: UIViewController, UITableViewDelegate, UITableView
                 let label = UILabel()
                 label.frame = view.frame
                 
-                let labelText = ", ".join(vyncs[indexPath.row].usersList())
-                label.text = "Users on this Vync: \(labelText)"
-                
+                if vyncs[indexPath.row].waitingOnYou() {
+                    let labelText = ", ".join(vyncs[indexPath.row].usersList())
+                    label.text = "Forward to see who is on this VYNC"
+                    
+                } else {
+                    let labelText = ", ".join(vyncs[indexPath.row].usersList())
+                    label.text = "Users on this Vync: \(labelText)"
+
+                }
+
                 view.addSubview(label)
                 view.tag = 19
+                println("cell: \(cell) contentView: \(cell.contentView), view: \(view)")
                 cell.isFlipped = true
                 UIView.transitionFromView(
                     cell.contentView,
@@ -221,19 +240,17 @@ class VyncListViewController: UIViewController, UITableViewDelegate, UITableView
                     options: UIViewAnimationOptions.TransitionFlipFromTop,
                     completion: {
                         finished in
-                        //                    Auto flip back after 4 seconds
+                        // Auto flip back after 4 seconds
                         delay(4){
                             if cell.isFlipped {
                                 self.doubleTapCell(sender)
                             }
                         }
-                    }
-                )
+                    })
             }
         }
     }
 
-    
     func reply(index:Int){
         println("showing Reply Camera")
         UIApplication.sharedApplication().setStatusBarHidden(true, withAnimation: .None)

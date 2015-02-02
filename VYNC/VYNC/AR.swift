@@ -44,7 +44,11 @@ class AR<T : NSManagedObject> {
     }
     
     func sortBy(key: String, ascending: Bool) -> AR<T> {
-        req.sortDescriptors?.append(NSSortDescriptor(key: key, ascending: ascending))
+        if req.sortDescriptors == nil {
+            req.sortDescriptors = [NSSortDescriptor(key: key, ascending: ascending)]
+        } else {
+            req.sortDescriptors?.append(NSSortDescriptor(key: key, ascending: ascending))
+        }
         return self
     }
     

@@ -30,20 +30,42 @@ class Syncer<T: NSManagedObject> {
         }
     }()
     
-
-    
     func all() -> AR<T> {
         return AR<T>()
     }
     
     // HTTP Functions
     func sync() {
+        downloadNew()
+        uploadNew()
+    }
+    
+    func uploadNew(){
+        // post the video that the user takes to the server
+//        var request = HTTPTask()
+//        
+//        request.POST("http://chainer.herokuapp.com/upload", parameters: [
+//            "replyToID": self.replyToID!,
+//            "senderDevice": deviceID,
+//            "recipient" : userID,
+//            "file": HTTPUpload(fileUrl: videoURL!) ],
+//            success: {(response: HTTPResponse) in
+//                if let data = response.responseObject as? NSData {
+//                    self.replyToID = 0
+//                }
+//                
+//            },failure: {(error: NSError, response: HTTPResponse?) in
+//        })
+
+    }
+    
+    func downloadNew(){
         var since = 0
         
-// TODO: Implement a better syncing method that actually works
-//        if let sinceVid = self.mostRecent {
-//            since = sinceVid[1] as Int
-//        }
+        // TODO: Implement a better syncing method that actually works
+        //        if let sinceVid = self.mostRecent {
+        //            since = sinceVid[1] as Int
+        //        }
         var data : NSData?
         var request = HTTPTask()
         var deviceID = UIDevice.currentDevice().identifierForVendor.UUIDString
@@ -87,6 +109,14 @@ class Syncer<T: NSManagedObject> {
                 }
             }
         }
+    }
+    
+    func newObj()->T{
+        return NSEntityDescription.insertNewObjectForEntityForName(self.entityName, inManagedObjectContext: self.db!) as T
+    }
+
+    func save(){
+        db!.save(nil)
     }
     
     func camelToSnake(attribute:String)->String{

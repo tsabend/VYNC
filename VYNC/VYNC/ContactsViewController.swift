@@ -58,16 +58,36 @@ class ContactsViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        println(self.replyToId)
-        println(self.vyncTitle)
+        let recipientId = contacts[indexPath.row].id
+        
+        let data = NSData(contentsOfFile: pathToFile)
+        let videoId = NSUUID().UUIDString + ".mov"
+        let newFilePath = docFolderToSaveFiles + videoId
+        data?.writeToFile(newFilePath, atomically: true)
+        
         if self.replyToId != 0 {
-//            let vyncToUpdate = vyncList.filter({vync in vync.replyToId() == self.replyToId})[0]
-//            let newMessage = VideoMessageX(videoId: pathToFile, senderId: 1, id: 1, replyToID: self.replyToId, createdAt: "today", title: self.vyncTitle)
-//            vyncToUpdate.messages.append(newMessage)
+            // TODO: Vync needs CData backing. This should be a simple query
+            let vyncToUpdate = VideoMessage.asVyncs().filter({vync in vync.replyToId() == self.replyToId})[0]
+
+            var newMessage = VideoMessage.syncer.newObj()
+            newMessage.id = 0
+            newMessage.videoId = videoId
+            newMessage.replyToId = replyToId
+            newMessage.recipientId = recipientId
+            newMessage.senderId = yourUserId
+            newMessage.title = ""
+            VideoMessage.syncer.save()
+
         } else {
-//            let newMessage = VideoMessageX(videoId: pathToFile, senderId: 1, id: 1, replyToId: 1, createdAt: "today", title: self.vyncTitle)
-//            let newVync = Vync(messages: [newMessage])
-//            vyncList.append(newVync)
+            var newMessage = VideoMessage.syncer.newObj()
+            newMessage.id = 0
+            newMessage.videoId = videoId
+            // but what if you have more than one 0? This is broken as is.
+            newMessage.replyToId = 0
+            newMessage.recipientId = recipientId
+            newMessage.senderId = yourUserId
+            newMessage.title = self.vyncTitle!
+            VideoMessage.syncer.save()
         }
         performSegueWithIdentifier("backToHome", sender: self)
     }
