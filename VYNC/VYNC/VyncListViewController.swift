@@ -62,6 +62,7 @@ class VyncListViewController: UIViewController, UITableViewDelegate, UITableView
     @IBAction func reloadVyncs() {
         self.refreshControl.beginRefreshing()
         VideoMessage.syncer.sync()
+        User.syncer.sync()
         println(VideoMessage.syncer.all().exec()?.map({video in "replyToId\(video.replyToId)"}))
         println("reloading Vyncs")
         vyncs = VideoMessage.asVyncs()

@@ -14,7 +14,7 @@
         <attribute name="videoId" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
-        <element name="User" positionX="-54" positionY="-9" width="128" height="73"/>
+        <element name="User" positionX="-317" positionY="-1" width="128" height="73"/>
         <element name="VideoMessage" positionX="-54" positionY="9" width="128" height="148"/>
     </elements>
 </model>

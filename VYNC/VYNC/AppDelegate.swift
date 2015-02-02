@@ -16,7 +16,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
-        User.syncer.sync()
+        self.window = UIWindow()
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        if signedUp() == true {
+            let rootVc = storyboard.instantiateViewControllerWithIdentifier("RootNavigationController") as UINavigationController
+            self.window?.rootViewController = rootVc
+        } else {
+            let rootVc = storyboard.instantiateViewControllerWithIdentifier("Login") as UIViewController
+            self.window?.rootViewController = rootVc
+        }
+        self.window?.makeKeyAndVisible()
         return true
     }
 
