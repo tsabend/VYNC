@@ -10,7 +10,6 @@ import Foundation
 import CoreData
 
 class Vync {
-
     var messages : [VideoMessage]
     var unwatched: Bool = true
     
@@ -60,7 +59,7 @@ class Vync {
             return "Just now"
         }
     }
-    
+
     func title()->String {
         if self.messages.count != 0 {
         if let video = messages.first as VideoMessage! {

@@ -34,6 +34,14 @@ var db : NSManagedObjectContext? = {
     }
     }()
 
+public func signedUp()->Bool{
+    if let user = User.syncer.all().find(67).exec()?.first as User! {
+        return true
+    } else {
+        return false
+    }
+}
+
 // Fake Data
 var allUsers : [User] = User.syncer.all().exec()!
 
