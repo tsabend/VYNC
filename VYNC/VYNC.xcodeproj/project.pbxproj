@@ -41,6 +41,7 @@
 		48E9F7901A7961F90034CF5E /* Sycner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48E9F78F1A7961F90034CF5E /* Sycner.swift */; };
 		48F1193A1A784CCD00A02828 /* QueueLoopVideoPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48F119391A784CCD00A02828 /* QueueLoopVideoPlayer.swift */; };
 		48F1193C1A78605D00A02828 /* PlaybackOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48F1193B1A78605D00A02828 /* PlaybackOverlay.swift */; };
+		976D457F1A8129A200E6606F /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 976D457E1A8129A200E6606F /* FacebookSDK.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -92,6 +93,8 @@
 		48E9F78F1A7961F90034CF5E /* Sycner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Sycner.swift; sourceTree = "<group>"; };
 		48F119391A784CCD00A02828 /* QueueLoopVideoPlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QueueLoopVideoPlayer.swift; sourceTree = "<group>"; };
 		48F1193B1A78605D00A02828 /* PlaybackOverlay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaybackOverlay.swift; sourceTree = "<group>"; };
+		976D457D1A81298500E6606F /* Bridge-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Bridge-Header.h"; sourceTree = "<group>"; };
+		976D457E1A8129A200E6606F /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,6 +102,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				976D457F1A8129A200E6606F /* FacebookSDK.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -156,6 +160,7 @@
 				4875B2F91A6C79760030AABD /* VYNC */,
 				4875B3121A6C79760030AABD /* VYNCTests */,
 				4875B2F81A6C79760030AABD /* Products */,
+				976D457E1A8129A200E6606F /* FacebookSDK.framework */,
 			);
 			sourceTree = "<group>";
 		};
@@ -172,6 +177,7 @@
 			isa = PBXGroup;
 			children = (
 				4875B2FC1A6C79760030AABD /* AppDelegate.swift */,
+				976D457D1A81298500E6606F /* Bridge-Header.h */,
 				4836638F1A7535E40096AE64 /* Views_And_Layers */,
 				4836638E1A7535C40096AE64 /* ViewControllers */,
 				4836638D1A7535B50096AE64 /* Models */,
@@ -506,9 +512,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = VYNC/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "VYNC/Bridge-Header.h";
 			};
 			name = Debug;
 		};
@@ -516,9 +527,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = VYNC/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "VYNC/Bridge-Header.h";
 			};
 			name = Release;
 		};
