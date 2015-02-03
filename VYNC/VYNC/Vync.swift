@@ -12,6 +12,16 @@ import CoreData
 class Vync {
     var messages : [VideoMessage]
     var unwatched: Bool = true
+    var notUploaded: Bool {
+        get {
+            return self.messages.first!.id == 0
+        }
+    }
+    var waitingOnYou: Bool {
+        get {
+            return myUserId() == self.messages.last?.recipientId
+        }
+    }
     
     init(messages: [VideoMessage]){
         self.messages = messages
@@ -19,10 +29,6 @@ class Vync {
 
     func size()-> String{
         return "\(self.messages.count)"
-    }
-    
-    func waitingOnYou() -> Bool{
-        return yourUserId == self.messages.last?.recipientId
     }
     
     func videoUrls()->[NSURL]{

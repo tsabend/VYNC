@@ -35,7 +35,7 @@ var db : NSManagedObjectContext? = {
     }()
 
 public func signedUp()->Bool{
-    if let user = User.syncer.all().find(67).exec()?.first as User! {
+    if let user = User.syncer.all().filter("is_me == %@", args: true).exec()?.first as User! {
         return true
     } else {
         return false
@@ -43,6 +43,16 @@ public func signedUp()->Bool{
 }
 
 // Fake Data
+
 var allUsers : [User] = User.syncer.all().exec()!
 
-let yourUserId = 67
+func myUserId()->Int{
+    if let me = User.syncer.all().filter("is_me == %@", args: true).exec()!.first as User! {
+        return me.id as Int
+    } else {
+        return 0
+    }
+    
+}
+
+//let yourUserId = 67

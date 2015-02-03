@@ -12,7 +12,7 @@
 		481AF25B1A706B5F0018B887 /* VyncCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 481AF25A1A706B5F0018B887 /* VyncCell.swift */; };
 		483663911A7536070096AE64 /* Vync.swift in Sources */ = {isa = PBXBuildFile; fileRef = 483663901A7536070096AE64 /* Vync.swift */; };
 		483663991A75A80E0096AE64 /* ContactsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 483663981A75A80E0096AE64 /* ContactsViewController.swift */; };
-		4846BCC11A7FF49D00FC489C /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4846BCC01A7FF49D00FC489C /* LoginViewController.swift */; };
+		4846BCC31A810DA200FC489C /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4846BCC21A810DA200FC489C /* LoginViewController.swift */; };
 		4875B2FD1A6C79760030AABD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4875B2FC1A6C79760030AABD /* AppDelegate.swift */; };
 		4875B3051A6C79760030AABD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4875B3031A6C79760030AABD /* Main.storyboard */; };
 		4875B3071A6C79760030AABD /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4875B3061A6C79760030AABD /* Images.xcassets */; };
@@ -59,7 +59,7 @@
 		481AF25A1A706B5F0018B887 /* VyncCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VyncCell.swift; sourceTree = "<group>"; };
 		483663901A7536070096AE64 /* Vync.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Vync.swift; sourceTree = "<group>"; };
 		483663981A75A80E0096AE64 /* ContactsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactsViewController.swift; sourceTree = "<group>"; };
-		4846BCC01A7FF49D00FC489C /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		4846BCC21A810DA200FC489C /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		4875B2F71A6C79760030AABD /* VYNC.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VYNC.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4875B2FB1A6C79760030AABD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4875B2FC1A6C79760030AABD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -133,7 +133,7 @@
 				483663981A75A80E0096AE64 /* ContactsViewController.swift */,
 				48CBB63B1A76A76C004A6E6D /* TitleViewController.swift */,
 				48BAECD81A782897005CC762 /* VyncCameraViewController.swift */,
-				4846BCC01A7FF49D00FC489C /* LoginViewController.swift */,
+				4846BCC21A810DA200FC489C /* LoginViewController.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -370,7 +370,7 @@
 				48A4DE7A1A7A600C000087A2 /* User.swift in Sources */,
 				48E9F78A1A7961050034CF5E /* HTTPTask.swift in Sources */,
 				48E9F7881A7960F80034CF5E /* HTTPResponseSerializer.swift in Sources */,
-				4846BCC11A7FF49D00FC489C /* LoginViewController.swift in Sources */,
+				4846BCC31A810DA200FC489C /* LoginViewController.swift in Sources */,
 				48BAECD91A782897005CC762 /* VyncCameraViewController.swift in Sources */,
 				48883BA91A71CFD70024F2DA /* HexColor.swift in Sources */,
 				4875B2FD1A6C79760030AABD /* AppDelegate.swift in Sources */,
