@@ -184,10 +184,10 @@
             </objects>
             <point key="canvasLocation" x="-886" y="-244"/>
         </scene>
-        <!--Login View Controller-->
+        <!--Login-->
         <scene sceneID="8r7-vT-h33">
             <objects>
-                <viewController storyboardIdentifier="Login" useStoryboardIdentifierAsRestorationIdentifier="YES" id="4ze-ZC-2VN" customClass="LoginViewController" customModule="VYNC" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="Login" title="Login" useStoryboardIdentifierAsRestorationIdentifier="YES" id="4ze-ZC-2VN" customClass="LoginViewController" customModule="VYNC" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="CaB-vx-9Cl"/>
                         <viewControllerLayoutGuide type="bottom" id="S8x-xA-i2P"/>
@@ -202,18 +202,27 @@
                                 <color key="textColor" red="0.45098039220000002" green="0.63137254899999995" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="om1-vm-vUL">
+                                <rect key="frame" x="133" y="305" width="55" height="30"/>
+                                <state key="normal" title="Sign Up">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="signUp:" destination="4ze-ZC-2VN" eventType="touchUpInside" id="yez-qb-JXD"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="b62-UR-IBy" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1774" y="-236"/>
+            <point key="canvasLocation" x="-1806" y="-294"/>
         </scene>
-        <!--Root Navigation Controller-->
+        <!--RootNavigationController-->
         <scene sceneID="LQm-Nx-EDq">
             <objects>
-                <navigationController storyboardIdentifier="RootNavigationController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="VOQ-KP-4gu" customClass="RootNavigationController" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="RootNavigationController" title="RootNavigationController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="VOQ-KP-4gu" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="6rU-j7-3oi"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" id="dS5-xF-5Gk">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>

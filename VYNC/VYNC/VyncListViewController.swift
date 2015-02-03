@@ -84,7 +84,7 @@ class VyncListViewController: UIViewController, UITableViewDelegate, UITableView
         cell.titleLabel.text = vyncs[indexPath.row].title()
         cell.lengthLabel.text = String(vyncs[indexPath.row].size())
         // New vyncs get special color and gesture
-        if vyncs[indexPath.row].waitingOnYou() {
+        if vyncs[indexPath.row].waitingOnYou {
             cell.statusLogo.textColor = UIColor(netHex:0xFFB5C9)
             cell.lengthLabel.text = "?"
             cell.lengthLabel.backgroundColor = UIColor(netHex:0xFFB5C9)
@@ -94,13 +94,17 @@ class VyncListViewController: UIViewController, UITableViewDelegate, UITableView
             cell.statusLogo.textColor = UIColor(netHex:0x7FF2FF)
             cell.lengthLabel.backgroundColor = UIColor(netHex:0x7FF2FF)
         }
-        
         // Unwatched vyncs get special background color
         if vyncs[indexPath.row].unwatched {
             let color = UIColor(netHex: 0xFAFAFA)
             cell.backgroundColor = color
         } else {
             cell.backgroundColor = UIColor.whiteColor()
+        }
+        
+        // Not yet uploaded vyncs get special background color
+        if vyncs[indexPath.row].notUploaded {
+            cell.backgroundColor = UIColor.redColor()
         }
 
         return cell
@@ -124,7 +128,7 @@ class VyncListViewController: UIViewController, UITableViewDelegate, UITableView
     }
 
     func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        if vyncs[indexPath.row].waitingOnYou() {
+        if vyncs[indexPath.row].waitingOnYou {
             return true
         } else {
             return false
@@ -168,7 +172,7 @@ class VyncListViewController: UIViewController, UITableViewDelegate, UITableView
                 self.lastPlayed = index
                 // waiting on you vs. following logic 
                 var urls : [NSURL]
-                if vyncs[index!].waitingOnYou() {
+                if vyncs[index!].waitingOnYou {
                     urls = vyncs[index!].waitingVideoUrls()
                 }
                 else {
@@ -220,7 +224,7 @@ class VyncListViewController: UIViewController, UITableViewDelegate, UITableView
                 let label = UILabel()
                 label.frame = view.frame
                 
-                if vyncs[indexPath.row].waitingOnYou() {
+                if vyncs[indexPath.row].waitingOnYou {
                     let labelText = ", ".join(vyncs[indexPath.row].usersList())
                     label.text = "Forward to see who is on this VYNC"
                     

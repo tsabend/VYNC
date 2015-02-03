@@ -16,7 +16,7 @@ func remDupeInts(a:[Int]) -> [Int] {
 class VideoMessage:NSManagedObject {
     
     class var syncer : Syncer<VideoMessage> {
-        return Syncer<VideoMessage>(url: "http://chainer.herokuapp.com/videomessages/C60397E6-DF95-4F65-9E2F-86C7B045E5F3/all")
+        return Syncer<VideoMessage>(url: "http://192.168.0.6:9393/\(myUserId)/videos")
     }
     
     @NSManaged var id: NSNumber?
@@ -33,18 +33,28 @@ class VideoMessage:NSManagedObject {
         let allVideos = self.syncer.all().sortBy("id", ascending: false).exec()!
         let ids = allVideos.map({video in video.id as Int})
         let replyTos = allVideos.map({video in video.replyToId as Int})
-        let uniqReplyTos = remDupeInts(replyTos)
+        var uniqReplyTos = remDupeInts(replyTos)
+        // remove id 0 to deal with it separately.
+        if uniqReplyTos.last == 0 {
+            uniqReplyTos.removeLast()
+        }
         var vyncs = [Vync]()
         for id in uniqReplyTos {
             let messages = VideoMessage.syncer.all().filter("replyToId == %@", args: id).sortBy("id", ascending: false).exec()!
             let newVync = Vync(messages: messages)
             vyncs.append(newVync)
         }
-        for vync in vyncs {
-            for message in vync.messages {
-                println(message.id)
-            }
+        
+        // not yet uploaded:
+        let newVideos = self.syncer.all().filter("id == %@", args: 0).exec()!
+        for video in newVideos {
+            vyncs.insert(Vync(messages: [video]), atIndex: 0)
         }
+//        for vync in vyncs {
+//            for message in vync.messages {
+//                println(message.id)
+//            }
+//        }
         return vyncs
     }
     

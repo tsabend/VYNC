@@ -42,8 +42,27 @@ class Syncer<T: NSManagedObject> {
     
     func uploadNew(){
         // post the video that the user takes to the server
-//        var request = HTTPTask()
-//        
+        var request = HTTPTask()
+        let newObjs = all().filter("id == %@", args: 0).exec()!
+        for obj in newObjs {
+            obj
+            
+            
+            
+            request.POST(url, parameters: [
+                "obj": obj],
+                success: {(response: HTTPResponse) in
+                    if let data = response.responseObject as? NSData {
+                        let str = NSString(data: data, encoding: NSUTF8StringEncoding)
+                        println("response: \(str)") //prints the response
+                    }
+                    
+                },failure: {(error: NSError, response: HTTPResponse?) in
+                    println("error: \(error)")
+            })
+        }
+    }
+    
 //        request.POST("http://chainer.herokuapp.com/upload", parameters: [
 //            "replyToID": self.replyToID!,
 //            "senderDevice": deviceID,
@@ -51,13 +70,12 @@ class Syncer<T: NSManagedObject> {
 //            "file": HTTPUpload(fileUrl: videoURL!) ],
 //            success: {(response: HTTPResponse) in
 //                if let data = response.responseObject as? NSData {
-//                    self.replyToID = 0
+//                    
 //                }
 //                
 //            },failure: {(error: NSError, response: HTTPResponse?) in
 //        })
 
-    }
     
     func downloadNew(){
         var since = 0
@@ -74,7 +92,6 @@ class Syncer<T: NSManagedObject> {
             success: { (response: HTTPResponse) in
                 if response.responseObject != nil {
                     if let data = response.responseObject as? NSData {
-                        println("json", JSONDecoder(data))
                         self.addJSONToSql(JSONDecoder(data))
                     }
                 }
