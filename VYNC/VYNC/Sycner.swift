@@ -45,16 +45,12 @@ class Syncer<T: NSManagedObject> {
         var request = HTTPTask()
         let newObjs = all().filter("id == %@", args: 0).exec()!
         for obj in newObjs {
-            obj
-            
-            
-            
-            request.POST(url, parameters: [
-                "obj": obj],
+            let json = createJSONfromObject(obj)
+            request.POST(url, parameters: ["json": json],
                 success: {(response: HTTPResponse) in
                     if let data = response.responseObject as? NSData {
                         let str = NSString(data: data, encoding: NSUTF8StringEncoding)
-                        println("response: \(str)") //prints the response
+                        println("upload response: \(str!)") //prints the response
                     }
                     
                 },failure: {(error: NSError, response: HTTPResponse?) in
@@ -63,19 +59,30 @@ class Syncer<T: NSManagedObject> {
         }
     }
     
-//        request.POST("http://chainer.herokuapp.com/upload", parameters: [
-//            "replyToID": self.replyToID!,
-//            "senderDevice": deviceID,
-//            "recipient" : userID,
-//            "file": HTTPUpload(fileUrl: videoURL!) ],
-//            success: {(response: HTTPResponse) in
-//                if let data = response.responseObject as? NSData {
-//                    
-//                }
-//                
-//            },failure: {(error: NSError, response: HTTPResponse?) in
-//        })
-
+    func createJSONfromObject(obj:T)->NSMutableDictionary{
+        var json = NSMutableDictionary()
+        for name in propertyNames() {
+            if let value: AnyObject = obj.valueForKey(name) {
+                json[name] = value
+            }
+        }
+        return json
+    }
+    
+    func propertyNames() -> [String] {
+        var names: [String] = []
+        var count: UInt32 = 0
+        // Uses the Objc Runtime to get the property list
+        var properties = class_copyPropertyList(T.self, &count)
+        for var i = 0; i < Int(count); ++i {
+            let property: objc_property_t = properties[i]
+            let name: String =
+            NSString(CString: property_getName(property), encoding: NSUTF8StringEncoding)!
+            names.append(name)
+        }
+        free(properties)
+        return names
+    }
     
     func downloadNew(){
         var since = 0
