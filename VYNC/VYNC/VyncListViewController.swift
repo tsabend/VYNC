@@ -34,8 +34,9 @@ class VyncListViewController: UIViewController, UITableViewDelegate, UITableView
         let rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Camera, target: self, action: "showCam")
         self.navigationItem.rightBarButtonItem = rightBarButtonItem
         
-//        let leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Refresh, target: self, action: "showCam")
-//        self.navigationItem.leftBarButtonItem = leftBarButtonItem
+        
+        let leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Refresh, target: self, action: "updateUsers")
+        self.navigationItem.leftBarButtonItem = leftBarButtonItem
         
         self.refreshControl = UIRefreshControl()
         self.refreshControl.attributedTitle = NSAttributedString(string: "Pull to refersh")
@@ -62,7 +63,6 @@ class VyncListViewController: UIViewController, UITableViewDelegate, UITableView
     @IBAction func reloadVyncs() {
         self.refreshControl.beginRefreshing()
         VideoMessage.syncer.sync()
-        User.syncer.sync()
         println(VideoMessage.syncer.all().exec()?.map({video in "replyToId\(video.replyToId)"}))
         println("reloading Vyncs")
         vyncs = VideoMessage.asVyncs()
@@ -271,7 +271,11 @@ class VyncListViewController: UIViewController, UITableViewDelegate, UITableView
 
         self.presentViewController(camera, animated: false, completion: nil)
     }
-    
+
+    @IBAction func updateUsers() {
+        println("updating Users. my id is \(myUserId())")
+        User.syncer.sync()
+    }
    
 
 }

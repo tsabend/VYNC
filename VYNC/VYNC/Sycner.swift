@@ -50,7 +50,12 @@ class Syncer<T: NSManagedObject> {
                 success: {(response: HTTPResponse) in
                     if let data = response.responseObject as? NSData {
                         let str = NSString(data: data, encoding: NSUTF8StringEncoding)
-                        println("upload response: \(str!)") //prints the response
+                        if let id = (str! as String).toInt() {
+                            println("new id=\(id)")
+                            obj.setValue(id, forKey: "id")
+                        } else {
+                            println(str)
+                        }
                     }
                     
                 },failure: {(error: NSError, response: HTTPResponse?) in
