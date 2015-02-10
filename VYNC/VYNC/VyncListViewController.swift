@@ -63,7 +63,7 @@ class VyncListViewController: UIViewController, UITableViewDelegate, UITableView
     @IBAction func reloadVyncs() {
         self.refreshControl.beginRefreshing()
         VideoMessage.syncer.sync()
-        println(VideoMessage.syncer.all().exec()?.map({video in "replyToId\(video.replyToId)"}))
+        println(VideoMessage.syncer.all().exec()?.map({video in "reloadvyncs.replyToId \(video.replyToId!)"}))
         println("reloading Vyncs")
         vyncs = VideoMessage.asVyncs()
         VideoMessage.saveNewVids()
@@ -274,6 +274,16 @@ class VyncListViewController: UIViewController, UITableViewDelegate, UITableView
 
     @IBAction func updateUsers() {
         println("updating Users. my id is \(myUserId())")
+        println("all users: \(User.syncer.all().exec()!.map({user in user.id}))")
+        allUsers = User.syncer.all().exec()!
+        println("***allUsers***")
+        for user in allUsers {
+            println("user: id=\(user.id), isMe=\(user.isMe), username=\(user.username)")
+        }
+        
+        println("number of  users: \(User.syncer.all().exec()!.count)")
+        let me = User.syncer.all().filter("isMe == %@", args: 1).exec()!
+        println("me \(me)")
         User.syncer.sync()
     }
    
