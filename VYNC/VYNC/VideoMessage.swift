@@ -29,7 +29,7 @@ class VideoMessage: NSManagedObject {
     @NSManaged var replyToId: NSNumber?
         
     class func asVyncs()->[Vync]{
-        // TODO: Make this code better!
+        // TODO: Make this code better! (Long term: use nsmanagedrelationship)
         let allVideos = self.syncer.all().sortBy("id", ascending: false).exec()!
         let ids = allVideos.map({video in video.id as Int})
         let replyTos = allVideos.map({video in video.replyToId as Int})
@@ -44,17 +44,12 @@ class VideoMessage: NSManagedObject {
             let newVync = Vync(messages: messages)
             vyncs.append(newVync)
         }
-        
-        // not yet uploaded:
-        let newVideos = self.syncer.all().filter("id == %@", args: 0).exec()!
+        // not yet uploaded, new thread:
+        let newVideos = self.syncer.all().filter("id == %@ AND replyToId == %@", args: 0, 0).exec()!
         for video in newVideos {
             vyncs.insert(Vync(messages: [video]), atIndex: 0)
         }
-//        for vync in vyncs {
-//            for message in vync.messages {
-//                println(message.id)
-//            }
-//        }
+
         return vyncs
     }
     

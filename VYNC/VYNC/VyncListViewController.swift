@@ -35,7 +35,7 @@ class VyncListViewController: UIViewController, UITableViewDelegate, UITableView
         self.navigationItem.rightBarButtonItem = rightBarButtonItem
         
         
-        let leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Refresh, target: self, action: "updateUsers")
+        let leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Refresh, target: self, action: "updateView")
         self.navigationItem.leftBarButtonItem = leftBarButtonItem
         
         self.refreshControl = UIRefreshControl()
@@ -272,19 +272,17 @@ class VyncListViewController: UIViewController, UITableViewDelegate, UITableView
         self.presentViewController(camera, animated: false, completion: nil)
     }
 
-    @IBAction func updateUsers() {
-        println("updating Users. my id is \(myUserId())")
-        println("all users: \(User.syncer.all().exec()!.map({user in user.id}))")
-        allUsers = User.syncer.all().exec()!
-        println("***allUsers***")
-        for user in allUsers {
-            println("user: id=\(user.id), isMe=\(user.isMe), username=\(user.username)")
+    @IBAction func updateView() {
+        let allVids = VideoMessage.syncer.all().exec()!
+        for vid in allVids {
+            println("vid.id \(vid.id), vid.replytoid \(vid.replyToId) vid.createdAt \(vid.createdAt)")
+        }
+        for vync in self.vyncs {
+            println("vync \(vync.waitingOnYou)")
         }
         
-        println("number of  users: \(User.syncer.all().exec()!.count)")
-        let me = User.syncer.all().filter("isMe == %@", args: 1).exec()!
-        println("me \(me)")
-        User.syncer.sync()
+        vyncTable.reloadData()
+        vyncTable.setNeedsDisplay()
     }
    
 

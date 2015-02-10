@@ -96,14 +96,14 @@ class Syncer<T: NSManagedObject> {
             success: {(response: HTTPResponse) in
                 if let data = response.responseObject as? NSData {
                     let str = NSString(data: data, encoding: NSUTF8StringEncoding) as String
-                    var params = split(str) {$0 == "-"} as [String]
-                    println(params)
+                    // Using split to send back 3 variables is not a very robust solution. 
+                    // This is just a short term fix.
+                    var params = split(str) {$0 == ","} as [String]
                     if let id = params[0].toInt() {
-                        println("new id=\(id)")
                         video.id = id
+                        video.createdAt = params[1]
                         if video.replyToId == 0 {
-                            println("new replyToId=\(params[1].toInt())")
-                            video.replyToId = params[1].toInt()
+                            video.replyToId = params[2].toInt()
                         }
                         self.save()
                     } else {
@@ -142,11 +142,9 @@ class Syncer<T: NSManagedObject> {
     
     func downloadNew(){
         var since = 0
-        
-        // TODO: Implement a better syncing method that actually works
-        //        if let sinceVid = self.mostRecent {
-        //            since = sinceVid[1] as Int
-        //        }
+        if let newest = all().last {
+            since = newest.valueForKey("id") as Int
+        }
         var data : NSData?
         var request = HTTPTask()
         var deviceID = UIDevice.currentDevice().identifierForVendor.UUIDString
