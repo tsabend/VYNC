@@ -30,20 +30,16 @@ class QueueLoopVideoPlayer : AVPlayerViewController {
     func playVideos(){
         let items = self.videoList.map({video in AVPlayerItem(URL:video)})
         println("play Videos Was CALLED")
-        println("********** items \(items)  *********")
-        self.player = AVQueuePlayer(items: items)
+        println("********** items \(items) count \(items.count)  *********")
+        self.player = AVQueuePlayer(items: items) as AVQueuePlayer!
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "repeat:", name: "AVPlayerItemDidPlayToEndTimeNotification", object: nil)
-        self.player.play()
-
-        
+        self.player.play()    
     }
     
     func stop(){
         println("dismissing")
         self.player.pause()
         self.dismissViewControllerAnimated(false, completion: nil)
-//        removeFromParentViewController()
-
     }
 
     func repeat(notification:NSNotification){
@@ -52,11 +48,12 @@ class QueueLoopVideoPlayer : AVPlayerViewController {
             let copyOfPlayerItem = AVPlayerItem(asset: asset)
             let player = self.player as AVQueuePlayer
             player.insertItem(copyOfPlayerItem, afterItem: nil)
-
+            println("----REPEATED----items: \(player.items())")
         }
     }
 
     deinit {
+        println("queue deinit")
         self.player = nil;
         NSNotificationCenter.defaultCenter().removeObserver(self, name: "AVPlayerItemDidPlayToEndTimeNotification", object: nil)
     }

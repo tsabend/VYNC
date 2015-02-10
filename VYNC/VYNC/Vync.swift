@@ -19,7 +19,7 @@ class Vync {
     }
     var waitingOnYou: Bool {
         get {
-            return myUserId() == self.messages.last?.recipientId
+            return myUserId() == self.messages.first!.recipientId
         }
     }
     
@@ -54,8 +54,8 @@ class Vync {
     
     func mostRecent()->String{
         let formatter = NSDateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
-        if let createdAt = messages.last?.createdAt {
+        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss 'UTC'"
+        if let createdAt = messages.first?.createdAt {
             if let date = formatter.dateFromString(createdAt) as NSDate! {
                 return "\(date.mediumDateString)"
             } else {
@@ -68,7 +68,7 @@ class Vync {
 
     func title()->String {
         if self.messages.count != 0 {
-        if let video = messages.first as VideoMessage! {
+        if let video = messages.last as VideoMessage! {
             if let title = video.title as String! {
                 return title
             } else {

@@ -15,8 +15,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        
-          FBLoginView.self
+        FBLoginView.self
         FBProfilePictureView.self
         // Override point for customization after application launch.
 

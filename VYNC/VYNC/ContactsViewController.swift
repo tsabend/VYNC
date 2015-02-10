@@ -62,11 +62,11 @@ class ContactsViewController: UIViewController, UITableViewDelegate, UITableView
         
         let data = NSData(contentsOfFile: pathToFile)
         let videoId = NSUUID().UUIDString + ".mov"
-        let newFilePath = docFolderToSaveFiles + videoId
+        let newFilePath = docFolderToSaveFiles + "/" + videoId
         data?.writeToFile(newFilePath, atomically: true)
         
         if self.replyToId != 0 {
-            // TODO: Vync needs CData backing. This should be a simple query
+            // TODO: Vync needs CData backing. This should be a simpler query
             let vyncToUpdate = VideoMessage.asVyncs().filter({vync in vync.replyToId() == self.replyToId})[0]
 
             var newMessage = VideoMessage.syncer.newObj()
@@ -89,6 +89,7 @@ class ContactsViewController: UIViewController, UITableViewDelegate, UITableView
             newMessage.title = self.vyncTitle!
             VideoMessage.syncer.save()
         }
+        VideoMessage.syncer.sync()
         performSegueWithIdentifier("backToHome", sender: self)
     }
     

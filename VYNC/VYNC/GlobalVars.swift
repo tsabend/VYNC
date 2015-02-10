@@ -20,7 +20,6 @@ let standin = NSURL.fileURLWithPath(path!) as NSURL!
 let s3Url = "https://s3-us-west-2.amazonaws.com/telephono/"
 
 let docFolderToSaveFiles = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as String
-
 let fileName = "/videoToSend.MOV"
 let pathToFile = docFolderToSaveFiles + fileName
 
@@ -35,7 +34,7 @@ var db : NSManagedObjectContext? = {
     }()
 
 public func signedUp()->Bool{
-    if let user = User.syncer.all().filter("is_me == %@", args: true).exec()?.first as User! {
+    if let user = User.syncer.all().filter("isMe == %@", args: 1).exec()?.first as User! {
         return true
     } else {
         return false
@@ -46,11 +45,22 @@ public func signedUp()->Bool{
 
 var allUsers : [User] = User.syncer.all().exec()!
 
-func myUserId()->Int{
-    if let me = User.syncer.all().filter("is_me == %@", args: true).exec()!.first as User! {
-        return me.id as Int
+func myUserId()->Int?{
+    if let me = User.syncer.all().filter("isMe == %@", args: 1).exec()!.first as User! {
+        return me.id as? Int
+        
     } else {
-        return 0
+        return nil
+    }
+    
+}
+
+func myFacebookId()->String{
+    if let me = User.syncer.all().filter("isMe == %@", args: 1).exec()!.first as User! {
+        return me.facebookObjectId as String
+        
+    } else {
+        return ""
     }
     
 }

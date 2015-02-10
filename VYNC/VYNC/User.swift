@@ -15,8 +15,12 @@ class User: NSManagedObject {
         return Syncer<User>(url: "http://192.168.0.6:9393/users")
     }
     
+    
     @NSManaged var username: String
     @NSManaged var id: NSNumber
-    @NSManaged var is_me :Bool
+    @NSManaged var email: String
+    @NSManaged var facebookObjectId: String
+//  Using like a boolean: 1=true 0=false
+    @NSManaged var isMe :NSNumber
     
 }

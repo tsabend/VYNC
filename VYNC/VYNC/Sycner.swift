@@ -9,11 +9,11 @@ import Foundation
 import UIKit
 import CoreData
 
+
 class Syncer<T: NSManagedObject> {
     let entityName:String
     let url:String
     let entityDescription:NSEntityDescription!
-    
     init(url:String) {
         self.url = url
         self.entityName = getName(T)
@@ -36,39 +36,90 @@ class Syncer<T: NSManagedObject> {
     
     // HTTP Functions
     func sync() {
-        downloadNew()
         uploadNew()
+        downloadNew()
     }
     
     func uploadNew(){
+        println("In upload new")
         // post the video that the user takes to the server
-        var request = HTTPTask()
         let newObjs = all().filter("id == %@", args: 0).exec()!
         for obj in newObjs {
-            let json = createJSONfromObject(obj)
-            request.POST(url, parameters: ["json": json],
-                success: {(response: HTTPResponse) in
-                    if let data = response.responseObject as? NSData {
-                        let str = NSString(data: data, encoding: NSUTF8StringEncoding)
-                        if let id = (str! as String).toInt() {
-                            println("new id=\(id)")
-                            obj.setValue(id, forKey: "id")
-                        } else {
-                            println(str)
-                        }
-                    }
-                    
-                },failure: {(error: NSError, response: HTTPResponse?) in
-                    println("error: \(error)")
-            })
+            if let video = obj as? VideoMessage {
+                println("Uploading video")
+                uploadWithFile(obj)
+            } else {
+                println("Uploading user")
+                upload(obj)
+            }
         }
+    }
+    
+// This is upload vs. uploadWithObject is an ad hoc solution to deal with sycning video uploads and user uploads differently
+// I really dislike this solution. Ideally I would subclass NSManagedObject with HTTPManagedObject
+// and have videomessage and user inherit from this superclass. Then I could just override the
+// upload method from the parent. While this may still be possible, it is very difficult to do since
+// NSManagedObject can't have non-stored variables. I also considered making a protocol and calling
+// the upload method from the delegates, but given that I have only two objects, this made the code
+// messier in my opinion. I want something that works for now, but I'd like to refactor this code.
+    func upload(obj:T){
+        var request = HTTPTask()
+        let json = createJSONfromObject(obj)
+        request.POST(url, parameters: ["json": json],
+            success: {(response: HTTPResponse) in
+                if let data = response.responseObject as? NSData {
+                    let str = NSString(data: data, encoding: NSUTF8StringEncoding)
+                    if let id = (str! as String).toInt() {
+                        println("new id=\(id)")
+                        obj.setValue(id, forKey: "id")
+                        self.save()
+                    } else {
+                        println(str)
+                    }
+                }
+            },failure: {(error: NSError, response: HTTPResponse?) in
+                println("error: \(error)")
+        })
+    }
+
+    func uploadWithFile(obj:T) {
+        let json = createJSONfromObject(obj)
+        let video = obj as VideoMessage
+        let videoURL = NSURL.fileURLWithPath(docFolderToSaveFiles + "/" + video.videoId!)!
+        var request = HTTPTask()
+        request.POST(url,
+            parameters:
+            [
+                "json": json,
+                "file": HTTPUpload(fileUrl: videoURL)
+            ],
+            success: {(response: HTTPResponse) in
+                if let data = response.responseObject as? NSData {
+                    let str = NSString(data: data, encoding: NSUTF8StringEncoding) as String
+                    // Using split to send back 3 variables is not a very robust solution. 
+                    // This is just a short term fix.
+                    var params = split(str) {$0 == ","} as [String]
+                    if let id = params[0].toInt() {
+                        video.id = id
+                        video.createdAt = params[1]
+                        if video.replyToId == 0 {
+                            video.replyToId = params[2].toInt()
+                        }
+                        self.save()
+                    } else {
+                        println("API error ",str)
+                    }
+                }
+            },failure: {(error: NSError, response: HTTPResponse?) in
+                println("upload error: \(error)")
+        })
     }
     
     func createJSONfromObject(obj:T)->NSMutableDictionary{
         var json = NSMutableDictionary()
         for name in propertyNames() {
             if let value: AnyObject = obj.valueForKey(name) {
-                json[name] = value
+                json[camelToSnake(name)] = value
             }
         }
         return json
@@ -91,11 +142,9 @@ class Syncer<T: NSManagedObject> {
     
     func downloadNew(){
         var since = 0
-        
-        // TODO: Implement a better syncing method that actually works
-        //        if let sinceVid = self.mostRecent {
-        //            since = sinceVid[1] as Int
-        //        }
+        if let newest = all().last {
+            since = newest.valueForKey("id") as Int
+        }
         var data : NSData?
         var request = HTTPTask()
         var deviceID = UIDevice.currentDevice().identifierForVendor.UUIDString
@@ -171,4 +220,3 @@ class Syncer<T: NSManagedObject> {
         return join("", capitalizedString)
     }
 }
-

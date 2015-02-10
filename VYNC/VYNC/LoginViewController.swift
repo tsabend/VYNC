@@ -12,9 +12,6 @@ import UIKit
 class LoginViewController : UIViewController, FBLoginViewDelegate {
     
     @IBOutlet var fbLoginView : FBLoginView!
-    var window: UIWindow?
-    
-    var email : String!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,28 +22,27 @@ class LoginViewController : UIViewController, FBLoginViewDelegate {
     
     func loginViewShowingLoggedInUser(loginView : FBLoginView!) {
         println("User Logged In")
-        //        println("This is where you perform a segue.")
-
-        var newUser = User.syncer.newObj()
-        newUser.id = 0
-        newUser.username = "test"
-                newUser.is_me = true
-        User.syncer.save()
-        User.syncer.sync()
         let vc = self.storyboard?.instantiateViewControllerWithIdentifier("RootNavigationController") as UINavigationController
         presentViewController(vc, animated: true, completion: {})
     }
     
     func loginViewFetchedUserInfo(loginView : FBLoginView!, user: FBGraphUser){
-        println("User Name: \(user.name)")
-        println("User ObjectID: \(user.objectID)")
-                FBRequestConnection.startForMeWithCompletionHandler{(connection, user, error) -> Void in
-                    self.email = user.objectForKey("email") as String
-                            println("User Email: \(self.email)")
-                    self.performSegueWithIdentifier("showRoot", sender: self)
-        
-                }
-        
+        let fbId = user.objectID as String
+        if myUserId() == nil {
+            FBRequestConnection.startForMeWithCompletionHandler{(connection, user, error) -> Void in
+                println("Adding user")
+                let email = user.objectForKey("email") as String
+                // new User object
+                var newUser = User.syncer.newObj()
+                newUser.id = 0
+                newUser.username = user.name
+                newUser.facebookObjectId = fbId
+                newUser.isMe = 1
+                newUser.email = email
+                User.syncer.save()
+                User.syncer.sync()
+            }
+        }
     }
     
     func loginViewShowingLoggedOutUser(loginView : FBLoginView!) {
