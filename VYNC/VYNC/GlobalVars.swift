@@ -25,7 +25,7 @@ let docFolderToSaveFiles = NSSearchPathForDirectoriesInDomains(.DocumentDirector
 let fileName = "/videoToSend.MOV"
 let pathToFile = docFolderToSaveFiles + fileName
 
-let host = "https://vync-api.herokuapp.com"
+let host = "http://192.168.0.6:9393" //"https://vync-api.herokuapp.com"
 //"http://10.0.2.77:9393"
 // "http://192.168.0.6:9393"
 
@@ -71,4 +71,3 @@ func myFacebookId()->String{
     
 }
 
-//let yourUserId = 67

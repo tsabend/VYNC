@@ -42,7 +42,6 @@ class Syncer<T: NSManagedObject> {
     }
     
     func uploadNew(){
-        println("In upload new")
         // post the video that the user takes to the server
         let newObjs = all().filter("id == %@", args: 0).exec()!
         for obj in newObjs {

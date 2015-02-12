@@ -35,8 +35,8 @@ class VyncListViewController: UIViewController, UITableViewDelegate, UITableView
         self.navigationItem.rightBarButtonItem = rightBarButtonItem
         
         
-        let leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Refresh, target: self, action: "updateView")
-        self.navigationItem.leftBarButtonItem = leftBarButtonItem
+//        let leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Refresh, target: self, action: "updateView")
+//        self.navigationItem.leftBarButtonItem = leftBarButtonItem
         
         self.refreshControl = UIRefreshControl()
         self.refreshControl.attributedTitle = NSAttributedString(string: "Pull to refersh")
@@ -169,12 +169,13 @@ class VyncListViewController: UIViewController, UITableViewDelegate, UITableView
         if sender.state == .Began {
             if let index = self.vyncTable.indexPathForRowAtPoint(sender.view!.center)?.row as Int! {
                 if index == self.lastPlayed {
-                    self.videoPlayer?.player.play()
+                    self.videoPlayer?.continuePlay()
                     self.videoPlayer!.view.addGestureRecognizer(sender)
                     if self.presentedViewController == nil {
                         self.presentViewController(self.videoPlayer!, animated: false, completion:nil)
                     }
                 } else {
+                    self.videoPlayer?.player = nil
                     self.videoPlayer = nil
                     vyncs[index].unwatched = false
                     self.lastPlayed = index
@@ -283,17 +284,18 @@ class VyncListViewController: UIViewController, UITableViewDelegate, UITableView
     }
 
     @IBAction func updateView() {
-        let allVids = VideoMessage.syncer.all().exec()!
-        for vid in allVids {
-            println("vid.id \(vid.id), vid.replytoid \(vid.replyToId) vid.createdAt \(vid.createdAt)")
-        }
-        for vync in self.vyncs {
-            println("vync \(vync.messages.map({msg in msg.id}))")
-            println("vync is unwatched=\(vync.unwatched)")
-        }
-        
-        vyncTable.reloadData()
-        vyncTable.setNeedsDisplay()
+//        let allVids = VideoMessage.syncer.all().exec()!
+//        for vid in allVids {
+//            println("vid.id \(vid.id), vid.replytoid \(vid.replyToId) vid.createdAt \(vid.createdAt)")
+//        }
+//        for vync in self.vyncs {
+//            println("vync \(vync.messages.map({msg in msg.id}))")
+//            println("vync is unwatched=\(vync.unwatched)")
+//        }
+//        
+//        vyncTable.reloadData()
+//        vyncTable.setNeedsDisplay()
+        self.navigationController!.performSegueWithIdentifier("showStats", sender: self)
     }
    
 

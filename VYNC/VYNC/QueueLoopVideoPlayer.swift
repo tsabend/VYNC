@@ -22,7 +22,7 @@ class QueueLoopVideoPlayer : AVPlayerViewController {
         let color = UIColor(netHex:0x73A1FF)
         let font = UIFont(name: "Egypt 22", size: 60)
         self.timer.font = font
-        self.timer.text = "0"
+        self.timer.text = ""
         self.timer.textColor = color
         self.view.addSubview(timer)
     }
@@ -33,8 +33,6 @@ class QueueLoopVideoPlayer : AVPlayerViewController {
     
     func playVideos(){
         let items = self.videoList.map({video in AVPlayerItem(URL:video)})
-        println("play Videos Was CALLED")
-        println("********** items count \(items.count)  *********")
         self.player = AVQueuePlayer(items: items) as AVQueuePlayer!
         
         let duration = Int(round(CMTimeGetSeconds(items.first!.asset.duration)))
@@ -52,8 +50,14 @@ class QueueLoopVideoPlayer : AVPlayerViewController {
         self.player.play()    
     }
     
+    func continuePlay() {
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "repeat:", name: "AVPlayerItemDidPlayToEndTimeNotification", object: nil)
+        self.player.play()
+    }
+    
     func stop(){
         self.player.pause()
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: "AVPlayerItemDidPlayToEndTimeNotification", object: nil)
         self.dismissViewControllerAnimated(false, completion: nil)
     }
 
@@ -62,11 +66,12 @@ class QueueLoopVideoPlayer : AVPlayerViewController {
             let asset = playerItem.asset
             let copyOfPlayerItem = AVPlayerItem(asset: asset)
             let player = self.player as! AVQueuePlayer
-            let first = player.items().first! as! AVPlayerItem
-            let duration = Int(round(CMTimeGetSeconds(first.duration)))
-            self.currentItemDuration = duration
-            println("durationInRepeat \(duration)")
             player.insertItem(copyOfPlayerItem, afterItem: nil)
+            // Get the duration of the upcoming video to display countdown
+            let second = player.items()[1] as! AVPlayerItem
+            let duration = Int(round(CMTimeGetSeconds(second.duration)))
+            self.currentItemDuration = duration
+
         }
     }
 
