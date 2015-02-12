@@ -54,7 +54,7 @@ class Vync {
 
     func replyToId()->Int {
         if let first = self.messages.last {
-            return first.replyToId as Int
+            return first.replyToId as! Int
         } else {
             return 0
         }
@@ -93,7 +93,7 @@ class Vync {
     func usersList()->[String]{
         return self.messages.map({
             message in
-            self.findUsername(message.senderId as Int)
+            self.findUsername(message.senderId as! Int)
         })
     }
     

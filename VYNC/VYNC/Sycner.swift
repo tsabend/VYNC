@@ -14,21 +14,22 @@ class Syncer<T: NSManagedObject> {
     let entityName:String
     let url:String
     let entityDescription:NSEntityDescription!
-    init(url:String) {
-        self.url = url
-        self.entityName = getName(T)
-        self.entityDescription = NSEntityDescription.entityForName(self.entityName, inManagedObjectContext: self.db!)
-    }
     
     // NSManaged Functions
-    lazy var db : NSManagedObjectContext? = {
-        let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
+    var db : NSManagedObjectContext? = {
+        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         if let managedObjectContext = appDelegate.managedObjectContext {
             return managedObjectContext
         } else {
             return nil
         }
     }()
+    
+    init(url:String) {
+        self.url = url
+        self.entityName = getName(T)
+        self.entityDescription = NSEntityDescription.entityForName(self.entityName, inManagedObjectContext: self.db!)
+    }
     
     func all() -> AR<T> {
         return AR<T>()
@@ -84,7 +85,7 @@ class Syncer<T: NSManagedObject> {
 
     func uploadWithFile(obj:T) {
         let json = createJSONfromObject(obj)
-        let video = obj as VideoMessage
+        let video = obj as! VideoMessage
         let videoURL = NSURL.fileURLWithPath(docFolderToSaveFiles + "/" + video.videoId!)!
         var request = HTTPTask()
         request.POST(url,
@@ -95,10 +96,10 @@ class Syncer<T: NSManagedObject> {
             ],
             success: {(response: HTTPResponse) in
                 if let data = response.responseObject as? NSData {
-                    let str = NSString(data: data, encoding: NSUTF8StringEncoding) as String
+                    let str = NSString(data: data, encoding: NSUTF8StringEncoding) as! String
                     // Using split to send back 3 variables is not a very robust solution. 
                     // This is just a short term fix.
-                    var params = split(str) {$0 == ","} as [String]
+                    var params = str.componentsSeparatedByString(",")
                     if let id = params[0].toInt() {
                         video.id = id
                         video.createdAt = params[1]
@@ -134,7 +135,7 @@ class Syncer<T: NSManagedObject> {
         for var i = 0; i < Int(count); ++i {
             let property: objc_property_t = properties[i]
             let name: String =
-            NSString(CString: property_getName(property), encoding: NSUTF8StringEncoding)!
+            NSString(CString: property_getName(property), encoding: NSUTF8StringEncoding)! as! String
             names.append(name)
         }
         free(properties)
@@ -144,7 +145,7 @@ class Syncer<T: NSManagedObject> {
     func downloadNew(){
         var since = 0
         if let newest = all().last {
-            since = newest.valueForKey("id") as Int
+            since = newest.valueForKey("id") as! Int
         }
         var data : NSData?
         var request = HTTPTask()
@@ -170,12 +171,12 @@ class Syncer<T: NSManagedObject> {
     }
     
     func createObjectFromJSON(decoder: JSONDecoder){
-        var object = NSEntityDescription.insertNewObjectForEntityForName(self.entityName, inManagedObjectContext: self.db!) as T
+        var object = NSEntityDescription.insertNewObjectForEntityForName(self.entityName, inManagedObjectContext: self.db!) as! T
         if let desc = self.entityDescription {
             for attribute in desc.attributesByName {
-                let name = attribute.0 as String
+                let name = attribute.0 as! String
                 let decoderName = camelToSnake(name)
-                let attr = attribute.1 as NSAttributeDescription
+                let attr = attribute.1 as! NSAttributeDescription
                 switch attr.attributeType {
                 case .StringAttributeType:
                     let value = decoder[decoderName].string as String!
@@ -191,7 +192,7 @@ class Syncer<T: NSManagedObject> {
     }
     
     func newObj()->T{
-        return NSEntityDescription.insertNewObjectForEntityForName(self.entityName, inManagedObjectContext: self.db!) as T
+        return NSEntityDescription.insertNewObjectForEntityForName(self.entityName, inManagedObjectContext: self.db!) as! T
     }
 
     func save(){
@@ -214,7 +215,7 @@ class Syncer<T: NSManagedObject> {
     }
     
     func snakeToCamel(attribute:String)->String{
-        var splitString = split(attribute) {$0 == "_"} as [String]
+        var splitString = attribute.componentsSeparatedByString("_")
         var firstString = splitString.removeAtIndex(0)
         var capitalizedString = splitString.map({string in string.uppercaseString})
         capitalizedString.insert(firstString, atIndex: 0)

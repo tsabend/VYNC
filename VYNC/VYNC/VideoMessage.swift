@@ -32,8 +32,8 @@ class VideoMessage: NSManagedObject {
     class func asVyncs()->[Vync]{
         // TODO: Make this code better! (Long term: use nsmanagedrelationship)
         let allVideos = self.syncer.all().sortBy("id", ascending: false).exec()!
-        let ids = allVideos.map({video in video.id as Int})
-        let replyTos = allVideos.map({video in video.replyToId as Int})
+        let ids = allVideos.map({video in video.id as! Int})
+        let replyTos = allVideos.map({video in video.replyToId as! Int})
         var uniqReplyTos = remDupeInts(replyTos)
         // remove id 0 to deal with it separately.
         if uniqReplyTos.last == 0 {

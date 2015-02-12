@@ -13,10 +13,10 @@ import CoreData
 // Assumes that primaryKey is id
 class AR<T : NSManagedObject> {
     
-    let req : NSFetchRequest!
+    let req : NSFetchRequest
     
     lazy var db : NSManagedObjectContext? = {
-        let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
+        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         if let managedObjectContext = appDelegate.managedObjectContext {
             return managedObjectContext
         } else {
@@ -39,8 +39,8 @@ class AR<T : NSManagedObject> {
     init() {
         let entityName = getName(T)
         self.req = NSFetchRequest()
-        req.entity = NSEntityDescription.entityForName(entityName, inManagedObjectContext: self.db!)
-        req.propertiesToFetch = req.entity?.properties
+        self.req.entity = NSEntityDescription.entityForName(entityName, inManagedObjectContext: self.db!)
+        self.req.propertiesToFetch = req.entity?.properties
     }
     
     func sortBy(key: String, ascending: Bool) -> AR<T> {

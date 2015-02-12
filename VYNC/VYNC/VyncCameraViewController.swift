@@ -100,11 +100,11 @@ class VyncCameraViewController: UIViewController, AVCaptureFileOutputRecordingDe
         captureSession.beginConfiguration()
         if let currentCamera = captureSession.inputs.first as? AVCaptureDeviceInput {
             if currentCamera.device.position == AVCaptureDevicePosition.Back {
-                captureSession.removeInput(captureSession.inputs.first as AVCaptureInput)
+                captureSession.removeInput(captureSession.inputs.first as! AVCaptureInput)
                 captureSession.addInput(AVCaptureDeviceInput(device: selfieCaptureDevice, error: nil))
                 flashButton.hidden = true
             } else {
-                captureSession.removeInput(captureSession.inputs.first as AVCaptureInput)
+                captureSession.removeInput(captureSession.inputs.first as! AVCaptureInput)
                 captureSession.addInput(AVCaptureDeviceInput(device: captureDevice, error: nil))
                 flashButton.hidden = false
             }
@@ -124,7 +124,7 @@ class VyncCameraViewController: UIViewController, AVCaptureFileOutputRecordingDe
         fromConnections connections: [AnyObject]!,
         error: NSError!) {
             println("playing back video")
-            let playerLayerView = VyncCameraPlaybackLayer.loadFromNib() as VyncCameraPlaybackLayer
+            let playerLayerView = VyncCameraPlaybackLayer.loadFromNib() as! VyncCameraPlaybackLayer
             playerLayerView.videoList = [outputFileURL, outputFileURL]
             playerLayerView.playbackDelegate = self
             playerLayerView.playVideos()
@@ -189,14 +189,14 @@ class VyncCameraViewController: UIViewController, AVCaptureFileOutputRecordingDe
         view.removeFromSuperview()
         if (self.vync != nil) {
             println("reply")
-            let contactsNav = self.storyboard?.instantiateViewControllerWithIdentifier("ContactsNav") as UINavigationController
-            let contacts = contactsNav.viewControllers[0] as ContactsViewController
+            let contactsNav = self.storyboard?.instantiateViewControllerWithIdentifier("ContactsNav") as! UINavigationController
+            let contacts = contactsNav.viewControllers[0] as! ContactsViewController
             // TODO: replace this code with the actual replyToID that has been passed around
             contacts.replyToId = vync.replyToId()
             self.presentViewController(contactsNav, animated: false, completion: nil)
         } else {
             println("first")
-            let title = self.storyboard?.instantiateViewControllerWithIdentifier("TitleNav") as UINavigationController
+            let title = self.storyboard?.instantiateViewControllerWithIdentifier("TitleNav") as! UINavigationController
             self.presentViewController(title, animated: false, completion: nil)
         }
     }

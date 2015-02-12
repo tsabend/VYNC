@@ -21,7 +21,7 @@ let s3Url = "https://s3-us-west-2.amazonaws.com/telephono/"
 
 let screenSize = UIScreen.mainScreen().bounds
 
-let docFolderToSaveFiles = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as String
+let docFolderToSaveFiles = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as! String
 let fileName = "/videoToSend.MOV"
 let pathToFile = docFolderToSaveFiles + fileName
 
@@ -31,7 +31,7 @@ let host = "https://vync-api.herokuapp.com"
 
 
 var db : NSManagedObjectContext? = {
-    let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
+    let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
     if let managedObjectContext = appDelegate.managedObjectContext {
         return managedObjectContext
     } else {

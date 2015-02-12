@@ -61,8 +61,8 @@ class QueueLoopVideoPlayer : AVPlayerViewController {
         if let playerItem = notification.object as? AVPlayerItem {
             let asset = playerItem.asset
             let copyOfPlayerItem = AVPlayerItem(asset: asset)
-            let player = self.player as AVQueuePlayer
-            let first = player.items().first! as AVPlayerItem
+            let player = self.player as! AVQueuePlayer
+            let first = player.items().first! as! AVPlayerItem
             let duration = Int(round(CMTimeGetSeconds(first.duration)))
             self.currentItemDuration = duration
             println("durationInRepeat \(duration)")
