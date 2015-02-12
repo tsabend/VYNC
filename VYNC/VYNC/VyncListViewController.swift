@@ -63,6 +63,7 @@ class VyncListViewController: UIViewController, UITableViewDelegate, UITableView
     @IBAction func reloadVyncs() {
         self.refreshControl.beginRefreshing()
         VideoMessage.syncer.sync()
+        User.syncer.sync()
         println(VideoMessage.syncer.all().exec()?.map({video in "reloadvyncs.replyToId \(video.replyToId!)"}))
         println("reloading Vyncs")
         vyncs = VideoMessage.asVyncs()
@@ -96,7 +97,7 @@ class VyncListViewController: UIViewController, UITableViewDelegate, UITableView
         }
         // Unwatched vyncs get special background color
         if vyncs[indexPath.row].unwatched {
-            let color = UIColor(netHex: 0xFAFAFA)
+            let color = UIColor(netHex: 0xFFFF00)
             cell.backgroundColor = color
         } else {
             cell.backgroundColor = UIColor.whiteColor()
@@ -104,7 +105,13 @@ class VyncListViewController: UIViewController, UITableViewDelegate, UITableView
         
         // Not yet uploaded vyncs get special background color
         if vyncs[indexPath.row].notUploaded {
-            cell.backgroundColor = UIColor.redColor()
+            cell.contentView.layer.borderWidth = 0.5
+            cell.contentView.layer.borderColor = UIColor.redColor().CGColor
+            cell.lengthLabel.layer.borderWidth = 2.0
+            cell.lengthLabel.layer.borderColor = UIColor.redColor().CGColor
+        } else {
+            cell.contentView.layer.borderWidth = 0.0
+            cell.lengthLabel.layer.borderWidth = 0.0
         }
 
         return cell
@@ -159,34 +166,36 @@ class VyncListViewController: UIViewController, UITableViewDelegate, UITableView
     
     
     @IBAction func holdToPlayVideos(sender: UILongPressGestureRecognizer) {
-
         if sender.state == .Began {
-            let index = self.vyncTable.indexPathForRowAtPoint(sender.view!.center)?.row
-            if index == self.lastPlayed {
-                self.videoPlayer?.player.play()
-                self.videoPlayer!.view.addGestureRecognizer(sender)
-                self.presentViewController(self.videoPlayer!, animated: false, completion:nil)
-            } else {
-                println("Playing Videos)")
-                vyncs[index!].unwatched = false
-                self.lastPlayed = index
-                // waiting on you vs. following logic 
-                var urls : [NSURL]
-                if vyncs[index!].waitingOnYou {
-                    urls = vyncs[index!].waitingVideoUrls()
+            if let index = self.vyncTable.indexPathForRowAtPoint(sender.view!.center)?.row as Int! {
+                if index == self.lastPlayed {
+                    self.videoPlayer?.player.play()
+                    self.videoPlayer!.view.addGestureRecognizer(sender)
+                    if self.presentedViewController == nil {
+                        self.presentViewController(self.videoPlayer!, animated: false, completion:nil)
+                    }
+                } else {
+                    vyncs[index].unwatched = false
+                    self.lastPlayed = index
+                    // waiting on you vs. following logic 
+                    var urls : [NSURL]
+                    if vyncs[index].waitingOnYou {
+                        urls = vyncs[index].waitingVideoUrls()
+                    }
+                    else {
+                        urls = vyncs[index].videoUrls()
+                    }
+                    self.videoPlayer = QueueLoopVideoPlayer()
+                    self.videoPlayer!.view.addGestureRecognizer(sender)
+                    self.videoPlayer!.videoList = urls
+                    self.videoPlayer!.playVideos()
+                    if self.presentedViewController == nil {
+                        self.presentViewController(self.videoPlayer!, animated: false, completion:nil)
+                    }
                 }
-                else {
-                    urls = vyncs[index!].videoUrls()
-                }
-                self.videoPlayer = QueueLoopVideoPlayer()
-                self.videoPlayer!.view.addGestureRecognizer(sender)
-                self.videoPlayer!.videoList = urls
-                self.videoPlayer!.playVideos()
-                self.presentViewController(self.videoPlayer!, animated: false, completion:nil)
             }
         }
         if sender.state == .Ended {
-            println("Dismissing PlayerLayer")
             self.videoPlayer?.stop()
             self.view.addGestureRecognizer(sender)
             self.vyncTable.reloadData()
@@ -278,7 +287,8 @@ class VyncListViewController: UIViewController, UITableViewDelegate, UITableView
             println("vid.id \(vid.id), vid.replytoid \(vid.replyToId) vid.createdAt \(vid.createdAt)")
         }
         for vync in self.vyncs {
-            println("vync \(vync.waitingOnYou)")
+            println("vync \(vync.messages.map({msg in msg.id}))")
+            println("vync is unwatched=\(vync.unwatched)")
         }
         
         vyncTable.reloadData()
