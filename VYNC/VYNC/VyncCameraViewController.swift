@@ -15,6 +15,7 @@ class VyncCameraViewController: UIViewController, AVCaptureFileOutputRecordingDe
     let captureSession = AVCaptureSession()
     var captureDevice : AVCaptureDevice!
     var selfieCaptureDevice : AVCaptureDevice!
+    var audioCaptureDevice : AVCaptureDevice!
     var previewLayer : AVCaptureVideoPreviewLayer!
     var captureMovieFileOutput: AVCaptureMovieFileOutput? = nil;
     var videoConnection : AVCaptureConnection!
@@ -45,14 +46,17 @@ class VyncCameraViewController: UIViewController, AVCaptureFileOutputRecordingDe
         // Loop through all the capture devices on this phone
         for device in devices {
             // Make sure this particular device supports video
-            if (device.hasMediaType(AVMediaTypeVideo)) {
+            if device.hasMediaType(AVMediaTypeVideo) {
                 // Finally check the position and confirm we've got the back camera
-                if(device.position == AVCaptureDevicePosition.Back) {
+                if device.position == AVCaptureDevicePosition.Back  {
                     captureDevice = device as? AVCaptureDevice
                 }
-                if(device.position == AVCaptureDevicePosition.Front){
+                if device.position == AVCaptureDevicePosition.Front {
                     selfieCaptureDevice = device as? AVCaptureDevice
                 }
+            }
+            else if device.hasMediaType(AVMediaTypeAudio){
+                audioCaptureDevice = device as? AVCaptureDevice
             }
         }
         captureSession.sessionPreset = AVCaptureSessionPresetHigh
@@ -60,7 +64,6 @@ class VyncCameraViewController: UIViewController, AVCaptureFileOutputRecordingDe
         captureMovieFileOutput?.maxRecordedDuration = CMTimeMakeWithSeconds(6, 600)
         captureSession.addOutput(captureMovieFileOutput)
         videoConnection = captureMovieFileOutput?.connectionWithMediaType(AVMediaTypeVideo)
-        //        videoConnection.videoOrientation = AVCaptureVideoOrientation.Portrait
     }
     
     override func shouldAutorotate() -> Bool {
@@ -153,7 +156,7 @@ class VyncCameraViewController: UIViewController, AVCaptureFileOutputRecordingDe
     func beginSession() {
         var err : NSError? = nil
         captureSession.addInput(AVCaptureDeviceInput(device: captureDevice, error: &err))
-        
+        captureSession.addInput(AVCaptureDeviceInput(device: audioCaptureDevice, error: &err))
         let tap = UITapGestureRecognizer(target:self, action:"onTap:")
         self.view.addGestureRecognizer(tap)
         if err != nil {
