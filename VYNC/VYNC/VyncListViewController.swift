@@ -175,6 +175,7 @@ class VyncListViewController: UIViewController, UITableViewDelegate, UITableView
                         self.presentViewController(self.videoPlayer!, animated: false, completion:nil)
                     }
                 } else {
+                    self.videoPlayer = nil
                     vyncs[index].unwatched = false
                     self.lastPlayed = index
                     // waiting on you vs. following logic 

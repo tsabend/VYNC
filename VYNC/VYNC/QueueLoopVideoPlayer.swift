@@ -13,15 +13,12 @@ import AVKit
 
 class QueueLoopVideoPlayer : AVPlayerViewController {
     var videoList : [NSURL] = []
-    var touchUp : UILongPressGestureRecognizer?
     var timer = UILabel(frame: CGRectMake(30, 30, 60, 60))
     var currentItemDuration = 0
     
     override func viewDidLoad() {
         videoGravity = AVLayerVideoGravityResizeAspectFill
         showsPlaybackControls = false
-        let press = UILongPressGestureRecognizer(target: self, action: "end:")
-        self.view.addGestureRecognizer(press)
         let color = UIColor(netHex:0x73A1FF)
         let font = UIFont(name: "Egypt 22", size: 60)
         self.timer.font = font
@@ -51,7 +48,6 @@ class QueueLoopVideoPlayer : AVPlayerViewController {
                 let t2 = Int(CMTimeGetSeconds(self.player!.currentTime()))
                 self.timer.text = "\(self.currentItemDuration - t2)"
         })
-        
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "repeat:", name: "AVPlayerItemDidPlayToEndTimeNotification", object: nil)
         self.player.play()    
     }
@@ -69,6 +65,7 @@ class QueueLoopVideoPlayer : AVPlayerViewController {
             let first = player.items().first! as AVPlayerItem
             let duration = Int(round(CMTimeGetSeconds(first.duration)))
             self.currentItemDuration = duration
+            println("durationInRepeat \(duration)")
             player.insertItem(copyOfPlayerItem, afterItem: nil)
         }
     }
