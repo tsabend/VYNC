@@ -105,6 +105,7 @@ class Syncer<T: NSManagedObject> {
                         if video.replyToId == 0 {
                             video.replyToId = params[2].toInt()
                         }
+                        println("Video Synced")
                         self.save()
                     } else {
                         println("API error ",str)

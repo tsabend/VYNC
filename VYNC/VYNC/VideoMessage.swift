@@ -16,18 +16,19 @@ func remDupeInts(a:[Int]) -> [Int] {
 class VideoMessage: NSManagedObject {
     
     class var syncer : Syncer<VideoMessage> {
-        return Syncer<VideoMessage>(url: "http://192.168.0.6:9393/users/\(myFacebookId())/videos")
+        return Syncer<VideoMessage>(url: host + "/users/\(myFacebookId())/videos")
     }
     
     @NSManaged var id: NSNumber?
     @NSManaged var title: String?
     @NSManaged var createdAt: String?
     @NSManaged var videoId: String?
-    
     @NSManaged var senderId: NSNumber?
     @NSManaged var recipientId: NSNumber?
     @NSManaged var replyToId: NSNumber?
-        
+    // 0 for unwatched, 1 for watched
+    @NSManaged var watched: NSNumber?
+    
     class func asVyncs()->[Vync]{
         // TODO: Make this code better! (Long term: use nsmanagedrelationship)
         let allVideos = self.syncer.all().sortBy("id", ascending: false).exec()!
@@ -40,7 +41,13 @@ class VideoMessage: NSManagedObject {
         }
         var vyncs = [Vync]()
         for id in uniqReplyTos {
-            let messages = VideoMessage.syncer.all().filter("replyToId == %@", args: id).sortBy("id", ascending: false).exec()!
+            var messages = VideoMessage.syncer.all().filter("replyToId == %@", args: id).sortBy("id", ascending: false).exec()!
+            // Deal with videos that haven't yet been uploaded
+            if messages.last!.id == 0 {
+                let lastMessage = messages.last
+                messages.removeLast()
+                messages.insert(lastMessage!, atIndex: 0)
+            }
             let newVync = Vync(messages: messages)
             vyncs.append(newVync)
         }
@@ -52,11 +59,7 @@ class VideoMessage: NSManagedObject {
 
         return vyncs
     }
-    
-    func saveVid(){
-    
-    }
-    
+
     class func saveNewVids() {
         let priority = DISPATCH_QUEUE_PRIORITY_DEFAULT
         dispatch_async(dispatch_get_global_queue(priority, 0)) {
@@ -73,7 +76,6 @@ class VideoMessage: NSManagedObject {
                     let data = NSData(contentsOfURL: cloudUrl)
                     data?.writeToFile(localUrlString, atomically: true)
                 } else {
-                    println(localData?.length)
                     println("already there")
                 }
             }

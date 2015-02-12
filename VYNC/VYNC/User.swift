@@ -12,7 +12,7 @@ import CoreData
 class User: NSManagedObject {
     
     class var syncer : Syncer<User> {
-        return Syncer<User>(url: "http://192.168.0.6:9393/users")
+        return Syncer<User>(url: host + "/users")
     }
     
     

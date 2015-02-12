@@ -19,9 +19,15 @@ let path = NSBundle.mainBundle().pathForResource("IMG_0370", ofType:"MOV")
 let standin = NSURL.fileURLWithPath(path!) as NSURL!
 let s3Url = "https://s3-us-west-2.amazonaws.com/telephono/"
 
+let screenSize = UIScreen.mainScreen().bounds
+
 let docFolderToSaveFiles = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as String
 let fileName = "/videoToSend.MOV"
 let pathToFile = docFolderToSaveFiles + fileName
+
+let host = "https://vync-api.herokuapp.com"
+//"http://10.0.2.77:9393"
+// "http://192.168.0.6:9393"
 
 
 var db : NSManagedObjectContext? = {
