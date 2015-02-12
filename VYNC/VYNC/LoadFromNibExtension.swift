@@ -19,7 +19,6 @@ extension UIView {
     
     
     class func loadFromNib() -> UIView? {
-        println("loading nib")
         return self.loadFromNib(named: getName(self))
     }
     

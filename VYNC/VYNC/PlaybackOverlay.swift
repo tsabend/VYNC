@@ -58,14 +58,13 @@ class VyncCameraPlaybackLayer: UIView {
         if let playerItem = notification.object as? AVPlayerItem {
             let asset = playerItem.asset
             let copyOfPlayerItem = AVPlayerItem(asset: asset)
-            let player = self.playerLayer.player as AVQueuePlayer
+            let player = self.playerLayer.player as! AVQueuePlayer
             player.insertItem(copyOfPlayerItem, afterItem: nil)
             
         }
     }
     
     deinit {
-        println("overlay deinit")
         self.playerLayer.player = nil;
         self.playerLayer.removeFromSuperlayer()
         NSNotificationCenter.defaultCenter().removeObserver(self, name: "AVPlayerItemDidPlayToEndTimeNotification", object: nil)

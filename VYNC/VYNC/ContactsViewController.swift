@@ -102,12 +102,12 @@ class ContactsViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     //MARK: - UISearchBarDelegate
-    func searchDisplayController(controller: UISearchDisplayController!, shouldReloadTableForSearchString searchString: String!) -> Bool {
+    func searchDisplayController(controller: UISearchDisplayController, shouldReloadTableForSearchString searchString: String!) -> Bool {
         self.filterContentForSearchText(searchString.lowercaseString)
         return true
     }
     
-    func searchDisplayController(controller: UISearchDisplayController!,
+    func searchDisplayController(controller: UISearchDisplayController,
         shouldReloadTableForSearchScope searchOption: Int) -> Bool {
             self.filterContentForSearchText(self.searchDisplayController!.searchBar.text.lowercaseString)
             return true

@@ -11,7 +11,6 @@ import CoreData
 
 class Vync {
     var messages : [VideoMessage]
-    var unwatched: Bool = true
     var notUploaded: Bool {
         get {
             return self.messages.first!.id == 0
@@ -20,6 +19,15 @@ class Vync {
     var waitingOnYou: Bool {
         get {
             return myUserId() == self.messages.first!.recipientId
+        }
+    }
+    
+    var unwatched: Bool {
+        get {
+            return self.messages.first!.watched == 0
+        }
+        set {
+            self.messages.first!.watched = 1
         }
     }
     
@@ -46,7 +54,7 @@ class Vync {
 
     func replyToId()->Int {
         if let first = self.messages.last {
-            return first.replyToId as Int
+            return first.replyToId as! Int
         } else {
             return 0
         }
@@ -54,7 +62,9 @@ class Vync {
     
     func mostRecent()->String{
         let formatter = NSDateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss 'UTC'"
+        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
+//        This format is for local sinatra db. above is for heroku. Thanks pg. :(
+//        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss 'UTC'"
         if let createdAt = messages.first?.createdAt {
             if let date = formatter.dateFromString(createdAt) as NSDate! {
                 return "\(date.mediumDateString)"
@@ -83,7 +93,7 @@ class Vync {
     func usersList()->[String]{
         return self.messages.map({
             message in
-            self.findUsername(message.senderId as Int)
+            self.findUsername(message.senderId as! Int)
         })
     }
     
