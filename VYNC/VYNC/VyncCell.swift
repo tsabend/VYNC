@@ -27,14 +27,13 @@ class VyncCell: UITableViewCell, UIGestureRecognizerDelegate {
         lengthLabel.layer.masksToBounds = true
         let corner = lengthLabel.layer.frame.width / 2
         lengthLabel.layer.cornerRadius = corner
-        println("corner=\(lengthLabel.layer.frame)")
     }
     
     func selectCellAnimation() {
         if self.isMoving == false {
             self.isMoving = true
             UIView.animateWithDuration(0.33, delay:0, options: .CurveEaseIn, animations:{
-                self.titleLabel.transform = CGAffineTransformMakeTranslation(0, -6)
+                self.titleLabel.transform = CGAffineTransformMakeTranslation(0, -10)
                 self.contentView.layoutIfNeeded()
                 }, completion:
                 { finished in
