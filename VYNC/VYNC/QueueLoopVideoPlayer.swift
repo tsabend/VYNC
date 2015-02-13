@@ -71,7 +71,7 @@ class QueueLoopVideoPlayer : AVPlayerViewController {
             let second = player.items()[1] as! AVPlayerItem
             let duration = Int(round(CMTimeGetSeconds(second.duration)))
             self.currentItemDuration = duration
-
+            println("ITEMS: \(player.items()), Size=\(player.items().count)")
         }
     }
 

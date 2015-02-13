@@ -18,7 +18,23 @@ class Vync {
     }
     var waitingOnYou: Bool {
         get {
-            return myUserId() == self.messages.first!.recipientId
+            if let mostRecentRecipient = self.messages.first {
+                return myUserId() == mostRecentRecipient.recipientId
+            } else {
+                return false
+            }
+            
+        }
+    }
+    
+    var isSaved: Bool {
+        let localUrlString = docFolderToSaveFiles + "/" + self.messages.first!.videoId!
+        let localUrl = NSURL(fileURLWithPath: localUrlString) as NSURL!
+        let localData = NSData(contentsOfURL: localUrl)
+        if localData?.length != nil {
+            return true
+        } else {
+            return false
         }
     }
     

@@ -32,21 +32,25 @@ class VideoMessage: NSManagedObject {
     class func asVyncs()->[Vync]{
         // TODO: Make this code better! (Long term: use nsmanagedrelationship)
         let allVideos = self.syncer.all().sortBy("id", ascending: false).exec()!
-        let ids = allVideos.map({video in video.id as! Int})
         let replyTos = allVideos.map({video in video.replyToId as! Int})
         var uniqReplyTos = remDupeInts(replyTos)
+        uniqReplyTos.sort({$0 > $1})
         // remove id 0 to deal with it separately.
         if uniqReplyTos.last == 0 {
             uniqReplyTos.removeLast()
         }
         var vyncs = [Vync]()
+        let zeros = VideoMessage.syncer.all().filter("replyToId == %@", args: 0).sortBy("id", ascending: false).exec()!
+        println("urTos \(uniqReplyTos), zeroes=\(zeros)")
         for id in uniqReplyTos {
             var messages = VideoMessage.syncer.all().filter("replyToId == %@", args: id).sortBy("id", ascending: false).exec()!
             // Deal with videos that haven't yet been uploaded
-            if messages.last!.id == 0 {
-                let lastMessage = messages.last
-                messages.removeLast()
-                messages.insert(lastMessage!, atIndex: 0)
+            if let lastMessage = messages.last as VideoMessage! {
+                if lastMessage.id == 0 {
+                    let lastMessage = messages.last
+                    messages.removeLast()
+                    messages.insert(lastMessage!, atIndex: 0)
+                }
             }
             let newVync = Vync(messages: messages)
             vyncs.append(newVync)

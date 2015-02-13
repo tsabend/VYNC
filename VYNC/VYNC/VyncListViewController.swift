@@ -74,10 +74,8 @@ class VyncListViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     // Set the properties of cells
-    
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("VyncCell", forIndexPath: indexPath) as! VyncCell
-
         addGesturesToCell(cell)
        //        Set Title and Length Labels
         let date = vyncs[indexPath.row].mostRecent()
@@ -103,12 +101,17 @@ class VyncListViewController: UIViewController, UITableViewDelegate, UITableView
             cell.backgroundColor = UIColor.whiteColor()
         }
         
-        // Not yet uploaded vyncs get special background color
+        // Not yet uploaded vyncs/Not yet saved vyncs get special background color
         if vyncs[indexPath.row].notUploaded {
             cell.contentView.layer.borderWidth = 0.5
             cell.contentView.layer.borderColor = UIColor.redColor().CGColor
             cell.lengthLabel.layer.borderWidth = 2.0
             cell.lengthLabel.layer.borderColor = UIColor.redColor().CGColor
+        } else if vyncs[indexPath.row].isSaved == false {
+            cell.contentView.layer.borderWidth = 0.5
+            cell.contentView.layer.borderColor = UIColor.orangeColor().CGColor
+            cell.lengthLabel.layer.borderWidth = 2.0
+            cell.lengthLabel.layer.borderColor = UIColor.orangeColor().CGColor
         } else {
             cell.contentView.layer.borderWidth = 0.0
             cell.lengthLabel.layer.borderWidth = 0.0
@@ -168,31 +171,33 @@ class VyncListViewController: UIViewController, UITableViewDelegate, UITableView
     @IBAction func holdToPlayVideos(sender: UILongPressGestureRecognizer) {
         if sender.state == .Began {
             if let index = self.vyncTable.indexPathForRowAtPoint(sender.view!.center)?.row as Int! {
-                if index == self.lastPlayed {
-                    self.videoPlayer?.continuePlay()
-                    self.videoPlayer!.view.addGestureRecognizer(sender)
-                    if self.presentedViewController == nil {
-                        self.presentViewController(self.videoPlayer!, animated: false, completion:nil)
-                    }
-                } else {
-                    self.videoPlayer?.player = nil
-                    self.videoPlayer = nil
-                    vyncs[index].unwatched = false
-                    self.lastPlayed = index
-                    // waiting on you vs. following logic 
-                    var urls : [NSURL]
-                    if vyncs[index].waitingOnYou {
-                        urls = vyncs[index].waitingVideoUrls()
-                    }
-                    else {
-                        urls = vyncs[index].videoUrls()
-                    }
-                    self.videoPlayer = QueueLoopVideoPlayer()
-                    self.videoPlayer!.view.addGestureRecognizer(sender)
-                    self.videoPlayer!.videoList = urls
-                    self.videoPlayer!.playVideos()
-                    if self.presentedViewController == nil {
-                        self.presentViewController(self.videoPlayer!, animated: false, completion:nil)
+                if vyncs[index].isSaved {
+                    if index == self.lastPlayed {
+                        self.videoPlayer?.continuePlay()
+                        self.videoPlayer!.view.addGestureRecognizer(sender)
+                        if self.presentedViewController == nil {
+                            self.presentViewController(self.videoPlayer!, animated: false, completion:nil)
+                        }
+                    } else {
+                        self.videoPlayer?.player = nil
+                        self.videoPlayer = nil
+                        vyncs[index].unwatched = false
+                        self.lastPlayed = index
+                        // waiting on you vs. following logic 
+                        var urls : [NSURL]
+                        if vyncs[index].waitingOnYou {
+                            urls = vyncs[index].waitingVideoUrls()
+                        }
+                        else {
+                            urls = vyncs[index].videoUrls()
+                        }
+                        self.videoPlayer = QueueLoopVideoPlayer()
+                        self.videoPlayer!.view.addGestureRecognizer(sender)
+                        self.videoPlayer!.videoList = urls
+                        self.videoPlayer!.playVideos()
+                        if self.presentedViewController == nil {
+                            self.presentViewController(self.videoPlayer!, animated: false, completion:nil)
+                        }
                     }
                 }
             }

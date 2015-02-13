@@ -26,6 +26,7 @@
 		4899A1C21A705A6D005D3BE0 /* envelope.png in Resources */ = {isa = PBXBuildFile; fileRef = 4899A1C01A705A6D005D3BE0 /* envelope.png */; };
 		4899A1C31A705A6D005D3BE0 /* vynclogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 4899A1C11A705A6D005D3BE0 /* vynclogo.png */; };
 		489A9A061A8CFBA000902CC9 /* MyStatsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 489A9A051A8CFBA000902CC9 /* MyStatsViewController.swift */; };
+		489A9A081A8D2B6B00902CC9 /* VYNC.mov in Resources */ = {isa = PBXBuildFile; fileRef = 489A9A071A8D2B6B00902CC9 /* VYNC.mov */; };
 		48A361041A7FBD380023D6DC /* AF+Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48A361031A7FBD380023D6DC /* AF+Date+Extension.swift */; };
 		48A4DE781A7A5FC8000087A2 /* AR.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48A4DE771A7A5FC8000087A2 /* AR.swift */; };
 		48A4DE7A1A7A600C000087A2 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48A4DE791A7A600C000087A2 /* User.swift */; };
@@ -79,6 +80,7 @@
 		4899A1C01A705A6D005D3BE0 /* envelope.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = envelope.png; sourceTree = "<group>"; };
 		4899A1C11A705A6D005D3BE0 /* vynclogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = vynclogo.png; sourceTree = "<group>"; };
 		489A9A051A8CFBA000902CC9 /* MyStatsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyStatsViewController.swift; sourceTree = "<group>"; };
+		489A9A071A8D2B6B00902CC9 /* VYNC.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = VYNC.mov; sourceTree = "<group>"; };
 		48A361031A7FBD380023D6DC /* AF+Date+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AF+Date+Extension.swift"; sourceTree = "<group>"; };
 		48A4DE771A7A5FC8000087A2 /* AR.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AR.swift; sourceTree = "<group>"; };
 		48A4DE791A7A600C000087A2 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -253,6 +255,7 @@
 		4899A1BF1A705A6D005D3BE0 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				489A9A071A8D2B6B00902CC9 /* VYNC.mov */,
 				48883BAF1A72967F0024F2DA /* camera-rotate.png */,
 				48883BAD1A7224A50024F2DA /* IMG_0370.MOV */,
 				4899A1C01A705A6D005D3BE0 /* envelope.png */,
@@ -343,6 +346,7 @@
 			files = (
 				48883BAE1A7224A50024F2DA /* IMG_0370.MOV in Resources */,
 				48883BB01A72967F0024F2DA /* camera-rotate.png in Resources */,
+				489A9A081A8D2B6B00902CC9 /* VYNC.mov in Resources */,
 				4899A1C31A705A6D005D3BE0 /* vynclogo.png in Resources */,
 				48BAECDD1A7829F8005CC762 /* VyncCameraPlaybackLayer.xib in Resources */,
 				481AF2591A705B630018B887 /* Egypt22.ttf in Resources */,
