@@ -66,7 +66,7 @@ class ContactsViewController: UIViewController, UITableViewDelegate, UITableView
         data?.writeToFile(newFilePath, atomically: true)
         
         if self.replyToId != 0 {
-            // TODO: Vync needs CData backing. This should be a simpler query
+            println("making a reply \(replyToId)")
             let vyncToUpdate = VideoMessage.asVyncs().filter({vync in vync.replyToId() == self.replyToId})[0]
 
             var newMessage = VideoMessage.syncer.newObj()
