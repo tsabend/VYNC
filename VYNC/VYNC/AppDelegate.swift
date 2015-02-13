@@ -21,11 +21,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         if signedUp() == false {
             self.window = UIWindow()
+            self.window?.frame = UIScreen.mainScreen().bounds
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             let rootVc = storyboard.instantiateViewControllerWithIdentifier("Login") as! UIViewController
             self.window?.rootViewController = rootVc
             self.window?.makeKeyAndVisible()
-            self.window?.frame = UIScreen.mainScreen().bounds
+
         }
         return true
     }

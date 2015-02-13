@@ -15,7 +15,7 @@ import CoreData
 // DECLARE SOME GLOBAL VARS
 
 //let standin = "https://s3-us-west-2.amazonaws.com/telephono/IMG_0370.MOV"
-let path = NSBundle.mainBundle().pathForResource("IMG_0370", ofType:"MOV")
+let path = NSBundle.mainBundle().pathForResource("VYNC", ofType:"mov")
 let standin = NSURL.fileURLWithPath(path!) as NSURL!
 let s3Url = "https://s3-us-west-2.amazonaws.com/telephono/"
 
@@ -25,10 +25,9 @@ let docFolderToSaveFiles = NSSearchPathForDirectoriesInDomains(.DocumentDirector
 let fileName = "/videoToSend.MOV"
 let pathToFile = docFolderToSaveFiles + fileName
 
-let host = "http://192.168.0.6:9393" //"https://vync-api.herokuapp.com"
+let host = "https://vync-api.herokuapp.com" //"http://192.168.0.6:9393"
 //"http://10.0.2.77:9393"
 // "http://192.168.0.6:9393"
-
 
 var db : NSManagedObjectContext? = {
     let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate

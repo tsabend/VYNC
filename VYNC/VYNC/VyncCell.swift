@@ -25,7 +25,9 @@ class VyncCell: UITableViewCell, UIGestureRecognizerDelegate {
         // Initialization code
         self.selectionStyle = UITableViewCellSelectionStyle.None
         lengthLabel.layer.masksToBounds = true
-        lengthLabel.layer.cornerRadius = 12.5
+        let corner = lengthLabel.layer.frame.width / 2
+        lengthLabel.layer.cornerRadius = corner
+        println("corner=\(lengthLabel.layer.frame)")
     }
     
     func selectCellAnimation() {

@@ -46,6 +46,7 @@ class LoginViewController : UIViewController, FBLoginViewDelegate {
     }
     
     func loginViewShowingLoggedOutUser(loginView : FBLoginView!) {
+        println(UIScreen.mainScreen().bounds)
         println("User Logged Out")
     }
     
