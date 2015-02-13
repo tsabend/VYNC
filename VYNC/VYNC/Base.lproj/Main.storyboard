@@ -240,7 +240,7 @@
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="V" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KBi-R6-8Fo">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="V" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KBi-R6-8Fo">
                                             <rect key="frame" x="1" y="14" width="41" height="42"/>
                                             <fontDescription key="fontDescription" name="Egypt22" family="Egypt 22" pointSize="50"/>
                                             <nil key="highlightedColor"/>
@@ -326,13 +326,13 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="VYNC" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NAu-P5-pd9">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="VYNC" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NAu-P5-pd9">
                                 <rect key="frame" x="41" y="97" width="239" height="79"/>
                                 <fontDescription key="fontDescription" name="Egypt22" family="Egypt 22" pointSize="79"/>
                                 <color key="textColor" red="0.45098039220000002" green="0.63137254899999995" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mD9-yz-ohL" customClass="FBLoginView">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mD9-yz-ohL" customClass="FBLoginView">
                                 <rect key="frame" x="60" y="257" width="200" height="54"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -408,7 +408,7 @@
                                     <action selector="stopRecording:" destination="hqV-3T-Vx2" eventType="touchUpInside" id="2qb-CM-l03"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bq0-pP-Gxq">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bq0-pP-Gxq">
                                 <rect key="frame" x="16" y="30" width="30" height="48"/>
                                 <fontDescription key="fontDescription" name="flaticon" family="flaticon" pointSize="36"/>
                                 <state key="normal">
@@ -418,7 +418,7 @@
                                     <action selector="autoFlash:" destination="hqV-3T-Vx2" eventType="touchUpInside" id="gS5-Xq-MHp"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lG1-yh-0yR">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lG1-yh-0yR">
                                 <rect key="frame" x="274" y="30" width="30" height="48"/>
                                 <fontDescription key="fontDescription" name="flaticon" family="flaticon" pointSize="36"/>
                                 <state key="normal">
