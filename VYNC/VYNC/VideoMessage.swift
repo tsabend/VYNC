@@ -40,8 +40,6 @@ class VideoMessage: NSManagedObject {
             uniqReplyTos.removeLast()
         }
         var vyncs = [Vync]()
-        let zeros = VideoMessage.syncer.all().filter("replyToId == %@", args: 0).sortBy("id", ascending: false).exec()!
-        println("urTos \(uniqReplyTos), zeroes=\(zeros)")
         for id in uniqReplyTos {
             var messages = VideoMessage.syncer.all().filter("replyToId == %@", args: id).sortBy("id", ascending: false).exec()!
             // Deal with videos that haven't yet been uploaded

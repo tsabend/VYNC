@@ -22,24 +22,23 @@ class VyncListViewController: UIViewController, UITableViewDelegate, UITableView
     var videoPlayer : QueueLoopVideoPlayer?
     var lastPlayed : Int? = nil
 
+    @IBOutlet weak var showStatsButton: UIBarButtonItem!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib
-
+        // Set the font of nav bar title
         let color = UIColor(netHex:0x73A1FF)
         let font = [NSFontAttributeName: UIFont(name: "Egypt 22", size: 50)!, NSForegroundColorAttributeName: color]
         self.navigationController!.navigationBar.titleTextAttributes = font
-        
-        let rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Camera, target: self, action: "showCam")
-        self.navigationItem.rightBarButtonItem = rightBarButtonItem
-        
-        
-//        let leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Refresh, target: self, action: "updateView")
-//        self.navigationItem.leftBarButtonItem = leftBarButtonItem
-        
+       // Set the font of nav bar item
+        let buttonColor = UIColor(netHex:0x7FF2FF)
+        let buttonFont = [NSFontAttributeName: UIFont(name: "flaticon", size: 28)!, NSForegroundColorAttributeName: buttonColor]
+        showStatsButton.setTitleTextAttributes(buttonFont, forState: .Normal)
+        showStatsButton.title = "\u{e005}"
+
+        // Add pull to refresh
         self.refreshControl = UIRefreshControl()
-        self.refreshControl.attributedTitle = NSAttributedString(string: "Pull to refersh")
+        self.refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
         self.refreshControl.addTarget(self, action: "reloadVyncs", forControlEvents: UIControlEvents.ValueChanged)
         self.refreshControl.layer.zPosition = -1
         self.vyncTable.addSubview(refreshControl)
@@ -221,7 +220,6 @@ class VyncListViewController: UIViewController, UITableViewDelegate, UITableView
     
     func doubleTapCell(sender:UITapGestureRecognizer){
         let indexPath:NSIndexPath = self.vyncTable.indexPathForRowAtPoint(sender.view!.center)!
-        println(indexPath)
         if let cell = vyncTable.cellForRowAtIndexPath(indexPath) as? VyncCell {
             if cell.isFlipped {
                 let view = self.view.viewWithTag(19)
@@ -239,20 +237,17 @@ class VyncListViewController: UIViewController, UITableViewDelegate, UITableView
                 let view = UIView(frame:CGRect(x: 0, y: 0, width: viewWidth, height: viewHeight))
                 let label = UILabel()
                 label.frame = view.frame
-                
                 if vyncs[indexPath.row].waitingOnYou {
-                    let labelText = ", ".join(vyncs[indexPath.row].usersList())
-                    label.text = "Forward to see who is on this VYNC"
+                    label.text = " Forward to see who is on this VYNC"
                     
                 } else {
                     let labelText = ", ".join(vyncs[indexPath.row].usersList())
-                    label.text = "Users on this Vync: \(labelText)"
+                    label.text = " Users: \(labelText)"
 
                 }
 
                 view.addSubview(label)
                 view.tag = 19
-                println("cell: \(cell) contentView: \(cell.contentView), view: \(view)")
                 cell.isFlipped = true
                 UIView.transitionFromView(
                     cell.contentView,
