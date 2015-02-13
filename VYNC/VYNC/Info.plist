@@ -37,6 +37,7 @@
 	<key>UIAppFonts</key>
 	<array>
 		<string>Egpyt22.ttf</string>
+		<string>flaticon.ttf</string>
 	</array>
 	<key>UISupportedInterfaceOrientations~ipad</key>
 	<array>
