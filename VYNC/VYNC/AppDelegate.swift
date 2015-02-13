@@ -23,7 +23,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         FBLoginView.self
         FBProfilePictureView.self
         // Override point for customization after application launch.
-
+        // Push notification settings being set and request from user being fired
+        var types: UIUserNotificationType = UIUserNotificationType.Badge | UIUserNotificationType.Alert | UIUserNotificationType.Sound
+        var settings: UIUserNotificationSettings = UIUserNotificationSettings( forTypes: types, categories: nil )
+        application.registerUserNotificationSettings(settings)
+        application.registerForRemoteNotifications()
+        
+        
+        
         if signedUp() == false {
             self.window = UIWindow()
             self.window?.frame = UIScreen.mainScreen().bounds
@@ -33,12 +40,33 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             self.window?.makeKeyAndVisible()
 
         }
+
         return true
     }
 
     func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject?) -> Bool {
         var wasHandled:Bool = FBAppCall.handleOpenURL(url, sourceApplication: sourceApplication as String!)
         return wasHandled
+    }
+    
+    //  func application(application: UIApplication, didRegisterUserNotificationSettings notificationSettings: UIUserNotificationSettings) {
+    //      println("in note set")
+    //      UIApplication.sharedApplication().registerForRemoteNotifications()
+    //  }
+    
+    func application(application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData) {
+        var characterSet: NSCharacterSet = NSCharacterSet( charactersInString: "<>" )
+                var deviceTokenString: String = ( deviceToken.description as NSString )
+                    .stringByTrimmingCharactersInSet( characterSet )
+                    .stringByReplacingOccurrencesOfString( " ", withString: "" ) as String
+                    println("in notification accept")
+                    var deviceToken = deviceTokenString
+                    println(deviceToken)
+    }
+    func application(application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: NSError) {
+        println("notification error")
+        println( error.localizedDescription )
+
     }
     
     func applicationWillResignActive(application: UIApplication) {
