@@ -1,10 +1,15 @@
-//
+ //
 //  AppDelegate.swift
 //  VYNC
 //
 //  Created by Thomas Abend on 1/18/15.
 //  Copyright (c) 2015 Thomas Abend. All rights reserved.
 //
+//  Attributions
+//  Icon made by http://www.freepik.com from www.flaticon.com is licensed under Creative Commons BY 3.0
+//  Icon made by http://www.google.com from www.flaticon.com is licensed under Creative Commons BY 3.0
+//  Egypt 22 font by Ivan Kostynyk: https://www.behance.net/ivankostynyk
+
 
 import UIKit
 import CoreData

@@ -204,8 +204,10 @@ class VyncCameraViewController: UIViewController, AVCaptureFileOutputRecordingDe
     
     func acceptVideo(view:VyncCameraPlaybackLayer) {
         view.removeFromSuperview()
+        self.playerLayerView = nil
         if (self.vync != nil) {
             let contactsNav = self.storyboard?.instantiateViewControllerWithIdentifier("ContactsNav") as! UINavigationController
+            // Instantiate contacts to set its replyToId property
             let contacts = contactsNav.viewControllers[0] as! ContactsViewController
             contacts.replyToId = vync.replyToId()
             self.presentViewController(contactsNav, animated: false, completion: nil)
