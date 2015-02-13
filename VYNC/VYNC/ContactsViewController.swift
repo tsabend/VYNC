@@ -76,6 +76,7 @@ class ContactsViewController: UIViewController, UITableViewDelegate, UITableView
             newMessage.recipientId = recipientId
             newMessage.senderId = myUserId()
             newMessage.title = ""
+            newMessage.saved = 1
             VideoMessage.syncer.save()
 
         } else {
@@ -87,6 +88,7 @@ class ContactsViewController: UIViewController, UITableViewDelegate, UITableView
             newMessage.recipientId = recipientId
             newMessage.senderId = myUserId()
             newMessage.title = self.vyncTitle!
+            newMessage.saved = 1
             VideoMessage.syncer.save()
         }
         VideoMessage.syncer.sync()
