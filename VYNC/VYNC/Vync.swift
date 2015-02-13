@@ -28,22 +28,16 @@ class Vync {
     }
     
     var isSaved: Bool {
-        let localUrlString = docFolderToSaveFiles + "/" + self.messages.first!.videoId!
-        let localUrl = NSURL(fileURLWithPath: localUrlString) as NSURL!
-        let localData = NSData(contentsOfURL: localUrl)
-        if localData?.length != nil {
-            return true
-        } else {
-            return false
-        }
+        return messages.filter({video in video.saved == 0}).count == 0
     }
     
     var unwatched: Bool {
         get {
-            return self.messages.first!.watched == 0
+            return self.messages.first!.watched == 0 || self.messages.first!.watched == nil
         }
         set {
             self.messages.first!.watched = 1
+            VideoMessage.syncer.save()
         }
     }
     
