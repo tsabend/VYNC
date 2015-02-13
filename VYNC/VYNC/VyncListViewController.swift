@@ -61,15 +61,19 @@ class VyncListViewController: UIViewController, UITableViewDelegate, UITableView
     
     @IBAction func reloadVyncs() {
         self.refreshControl.beginRefreshing()
-        VideoMessage.syncer.sync()
+        VideoMessage.syncer.sync() {done in
+            VideoMessage.saveNewVids() {done in
+               self.updateView()
+            }
+        }
         User.syncer.sync()
-        println(VideoMessage.syncer.all().exec()?.map({video in "reloadvyncs.replyToId \(video.replyToId!)"}))
-        println("reloading Vyncs")
-        vyncs = VideoMessage.asVyncs()
-        VideoMessage.saveNewVids()
-        vyncTable.reloadData()
-        vyncTable.setNeedsDisplay()
         self.refreshControl.endRefreshing()
+    }
+    
+    func updateView() {
+        self.vyncs = VideoMessage.asVyncs()
+        self.vyncTable.reloadData()
+        self.vyncTable.setNeedsDisplay()
     }
     
     // Set the properties of cells
@@ -171,6 +175,7 @@ class VyncListViewController: UIViewController, UITableViewDelegate, UITableView
         if sender.state == .Began {
             if let index = self.vyncTable.indexPathForRowAtPoint(sender.view!.center)?.row as Int! {
                 if vyncs[index].isSaved {
+                    println("Videos here are saved")
                     if index == self.lastPlayed {
                         self.videoPlayer?.continuePlay()
                         self.videoPlayer!.view.addGestureRecognizer(sender)
@@ -214,6 +219,12 @@ class VyncListViewController: UIViewController, UITableViewDelegate, UITableView
         let indexPath = self.vyncTable.indexPathForRowAtPoint(sender.view!.center)
         if let cell = vyncTable.cellForRowAtIndexPath(indexPath!) as? VyncCell {
             cell.selectCellAnimation()
+            
+            let index = indexPath!.row as Int
+            let v = vyncs[index]
+            for video in v.messages {
+                println("Vid.\(video.id):\n watched?\(video.watched), saved?\(video.saved)")
+            }
         }
 
     }
@@ -282,21 +293,5 @@ class VyncListViewController: UIViewController, UITableViewDelegate, UITableView
 
         self.presentViewController(camera, animated: false, completion: nil)
     }
-
-    @IBAction func updateView() {
-//        let allVids = VideoMessage.syncer.all().exec()!
-//        for vid in allVids {
-//            println("vid.id \(vid.id), vid.replytoid \(vid.replyToId) vid.createdAt \(vid.createdAt)")
-//        }
-//        for vync in self.vyncs {
-//            println("vync \(vync.messages.map({msg in msg.id}))")
-//            println("vync is unwatched=\(vync.unwatched)")
-//        }
-//        
-//        vyncTable.reloadData()
-//        vyncTable.setNeedsDisplay()
-        self.navigationController!.performSegueWithIdentifier("showStats", sender: self)
-    }
-   
-
+    
 }

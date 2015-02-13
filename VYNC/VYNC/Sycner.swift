@@ -36,9 +36,9 @@ class Syncer<T: NSManagedObject> {
     }
     
     // HTTP Functions
-    func sync() {
+    func sync(completion:(()->()) = {}) {
         uploadNew()
-        downloadNew()
+        downloadNew(completion: completion)
     }
     
     func uploadNew(){
@@ -141,7 +141,7 @@ class Syncer<T: NSManagedObject> {
         return names
     }
     
-    func downloadNew(){
+    func downloadNew(completion:(()->()) = {}){
         var since = 0
         if let newest = all().last {
             since = newest.valueForKey("id") as! Int
@@ -155,6 +155,7 @@ class Syncer<T: NSManagedObject> {
                 if response.responseObject != nil {
                     if let data = response.responseObject as? NSData {
                         self.addJSONToSql(JSONDecoder(data))
+                        completion()
                     }
                 }
         })
