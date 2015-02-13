@@ -27,6 +27,7 @@ class LoginViewController : UIViewController, FBLoginViewDelegate {
     }
     
     func loginViewFetchedUserInfo(loginView : FBLoginView!, user: FBGraphUser){
+
         let fbId = user.objectID as String
         if myUserId() == nil {
             FBRequestConnection.startForMeWithCompletionHandler{(connection, user, error) -> Void in

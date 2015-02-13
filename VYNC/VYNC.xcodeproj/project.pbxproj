@@ -310,6 +310,7 @@
 				TargetAttributes = {
 					4875B2F61A6C79760030AABD = {
 						CreatedOnToolsVersion = 6.1.1;
+						DevelopmentTeam = 7VU28Z8W3T;
 					};
 					4875B30E1A6C79760030AABD = {
 						CreatedOnToolsVersion = 6.1.1;
@@ -516,6 +517,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "Apple Development IOS Push Services: bumblebees.VYNC";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -531,6 +533,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "Apple Development IOS Push Services: bumblebees.VYNC";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",

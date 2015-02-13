@@ -24,8 +24,10 @@ let screenSize = UIScreen.mainScreen().bounds
 let docFolderToSaveFiles = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as! String
 let fileName = "/videoToSend.MOV"
 let pathToFile = docFolderToSaveFiles + fileName
-
-let host = "http://192.168.0.6:9393" //"https://vync-api.herokuapp.com"
+var deviceToken = ""
+let host = "http://127.0.0.1:9393/"
+//"http://127.0.0.1:9393/"  -- Local Pablo
+//"https://vync-api.herokuapp.com"
 //"http://10.0.2.77:9393"
 // "http://192.168.0.6:9393"
 
@@ -48,6 +50,7 @@ public func signedUp()->Bool{
 }
 
 // Fake Data
+
 
 var allUsers : [User] = User.syncer.all().exec()!
 
