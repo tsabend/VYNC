@@ -20,16 +20,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+        // Override point for customization after application launch
         FBLoginView.self
         FBProfilePictureView.self
-        // Override point for customization after application launch.
-        // Push notification settings being set and request from user being fired
-        var types: UIUserNotificationType = UIUserNotificationType.Badge | UIUserNotificationType.Alert | UIUserNotificationType.Sound
-        var settings: UIUserNotificationSettings = UIUserNotificationSettings( forTypes: types, categories: nil )
-        application.registerUserNotificationSettings(settings)
         application.registerForRemoteNotifications()
-        
-        
+        VideoMessage.syncer.sync()
+        User.syncer.sync()
         
         if signedUp() == false {
             self.window = UIWindow()
