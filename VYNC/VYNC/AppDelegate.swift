@@ -43,10 +43,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return wasHandled
     }
     
-    func application(application: UIApplication, didRegisterUserNotificationSettings notificationSettings: UIUserNotificationSettings) {
-        println("in note set")
-    UIApplication.sharedApplication().registerForRemoteNotifications()
-    }
+    //  func application(application: UIApplication, didRegisterUserNotificationSettings notificationSettings: UIUserNotificationSettings) {
+    //      println("in note set")
+    //      UIApplication.sharedApplication().registerForRemoteNotifications()
+    //  }
     
     func application(application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData) {
         var characterSet: NSCharacterSet = NSCharacterSet( charactersInString: "<>" )
