@@ -45,19 +45,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return wasHandled
     }
     
-    //  func application(application: UIApplication, didRegisterUserNotificationSettings notificationSettings: UIUserNotificationSettings) {
-    //      println("in note set")
-    //      UIApplication.sharedApplication().registerForRemoteNotifications()
-    //  }
-    
     func application(application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData) {
         var characterSet: NSCharacterSet = NSCharacterSet( charactersInString: "<>" )
-                var deviceTokenString: String = ( deviceToken.description as NSString )
-                    .stringByTrimmingCharactersInSet( characterSet )
-                    .stringByReplacingOccurrencesOfString( " ", withString: "" ) as String
-                    println("in notification accept")
-                    var deviceToken = deviceTokenString
-                    println(deviceToken)
+        var deviceToken: String = ( deviceToken.description as NSString )
+            .stringByTrimmingCharactersInSet( characterSet )
+            .stringByReplacingOccurrencesOfString( " ", withString: "" ) as String
+            println("in notification accept")
+        var request = HTTPTask()
+        request.PUT(host+"/users/" + myFacebookId(),
+            parameters: ["devicetoken": deviceToken],
+            success: {(response: HTTPResponse) in
+                if let data = response.responseObject as? NSData {
+                    let str = NSString(data: data, encoding: NSUTF8StringEncoding)
+                    println("device token saved")
+                }
+            },failure: {(error: NSError, response: HTTPResponse?) in
+                println("error: \(error)")
+            })
     }
     func application(application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: NSError) {
         println("notification error")
