@@ -26,8 +26,8 @@ let fileName = "/videoToSend.MOV"
 let pathToFile = docFolderToSaveFiles + fileName
 
 let host = "https://vync-api.herokuapp.com" //"http://192.168.0.6:9393"
-//"http://10.0.2.77:9393"
-// "http://192.168.0.6:9393"
+var deviceToken = ""
+
 
 var db : NSManagedObjectContext? = {
     let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
@@ -47,6 +47,7 @@ public func signedUp()->Bool{
 }
 
 // Fake Data
+
 
 var allUsers : [User] = User.syncer.all().exec()!
 
