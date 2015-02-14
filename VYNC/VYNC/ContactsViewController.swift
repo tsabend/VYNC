@@ -11,7 +11,7 @@ import UIKit
 
 class ContactsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UISearchBarDelegate, UISearchDisplayDelegate {
     
-    var contacts = allUsers
+    var contacts = User.syncer.all().exec()!
     var filteredUsers = [User]()
     var replyToId : Int = 0
     var vyncTitle : String?
@@ -20,8 +20,12 @@ class ContactsViewController: UIViewController, UITableViewDelegate, UITableView
     @IBOutlet weak var searchBar: UISearchBar!
     
     override func viewDidLoad() {
+        for user in contacts {
+            println("User\(user.id)\n \(user.username)\n")
+        }
         super.viewDidLoad()
         contactsList.reloadData()
+        contactsList.setNeedsDisplay()
     }
 
     
