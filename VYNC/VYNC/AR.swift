@@ -70,8 +70,13 @@ class AR<T : NSManagedObject> {
         return self
     }
     
-    func find(id:Int)->AR<T> {
-        return filter("id == %@", args: id).limit(1)
+    func find(id:Int)->T? {
+        if let query = filter("id == %@", args: id).limit(1).exec() {
+            if let first = query.first as T! {
+                return first
+            }
+        }
+        return nil
     }
     
 }

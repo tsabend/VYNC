@@ -108,8 +108,7 @@ class Vync {
     }
     
     func findUsername(userId:Int)->String{
-        println(User.syncer.all().find(userId).first)
-        if let user = User.syncer.all().find(userId).first as User! {
+        if let user = User.syncer.all().find(userId) as User! {
             return user.username
         } else {
             return "Fail :("
