@@ -67,6 +67,9 @@ class VideoMessage: NSManagedObject {
         let vids = self.syncer.all().exec()!
         // This shouldn't be necessary, but filter is not working for the saved property for some reason
         let newVids = vids.filter({video in video.saved == 0})
+        if newVids.count == 0 {
+            completion()
+        }
         for message in newVids {
             let localUrlString = docFolderToSaveFiles + "/" + message.videoId!
             let localUrl = NSURL(fileURLWithPath: localUrlString) as NSURL!

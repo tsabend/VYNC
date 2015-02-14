@@ -63,11 +63,12 @@ class VyncListViewController: UIViewController, UITableViewDelegate, UITableView
         self.refreshControl.beginRefreshing()
         VideoMessage.syncer.sync() {done in
             VideoMessage.saveNewVids() {done in
-               self.updateView()
+                self.updateView()
+                self.refreshControl.endRefreshing()
             }
         }
         User.syncer.sync()
-        self.refreshControl.endRefreshing()
+
     }
     
     func updateView() {
