@@ -26,12 +26,13 @@ class VideoMessage: NSManagedObject {
     @NSManaged var senderId: NSNumber?
     @NSManaged var recipientId: NSNumber?
     @NSManaged var replyToId: NSNumber?
-    // 0 for unwatched, 1 for watched
+    // 0 for false, 1 for true
     @NSManaged var watched: NSNumber?
+    @NSManaged var saved: NSNumber?
     
     class func asVyncs()->[Vync]{
         // TODO: Make this code better! (Long term: use nsmanagedrelationship)
-        let allVideos = self.syncer.all().sortBy("id", ascending: false).exec()!
+        let allVideos = self.syncer.all().sortBy("id", ascending: false).filter("saved == %@", args: 1).exec()!
         let replyTos = allVideos.map({video in video.replyToId as! Int})
         var uniqReplyTos = remDupeInts(replyTos)
         uniqReplyTos.sort({$0 > $1})
@@ -62,27 +63,37 @@ class VideoMessage: NSManagedObject {
         return vyncs
     }
 
-    class func saveNewVids() {
-        let priority = DISPATCH_QUEUE_PRIORITY_DEFAULT
-        dispatch_async(dispatch_get_global_queue(priority, 0)) {
-            // do some task
-            for message in self.syncer.all().exec()! {
-                let localUrlString = docFolderToSaveFiles + "/" + message.videoId!
-                let localUrl = NSURL(fileURLWithPath: localUrlString) as NSURL!
-                let cloudUrl = NSURL(string: s3Url + message.videoId!) as NSURL!
-                
-                let localData = NSData(contentsOfURL: localUrl)
-                
-                if localData?.length == nil {
-                    println("saving to core data")
+    class func saveNewVids(completion:(()->()) = {}) {
+        let vids = self.syncer.all().exec()!
+        // This shouldn't be necessary, but filter is not working for the saved property for some reason
+        let newVids = vids.filter({video in video.saved == 0})
+        if newVids.count == 0 {
+            completion()
+        }
+        for message in newVids {
+            let localUrlString = docFolderToSaveFiles + "/" + message.videoId!
+            let localUrl = NSURL(fileURLWithPath: localUrlString) as NSURL!
+            let cloudUrl = NSURL(string: s3Url + message.videoId!) as NSURL!
+            
+            let localData = NSData(contentsOfURL: localUrl)
+            if localData?.length == nil {
+                let priority = DISPATCH_QUEUE_PRIORITY_DEFAULT
+                dispatch_async(dispatch_get_global_queue(priority, 0)) {
+                    
+                    println("saving video to core data \(message.id)")
                     let data = NSData(contentsOfURL: cloudUrl)
                     data?.writeToFile(localUrlString, atomically: true)
-                } else {
-                    println("already there")
+                    message.saved = 1
+                    message.watched = 0
+                    self.syncer.save()
+                    dispatch_async(dispatch_get_main_queue()) {
+                        // update some UI using completion callback
+                        println("back on the main thread")
+                        completion()
+                    }
                 }
-            }
-            dispatch_async(dispatch_get_main_queue()) {
-                // update some UI
+            } else {
+                println("already there")
             }
         }
     }

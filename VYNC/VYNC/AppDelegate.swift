@@ -20,16 +20,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+        // Override point for customization after application launch
         FBLoginView.self
         FBProfilePictureView.self
-        // Override point for customization after application launch.
-        // Push notification settings being set and request from user being fired
-        var types: UIUserNotificationType = UIUserNotificationType.Badge | UIUserNotificationType.Alert | UIUserNotificationType.Sound
-        var settings: UIUserNotificationSettings = UIUserNotificationSettings( forTypes: types, categories: nil )
-        application.registerUserNotificationSettings(settings)
         application.registerForRemoteNotifications()
-        
-        
+        VideoMessage.syncer.sync()
+        User.syncer.sync()
         
         if signedUp() == false {
             self.window = UIWindow()
@@ -49,19 +45,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return wasHandled
     }
     
-    //  func application(application: UIApplication, didRegisterUserNotificationSettings notificationSettings: UIUserNotificationSettings) {
-    //      println("in note set")
-    //      UIApplication.sharedApplication().registerForRemoteNotifications()
-    //  }
-    
     func application(application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData) {
         var characterSet: NSCharacterSet = NSCharacterSet( charactersInString: "<>" )
-                var deviceTokenString: String = ( deviceToken.description as NSString )
-                    .stringByTrimmingCharactersInSet( characterSet )
-                    .stringByReplacingOccurrencesOfString( " ", withString: "" ) as String
-                    println("in notification accept")
-                    var deviceToken = deviceTokenString
-                    println(deviceToken)
+        var deviceToken: String = ( deviceToken.description as NSString )
+            .stringByTrimmingCharactersInSet( characterSet )
+            .stringByReplacingOccurrencesOfString( " ", withString: "" ) as String
+            println("in notification accept")
+        var request = HTTPTask()
+        request.PUT(host+"/users/" + myFacebookId(),
+            parameters: ["devicetoken": deviceToken],
+            success: {(response: HTTPResponse) in
+                if let data = response.responseObject as? NSData {
+                    let str = NSString(data: data, encoding: NSUTF8StringEncoding)
+                    println("device token saved")
+                }
+            },failure: {(error: NSError, response: HTTPResponse?) in
+                println("error: \(error)")
+            })
     }
     func application(application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: NSError) {
         println("notification error")

@@ -48,17 +48,18 @@ public func signedUp()->Bool{
 
 // Fake Data
 
-
-var allUsers : [User] = User.syncer.all().exec()!
-
 func myUserId()->Int?{
     if let me = User.syncer.all().filter("isMe == %@", args: 1).exec()!.first as User! {
-        return me.id as? Int
+        return me.id as Int
         
     } else {
         return nil
     }
     
+}
+
+func me()->User{
+    return User.syncer.all().filter("isMe == %@", args: 1).exec()!.first as User!
 }
 
 func myFacebookId()->String{

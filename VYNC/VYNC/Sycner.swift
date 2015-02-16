@@ -36,9 +36,9 @@ class Syncer<T: NSManagedObject> {
     }
     
     // HTTP Functions
-    func sync() {
+    func sync(completion:(()->()) = {}) {
         uploadNew()
-        downloadNew()
+        downloadNew(completion: completion)
     }
     
     func uploadNew(){
@@ -70,6 +70,11 @@ class Syncer<T: NSManagedObject> {
                 if let data = response.responseObject as? NSData {
                     let str = NSString(data: data, encoding: NSUTF8StringEncoding)
                     if let id = (str! as String).toInt() {
+                        // This is an edge case where the item exists on the phone already with the right id. i.e a user deletes and reinstalls the app
+                        if let exists = self.all().find(id) as T! {
+                            self.db?.deleteObject(exists)
+                            self.save()
+                        }
                         println("new id=\(id)")
                         obj.setValue(id, forKey: "id")
                         self.save()
@@ -141,7 +146,7 @@ class Syncer<T: NSManagedObject> {
         return names
     }
     
-    func downloadNew(){
+    func downloadNew(completion:(()->()) = {}){
         var since = 0
         if let newest = all().last {
             since = newest.valueForKey("id") as! Int
@@ -155,6 +160,7 @@ class Syncer<T: NSManagedObject> {
                 if response.responseObject != nil {
                     if let data = response.responseObject as? NSData {
                         self.addJSONToSql(JSONDecoder(data))
+                        completion()
                     }
                 }
         })
@@ -162,7 +168,7 @@ class Syncer<T: NSManagedObject> {
 
     func addJSONToSql(decoderArray: JSONDecoder) {
         for decoder in decoderArray.array! {
-            if all().find(decoder["id"].integer as Int!).first == nil {
+            if all().find(decoder["id"].integer as Int!) == nil {
                 createObjectFromJSON(decoder)
             }
         }

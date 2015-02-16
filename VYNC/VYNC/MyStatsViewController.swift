@@ -16,10 +16,8 @@ class MyStatsViewController : UIViewController, UITextFieldDelegate {
     @IBOutlet weak var numVyncsRecieved: UILabel!
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        if let myName = User.syncer.all().find(myUserId()!).first?.username {
-            name.text = myName
-        }
+
+        name.text = me().username
         let sent = VideoMessage.syncer.all().filter("senderId == %@", args: myUserId()!).exec()!
         let recieved = VideoMessage.syncer.all().filter("recipientId == %@", args: myUserId()!).exec()!
         numVyncsRecieved.text = "\(recieved.count)"

@@ -23,7 +23,16 @@ class LoginViewController : UIViewController, FBLoginViewDelegate {
     func loginViewShowingLoggedInUser(loginView : FBLoginView!) {
         println("User Logged In")
         let vc = self.storyboard?.instantiateViewControllerWithIdentifier("RootNavigationController") as! UINavigationController
-        presentViewController(vc, animated: true, completion: {})
+        presentViewController(vc, animated: true, completion: {
+        
+            // Push notification settings being set and request from user being fired
+            var types: UIUserNotificationType = UIUserNotificationType.Badge | UIUserNotificationType.Alert | UIUserNotificationType.Sound
+            var settings: UIUserNotificationSettings = UIUserNotificationSettings( forTypes: types, categories: nil )
+            UIApplication.sharedApplication().registerUserNotificationSettings(settings)
+            UIApplication.sharedApplication().registerForRemoteNotifications()
+
+        
+        })
     }
     
     func loginViewFetchedUserInfo(loginView : FBLoginView!, user: FBGraphUser){

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="6254" systemVersion="14B25" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="7517.1" systemVersion="14B25" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
     <entity name="User" representedClassName="VYNC.User" syncable="YES">
         <attribute name="email" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="facebookObjectId" optional="YES" attributeType="String" syncable="YES"/>
@@ -12,6 +12,7 @@
         <attribute name="id" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
         <attribute name="recipientId" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
         <attribute name="replyToId" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="saved" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
         <attribute name="senderId" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="videoId" optional="YES" attributeType="String" syncable="YES"/>
@@ -19,6 +20,6 @@
     </entity>
     <elements>
         <element name="User" positionX="-317" positionY="-1" width="128" height="120"/>
-        <element name="VideoMessage" positionX="-54" positionY="9" width="128" height="165"/>
+        <element name="VideoMessage" positionX="-54" positionY="9" width="128" height="180"/>
     </elements>
 </model>
