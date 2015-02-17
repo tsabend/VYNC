@@ -64,7 +64,7 @@ class VyncCameraViewController: UIViewController, AVCaptureFileOutputRecordingDe
                 audioCaptureDevice = device as? AVCaptureDevice
             }
         }
-        captureSession.sessionPreset = AVCaptureSessionPresetHigh
+        captureSession.sessionPreset = AVCaptureSessionPresetMedium
         captureMovieFileOutput = AVCaptureMovieFileOutput()
         captureMovieFileOutput?.maxRecordedDuration = CMTimeMakeWithSeconds(6, 600)
         captureSession.addOutput(captureMovieFileOutput)
