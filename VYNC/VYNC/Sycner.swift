@@ -151,9 +151,7 @@ class Syncer<T: NSManagedObject> {
         if let newest = all().last {
             since = newest.valueForKey("id") as! Int
         }
-        var data : NSData?
         var request = HTTPTask()
-        var deviceID = UIDevice.currentDevice().identifierForVendor.UUIDString
         request.GET(url,
             parameters: ["since" : since],
             success: { (response: HTTPResponse) in
