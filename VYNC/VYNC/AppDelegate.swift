@@ -53,7 +53,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             println("in notification accept")
         var request = HTTPTask()
         request.PUT(host+"/users/" + myFacebookId(),
-            parameters: ["devicetoken": deviceToken],
+            parameters: ["device_token": deviceToken],
             success: {(response: HTTPResponse) in
                 if let data = response.responseObject as? NSData {
                     let str = NSString(data: data, encoding: NSUTF8StringEncoding)
