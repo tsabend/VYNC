@@ -11,7 +11,7 @@ import UIKit
 
 class ContactsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UISearchBarDelegate, UISearchDisplayDelegate {
     
-    var contacts = User.syncer.all().exec()!
+    var contacts = User.syncer.all().filter("isMe == nil").exec()!
     var filteredUsers = [User]()
     var replyToId : Int = 0
     var vyncTitle : String?
