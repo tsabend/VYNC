@@ -23,10 +23,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch
         FBLoginView.self
         FBProfilePictureView.self
-        application.registerForRemoteNotifications()
-        VideoMessage.syncer.sync()
-        User.syncer.sync()
-        
         if signedUp() == false {
             self.window = UIWindow()
             self.window?.frame = UIScreen.mainScreen().bounds
@@ -35,6 +31,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             self.window?.rootViewController = rootVc
             self.window?.makeKeyAndVisible()
 
+        } else {
+            application.registerForRemoteNotifications()
+            VideoMessage.syncer.sync() {done in
+                VideoMessage.saveNewVids()
+            }
+            User.syncer.sync()
         }
 
         return true
@@ -63,10 +65,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 println("error: \(error)")
             })
     }
+    
     func application(application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: NSError) {
         println("notification error")
         println( error.localizedDescription )
 
+    }
+    
+    func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject]) {
+        println("Got notification")
+        VideoMessage.syncer.sync() {done in
+            VideoMessage.saveNewVids()
+        }
+        
     }
     
     func applicationWillResignActive(application: UIApplication) {
@@ -85,6 +96,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationDidBecomeActive(application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+        VideoMessage.syncer.sync() {done in
+            VideoMessage.saveNewVids()
+        }
     }
 
     func applicationWillTerminate(application: UIApplication) {
