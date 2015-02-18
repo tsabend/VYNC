@@ -184,6 +184,7 @@ class VyncListViewController: UIViewController, UITableViewDelegate, UITableView
                             self.presentViewController(self.videoPlayer!, animated: false, completion:nil)
                         }
                     } else {
+                        self.videoPlayer?.view.removeGestureRecognizer(sender)
                         self.videoPlayer?.player = nil
                         self.videoPlayer = nil
                         vyncs[index].unwatched = false
@@ -209,7 +210,6 @@ class VyncListViewController: UIViewController, UITableViewDelegate, UITableView
         }
         if sender.state == .Ended {
             self.videoPlayer?.stop()
-            self.view.addGestureRecognizer(sender)
             self.vyncTable.reloadData()
             self.vyncTable.setNeedsDisplay()
         }
@@ -223,6 +223,7 @@ class VyncListViewController: UIViewController, UITableViewDelegate, UITableView
             
             let index = indexPath!.row as Int
             let v = vyncs[index]
+            println("This vync waiting on you=\(v.waitingOnYou)")
             for video in v.messages {
                 println("Vid.\(video.id):\n watched?\(video.watched), saved?\(video.saved)")
             }
