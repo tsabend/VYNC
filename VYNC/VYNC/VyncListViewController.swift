@@ -79,7 +79,7 @@ class VyncListViewController: UIViewController, UITableViewDelegate, UITableView
     
     // Set the properties of cells
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("VyncCell", forIndexPath: indexPath) as! VyncCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("VyncCell", forIndexPath: indexPath) as VyncCell
         addGesturesToCell(cell)
        //        Set Title and Length Labels
         let date = vyncs[indexPath.row].mostRecent()
@@ -184,6 +184,7 @@ class VyncListViewController: UIViewController, UITableViewDelegate, UITableView
                             self.presentViewController(self.videoPlayer!, animated: false, completion:nil)
                         }
                     } else {
+                        self.videoPlayer?.view.removeGestureRecognizer(sender)
                         self.videoPlayer?.player = nil
                         self.videoPlayer = nil
                         vyncs[index].unwatched = false
@@ -209,7 +210,6 @@ class VyncListViewController: UIViewController, UITableViewDelegate, UITableView
         }
         if sender.state == .Ended {
             self.videoPlayer?.stop()
-            self.view.addGestureRecognizer(sender)
             self.vyncTable.reloadData()
             self.vyncTable.setNeedsDisplay()
         }
@@ -223,6 +223,7 @@ class VyncListViewController: UIViewController, UITableViewDelegate, UITableView
             
             let index = indexPath!.row as Int
             let v = vyncs[index]
+            println("This vync waiting on you=\(v.waitingOnYou)")
             for video in v.messages {
                 println("Vid.\(video.id):\n watched?\(video.watched), saved?\(video.saved)")
             }
@@ -282,7 +283,7 @@ class VyncListViewController: UIViewController, UITableViewDelegate, UITableView
     func reply(index:Int){
         println("showing Reply Camera")
         UIApplication.sharedApplication().setStatusBarHidden(true, withAnimation: .None)
-        let camera = self.storyboard?.instantiateViewControllerWithIdentifier("Camera") as! VyncCameraViewController
+        let camera = self.storyboard?.instantiateViewControllerWithIdentifier("Camera") as VyncCameraViewController
         camera.vync = vyncs[index]
         self.presentViewController(camera, animated: false, completion: nil)
     }
@@ -290,7 +291,7 @@ class VyncListViewController: UIViewController, UITableViewDelegate, UITableView
     @IBAction func showCam() {
         println("showing Camera")
         UIApplication.sharedApplication().setStatusBarHidden(true, withAnimation: .None)
-        let camera = self.storyboard?.instantiateViewControllerWithIdentifier("Camera") as! VyncCameraViewController
+        let camera = self.storyboard?.instantiateViewControllerWithIdentifier("Camera") as VyncCameraViewController
 
         self.presentViewController(camera, animated: false, completion: nil)
     }

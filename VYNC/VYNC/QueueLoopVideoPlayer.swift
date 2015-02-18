@@ -65,10 +65,10 @@ class QueueLoopVideoPlayer : AVPlayerViewController {
         if var playerItem = notification.object as? AVPlayerItem {
             var asset = playerItem.asset
             var copyOfPlayerItem = AVPlayerItem(asset: asset)
-            var player = self.player as! AVQueuePlayer
+            var player = self.player as AVQueuePlayer
             player.insertItem(copyOfPlayerItem, afterItem: nil)
             // Get the duration of the upcoming video to display countdown
-            var second = player.items()[1] as! AVPlayerItem
+            var second = player.items()[1] as AVPlayerItem
             var duration = Int(round(CMTimeGetSeconds(second.duration)))
             self.currentItemDuration = duration
             println("REPEAT. Items Size=\(player.items().count)")

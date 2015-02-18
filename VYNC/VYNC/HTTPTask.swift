@@ -39,7 +39,7 @@ public class HTTPResponse {
     ///Returns the response as a string
     public func text() -> String? {
         if let d = self.responseObject as? NSData {
-            return  (NSString(data: d, encoding: NSUTF8StringEncoding) as! String)
+            return  (NSString(data: d, encoding: NSUTF8StringEncoding) as String)
         }
         return nil
     }
