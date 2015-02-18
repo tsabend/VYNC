@@ -26,8 +26,8 @@ class TitleViewController : UIViewController, UITextFieldDelegate {
     }
     
     @IBAction func submit(sender: AnyObject) {
-        let contactsNav = self.storyboard?.instantiateViewControllerWithIdentifier("ContactsNav") as! UINavigationController
-        let contacts = contactsNav.viewControllers[0] as! ContactsViewController
+        let contactsNav = self.storyboard?.instantiateViewControllerWithIdentifier("ContactsNav") as UINavigationController
+        let contacts = contactsNav.viewControllers[0] as ContactsViewController
         contacts.replyToId = self.replyToId
         contacts.vyncTitle = vyncTitle.text
         self.presentViewController(contactsNav, animated: false, completion: nil)

@@ -27,7 +27,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             self.window = UIWindow()
             self.window?.frame = UIScreen.mainScreen().bounds
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            let rootVc = storyboard.instantiateViewControllerWithIdentifier("Login") as! UIViewController
+            let rootVc = storyboard.instantiateViewControllerWithIdentifier("Login") as UIViewController
             self.window?.rootViewController = rootVc
             self.window?.makeKeyAndVisible()
 
@@ -112,7 +112,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     lazy var applicationDocumentsDirectory: NSURL = {
         // The directory the application uses to store the Core Data store file. This code uses a directory named "bumblebees.VYNC" in the application's documents Application Support directory.
         let urls = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)
-        return urls[urls.count-1] as! NSURL
+        return urls[urls.count-1] as NSURL
     }()
 
     lazy var managedObjectModel: NSManagedObjectModel = {

@@ -22,7 +22,7 @@ class LoginViewController : UIViewController, FBLoginViewDelegate {
     
     func loginViewShowingLoggedInUser(loginView : FBLoginView!) {
         println("User Logged In")
-        let vc = self.storyboard?.instantiateViewControllerWithIdentifier("RootNavigationController") as! UINavigationController
+        let vc = self.storyboard?.instantiateViewControllerWithIdentifier("RootNavigationController") as UINavigationController
         presentViewController(vc, animated: true, completion: {
         
             // Push notification settings being set and request from user being fired
@@ -41,7 +41,7 @@ class LoginViewController : UIViewController, FBLoginViewDelegate {
         if myUserId() == nil {
             FBRequestConnection.startForMeWithCompletionHandler{(connection, user, error) -> Void in
                 println("Adding user")
-                let email = user.objectForKey("email") as! String
+                let email = user.objectForKey("email") as String
                 // new User object
                 var newUser = User.syncer.newObj()
                 newUser.id = 0
