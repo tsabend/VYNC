@@ -52,14 +52,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         var deviceToken: String = ( deviceToken.description as NSString )
             .stringByTrimmingCharactersInSet( characterSet )
             .stringByReplacingOccurrencesOfString( " ", withString: "" ) as String
-            println("in notification accept")
         var request = HTTPTask()
         request.PUT(host+"/users/" + myFacebookId(),
             parameters: ["device_token": deviceToken],
             success: {(response: HTTPResponse) in
                 if let data = response.responseObject as? NSData {
                     let str = NSString(data: data, encoding: NSUTF8StringEncoding)
-                    println("device token saved")
                 }
             },failure: {(error: NSError, response: HTTPResponse?) in
                 println("error: \(error)")
@@ -96,6 +94,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationDidBecomeActive(application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+        application.applicationIconBadgeNumber = 0
         VideoMessage.syncer.sync() {done in
             VideoMessage.saveNewVids()
         }
