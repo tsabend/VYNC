@@ -34,7 +34,7 @@ class VyncListViewController: UIViewController, UITableViewDelegate, UITableView
         let buttonColor = UIColor(netHex:0x7FF2FF)
         let buttonFont = [NSFontAttributeName: UIFont(name: "flaticon", size: 28)!, NSForegroundColorAttributeName: buttonColor]
         showStatsButton.setTitleTextAttributes(buttonFont, forState: .Normal)
-        showStatsButton.title = "\u{e005}"
+        showStatsButton.title = "\u{e004}"
 
         // Add pull to refresh
         self.refreshControl = UIRefreshControl()

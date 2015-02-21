@@ -34,8 +34,8 @@ class VyncCameraViewController: UIViewController, AVCaptureFileOutputRecordingDe
         // Do any additional setup after loading the view, typically from a nib.
         setupCamera()
 //        let flash = NSString(
-        flashButton.setTitle("\u{e001}", forState: .Normal)
-        flipCameraButton.setTitle("\u{e003}", forState: .Normal)
+        flashButton.setTitle("\u{e002}", forState: .Normal)
+        flipCameraButton.setTitle("\u{e005}", forState: .Normal)
         recordButton.setTitle("\u{e000}", forState: .Normal)
         let backToVyncView = UIScreenEdgePanGestureRecognizer(target: self, action: "dismissCamera:")
         backToVyncView.edges = UIRectEdge.Left
@@ -89,12 +89,12 @@ class VyncCameraViewController: UIViewController, AVCaptureFileOutputRecordingDe
             if captureDevice.torchMode.hashValue == 0 {
                 captureDevice.lockForConfiguration(nil)
                 captureDevice.torchMode = AVCaptureTorchMode.Auto
-                flashButton.setTitle("\u{e002}", forState: .Normal)
+                flashButton.setTitle("\u{e003}", forState: .Normal)
                 captureDevice.unlockForConfiguration()
             } else {
                 captureDevice.lockForConfiguration(nil)
                 captureDevice.torchMode = AVCaptureTorchMode.Off
-                flashButton.setTitle("\u{e001}", forState: .Normal)
+                flashButton.setTitle("\u{e002}", forState: .Normal)
                 captureDevice.unlockForConfiguration()
             }
         }
