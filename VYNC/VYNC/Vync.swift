@@ -73,13 +73,16 @@ class Vync {
     func mostRecent()->String{
         let formatter = NSDateFormatter()
         formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
-//        This format is for local sinatra db. above is for heroku. Thanks pg. :(
-//        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss 'UTC'"
+        let secondFormatter = NSDateFormatter()
+        secondFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss 'UTC'"
         if let createdAt = messages.first?.createdAt {
             if let date = formatter.dateFromString(createdAt) as NSDate! {
                 return "\(date.mediumDateString)"
-            } else {
-                return "oops"
+            } else if let date = secondFormatter.dateFromString(createdAt) as NSDate! {
+                return "\(date.mediumDateString)"
+            }
+            else {
+                return "Infinity years ago"
             }
         } else {
             return "Just now"

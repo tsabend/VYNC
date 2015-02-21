@@ -241,7 +241,7 @@ class VyncListViewController: UIViewController, UITableViewDelegate, UITableView
             let v = vyncs[index]
             println("This vync waiting on you=\(v.waitingOnYou)")
             for video in v.messages {
-                println("Vid.\(video.id):\n watched?\(video.watched), saved?\(video.saved)")
+                println("Vid.\(video.id):\n date\(video.createdAt)")
             }
         }
 
