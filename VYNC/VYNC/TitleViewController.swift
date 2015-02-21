@@ -26,11 +26,18 @@ class TitleViewController : UIViewController, UITextFieldDelegate {
     }
     
     @IBAction func submit(sender: AnyObject) {
-        let contactsNav = self.storyboard?.instantiateViewControllerWithIdentifier("ContactsNav") as UINavigationController
-        let contacts = contactsNav.viewControllers[0] as ContactsViewController
-        contacts.replyToId = self.replyToId
-        contacts.vyncTitle = vyncTitle.text
-        self.presentViewController(contactsNav, animated: false, completion: nil)
+        if vyncTitle.text == "" {
+            let alert = UIAlertController(title: "Nope!", message: "You must enter a title in order to start a new VYNC.", preferredStyle: UIAlertControllerStyle.Alert)
+            let defaultAction = UIAlertAction(title: "OK", style: .Default, handler: nil)
+            alert.addAction(defaultAction)
+            self.presentViewController(alert, animated: false, completion: {})
+        } else {
+            let contactsNav = self.storyboard?.instantiateViewControllerWithIdentifier("ContactsNav") as UINavigationController
+            let contacts = contactsNav.viewControllers[0] as ContactsViewController
+            contacts.replyToId = self.replyToId
+            contacts.vyncTitle = vyncTitle.text
+            self.presentViewController(contactsNav, animated: false, completion: nil)
+        }
     }
     
     override func viewDidLoad() {
