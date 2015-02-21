@@ -23,6 +23,7 @@ class VyncListViewController: UIViewController, UITableViewDelegate, UITableView
     var lastPlayed : Int? = nil
 
     @IBOutlet weak var showStatsButton: UIBarButtonItem!
+    @IBOutlet weak var cameraButton: UIBarButtonItem!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,6 +36,9 @@ class VyncListViewController: UIViewController, UITableViewDelegate, UITableView
         let buttonFont = [NSFontAttributeName: UIFont(name: "flaticon", size: 28)!, NSForegroundColorAttributeName: buttonColor]
         showStatsButton.setTitleTextAttributes(buttonFont, forState: .Normal)
         showStatsButton.title = "\u{e004}"
+        
+        cameraButton.setTitleTextAttributes(buttonFont, forState: .Normal)
+        cameraButton.title = "\u{e006}"
 
         // Add pull to refresh
         self.refreshControl = UIRefreshControl()
@@ -113,12 +117,11 @@ class VyncListViewController: UIViewController, UITableViewDelegate, UITableView
             cell.statusLogo.textColor = UIColor(netHex:0x7FF2FF)
             cell.lengthLabel.backgroundColor = UIColor(netHex:0x7FF2FF)
         }
-        // Unwatched vyncs get special background color
+        // Unwatched vyncs get a flame
         if vyncs[indexPath.row].unwatched {
-            let color = UIColor(netHex: 0xFFFF00)
-            cell.backgroundColor = color
+            cell.isWatchedLabel.hidden = false
         } else {
-            cell.backgroundColor = UIColor.whiteColor()
+            cell.isWatchedLabel.hidden = true
         }
         
         // Not yet uploaded vyncs/Not yet saved vyncs get special background color
