@@ -38,16 +38,19 @@ class Syncer<T: NSManagedObject> {
     // HTTP Functions
     func sync(completion:(()->()) = {}) {
         uploadNew()
-        downloadNew(completion: completion)
+        downloadNew()
     }
     
-    func uploadNew(){
+    func uploadNew(completion:(()->()) = {}){
         // post the video that the user takes to the server
         let newObjs = all().filter("id == %@", args: 0).exec()!
+        if newObjs.count == 0 {
+            completion()
+        }
         for obj in newObjs {
             if let video = obj as? VideoMessage {
                 println("Uploading video")
-                uploadWithFile(obj)
+                uploadWithFile(obj, completion)
             } else {
                 println("Uploading user")
                 upload(obj)
@@ -86,8 +89,8 @@ class Syncer<T: NSManagedObject> {
                 println("error: \(error)")
         })
     }
-
-    func uploadWithFile(obj:T) {
+    
+    func uploadWithFile(obj:T, completion: (()->()) = {}) {
         let json = createJSONfromObject(obj)
         let video = obj as VideoMessage
         let videoURL = NSURL.fileURLWithPath(docFolderToSaveFiles + "/" + video.videoId!)!
@@ -112,12 +115,14 @@ class Syncer<T: NSManagedObject> {
                         }
                         println("Video Synced")
                         self.save()
+                        completion()
                     } else {
                         println("API error ",str)
                     }
                 }
             },failure: {(error: NSError, response: HTTPResponse?) in
                 println("upload error: \(error)")
+                completion()
         })
     }
     
@@ -158,7 +163,10 @@ class Syncer<T: NSManagedObject> {
                 if response.responseObject != nil {
                     if let data = response.responseObject as? NSData {
                         self.addJSONToSql(JSONDecoder(data))
-                        completion()
+                        // Get back on main thread for view updates
+                        dispatch_async(dispatch_get_main_queue()) {
+                            completion()
+                        }
                     }
                 }
         })
@@ -200,6 +208,7 @@ class Syncer<T: NSManagedObject> {
 
     func save(){
         db!.save(nil)
+        
     }
     
     func camelToSnake(attribute:String)->String{

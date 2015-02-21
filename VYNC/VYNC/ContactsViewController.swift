@@ -95,7 +95,6 @@ class ContactsViewController: UIViewController, UITableViewDelegate, UITableView
             newMessage.saved = 1
             VideoMessage.syncer.save()
         }
-        VideoMessage.syncer.sync()
         performSegueWithIdentifier("backToHome", sender: self)
     }
     

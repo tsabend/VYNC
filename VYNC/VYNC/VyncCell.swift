@@ -15,6 +15,7 @@ class VyncCell: UITableViewCell, UIGestureRecognizerDelegate {
     @IBOutlet weak var titleLabel:UILabel!
     @IBOutlet weak var statusLogo: UILabel!
     @IBOutlet weak var subTitle: UILabel!
+    @IBOutlet weak var isWatchedLabel: UILabel!
     
     var isMoving = false
     var isFlipped = false
@@ -27,6 +28,8 @@ class VyncCell: UITableViewCell, UIGestureRecognizerDelegate {
         lengthLabel.layer.masksToBounds = true
         let corner = lengthLabel.layer.frame.width / 2
         lengthLabel.layer.cornerRadius = corner
+        
+        isWatchedLabel.text = "\u{e001}"
     }
     
     func selectCellAnimation() {

@@ -23,6 +23,7 @@ class VyncListViewController: UIViewController, UITableViewDelegate, UITableView
     var lastPlayed : Int? = nil
 
     @IBOutlet weak var showStatsButton: UIBarButtonItem!
+    @IBOutlet weak var cameraButton: UIBarButtonItem!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,7 +35,10 @@ class VyncListViewController: UIViewController, UITableViewDelegate, UITableView
         let buttonColor = UIColor(netHex:0x7FF2FF)
         let buttonFont = [NSFontAttributeName: UIFont(name: "flaticon", size: 28)!, NSForegroundColorAttributeName: buttonColor]
         showStatsButton.setTitleTextAttributes(buttonFont, forState: .Normal)
-        showStatsButton.title = "\u{e005}"
+        showStatsButton.title = "\u{e004}"
+        
+        cameraButton.setTitleTextAttributes(buttonFont, forState: .Normal)
+        cameraButton.title = "\u{e006}"
 
         // Add pull to refresh
         self.refreshControl = UIRefreshControl()
@@ -44,6 +48,20 @@ class VyncListViewController: UIViewController, UITableViewDelegate, UITableView
         self.vyncTable.addSubview(refreshControl)
         self.vyncTable.rowHeight = 70
         vyncTable.reloadData()
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        println("VyncListVC will appear")
+        VideoMessage.syncer.uploadNew() {done in
+            self.updateView()
+            VideoMessage.syncer.downloadNew() {done in
+                VideoMessage.saveNewVids() {done in
+                    self.updateView()
+                }
+            }
+        }
+
+        super.viewWillAppear(animated)
     }
     
     override func didReceiveMemoryWarning() {
@@ -61,10 +79,12 @@ class VyncListViewController: UIViewController, UITableViewDelegate, UITableView
     
     @IBAction func reloadVyncs() {
         self.refreshControl.beginRefreshing()
-        VideoMessage.syncer.sync() {done in
-            VideoMessage.saveNewVids() {done in
-                self.updateView()
-                self.refreshControl.endRefreshing()
+        VideoMessage.syncer.uploadNew() {done in
+            VideoMessage.syncer.downloadNew() {done in
+                VideoMessage.saveNewVids() {done in
+                    self.updateView()
+                    self.refreshControl.endRefreshing()
+                }
             }
         }
         User.syncer.sync()
@@ -97,12 +117,11 @@ class VyncListViewController: UIViewController, UITableViewDelegate, UITableView
             cell.statusLogo.textColor = UIColor(netHex:0x7FF2FF)
             cell.lengthLabel.backgroundColor = UIColor(netHex:0x7FF2FF)
         }
-        // Unwatched vyncs get special background color
+        // Unwatched vyncs get a flame
         if vyncs[indexPath.row].unwatched {
-            let color = UIColor(netHex: 0xFFFF00)
-            cell.backgroundColor = color
+            cell.isWatchedLabel.hidden = false
         } else {
-            cell.backgroundColor = UIColor.whiteColor()
+            cell.isWatchedLabel.hidden = true
         }
         
         // Not yet uploaded vyncs/Not yet saved vyncs get special background color
@@ -225,7 +244,7 @@ class VyncListViewController: UIViewController, UITableViewDelegate, UITableView
             let v = vyncs[index]
             println("This vync waiting on you=\(v.waitingOnYou)")
             for video in v.messages {
-                println("Vid.\(video.id):\n watched?\(video.watched), saved?\(video.saved)")
+                println("Vid.\(video.id):\n date\(video.createdAt)")
             }
         }
 
