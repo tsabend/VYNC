@@ -31,7 +31,6 @@ class VideoMessage: NSManagedObject {
     @NSManaged var saved: NSNumber?
     
     class func asVyncs()->[Vync]{
-        // TODO: Make this code better! (Long term: use nsmanagedrelationship)
         let allVideos = self.syncer.all().sortBy("id", ascending: false).filter("saved == %@", args: 1).exec()!
         let replyTos = allVideos.map({video in video.replyToId as Int})
         var uniqReplyTos = remDupeInts(replyTos)

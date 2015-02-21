@@ -46,6 +46,20 @@ class VyncListViewController: UIViewController, UITableViewDelegate, UITableView
         vyncTable.reloadData()
     }
     
+    override func viewWillAppear(animated: Bool) {
+        println("VyncListVC will appear")
+        VideoMessage.syncer.uploadNew() {done in
+            self.updateView()
+            VideoMessage.syncer.downloadNew() {done in
+                VideoMessage.saveNewVids() {done in
+                    self.updateView()
+                }
+            }
+        }
+
+        super.viewWillAppear(animated)
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -61,10 +75,12 @@ class VyncListViewController: UIViewController, UITableViewDelegate, UITableView
     
     @IBAction func reloadVyncs() {
         self.refreshControl.beginRefreshing()
-        VideoMessage.syncer.sync() {done in
-            VideoMessage.saveNewVids() {done in
-                self.updateView()
-                self.refreshControl.endRefreshing()
+        VideoMessage.syncer.uploadNew() {done in
+            VideoMessage.syncer.downloadNew() {done in
+                VideoMessage.saveNewVids() {done in
+                    self.updateView()
+                    self.refreshControl.endRefreshing()
+                }
             }
         }
         User.syncer.sync()
