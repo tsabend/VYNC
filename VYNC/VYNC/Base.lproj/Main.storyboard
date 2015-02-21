@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7515.2" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="hqV-3T-Vx2">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="hqV-3T-Vx2">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7512"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
@@ -188,33 +188,23 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1nl-eL-kC4">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1nl-eL-kC4">
                                 <rect key="frame" x="16" y="271" width="546" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="My Stats" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FP2-wL-Asj">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="My Stats" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FP2-wL-Asj">
                                 <rect key="frame" x="121" y="88" width="68" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="WbK-of-nLE">
-                                <rect key="frame" x="35" y="356" width="240" height="128"/>
-                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="128" id="s4Y-aT-9dc"/>
-                                </constraints>
-                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="WbK-of-nLE" firstAttribute="leading" secondItem="oUd-ws-hx6" secondAttribute="leadingMargin" constant="19" id="BWE-sn-Xgy"/>
-                            <constraint firstAttribute="centerX" secondItem="WbK-of-nLE" secondAttribute="centerX" constant="5" id="CFJ-Sl-RS0"/>
-                            <constraint firstItem="v36-Jm-tK7" firstAttribute="top" secondItem="WbK-of-nLE" secondAttribute="bottom" constant="84" id="Ggo-la-toK"/>
-                            <constraint firstItem="WbK-of-nLE" firstAttribute="top" secondItem="1nl-eL-kC4" secondAttribute="bottom" constant="64" id="eJs-S1-dk5"/>
-                            <constraint firstItem="WbK-of-nLE" firstAttribute="centerX" secondItem="FP2-wL-Asj" secondAttribute="centerX" id="yGe-yo-PgK"/>
+                            <constraint firstItem="FP2-wL-Asj" firstAttribute="top" secondItem="mqC-8b-4PD" secondAttribute="bottom" constant="24" id="cBN-3B-tOM"/>
+                            <constraint firstAttribute="centerX" secondItem="FP2-wL-Asj" secondAttribute="centerX" constant="5" id="oAG-0b-qlF"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="qrB-lG-RYd"/>
@@ -222,7 +212,6 @@
                         <outlet property="name" destination="gbs-te-IIS" id="PVQ-ml-Eaw"/>
                         <outlet property="numVyncsRecieved" destination="1nl-eL-kC4" id="icN-1L-Jnn"/>
                         <outlet property="numVyncsSent" destination="0gN-MD-2UM" id="Y2L-ZH-ZQD"/>
-                        <outlet property="profilePic" destination="WbK-of-nLE" id="YBV-ms-hdf"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="n7d-wo-ZVL" userLabel="First Responder" sceneMemberID="firstResponder"/>
