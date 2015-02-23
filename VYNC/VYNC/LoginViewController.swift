@@ -12,13 +12,33 @@ import UIKit
 class LoginViewController : UIViewController, FBLoginViewDelegate {
     
     @IBOutlet var fbLoginView : FBLoginView!
+    @IBOutlet weak var pageLabel: UILabel!
+    @IBOutlet weak var pageImage: UIImageView!
+    var pageIndex: Int!
+    var color: String!
+    var titleString : String!
+    var imageString : String!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.fbLoginView.delegate = self
         self.fbLoginView.readPermissions = ["public_profile", "email", "user_friends"]
+        if color == nil {
+            color = "Red"
+        }
+        if color == "Red" {
+            self.view.backgroundColor = UIColor(netHex:0x7FF2FF)
+        } else if color == "Green" {
+            self.view.backgroundColor = UIColor(netHex:0x73A1FF)
+        } else if color == "Blue" {
+            self.view.backgroundColor = UIColor(netHex:0xFFB5C9)
+        }
+        pageLabel.text = titleString!
+        pageImage.image = UIImage(named: imageString!)
+        
     }
     
+
     
     func loginViewShowingLoggedInUser(loginView : FBLoginView!) {
         println("User Logged In")
