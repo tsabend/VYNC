@@ -242,7 +242,7 @@ class VyncListViewController: UIViewController, UITableViewDelegate, UITableView
             
             let index = indexPath!.row as Int
             let v = vyncs[index]
-            println("This vync waiting on you=\(v.waitingOnYou)")
+            println("This vync is dead=\(v.dead())")
             for video in v.messages {
                 println("Vid.\(video.id):\n date\(video.createdAt)")
             }

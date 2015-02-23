@@ -23,6 +23,11 @@
 		48883BAE1A7224A50024F2DA /* IMG_0370.MOV in Resources */ = {isa = PBXBuildFile; fileRef = 48883BAD1A7224A50024F2DA /* IMG_0370.MOV */; };
 		48883BB01A72967F0024F2DA /* camera-rotate.png in Resources */ = {isa = PBXBuildFile; fileRef = 48883BAF1A72967F0024F2DA /* camera-rotate.png */; };
 		48883BB81A73D96D0024F2DA /* LoadFromNibExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48883BB71A73D96D0024F2DA /* LoadFromNibExtension.swift */; };
+		489105FA1A9B726F00DDA009 /* LoginPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 489105F91A9B726F00DDA009 /* LoginPageViewController.swift */; };
+		489105FF1A9B90A500DDA009 /* p1.png in Resources */ = {isa = PBXBuildFile; fileRef = 489105FB1A9B90A500DDA009 /* p1.png */; };
+		489106001A9B90A500DDA009 /* p2.png in Resources */ = {isa = PBXBuildFile; fileRef = 489105FC1A9B90A500DDA009 /* p2.png */; };
+		489106011A9B90A500DDA009 /* p3.png in Resources */ = {isa = PBXBuildFile; fileRef = 489105FD1A9B90A500DDA009 /* p3.png */; };
+		489106021A9B90A500DDA009 /* p4.png in Resources */ = {isa = PBXBuildFile; fileRef = 489105FE1A9B90A500DDA009 /* p4.png */; };
 		4899A1C21A705A6D005D3BE0 /* envelope.png in Resources */ = {isa = PBXBuildFile; fileRef = 4899A1C01A705A6D005D3BE0 /* envelope.png */; };
 		4899A1C31A705A6D005D3BE0 /* vynclogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 4899A1C11A705A6D005D3BE0 /* vynclogo.png */; };
 		489A9A061A8CFBA000902CC9 /* MyStatsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 489A9A051A8CFBA000902CC9 /* MyStatsViewController.swift */; };
@@ -78,6 +83,11 @@
 		48883BAD1A7224A50024F2DA /* IMG_0370.MOV */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; name = IMG_0370.MOV; path = ../../../../../../../Downloads/IMG_0370.MOV; sourceTree = "<group>"; };
 		48883BAF1A72967F0024F2DA /* camera-rotate.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "camera-rotate.png"; sourceTree = "<group>"; };
 		48883BB71A73D96D0024F2DA /* LoadFromNibExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadFromNibExtension.swift; sourceTree = "<group>"; };
+		489105F91A9B726F00DDA009 /* LoginPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginPageViewController.swift; sourceTree = "<group>"; };
+		489105FB1A9B90A500DDA009 /* p1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = p1.png; sourceTree = "<group>"; };
+		489105FC1A9B90A500DDA009 /* p2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = p2.png; sourceTree = "<group>"; };
+		489105FD1A9B90A500DDA009 /* p3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = p3.png; sourceTree = "<group>"; };
+		489105FE1A9B90A500DDA009 /* p4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = p4.png; sourceTree = "<group>"; };
 		4899A1C01A705A6D005D3BE0 /* envelope.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = envelope.png; sourceTree = "<group>"; };
 		4899A1C11A705A6D005D3BE0 /* vynclogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = vynclogo.png; sourceTree = "<group>"; };
 		489A9A051A8CFBA000902CC9 /* MyStatsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyStatsViewController.swift; sourceTree = "<group>"; };
@@ -144,6 +154,7 @@
 				48CBB63B1A76A76C004A6E6D /* TitleViewController.swift */,
 				48BAECD81A782897005CC762 /* VyncCameraViewController.swift */,
 				4846BCC21A810DA200FC489C /* LoginViewController.swift */,
+				489105F91A9B726F00DDA009 /* LoginPageViewController.swift */,
 				489A9A051A8CFBA000902CC9 /* MyStatsViewController.swift */,
 			);
 			name = ViewControllers;
@@ -258,6 +269,10 @@
 		4899A1BF1A705A6D005D3BE0 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				489105FB1A9B90A500DDA009 /* p1.png */,
+				489105FC1A9B90A500DDA009 /* p2.png */,
+				489105FD1A9B90A500DDA009 /* p3.png */,
+				489105FE1A9B90A500DDA009 /* p4.png */,
 				489A9A071A8D2B6B00902CC9 /* VYNC.mov */,
 				48883BAF1A72967F0024F2DA /* camera-rotate.png */,
 				48883BAD1A7224A50024F2DA /* IMG_0370.MOV */,
@@ -348,16 +363,20 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				489106001A9B90A500DDA009 /* p2.png in Resources */,
 				48883BAE1A7224A50024F2DA /* IMG_0370.MOV in Resources */,
 				489BA1C31A8E2DB3006DE44F /* flaticon.ttf in Resources */,
 				48883BB01A72967F0024F2DA /* camera-rotate.png in Resources */,
 				489A9A081A8D2B6B00902CC9 /* VYNC.mov in Resources */,
 				4899A1C31A705A6D005D3BE0 /* vynclogo.png in Resources */,
+				489106011A9B90A500DDA009 /* p3.png in Resources */,
 				48BAECDD1A7829F8005CC762 /* VyncCameraPlaybackLayer.xib in Resources */,
 				481AF2591A705B630018B887 /* Egypt22.ttf in Resources */,
 				4875B3051A6C79760030AABD /* Main.storyboard in Resources */,
+				489106021A9B90A500DDA009 /* p4.png in Resources */,
 				4875B30A1A6C79760030AABD /* LaunchScreen.xib in Resources */,
 				4875B3071A6C79760030AABD /* Images.xcassets in Resources */,
+				489105FF1A9B90A500DDA009 /* p1.png in Resources */,
 				4899A1C21A705A6D005D3BE0 /* envelope.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -393,6 +412,7 @@
 				48883BA91A71CFD70024F2DA /* HexColor.swift in Sources */,
 				489A9A061A8CFBA000902CC9 /* MyStatsViewController.swift in Sources */,
 				4875B2FD1A6C79760030AABD /* AppDelegate.swift in Sources */,
+				489105FA1A9B726F00DDA009 /* LoginPageViewController.swift in Sources */,
 				48E9F7901A7961F90034CF5E /* Sycner.swift in Sources */,
 				48883BB81A73D96D0024F2DA /* LoadFromNibExtension.swift in Sources */,
 				48A361041A7FBD380023D6DC /* AF+Date+Extension.swift in Sources */,

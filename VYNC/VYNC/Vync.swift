@@ -71,21 +71,41 @@ class Vync {
     }
     
     func mostRecent()->String{
-        let formatter = NSDateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
-        let secondFormatter = NSDateFormatter()
-        secondFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss 'UTC'"
         if let createdAt = messages.first?.createdAt {
-            if let date = formatter.dateFromString(createdAt) as NSDate! {
+            if let date = createdAtToNSDate(createdAt) as NSDate! {
                 return "\(date.mediumDateString)"
-            } else if let date = secondFormatter.dateFromString(createdAt) as NSDate! {
-                return "\(date.mediumDateString)"
-            }
-            else {
+            } else {
                 return "Infinity years ago"
             }
         } else {
             return "Just now"
+        }
+    }
+    
+    func createdAtToNSDate(string:String)->NSDate? {
+        let formatter = NSDateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
+        let secondFormatter = NSDateFormatter()
+        secondFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss 'UTC'"
+        if let date = formatter.dateFromString(string) as NSDate! {
+            return date
+        } else if let date = secondFormatter.dateFromString(string) as NSDate! {
+            return date
+        } else {
+            return nil
+        }
+    }
+    
+    func dead()->Bool {
+        if let createdAt = messages.first?.createdAt {
+            if let date = createdAtToNSDate(createdAt) as NSDate! {
+               return date.isAtLeastTwoDaysAgo
+            }
+            else {
+                return false
+            }
+        } else {
+            return false
         }
     }
 

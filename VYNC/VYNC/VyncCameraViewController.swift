@@ -15,7 +15,6 @@ class VyncCameraViewController: UIViewController, AVCaptureFileOutputRecordingDe
     let captureSession = AVCaptureSession()
     var captureDevice : AVCaptureDevice!
     var selfieCaptureDevice : AVCaptureDevice!
-    var audioCaptureDevice : AVCaptureDevice!
     var previewLayer : AVCaptureVideoPreviewLayer!
     var captureMovieFileOutput: AVCaptureMovieFileOutput? = nil;
     var videoConnection : AVCaptureConnection!
@@ -59,9 +58,6 @@ class VyncCameraViewController: UIViewController, AVCaptureFileOutputRecordingDe
                 if device.position == AVCaptureDevicePosition.Front {
                     selfieCaptureDevice = device as? AVCaptureDevice
                 }
-            }
-            else if device.hasMediaType(AVMediaTypeAudio){
-                audioCaptureDevice = device as? AVCaptureDevice
             }
         }
         captureSession.sessionPreset = AVCaptureSessionPresetMedium
@@ -119,8 +115,13 @@ class VyncCameraViewController: UIViewController, AVCaptureFileOutputRecordingDe
     
     func beginSession() {
         var err : NSError? = nil
-        captureSession.addInput(AVCaptureDeviceInput(device: audioCaptureDevice, error: &err))
+        // Set up audio input
+        let audioCaptureDevice = AVCaptureDevice.devicesWithMediaType(AVMediaTypeAudio)
+        let audioInput = AVCaptureDeviceInput.deviceInputWithDevice(audioCaptureDevice[0] as AVCaptureDevice, error: nil)  as AVCaptureInput
+        captureSession.addInput(audioInput)
+        // Add existing video input
         captureSession.addInput(AVCaptureDeviceInput(device: captureDevice, error: &err))
+
         let tap = UITapGestureRecognizer(target:self, action:"onTap:")
         self.view.addGestureRecognizer(tap)
         if err != nil {
