@@ -59,7 +59,8 @@ class VideoMessage: NSManagedObject {
             vyncs.insert(Vync(messages: [video]), atIndex: 0)
         }
 
-        return vyncs
+        //return vyncs
+        return vyncs.filter({vync in vync.dead() == false})
     }
 
     class func saveNewVids(completion:(()->()) = {}) {
