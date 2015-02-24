@@ -11,7 +11,7 @@ import UIKit
 
 class LoginViewController : UIViewController, FBLoginViewDelegate {
     
-    @IBOutlet var fbLoginView : FBLoginView!
+    @IBOutlet weak var fbLoginView : FBLoginView!
     @IBOutlet weak var pageLabel: UILabel!
     @IBOutlet weak var pageImage: UIImageView!
     var pageIndex: Int!

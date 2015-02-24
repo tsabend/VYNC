@@ -39,35 +39,12 @@ public class HTTPResponse {
     ///Returns the response as a string
     public func text() -> String? {
         if let d = self.responseObject as? NSData {
-            return  (NSString(data: d, encoding: NSUTF8StringEncoding) as String)
+            return  NSString(data: d, encoding: NSUTF8StringEncoding)
         }
         return nil
     }
     /// The URL of the HTTP Response.
     public var URL: NSURL?
-}
-
-/// Object representation of HTTP Basic Auth.
-public struct HTTPAuth {
-    /// Username for auth.
-    public var username: String
-    /// Password for auth.
-    public var password: String
-    /// Control for how long credentials should last. Default is ForSession.
-    public var persistence: NSURLCredentialPersistence
-    
-    /**
-    Initializes a new Auth Object.
-    
-    :param: username to provide for auth.
-    :param: password to provide for auth.
-    
-    */
-    public init(username: String, password: String) {
-        self.username = username
-        self.password = password
-        self.persistence = .ForSession
-    }
 }
 
 /// Holds the blocks of the background task.
@@ -147,8 +124,14 @@ public class HTTPOperation : NSOperation {
     
     /// Sets the task to finished.
     public func finish() {
+        self.willChangeValueForKey("isExecuting")
+        self.willChangeValueForKey("isFinished")
+        
         running = false
         done = true
+        
+        self.didChangeValueForKey("isExecuting")
+        self.didChangeValueForKey("isFinished")
     }
 }
 
@@ -160,7 +143,9 @@ public class HTTPTask : NSObject, NSURLSessionDelegate, NSURLSessionTaskDelegate
     public var baseURL: String?
     public var requestSerializer = HTTPRequestSerializer()
     public var responseSerializer: HTTPResponseSerializer?
-    public var auth: HTTPAuth?
+    //This gets called on auth challenges. If nil, default handling is use.
+    //Returning nil from this method will cause the request to be rejected and cancelled
+    public var auth:((NSURLAuthenticationChallenge) -> NSURLCredential?)?
     
     //MARK: Public Methods
     
@@ -247,8 +232,8 @@ public class HTTPTask : NSObject, NSURLSessionDelegate, NSURLSessionTaskDelegate
     :param: success The block that is run on a sucessful HTTP Request.
     :param: failure The block that is run on a failed HTTP Request.
     */
-    public func GET(url: String, parameters: Dictionary<String,AnyObject>?, success:((HTTPResponse) -> Void)!, failure: ((NSError, HTTPResponse?) -> Void)! = {(error: NSError, response: HTTPResponse?) in println("error: \(error)") }) {
-        var opt = self.create(url, method:.GET, parameters: parameters,success: success,failure: failure)
+    public func GET(url: String, parameters: Dictionary<String,AnyObject>?, success:((HTTPResponse) -> Void)!, failure:((NSError, HTTPResponse?) -> Void)!) {
+        var opt = self.create(url, method:.GET, parameters: parameters,success,failure)
         if opt != nil {
             opt!.start()
         }
@@ -263,7 +248,7 @@ public class HTTPTask : NSObject, NSURLSessionDelegate, NSURLSessionTaskDelegate
     :param: failure The block that is run on a failed HTTP Request.
     */
     public func POST(url: String, parameters: Dictionary<String,AnyObject>?, success:((HTTPResponse) -> Void)!, failure:((NSError, HTTPResponse?) -> Void)!) {
-        var opt = self.create(url, method:.POST, parameters: parameters,success: success,failure: failure)
+        var opt = self.create(url, method:.POST, parameters: parameters,success,failure)
         if opt != nil {
             opt!.start()
         }
@@ -278,7 +263,7 @@ public class HTTPTask : NSObject, NSURLSessionDelegate, NSURLSessionTaskDelegate
     :param: failure The block that is run on a failed HTTP Request.
     */
     public func PUT(url: String, parameters: Dictionary<String,AnyObject>?, success:((HTTPResponse) -> Void)!, failure:((NSError, HTTPResponse?) -> Void)!) {
-        var opt = self.create(url, method:.PUT, parameters: parameters,success: success,failure: failure)
+        var opt = self.create(url, method:.PUT, parameters: parameters,success,failure)
         if opt != nil {
             opt!.start()
         }
@@ -293,7 +278,7 @@ public class HTTPTask : NSObject, NSURLSessionDelegate, NSURLSessionTaskDelegate
     :param: failure The block that is run on a failed HTTP Request.
     */
     public func DELETE(url: String, parameters: Dictionary<String,AnyObject>?, success:((HTTPResponse) -> Void)!, failure:((NSError, HTTPResponse?) -> Void)!)  {
-        var opt = self.create(url, method:.DELETE, parameters: parameters,success: success,failure: failure)
+        var opt = self.create(url, method:.DELETE, parameters: parameters,success,failure)
         if opt != nil {
             opt!.start()
         }
@@ -308,7 +293,7 @@ public class HTTPTask : NSObject, NSURLSessionDelegate, NSURLSessionTaskDelegate
     :param: failure The block that is run on a failed HTTP Request.
     */
     public func HEAD(url: String, parameters: Dictionary<String,AnyObject>?, success:((HTTPResponse) -> Void)!, failure:((NSError, HTTPResponse?) -> Void)!) {
-        var opt = self.create(url, method:.HEAD, parameters: parameters,success: success,failure: failure)
+        var opt = self.create(url, method:.HEAD, parameters: parameters,success,failure)
         if opt != nil {
             opt!.start()
         }
@@ -323,11 +308,11 @@ public class HTTPTask : NSObject, NSURLSessionDelegate, NSURLSessionTaskDelegate
     :param: success The block that is run on a sucessful HTTP Request. The HTTPResponse responseObject object will be a fileURL. You MUST copy the fileURL return in HTTPResponse.responseObject to a new location before using it (e.g. your documents directory).
     :param: failure The block that is run on a failed HTTP Request.
     */
-    public func download(url: String, parameters: Dictionary<String,AnyObject>?,progress:((Double) -> Void)!, success:((HTTPResponse) -> Void)!, failure:((NSError, HTTPResponse?) -> Void)!) {
+    public func download(url: String, parameters: Dictionary<String,AnyObject>?,progress:((Double) -> Void)!, success:((HTTPResponse) -> Void)!, failure:((NSError, HTTPResponse?) -> Void)!) -> NSURLSessionDownloadTask? {
         let serialReq = createRequest(url,method: .GET, parameters: parameters)
         if serialReq.error != nil {
             failure(serialReq.error!, nil)
-            return
+            return nil
         }
         let ident = createBackgroundIdent()
         let config = NSURLSessionConfiguration.backgroundSessionConfigurationWithIdentifier(ident)
@@ -336,6 +321,7 @@ public class HTTPTask : NSObject, NSURLSessionDelegate, NSURLSessionTaskDelegate
         self.backgroundTaskMap[ident] = BackgroundBlocks(success,failure,progress)
         //this does not have to be queueable as Apple's background dameon *should* handle that.
         task.resume()
+        return task
     }
     
     //TODO: not implemented yet.
@@ -369,8 +355,10 @@ public class HTTPTask : NSObject, NSURLSessionDelegate, NSURLSessionTaskDelegate
             var split = url.hasPrefix("/") ? "" : "/"
             urlVal = "\(self.baseURL!)\(split)\(url)"
         }
-        return self.requestSerializer.createRequest(NSURL(string: urlVal)!,
-            method: method, parameters: parameters)
+        if let u = NSURL(string: urlVal) {
+            return self.requestSerializer.createRequest(u, method: method, parameters: parameters)
+        }
+        return (NSURLRequest(),createError(-1001))
     }
     
     /**
@@ -398,9 +386,11 @@ public class HTTPTask : NSObject, NSURLSessionDelegate, NSURLSessionTaskDelegate
     private func createError(code: Int) -> NSError {
         var text = "An error occured"
         if code == 404 {
-            text = "page not found"
+            text = "Page not found"
         } else if code == 401 {
-            text = "accessed denied"
+            text = "Access denied"
+        } else if code == -1001 {
+            text = "Invalid URL"
         }
         return NSError(domain: "HTTPTask", code: code, userInfo: [NSLocalizedDescriptionKey: text])
     }
@@ -422,19 +412,23 @@ public class HTTPTask : NSObject, NSURLSessionDelegate, NSURLSessionTaskDelegate
     /// Method for authentication challenge.
     public func URLSession(session: NSURLSession, task: NSURLSessionTask, didReceiveChallenge challenge: NSURLAuthenticationChallenge, completionHandler: (NSURLSessionAuthChallengeDisposition, NSURLCredential!) -> Void) {
         if let a = auth {
-            let cred = NSURLCredential(user: a.username, password: a.password, persistence: a.persistence)
-            completionHandler(.UseCredential, cred)
+            let cred = a(challenge)
+            if let c = cred {
+                completionHandler(.UseCredential, c)
+                return
+            }
+            completionHandler(.RejectProtectionSpace, nil)
             return
         }
         completionHandler(.PerformDefaultHandling, nil)
     }
     
     /// Called when the background task failed.
-    public func URLSession(session: NSURLSession, task: NSURLSessionTask, didCompleteWithError error: NSError?) {
+    func URLSession(session: NSURLSession!, task: NSURLSessionTask!, didCompleteWithError error: NSError!) {
         if error != nil {
             let blocks = self.backgroundTaskMap[session.configuration.identifier]
             if blocks?.failure != nil { //Swift bug. Can't use && with block (radar: 17469794)
-                blocks?.failure!(error!, nil)
+                blocks?.failure!(error, nil)
                 cleanupBackground(session.configuration.identifier)
             }
         }
@@ -478,7 +472,7 @@ public class HTTPTask : NSObject, NSURLSessionDelegate, NSURLSessionTaskDelegate
     }
     
     /// The background download finished, don't have to really do anything.
-    public func URLSessionDidFinishEventsForBackgroundURLSession(session: NSURLSession) {
+    func URLSessionDidFinishEventsForBackgroundURLSession(session: NSURLSession!) {
     }
     
     //TODO: not implemented yet.
@@ -489,7 +483,7 @@ public class HTTPTask : NSObject, NSURLSessionDelegate, NSURLSessionTaskDelegate
     
     //TODO: not implemented yet.
     /// not implemented yet.
-    public func URLSession(session: NSURLSession, task: NSURLSessionTask, didSendBodyData bytesSent: Int64, totalBytesSent: Int64, totalBytesExpectedToSend: Int64) {
+    func URLSession(session: NSURLSession!, task: NSURLSessionTask!, didSendBodyData bytesSent: Int64, totalBytesSent: Int64, totalBytesExpectedToSend: Int64) {
         //add progress block logic
     }
     

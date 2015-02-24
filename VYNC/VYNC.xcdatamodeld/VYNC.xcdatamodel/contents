@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="7517.1" systemVersion="14B25" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
-    <entity name="User" representedClassName="VYNC.User" syncable="YES">
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="6254" systemVersion="14C109" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="User" representedClassName="User" syncable="YES">
         <attribute name="email" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="facebookObjectId" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="id" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
         <attribute name="isMe" optional="YES" attributeType="Integer 64" syncable="YES"/>
         <attribute name="username" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
-    <entity name="VideoMessage" representedClassName="VYNC.VideoMessage" syncable="YES">
+    <entity name="VideoMessage" representedClassName="VideoMessage" syncable="YES">
         <attribute name="createdAt" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="id" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
         <attribute name="recipientId" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
@@ -19,7 +19,7 @@
         <attribute name="watched" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
     </entity>
     <elements>
-        <element name="User" positionX="-317" positionY="-1" width="128" height="120"/>
-        <element name="VideoMessage" positionX="-54" positionY="9" width="128" height="180"/>
+        <element name="User" positionX="-317" positionY="-1" width="128" height="118"/>
+        <element name="VideoMessage" positionX="-54" positionY="9" width="128" height="178"/>
     </elements>
 </model>

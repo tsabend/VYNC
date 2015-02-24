@@ -8,7 +8,7 @@
 
 import Foundation
 import CoreData
-
+@objc(User)
 class User: NSManagedObject {
     
     class var syncer : Syncer<User> {

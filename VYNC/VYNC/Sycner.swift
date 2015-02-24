@@ -169,7 +169,9 @@ class Syncer<T: NSManagedObject> {
                         }
                     }
                 }
-        })
+            },
+            failure: nil
+        )
     }
 
     func addJSONToSql(decoderArray: JSONDecoder) {
