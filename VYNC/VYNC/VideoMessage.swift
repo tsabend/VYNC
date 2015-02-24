@@ -32,7 +32,7 @@ class VideoMessage: NSManagedObject {
     
     class func asVyncs()->[Vync]{
         let allVideos = self.syncer.all().sortBy("id", ascending: false).filter("saved == %@", args: 1).exec()!
-        let replyTos = allVideos.map({video in video.replyToId as Int})
+        let replyTos = allVideos.map({video in Int(video.replyToId!)})
         var uniqReplyTos = remDupeInts(replyTos)
         uniqReplyTos.sort({$0 > $1})
         // remove id 0 to deal with it separately.
@@ -66,20 +66,19 @@ class VideoMessage: NSManagedObject {
     class func saveNewVids(completion:(()->()) = {}) {
         let vids = self.syncer.all().exec()!
         // This shouldn't be necessary, but filter is not working for the saved property for some reason
-        let newVids = vids.filter({video in video.saved == 0})
+        let newVids : [VideoMessage] = vids.filter({video in video.saved == 0})
+        println(newVids.count)
         if newVids.count == 0 {
             completion()
         }
         for message in newVids {
-            let localUrlString = docFolderToSaveFiles + "/" + message.videoId!
+            let localUrlString = "\(docFolderToSaveFiles)/\(message.videoId!)"
             let localUrl = NSURL(fileURLWithPath: localUrlString) as NSURL!
             let cloudUrl = NSURL(string: s3Url + message.videoId!) as NSURL!
-            
             let localData = NSData(contentsOfURL: localUrl)
             if localData?.length == nil {
                 let priority = DISPATCH_QUEUE_PRIORITY_DEFAULT
                 dispatch_async(dispatch_get_global_queue(priority, 0)) {
-                    
                     println("saving video to core data \(message.id)")
                     let data = NSData(contentsOfURL: cloudUrl)
                     data?.writeToFile(localUrlString, atomically: true)
@@ -94,6 +93,8 @@ class VideoMessage: NSManagedObject {
                 }
             } else {
                 println("already there")
+                message.saved = 1
+                self.syncer.save()
             }
         }
     }
