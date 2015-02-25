@@ -67,7 +67,6 @@ class VideoMessage: NSManagedObject {
         let vids = self.syncer.all().exec()!
         // This shouldn't be necessary, but filter is not working for the saved property for some reason
         let newVids : [VideoMessage] = vids.filter({video in video.saved == 0})
-        println(newVids.count)
         if newVids.count == 0 {
             completion()
         }
