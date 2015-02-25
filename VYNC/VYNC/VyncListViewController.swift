@@ -27,31 +27,9 @@ class VyncListViewController: UIViewController, UITableViewDelegate, UITableView
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Set the font of nav bar title
-        let color = UIColor(netHex:0x73A1FF)
-        let font = [NSFontAttributeName: UIFont(name: "Egypt 22", size: 50)!, NSForegroundColorAttributeName: color]
-        self.navigationController!.navigationBar.titleTextAttributes = font
-       // Set the font of nav bar item
-        let buttonColor = UIColor(netHex:0x7FF2FF)
-        let buttonFont = [NSFontAttributeName: UIFont(name: "flaticon", size: 28)!, NSForegroundColorAttributeName: buttonColor]
-        showStatsButton.setTitleTextAttributes(buttonFont, forState: .Normal)
-        showStatsButton.title = "\u{e004}"
-        
-        cameraButton.setTitleTextAttributes(buttonFont, forState: .Normal)
-        cameraButton.title = "\u{e006}"
-
-        // Add pull to refresh
-        self.refreshControl = UIRefreshControl()
-        self.refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
-        self.refreshControl.addTarget(self, action: "reloadVyncs", forControlEvents: UIControlEvents.ValueChanged)
-        self.refreshControl.layer.zPosition = -1
-        self.vyncTable.addSubview(refreshControl)
         self.vyncTable.rowHeight = 70
-        vyncTable.reloadData()
-    }
-    
-    override func viewWillAppear(animated: Bool) {
-        println("VyncListVC will appear")
+        setupButtons()
+
         VideoMessage.syncer.uploadNew() {done in
             self.updateView()
             VideoMessage.syncer.downloadNew() {done in
@@ -60,7 +38,29 @@ class VyncListViewController: UIViewController, UITableViewDelegate, UITableView
                 }
             }
         }
-
+    }
+    
+    func setupButtons(){
+        // Set the font of nav bar title
+        let color = UIColor(netHex:0x73A1FF)
+        let font = [NSFontAttributeName: UIFont(name: "Egypt 22", size: 50)!, NSForegroundColorAttributeName: color]
+        self.navigationController!.navigationBar.titleTextAttributes = font
+        // Set the font of nav bar item
+        let buttonColor = UIColor(netHex:0x7FF2FF)
+        let buttonFont = [NSFontAttributeName: UIFont(name: "flaticon", size: 28)!, NSForegroundColorAttributeName: buttonColor]
+        showStatsButton.setTitleTextAttributes(buttonFont, forState: .Normal)
+        showStatsButton.title = "\u{e004}"
+        cameraButton.setTitleTextAttributes(buttonFont, forState: .Normal)
+        cameraButton.title = "\u{e006}"
+        // Add pull to refresh
+        self.refreshControl = UIRefreshControl()
+        self.refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
+        self.refreshControl.addTarget(self, action: "reloadVyncs", forControlEvents: UIControlEvents.ValueChanged)
+        self.refreshControl.layer.zPosition = -1
+        self.vyncTable.addSubview(refreshControl)
+    }
+    
+    override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
     }
     
@@ -88,7 +88,6 @@ class VyncListViewController: UIViewController, UITableViewDelegate, UITableView
             }
         }
         User.syncer.sync()
-
     }
     
     func updateView() {
@@ -192,10 +191,11 @@ class VyncListViewController: UIViewController, UITableViewDelegate, UITableView
     
     
     @IBAction func holdToPlayVideos(sender: UILongPressGestureRecognizer) {
+        println(self.view)
         if sender.state == .Began {
+            println("htpv called with .Began")
             if let index = self.vyncTable.indexPathForRowAtPoint(sender.view!.center)?.row as Int! {
                 if vyncs[index].isSaved {
-                    println("Videos here are saved")
                     if index == self.lastPlayed {
                         self.videoPlayer?.continuePlay()
                         self.videoPlayer!.view.addGestureRecognizer(sender)
@@ -235,14 +235,12 @@ class VyncListViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     func singleTapCell(sender:UITapGestureRecognizer){
-        println("single tapped")
         let indexPath = self.vyncTable.indexPathForRowAtPoint(sender.view!.center)
         if let cell = vyncTable.cellForRowAtIndexPath(indexPath!) as? VyncCell {
             cell.selectCellAnimation()
             
             let index = indexPath!.row as Int
             let v = vyncs[index]
-            println("This vync is dead=\(v.dead())")
             for video in v.messages {
                 println("Vid.\(video.id):\n date\(video.createdAt)")
             }
