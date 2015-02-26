@@ -21,6 +21,8 @@ class VyncListViewController: UIViewController, UITableViewDelegate, UITableView
     var vyncs = VideoMessage.asVyncs()
     var videoPlayer : QueueLoopVideoPlayer?
     var lastPlayed : Int? = nil
+    
+    var videoLayer = VyncPlayerLayer()
 
     @IBOutlet weak var showStatsButton: UIBarButtonItem!
     @IBOutlet weak var cameraButton: UIBarButtonItem!
@@ -191,46 +193,55 @@ class VyncListViewController: UIViewController, UITableViewDelegate, UITableView
     
     
     @IBAction func holdToPlayVideos(sender: UILongPressGestureRecognizer) {
-        println(self.view)
         if sender.state == .Began {
             println("htpv called with .Began")
             if let index = self.vyncTable.indexPathForRowAtPoint(sender.view!.center)?.row as Int! {
                 if vyncs[index].isSaved {
-                    if index == self.lastPlayed {
-                        self.videoPlayer?.continuePlay()
-                        self.videoPlayer!.view.addGestureRecognizer(sender)
-                        if self.presentedViewController == nil {
-                            self.presentViewController(self.videoPlayer!, animated: false, completion:nil)
-                        }
-                    } else {
-                        self.videoPlayer?.view.removeGestureRecognizer(sender)
-                        self.videoPlayer?.player = nil
-                        self.videoPlayer = nil
-                        vyncs[index].unwatched = false
-                        self.lastPlayed = index
-                        // waiting on you vs. following logic 
-                        var urls : [NSURL]
-                        if vyncs[index].waitingOnYou {
-                            urls = vyncs[index].waitingVideoUrls()
-                        }
-                        else {
-                            urls = vyncs[index].videoUrls()
-                        }
-                        self.videoPlayer = QueueLoopVideoPlayer()
-                        self.videoPlayer!.view.addGestureRecognizer(sender)
-                        self.videoPlayer!.videoList = urls
-                        self.videoPlayer!.playVideos()
-                        if self.presentedViewController == nil {
-                            self.presentViewController(self.videoPlayer!, animated: false, completion:nil)
-                        }
-                    }
+                    
+                    let items = vyncs[index].videoUrls().map({video in AVPlayerItem(URL:video)})
+                    self.videoLayer.player = AVQueueLoopPlayer(items: items)
+                    self.view.layer.addSublayer(self.videoLayer)
+                    self.videoLayer.player.play()
+                    
+//                    if index == self.lastPlayed {
+//                        self.videoPlayer?.continuePlay()
+////                        self.videoPlayer!.view.addGestureRecognizer(sender)
+//                        if self.presentedViewController == nil {
+//                            self.presentViewController(self.videoPlayer!, animated: false, completion:nil)
+//                        }
+//                    } else {
+////                        self.videoPlayer?.view.removeGestureRecognizer(sender)
+//                        self.videoPlayer?.player = nil
+//                        self.videoPlayer = nil
+//                        vyncs[index].unwatched = false
+//                        self.lastPlayed = index
+//                        // waiting on you vs. following logic 
+//                        var urls : [NSURL]
+//                        if vyncs[index].waitingOnYou {
+//                            urls = vyncs[index].waitingVideoUrls()
+//                        }
+//                        else {
+//                            urls = vyncs[index].videoUrls()
+//                        }
+//                        self.videoPlayer = QueueLoopVideoPlayer()
+////                        self.videoPlayer!.view.addGestureRecognizer(sender)
+//                        self.videoPlayer!.videoList = urls
+//                        self.videoPlayer!.playVideos()
+//                        if self.presentedViewController == nil {
+//                            self.presentViewController(self.videoPlayer!, animated: false, completion:nil)
+//                        }
+//                    }
                 }
             }
         }
         if sender.state == .Ended {
-            self.videoPlayer?.stop()
-            self.vyncTable.reloadData()
-            self.vyncTable.setNeedsDisplay()
+            println("ended")
+            self.videoLayer.player.pause()
+            self.videoLayer.player = nil
+            self.videoLayer.removeFromSuperlayer()
+//            self.videoPlayer?.stop()
+//            self.vyncTable.reloadData()
+//            self.vyncTable.setNeedsDisplay()
         }
     }
     

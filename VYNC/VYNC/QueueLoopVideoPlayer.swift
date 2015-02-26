@@ -11,6 +11,52 @@ import AVFoundation
 import UIKit
 import AVKit
 
+
+class AVQueueLoopPlayer : AVQueuePlayer {
+
+    override func play() {
+        super.play()
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "repeat:", name: "AVPlayerItemDidPlayToEndTimeNotification", object: nil)
+    }
+    
+    func repeat(notification:NSNotification){
+                if var playerItem = notification.object as? AVPlayerItem {
+                    var asset = playerItem.asset
+                    var copyOfPlayerItem = AVPlayerItem(asset: asset)
+                    self.insertItem(copyOfPlayerItem, afterItem: nil)
+                    // Get the duration of the upcoming video to display countdown
+//                    if let second = player.items()[1] as? AVPlayerItem {
+//                        var duration = Int(round(CMTimeGetSeconds(second.asset.duration)))
+//                        self.currentItemDuration = duration
+//                    }
+                    println("REPEAT. Items Size=\(self.items().count)")
+                }
+    }
+    
+    deinit {
+        println("queue deinit")
+//        self.player = nil;
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: "AVPlayerItemDidPlayToEndTimeNotification", object: nil)
+    }
+
+    
+}
+
+class VyncPlayerLayer : AVPlayerLayer {
+    override init(){
+        super.init()
+        self.frame = UIScreen.mainScreen().bounds
+        self.videoGravity = AVLayerVideoGravityResizeAspectFill
+    }
+
+    required init(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+
+}
+
+
 class QueueLoopVideoPlayer : AVPlayerViewController {
     var videoList : [NSURL] = []
     var timer = UILabel(frame: CGRectMake(30, 30, 60, 60))
@@ -24,7 +70,7 @@ class QueueLoopVideoPlayer : AVPlayerViewController {
         self.timer.font = font
         self.timer.text = ""
         self.timer.textColor = color
-        self.view.addSubview(timer)
+        self.contentOverlayView.addSubview(timer)
     }
     
     override func prefersStatusBarHidden() -> Bool {
@@ -62,18 +108,18 @@ class QueueLoopVideoPlayer : AVPlayerViewController {
     }
 
     func repeat(notification:NSNotification){
-        if var playerItem = notification.object as? AVPlayerItem {
-            var asset = playerItem.asset
-            var copyOfPlayerItem = AVPlayerItem(asset: asset)
-            var player = self.player as AVQueuePlayer
-            player.insertItem(copyOfPlayerItem, afterItem: nil)
-            // Get the duration of the upcoming video to display countdown
-            if let second = player.items()[1] as? AVPlayerItem {
-                var duration = Int(round(CMTimeGetSeconds(second.asset.duration)))
-                self.currentItemDuration = duration
-            }
-            println("REPEAT. Items Size=\(player.items().count)")
-        }
+//        if var playerItem = notification.object as? AVPlayerItem {
+//            var asset = playerItem.asset
+//            var copyOfPlayerItem = AVPlayerItem(asset: asset)
+//            var player = self.player as AVQueuePlayer
+//            player.insertItem(copyOfPlayerItem, afterItem: nil)
+//            // Get the duration of the upcoming video to display countdown
+//            if let second = player.items()[1] as? AVPlayerItem {
+//                var duration = Int(round(CMTimeGetSeconds(second.asset.duration)))
+//                self.currentItemDuration = duration
+//            }
+//            println("REPEAT. Items Size=\(player.items().count)")
+//        }
     }
 
     deinit {
