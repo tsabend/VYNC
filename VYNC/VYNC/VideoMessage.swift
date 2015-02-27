@@ -31,15 +31,11 @@ class VideoMessage: NSManagedObject {
     @NSManaged var saved: NSNumber?
     
     class func asVyncs()->[Vync]{
-        let allVideos = self.syncer.all().sortBy("id", ascending: false).filter("saved == %@", args: 1).exec()!
+        let allVideos = self.syncer.all().filter("id != 0").sortBy("id", ascending: false).exec()!
         let replyTos = allVideos.map({video in Int(video.replyToId!)})
         var uniqReplyTos = remDupeInts(replyTos)
-        uniqReplyTos.sort({$0 > $1})
-        // remove id 0 to deal with it separately.
-        if uniqReplyTos.last == 0 {
-            uniqReplyTos.removeLast()
-        }
         var vyncs = [Vync]()
+        
         for id in uniqReplyTos {
             var messages = VideoMessage.syncer.all().filter("replyToId == %@", args: id).sortBy("id", ascending: false).exec()!
             // Deal with videos that haven't yet been uploaded
@@ -54,7 +50,7 @@ class VideoMessage: NSManagedObject {
             vyncs.append(newVync)
         }
         // not yet uploaded, new thread:
-        let newVideos = self.syncer.all().filter("id == %@ AND replyToId == %@", args: 0, 0).exec()!
+        let newVideos = self.syncer.all().filter("id == 0 AND replyToId == 0").exec()!
         for video in newVideos {
             vyncs.insert(Vync(messages: [video]), atIndex: 0)
         }
