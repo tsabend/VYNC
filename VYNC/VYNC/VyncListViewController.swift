@@ -34,9 +34,9 @@ class VyncListViewController: UIViewController, UITableViewDelegate, UITableView
         VideoMessage.syncer.uploadNew() {done in
             self.updateView()
             VideoMessage.syncer.downloadNew() {done in
-                VideoMessage.saveNewVids() {done in
+//                VideoMessage.saveNewVids() {done in
                     self.updateView()
-                }
+//                }
             }
         }
     }
@@ -81,13 +81,14 @@ class VyncListViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     @IBAction func reloadVyncs() {
+        println("refresh \(VideoMessage.syncer.all().exec()!.count)")
         self.refreshControl.beginRefreshing()
         VideoMessage.syncer.uploadNew() {done in
             VideoMessage.syncer.downloadNew() {done in
-                VideoMessage.saveNewVids() {done in
+//                VideoMessage.saveNewVids() {done in
                     self.updateView()
                     self.refreshControl.endRefreshing()
-                }
+//                }
             }
         }
         User.syncer.sync()
@@ -133,10 +134,10 @@ class VyncListViewController: UIViewController, UITableViewDelegate, UITableView
             cell.lengthLabel.layer.borderWidth = 2.0
             cell.lengthLabel.layer.borderColor = UIColor.redColor().CGColor
         } else if vyncs[indexPath.row].isSaved == false {
-            cell.contentView.layer.borderWidth = 0.5
-            cell.contentView.layer.borderColor = UIColor.orangeColor().CGColor
-            cell.lengthLabel.layer.borderWidth = 2.0
-            cell.lengthLabel.layer.borderColor = UIColor.orangeColor().CGColor
+            cell.statusLogo.textColor = UIColor.orangeColor()
+            cell.subTitle.textColor = UIColor.orangeColor()
+            cell.titleLabel.transform = CGAffineTransformMakeTranslation(0, -10)
+            cell.subTitle.text = "Tap to download"
         } else {
             cell.contentView.layer.borderWidth = 0.0
             cell.lengthLabel.layer.borderWidth = 0.0
@@ -223,12 +224,20 @@ class VyncListViewController: UIViewController, UITableViewDelegate, UITableView
     func singleTapCell(sender:UITapGestureRecognizer){
         let indexPath = self.vyncTable.indexPathForRowAtPoint(sender.view!.center)
         if let cell = vyncTable.cellForRowAtIndexPath(indexPath!) as? VyncCell {
-            cell.selectCellAnimation()
-            
             let index = indexPath!.row as Int
             let v = vyncs[index]
-            for video in v.messages {
-                println("Vid.\(video.id):\n date\(video.createdAt)")
+            if v.isSaved == false {
+                cell.statusLogo.hidden = true
+                cell.saving.startAnimating()
+                VideoMessage.saveTheseVids(v.messages) {done in
+                    cell.statusLogo.hidden = false
+                    cell.saving.stopAnimating()
+                    self.updateView()
+                    cell.deselectCellAnimation()
+                }
+            } else {
+                println("saved")
+                cell.selectCellAnimation()
             }
         }
 
