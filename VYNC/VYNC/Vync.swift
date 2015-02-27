@@ -8,6 +8,7 @@
 
 import Foundation
 import CoreData
+import AVFoundation
 
 class Vync {
     var messages : [VideoMessage]
@@ -49,17 +50,22 @@ class Vync {
         return "\(self.messages.count)"
     }
     
-    func videoUrls()->[NSURL]{
-        return self.messages.map({
-            message in
-            NSURL.fileURLWithPath(docFolderToSaveFiles + "/" + message.videoId!) as NSURL!
-        })
-    }
-    
-    func waitingVideoUrls()->[NSURL]{
-        let message = self.messages.first!
-        let messageUrl = NSURL.fileURLWithPath(docFolderToSaveFiles + "/" + message.videoId!) as NSURL!
-        return [messageUrl, standin]
+    func videoItems()->[AVPlayerItem]{
+        if waitingOnYou {
+            let firstMessage = self.messages.first!
+            let firstMessageUrl = NSURL.fileURLWithPath(docFolderToSaveFiles + "/" + firstMessage.videoId!) as NSURL!
+            let firstItem = AVPlayerItem(URL: firstMessageUrl)
+            let standinItem = AVPlayerItem(URL: standin)
+            let data = NSData(contentsOfURL: firstMessageUrl)
+            println(data?.bytes)
+            return [firstItem, standinItem]
+            
+        } else {
+            return self.messages.map({
+                message in
+                AVPlayerItem(URL: (NSURL.fileURLWithPath(docFolderToSaveFiles + "/" + message.videoId!) as NSURL!))
+            })
+        }
     }
 
     func replyToId()->Int {
