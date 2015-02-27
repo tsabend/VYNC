@@ -26,6 +26,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         FBLoginView.self
         FBProfilePictureView.self
         Fabric.with([Crashlytics()])
+        application.setStatusBarStyle(UIStatusBarStyle.BlackOpaque, animated: false)
         if signedUp() == false {
             self.window = UIWindow()
             self.window?.frame = UIScreen.mainScreen().bounds

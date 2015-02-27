@@ -64,6 +64,8 @@ class VyncListViewController: UIViewController, UITableViewDelegate, UITableView
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
+        UIApplication.sharedApplication().setStatusBarHidden(false, withAnimation: .None)
+        updateView()
     }
     
     override func didReceiveMemoryWarning() {
@@ -239,9 +241,7 @@ class VyncListViewController: UIViewController, UITableViewDelegate, UITableView
             self.videoLayer.player.pause()
             self.videoLayer.player = nil
             self.videoLayer.removeFromSuperlayer()
-//            self.videoPlayer?.stop()
-//            self.vyncTable.reloadData()
-//            self.vyncTable.setNeedsDisplay()
+            UIApplication.sharedApplication().setStatusBarHidden(false, withAnimation: .None)
         }
     }
     
@@ -309,18 +309,13 @@ class VyncListViewController: UIViewController, UITableViewDelegate, UITableView
     }
 
     func reply(index:Int){
-        println("showing Reply Camera")
-        UIApplication.sharedApplication().setStatusBarHidden(true, withAnimation: .None)
         let camera = self.storyboard?.instantiateViewControllerWithIdentifier("Camera") as VyncCameraViewController
         camera.vync = vyncs[index]
         self.presentViewController(camera, animated: false, completion: nil)
     }
 
     @IBAction func showCam() {
-        println("showing Camera")
-        UIApplication.sharedApplication().setStatusBarHidden(true, withAnimation: .None)
         let camera = self.storyboard?.instantiateViewControllerWithIdentifier("Camera") as VyncCameraViewController
-
         self.presentViewController(camera, animated: false, completion: nil)
     }
     
