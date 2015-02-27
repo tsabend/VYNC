@@ -112,7 +112,7 @@ class VyncListViewController: UIViewController, UITableViewDelegate, UITableView
         // New vyncs get special color and gesture
         if vyncs[indexPath.row].waitingOnYou {
             cell.statusLogo.textColor = UIColor(netHex:0xFFB5C9)
-            cell.lengthLabel.text = "?"
+//            cell.lengthLabel.text = "?"
             cell.lengthLabel.backgroundColor = UIColor(netHex:0xFFB5C9)
             cell.subTitle.text = "\(date) - Swipe to Reply"
         } else {
@@ -149,6 +149,7 @@ class VyncListViewController: UIViewController, UITableViewDelegate, UITableView
     func addGesturesToCell(cell:UITableViewCell){
         // long touch for playback
         let longTouch = UILongPressGestureRecognizer()
+        longTouch.minimumPressDuration = 0.3
         longTouch.addTarget(self, action: "holdToPlayVideos:")
         cell.addGestureRecognizer(longTouch)
         
@@ -176,7 +177,6 @@ class VyncListViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        
     }
     
     func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [AnyObject]? {

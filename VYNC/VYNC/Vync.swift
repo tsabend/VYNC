@@ -23,8 +23,7 @@ class Vync {
                 return myUserId() == mostRecentRecipient.recipientId
             } else {
                 return false
-            }
-            
+            }  
         }
     }
     
