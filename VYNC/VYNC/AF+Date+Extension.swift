@@ -34,7 +34,7 @@ public enum TimeUnit {
     }
 }
 
-private let componentFlags = NSCalendarUnit.YearCalendarUnit | NSCalendarUnit.MonthCalendarUnit | NSCalendarUnit.WeekCalendarUnit | NSCalendarUnit.DayCalendarUnit | NSCalendarUnit.HourCalendarUnit | NSCalendarUnit.MinuteCalendarUnit | NSCalendarUnit.SecondCalendarUnit | NSCalendarUnit.WeekdayCalendarUnit | NSCalendarUnit.WeekdayOrdinalCalendarUnit
+private let componentFlags: NSCalendarUnit = [NSCalendarUnit.NSYearCalendarUnit, NSCalendarUnit.NSMonthCalendarUnit, NSCalendarUnit.NSWeekCalendarUnit, NSCalendarUnit.NSDayCalendarUnit, NSCalendarUnit.NSHourCalendarUnit, NSCalendarUnit.NSMinuteCalendarUnit, NSCalendarUnit.NSSecondCalendarUnit, NSCalendarUnit.NSWeekdayCalendarUnit, NSCalendarUnit.NSWeekdayOrdinalCalendarUnit]
 
 // MARK: Date Formatters
 
@@ -189,12 +189,7 @@ public extension NSDate {
     }
     
     // MARK: Manipulations
-    
-    public func dateByAdding(unit: TimeUnit) -> NSDate {
-        return dateByAdding(units: unit)
-    }
-    
-    public func dateByAdding(#units: TimeUnit...) -> NSDate {
+        public func dateByAdding(units: TimeUnit...) -> NSDate {
         let components = NSDateComponents()
         for timeUnit in units {
             switch timeUnit {
@@ -213,11 +208,11 @@ public extension NSDate {
             }
         }
         
-        let newDate = NSCalendar.currentCalendar().dateByAddingComponents(components, toDate: self, options: nil)
+        let newDate = NSCalendar.currentCalendar().dateByAddingComponents(components, toDate: self, options: [])
         return newDate!
     }
     
-    public func dateBySubtracting(#units: TimeUnit...) -> NSDate {
+    public func dateBySubtracting(units: TimeUnit...) -> NSDate {
         let components = NSDateComponents()
         for timeUnit in units {
             switch timeUnit {
@@ -236,13 +231,10 @@ public extension NSDate {
             }
         }
         
-        let newDate = NSCalendar.currentCalendar().dateByAddingComponents(components, toDate: self, options: nil)
+        let newDate = NSCalendar.currentCalendar().dateByAddingComponents(components, toDate: self, options: [])
         return newDate!
     }
     
-    public func dateBySubtracting(unit: TimeUnit) -> NSDate {
-        return dateBySubtracting(units: unit)
-    }
 }
 
 public extension Int {

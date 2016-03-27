@@ -34,7 +34,7 @@ class LoginPageViewController : UIViewController, UIPageViewControllerDataSource
         pageTitles.append("Add Titles")
         pageTitles.append("Share with Friends")
         
-        pageViewController = storyboard?.instantiateViewControllerWithIdentifier("PageViewController") as UIPageViewController
+        pageViewController = storyboard?.instantiateViewControllerWithIdentifier("PageViewController") as! UIPageViewController
         pageViewController.dataSource = self
         
         let pageControl = UIPageControl.appearance()
@@ -51,7 +51,7 @@ class LoginPageViewController : UIViewController, UIPageViewControllerDataSource
     }
     
     func pageViewController(pageViewController: UIPageViewController, viewControllerBeforeViewController viewController: UIViewController) -> UIViewController? {
-        let index = (viewController as LoginViewController).pageIndex
+        let index = (viewController as! LoginViewController).pageIndex
         if index == 0 {
             return nil
         }
@@ -59,7 +59,7 @@ class LoginPageViewController : UIViewController, UIPageViewControllerDataSource
     }
     
     func pageViewController(pageViewController: UIPageViewController, viewControllerAfterViewController viewController: UIViewController) -> UIViewController? {
-        let index = (viewController as LoginViewController).pageIndex
+        let index = (viewController as! LoginViewController).pageIndex
         if index + 1 == pageColors.count {
             return nil
         }
@@ -78,7 +78,7 @@ class LoginPageViewController : UIViewController, UIPageViewControllerDataSource
         if pageColors.count == 0 || index >= pageColors.count {
             return nil
         }
-        let loginVC = storyboard?.instantiateViewControllerWithIdentifier("Login") as LoginViewController
+        let loginVC = storyboard?.instantiateViewControllerWithIdentifier("Login") as! LoginViewController
         loginVC.color = pageColors[index]
         loginVC.titleString = pageTitles[index]
         loginVC.imageString = pageImages[index]

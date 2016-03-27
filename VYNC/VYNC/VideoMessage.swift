@@ -10,7 +10,7 @@ import Foundation
 import CoreData
 
 func remDupeInts(a:[Int]) -> [Int] {
-    return a.reduce([Int]()) { ac, x in contains(ac, x) ? ac : ac + [x] }
+    return a.reduce([Int]()) { ac, x in ac.contains(x) ? ac : ac + [x] }
 }
 @objc(VideoMessage)
 class VideoMessage: NSManagedObject {
@@ -34,7 +34,7 @@ class VideoMessage: NSManagedObject {
         let allVideos = self.syncer.all().sortBy("id", ascending: false).filter("saved == %@", args: 1).exec()!
         let replyTos = allVideos.map({video in Int(video.replyToId!)})
         var uniqReplyTos = remDupeInts(replyTos)
-        uniqReplyTos.sort({$0 > $1})
+        uniqReplyTos.sortInPlace({$0 > $1})
         // remove id 0 to deal with it separately.
         if uniqReplyTos.last == 0 {
             uniqReplyTos.removeLast()
@@ -78,7 +78,7 @@ class VideoMessage: NSManagedObject {
             if localData?.length == nil {
                 let priority = DISPATCH_QUEUE_PRIORITY_DEFAULT
                 dispatch_async(dispatch_get_global_queue(priority, 0)) {
-                    println("saving video to core data \(message.id)")
+                    print("saving video to core data \(message.id)")
                     let data = NSData(contentsOfURL: cloudUrl)
                     data?.writeToFile(localUrlString, atomically: true)
                     message.saved = 1
@@ -86,12 +86,12 @@ class VideoMessage: NSManagedObject {
                     self.syncer.save()
                     dispatch_async(dispatch_get_main_queue()) {
                         // update some UI using completion callback
-                        println("back on the main thread")
+                        print("back on the main thread")
                         completion()
                     }
                 }
             } else {
-                println("already there")
+                print("already there")
                 message.saved = 1
                 self.syncer.save()
             }

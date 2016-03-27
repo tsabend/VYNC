@@ -37,47 +37,47 @@ class QueueLoopVideoPlayer : AVPlayerViewController {
         
         let duration = Int(round(CMTimeGetSeconds(items.first!.asset.duration)))
         self.currentItemDuration = duration
-        self.player.addPeriodicTimeObserverForInterval(
+        self.player!.addPeriodicTimeObserverForInterval(
             CMTimeMake(1,1),
             queue: dispatch_get_main_queue(),
             usingBlock: {
                 (callbackTime: CMTime) -> Void in
-                let t1 = CMTimeGetSeconds(callbackTime)
+                _ = CMTimeGetSeconds(callbackTime)
                 let t2 = Int(CMTimeGetSeconds(self.player!.currentTime()))
                 self.timer.text = "\(self.currentItemDuration - t2)"
         })
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "repeat:", name: "AVPlayerItemDidPlayToEndTimeNotification", object: nil)
-        self.player.play()    
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(QueueLoopVideoPlayer.`repeat`), name: "AVPlayerItemDidPlayToEndTimeNotification", object: nil)
+        self.player!.play()
     }
     
     func continuePlay() {
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "repeat:", name: "AVPlayerItemDidPlayToEndTimeNotification", object: nil)
-        self.player.play()
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(QueueLoopVideoPlayer.`repeat`), name: "AVPlayerItemDidPlayToEndTimeNotification", object: nil)
+        self.player!.play()
     }
     
     func stop(){
-        self.player.pause()
+        self.player!.pause()
         NSNotificationCenter.defaultCenter().removeObserver(self, name: "AVPlayerItemDidPlayToEndTimeNotification", object: nil)
         self.dismissViewControllerAnimated(false, completion: nil)
     }
 
-    func repeat(notification:NSNotification){
-        if var playerItem = notification.object as? AVPlayerItem {
-            var asset = playerItem.asset
-            var copyOfPlayerItem = AVPlayerItem(asset: asset)
-            var player = self.player as AVQueuePlayer
+    func `repeat`(notification:NSNotification){
+        if let playerItem = notification.object as? AVPlayerItem {
+            let asset = playerItem.asset
+            let copyOfPlayerItem = AVPlayerItem(asset: asset)
+            let player = self.player as! AVQueuePlayer
             player.insertItem(copyOfPlayerItem, afterItem: nil)
             // Get the duration of the upcoming video to display countdown
-            if let second = player.items()[1] as? AVPlayerItem {
-                var duration = Int(round(CMTimeGetSeconds(second.asset.duration)))
+            if let second = player.items().first {
+                let duration = Int(round(CMTimeGetSeconds(second.asset.duration)))
                 self.currentItemDuration = duration
             }
-            println("REPEAT. Items Size=\(player.items().count)")
+            print("REPEAT. Items Size=\(player.items().count)")
         }
     }
 
     deinit {
-        println("queue deinit")
+        print("queue deinit")
         self.player = nil;
         NSNotificationCenter.defaultCenter().removeObserver(self, name: "AVPlayerItemDidPlayToEndTimeNotification", object: nil)
     }

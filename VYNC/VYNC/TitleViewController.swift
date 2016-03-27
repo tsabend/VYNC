@@ -20,7 +20,7 @@ class TitleViewController : UIViewController, UITextFieldDelegate {
 
     
     func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
-        let newLength = textField.text!.utf16Count + string.utf16Count - range.length
+        let newLength = textField.text!.utf16.count + string.utf16.count - range.length
         charsLeft.text = "\(30 - newLength)"
         return newLength < 30 //Bool
     }
@@ -32,8 +32,8 @@ class TitleViewController : UIViewController, UITextFieldDelegate {
             alert.addAction(defaultAction)
             self.presentViewController(alert, animated: false, completion: {})
         } else {
-            let contactsNav = self.storyboard?.instantiateViewControllerWithIdentifier("ContactsNav") as UINavigationController
-            let contacts = contactsNav.viewControllers[0] as ContactsViewController
+            let contactsNav = self.storyboard?.instantiateViewControllerWithIdentifier("ContactsNav") as! UINavigationController
+            let contacts = contactsNav.viewControllers[0] as! ContactsViewController
             contacts.replyToId = self.replyToId
             contacts.vyncTitle = vyncTitle.text
             self.presentViewController(contactsNav, animated: false, completion: nil)

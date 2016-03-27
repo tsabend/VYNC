@@ -55,7 +55,7 @@ class VyncListViewController: UIViewController, UITableViewDelegate, UITableView
         // Add pull to refresh
         self.refreshControl = UIRefreshControl()
         self.refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
-        self.refreshControl.addTarget(self, action: "reloadVyncs", forControlEvents: UIControlEvents.ValueChanged)
+        self.refreshControl.addTarget(self, action: #selector(VyncListViewController.reloadVyncs), forControlEvents: UIControlEvents.ValueChanged)
         self.refreshControl.layer.zPosition = -1
         self.vyncTable.addSubview(refreshControl)
     }
@@ -98,7 +98,7 @@ class VyncListViewController: UIViewController, UITableViewDelegate, UITableView
     
     // Set the properties of cells
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("VyncCell", forIndexPath: indexPath) as VyncCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("VyncCell", forIndexPath: indexPath) as! VyncCell
         addGesturesToCell(cell)
        //        Set Title and Length Labels
         let date = vyncs[indexPath.row].mostRecent()
@@ -145,13 +145,13 @@ class VyncListViewController: UIViewController, UITableViewDelegate, UITableView
     func addGesturesToCell(cell:UITableViewCell){
         // long touch for playback
         let longTouch = UILongPressGestureRecognizer()
-        longTouch.addTarget(self, action: "holdToPlayVideos:")
+        longTouch.addTarget(self, action: #selector(VyncListViewController.holdToPlayVideos(_:)))
         cell.addGestureRecognizer(longTouch)
         
-        let singleTap = UITapGestureRecognizer(target: self, action: "singleTapCell:")
+        let singleTap = UITapGestureRecognizer(target: self, action: #selector(VyncListViewController.singleTapCell(_:)))
         singleTap.numberOfTapsRequired = 1
         
-        let doubleTap = UITapGestureRecognizer(target:self, action: "doubleTapCell:")
+        let doubleTap = UITapGestureRecognizer(target:self, action: #selector(VyncListViewController.doubleTapCell(_:)))
         doubleTap.numberOfTapsRequired = 2
         
         cell.addGestureRecognizer(singleTap)
@@ -175,7 +175,7 @@ class VyncListViewController: UIViewController, UITableViewDelegate, UITableView
         
     }
     
-    func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [AnyObject]? {
+    func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
         let replyClosure = { (action: UITableViewRowAction!, indexPath: NSIndexPath!) -> Void in
             self.reply(indexPath.row)
         }
@@ -191,9 +191,9 @@ class VyncListViewController: UIViewController, UITableViewDelegate, UITableView
     
     
     @IBAction func holdToPlayVideos(sender: UILongPressGestureRecognizer) {
-        println(self.view)
+        print(self.view)
         if sender.state == .Began {
-            println("htpv called with .Began")
+            print("htpv called with .Began")
             if let index = self.vyncTable.indexPathForRowAtPoint(sender.view!.center)?.row as Int! {
                 if vyncs[index].isSaved {
                     if index == self.lastPlayed {
@@ -242,7 +242,7 @@ class VyncListViewController: UIViewController, UITableViewDelegate, UITableView
             let index = indexPath!.row as Int
             let v = vyncs[index]
             for video in v.messages {
-                println("Vid.\(video.id):\n date\(video.createdAt)")
+                print("Vid.\(video.id):\n date\(video.createdAt)")
             }
         }
 
@@ -271,7 +271,7 @@ class VyncListViewController: UIViewController, UITableViewDelegate, UITableView
                     label.text = " Forward to see who is on this VYNC"
                     
                 } else {
-                    let labelText = ", ".join(vyncs[indexPath.row].usersList())
+                    let labelText = vyncs[indexPath.row].usersList().joinWithSeparator(", ")
                     label.text = " Users: \(labelText)"
 
                 }
@@ -298,17 +298,17 @@ class VyncListViewController: UIViewController, UITableViewDelegate, UITableView
     }
 
     func reply(index:Int){
-        println("showing Reply Camera")
+        print("showing Reply Camera")
         UIApplication.sharedApplication().setStatusBarHidden(true, withAnimation: .None)
-        let camera = self.storyboard?.instantiateViewControllerWithIdentifier("Camera") as VyncCameraViewController
+        let camera = self.storyboard?.instantiateViewControllerWithIdentifier("Camera") as! VyncCameraViewController
         camera.vync = vyncs[index]
         self.presentViewController(camera, animated: false, completion: nil)
     }
 
     @IBAction func showCam() {
-        println("showing Camera")
+        print("showing Camera")
         UIApplication.sharedApplication().setStatusBarHidden(true, withAnimation: .None)
-        let camera = self.storyboard?.instantiateViewControllerWithIdentifier("Camera") as VyncCameraViewController
+        let camera = self.storyboard?.instantiateViewControllerWithIdentifier("Camera") as! VyncCameraViewController
 
         self.presentViewController(camera, animated: false, completion: nil)
     }

@@ -21,7 +21,7 @@ class ContactsViewController: UIViewController, UITableViewDelegate, UITableView
     
     override func viewDidLoad() {
         for user in contacts {
-            println("User\(user.id)\n \(user.username)\n")
+            print("User\(user.id)\n \(user.username)\n")
         }
         super.viewDidLoad()
         contactsList.reloadData()
@@ -70,10 +70,10 @@ class ContactsViewController: UIViewController, UITableViewDelegate, UITableView
         data?.writeToFile(newFilePath, atomically: true)
         
         if self.replyToId != 0 {
-            println("making a reply \(replyToId)")
-            let vyncToUpdate = VideoMessage.asVyncs().filter({vync in vync.replyToId() == self.replyToId})[0]
+            print("making a reply \(replyToId)")
+            _ = VideoMessage.asVyncs().filter({vync in vync.replyToId() == self.replyToId})[0]
 
-            var newMessage = VideoMessage.syncer.newObj()
+            let newMessage = VideoMessage.syncer.newObj()
             newMessage.id = 0
             newMessage.videoId = videoId
             newMessage.replyToId = replyToId
@@ -84,7 +84,7 @@ class ContactsViewController: UIViewController, UITableViewDelegate, UITableView
             VideoMessage.syncer.save()
 
         } else {
-            var newMessage = VideoMessage.syncer.newObj()
+            let newMessage = VideoMessage.syncer.newObj()
             newMessage.id = 0
             newMessage.videoId = videoId
             // but what if you have more than one 0? This is broken as is.
@@ -100,21 +100,21 @@ class ContactsViewController: UIViewController, UITableViewDelegate, UITableView
     
     func filterContentForSearchText(searchText: String, scope: String = "All") {
         self.filteredUsers = self.contacts.filter({( user : User) -> Bool in
-            var nameMatch = (scope == "All") || (user.username == scope)
-            var stringMatch = user.username.lowercaseString.rangeOfString(searchText.lowercaseString)
+            let nameMatch = (scope == "All") || (user.username == scope)
+            let stringMatch = user.username.lowercaseString.rangeOfString(searchText.lowercaseString)
             return nameMatch && (stringMatch != nil)
         })
     }
     
     //MARK: - UISearchBarDelegate
-    func searchDisplayController(controller: UISearchDisplayController, shouldReloadTableForSearchString searchString: String!) -> Bool {
-        self.filterContentForSearchText(searchString.lowercaseString)
+    func searchDisplayController(controller: UISearchDisplayController, shouldReloadTableForSearchString searchString: String?) -> Bool {
+        self.filterContentForSearchText(searchString!.lowercaseString)
         return true
     }
     
     func searchDisplayController(controller: UISearchDisplayController,
         shouldReloadTableForSearchScope searchOption: Int) -> Bool {
-            self.filterContentForSearchText(self.searchDisplayController!.searchBar.text.lowercaseString)
+            self.filterContentForSearchText(self.searchDisplayController!.searchBar.text!.lowercaseString)
             return true
     }
 }

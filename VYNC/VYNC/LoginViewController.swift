@@ -41,13 +41,13 @@ class LoginViewController : UIViewController, FBLoginViewDelegate {
 
     
     func loginViewShowingLoggedInUser(loginView : FBLoginView!) {
-        println("User Logged In")
-        let vc = self.storyboard?.instantiateViewControllerWithIdentifier("RootNavigationController") as UINavigationController
+        print("User Logged In")
+        let vc = self.storyboard?.instantiateViewControllerWithIdentifier("RootNavigationController") as! UINavigationController
         presentViewController(vc, animated: true, completion: {
         
             // Push notification settings being set and request from user being fired
-            var types: UIUserNotificationType = UIUserNotificationType.Badge | UIUserNotificationType.Alert | UIUserNotificationType.Sound
-            var settings: UIUserNotificationSettings = UIUserNotificationSettings( forTypes: types, categories: nil )
+            let types: UIUserNotificationType = [UIUserNotificationType.Badge, UIUserNotificationType.Alert, UIUserNotificationType.Sound]
+            let settings: UIUserNotificationSettings = UIUserNotificationSettings( forTypes: types, categories: nil )
             UIApplication.sharedApplication().registerUserNotificationSettings(settings)
             UIApplication.sharedApplication().registerForRemoteNotifications()
 
@@ -60,8 +60,8 @@ class LoginViewController : UIViewController, FBLoginViewDelegate {
         let fbId = user.objectID as String
         if myUserId() == nil {
             FBRequestConnection.startForMeWithCompletionHandler{(connection, user, error) -> Void in
-                println("Adding user")
-                let email = user.objectForKey("email") as String
+                print("Adding user")
+                let email = user.objectForKey("email") as! String
                 // new User object
                 var newUser = User.syncer.newObj()
                 newUser.id = 0
@@ -76,12 +76,12 @@ class LoginViewController : UIViewController, FBLoginViewDelegate {
     }
     
     func loginViewShowingLoggedOutUser(loginView : FBLoginView!) {
-        println(UIScreen.mainScreen().bounds)
-        println("User Logged Out")
+        print(UIScreen.mainScreen().bounds)
+        print("User Logged Out")
     }
     
     func loginView(loginView : FBLoginView!, handleError:NSError) {
-        println("Error: \(handleError.localizedDescription)")
+        print("Error: \(handleError.localizedDescription)")
     }
     
     override func didReceiveMemoryWarning() {

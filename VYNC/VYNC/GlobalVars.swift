@@ -30,7 +30,7 @@ var deviceToken = ""
 
 
 var db : NSManagedObjectContext? = {
-    let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
+    let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
     if let managedObjectContext = appDelegate.managedObjectContext {
         return managedObjectContext
     } else {
@@ -39,7 +39,7 @@ var db : NSManagedObjectContext? = {
     }()
 
 public func signedUp()->Bool{
-    if let user = User.syncer.all().filter("isMe == %@", args: 1).exec()?.first as User! {
+    if let _ = User.syncer.all().filter("isMe == %@", args: 1).exec()?.first as User! {
         return true
     } else {
         return false
@@ -50,7 +50,7 @@ public func signedUp()->Bool{
 
 func myUserId()->Int?{
     if let me = User.syncer.all().filter("isMe == %@", args: 1).exec()!.first as User! {
-        return me.id as? Int
+        return Int(me.id)
         
     } else {
         return nil

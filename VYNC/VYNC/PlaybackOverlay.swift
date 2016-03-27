@@ -30,7 +30,7 @@ class VyncCameraPlaybackLayer: UIView {
         playbackDelegate!.retakeVideo(self)
     }
     
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
@@ -50,15 +50,15 @@ class VyncCameraPlaybackLayer: UIView {
     func playVideos(){
         let items = self.videoList.map({video in AVPlayerItem(URL:video)})
         self.playerLayer.player = AVQueuePlayer(items: items)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "repeat:", name: "AVPlayerItemDidPlayToEndTimeNotification", object: nil)
-        self.playerLayer.player.play()
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(VyncCameraPlaybackLayer.`repeat`(_:)), name: "AVPlayerItemDidPlayToEndTimeNotification", object: nil)
+        self.playerLayer.player!.play()
     }
     
-    func repeat(notification:NSNotification){
+    func `repeat`(notification:NSNotification){
         if let playerItem = notification.object as? AVPlayerItem {
             let asset = playerItem.asset
             let copyOfPlayerItem = AVPlayerItem(asset: asset)
-            let player = self.playerLayer.player as AVQueuePlayer
+            let player = self.playerLayer.player as! AVQueuePlayer
             player.insertItem(copyOfPlayerItem, afterItem: nil)
             
         }

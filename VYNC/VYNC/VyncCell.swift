@@ -9,7 +9,7 @@
 import UIKit
 
 
-class VyncCell: UITableViewCell, UIGestureRecognizerDelegate {
+class VyncCell: UITableViewCell {
     
     @IBOutlet weak var lengthLabel:UILabel!
     @IBOutlet weak var titleLabel:UILabel!

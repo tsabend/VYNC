@@ -36,7 +36,7 @@ class VyncCameraViewController: UIViewController, AVCaptureFileOutputRecordingDe
         flashButton.setTitle("\u{e002}", forState: .Normal)
         flipCameraButton.setTitle("\u{e005}", forState: .Normal)
         recordButton.setTitle("\u{e000}", forState: .Normal)
-        let backToVyncView = UIScreenEdgePanGestureRecognizer(target: self, action: "dismissCamera:")
+        let backToVyncView = UIScreenEdgePanGestureRecognizer(target: self, action: #selector(VyncCameraViewController.dismissCamera(_:)))
         backToVyncView.edges = UIRectEdge.Left
         self.view.addGestureRecognizer(backToVyncView)
         
@@ -83,12 +83,18 @@ class VyncCameraViewController: UIViewController, AVCaptureFileOutputRecordingDe
         // Set only the torch since flash is for still photos
         if captureDevice.torchAvailable {
             if captureDevice.torchMode.hashValue == 0 {
-                captureDevice.lockForConfiguration(nil)
+                do {
+                    try captureDevice.lockForConfiguration()
+                } catch _ {
+                }
                 captureDevice.torchMode = AVCaptureTorchMode.Auto
                 flashButton.setTitle("\u{e003}", forState: .Normal)
                 captureDevice.unlockForConfiguration()
             } else {
-                captureDevice.lockForConfiguration(nil)
+                do {
+                    try captureDevice.lockForConfiguration()
+                } catch _ {
+                }
                 captureDevice.torchMode = AVCaptureTorchMode.Off
                 flashButton.setTitle("\u{e002}", forState: .Normal)
                 captureDevice.unlockForConfiguration()
@@ -97,16 +103,16 @@ class VyncCameraViewController: UIViewController, AVCaptureFileOutputRecordingDe
     }
     
     @IBAction func flipCamera(sender: AnyObject) {
-        println("flipping camera")
+        print("flipping camera")
         captureSession.beginConfiguration()
         if let currentCamera = captureSession.inputs.last as? AVCaptureDeviceInput {
             if currentCamera.device.position == AVCaptureDevicePosition.Back {
-                captureSession.removeInput(captureSession.inputs.last as AVCaptureInput)
-                captureSession.addInput(AVCaptureDeviceInput(device: selfieCaptureDevice, error: nil))
+                captureSession.removeInput(captureSession.inputs.last as! AVCaptureInput)
+                captureSession.addInput(try? AVCaptureDeviceInput(device: selfieCaptureDevice))
                 flashButton.hidden = true
             } else {
-                captureSession.removeInput(captureSession.inputs.last as AVCaptureInput)
-                captureSession.addInput(AVCaptureDeviceInput(device: captureDevice, error: nil))
+                captureSession.removeInput(captureSession.inputs.last as! AVCaptureInput)
+                captureSession.addInput(try? AVCaptureDeviceInput(device: captureDevice))
                 flashButton.hidden = false
             }
         }
@@ -114,29 +120,27 @@ class VyncCameraViewController: UIViewController, AVCaptureFileOutputRecordingDe
     }
     
     func beginSession() {
-        var err : NSError? = nil
         // Set up audio input
-        let audioCaptureDevice = AVCaptureDevice.devicesWithMediaType(AVMediaTypeAudio)
-        let audioInput = AVCaptureDeviceInput.deviceInputWithDevice(audioCaptureDevice[0] as AVCaptureDevice, error: nil)  as AVCaptureInput
-        captureSession.addInput(audioInput)
-        // Add existing video input
-        captureSession.addInput(AVCaptureDeviceInput(device: captureDevice, error: &err))
-
-        let tap = UITapGestureRecognizer(target:self, action:"onTap:")
-        self.view.addGestureRecognizer(tap)
-        if err != nil {
-            println("error: \(err?.localizedDescription)")
-        }
-        
-        var previewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
-        previewLayer?.frame = UIScreen.mainScreen().bounds
-        previewLayer?.videoGravity = AVLayerVideoGravityResizeAspectFill
-        self.view.layer.insertSublayer(previewLayer, atIndex: 0)
-        captureSession.startRunning()
+        guard let audioCaptureDevice = AVCaptureDevice.devicesWithMediaType(AVMediaTypeAudio).first as? AVCaptureDevice else { return }
+        do {
+            let audioInput = try AVCaptureDeviceInput(device: audioCaptureDevice)
+            captureSession.addInput(audioInput)
+            // Add existing video input
+            try captureSession.addInput(AVCaptureDeviceInput(device: captureDevice))
+            
+            let tap = UITapGestureRecognizer(target:self, action:#selector(VyncCameraViewController.onTap(_:)))
+            self.view.addGestureRecognizer(tap)
+            
+            let previewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
+            previewLayer?.frame = UIScreen.mainScreen().bounds
+            previewLayer?.videoGravity = AVLayerVideoGravityResizeAspectFill
+            self.view.layer.insertSublayer(previewLayer, atIndex: 0)
+            captureSession.startRunning()
+        } catch {}
     }
     
     @IBAction func startRecording(sender: AnyObject) {
-        println("startRecording")
+        print("startRecording")
         let fileUrl = NSURL.fileURLWithPath(pathToFile) as NSURL!
         captureMovieFileOutput!.startRecordingToOutputFileURL(fileUrl, recordingDelegate: self)
         rotating = true
@@ -144,7 +148,7 @@ class VyncCameraViewController: UIViewController, AVCaptureFileOutputRecordingDe
     }
     
     @IBAction func stopRecording(sender: AnyObject) {
-        println("endRecording")
+        print("endRecording")
         rotating = false
         captureMovieFileOutput?.stopRecording()
     }
@@ -158,8 +162,8 @@ class VyncCameraViewController: UIViewController, AVCaptureFileOutputRecordingDe
         didFinishRecordingToOutputFileAtURL outputFileURL: NSURL!,
         fromConnections connections: [AnyObject]!,
         error: NSError!) {
-            println("playing back video")
-            playerLayerView = VyncCameraPlaybackLayer.loadFromNib() as VyncCameraPlaybackLayer
+            print("playing back video")
+            playerLayerView = VyncCameraPlaybackLayer.loadFromNib() as! VyncCameraPlaybackLayer
             playerLayerView.videoList = [outputFileURL, outputFileURL]
             playerLayerView.playbackDelegate = self
             playerLayerView.playVideos()
@@ -184,13 +188,16 @@ class VyncCameraViewController: UIViewController, AVCaptureFileOutputRecordingDe
             // a pointer to the playerLayer, it won't deinit
             self.playerLayerView = nil
         }
-        let vc = self.storyboard?.instantiateViewControllerWithIdentifier("RootNavigationController") as UINavigationController
+        let vc = self.storyboard?.instantiateViewControllerWithIdentifier("RootNavigationController") as! UINavigationController
         presentViewController(vc, animated: false, completion: {})
     }
     
     func onTap (tap: UITapGestureRecognizer){
         if let device = captureDevice {
-            device.lockForConfiguration(nil)
+            do {
+                try device.lockForConfiguration()
+            } catch _ {
+            }
             device.focusPointOfInterest = tap.locationInView(self.view)
             device.exposurePointOfInterest = tap.locationInView(self.view)
             device.unlockForConfiguration()
@@ -207,13 +214,14 @@ class VyncCameraViewController: UIViewController, AVCaptureFileOutputRecordingDe
         view.removeFromSuperview()
         self.playerLayerView = nil
         if (self.vync != nil) {
-            let contactsNav = self.storyboard?.instantiateViewControllerWithIdentifier("ContactsNav") as UINavigationController
+            let contactsNav = self.storyboard?.instantiateViewControllerWithIdentifier("ContactsNav") as! UINavigationController
             // Instantiate contacts to set its replyToId property
-            let contacts = contactsNav.viewControllers[0] as ContactsViewController
-            contacts.replyToId = vync.replyToId()
-            self.presentViewController(contactsNav, animated: false, completion: nil)
+            if let contacts = contactsNav.viewControllers[0] as? ContactsViewController {
+                contacts.replyToId = vync.replyToId()
+                self.presentViewController(contactsNav, animated: false, completion: nil)
+            }
         } else {
-            let title = self.storyboard?.instantiateViewControllerWithIdentifier("TitleNav") as UINavigationController
+            let title = self.storyboard?.instantiateViewControllerWithIdentifier("TitleNav") as! UINavigationController
             self.presentViewController(title, animated: false, completion: nil)
         }
     }

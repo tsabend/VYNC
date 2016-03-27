@@ -16,7 +16,7 @@ class AR<T : NSManagedObject> {
     let req : NSFetchRequest
     
     lazy var db : NSManagedObjectContext? = {
-        let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
+        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         if let managedObjectContext = appDelegate.managedObjectContext {
             return managedObjectContext
         } else {
@@ -58,11 +58,13 @@ class AR<T : NSManagedObject> {
     }
     
     func exec() -> [T]? {
-        var error: NSError?
-        if let results = db!.executeFetchRequest(req, error: &error) as? [T] {
-            return results
-        }
-        return nil
+        do {
+            if let results = try db!.executeFetchRequest(req) as? [T] {
+                return results
+            }
+            return nil
+            
+        } catch { return nil }
     }
     
     func filter(format:String, args:AnyObject...)->AR<T> {
